@@ -1,16 +1,15 @@
-import { StyleSheet, Text, View, } from 'react-native';
-import React, { useState } from 'react';
-import { HeaderHome, Slider } from '../../components';
-import { MainColors, sizes } from '../../config/theme';
+import {StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {CardComponent, HeaderProfile, Slider} from '../../components';
+import {MainColors, sizes} from '../../config/theme';
 
 const Home = () => {
-  const [SnrValue, setSnrValue] = useState(50)
+  const [SnrValue, setSnrValue] = useState(50);
   return (
-    <View style={{flex:1,backgroundColor:MainColors.white}}>
-      <HeaderHome />
-     <Slider Value={SnrValue}/>
-     
-
+    <View style={{flex: 1, backgroundColor: MainColors.white}}>
+      <HeaderProfile />
+      <Slider Value={SnrValue} />
+      <CardComponent />
     </View>
   );
 };
