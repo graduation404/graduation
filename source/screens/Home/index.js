@@ -1,11 +1,12 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {HeaderHome} from '../../components';
+import {CardComponent, HeaderProfile} from '../../components';
 
 const Home = () => {
   return (
     <View>
-      <HeaderHome />
+      <HeaderProfile />
+      <CardComponent/>
     </View>
   );
 };

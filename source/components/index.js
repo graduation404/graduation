@@ -1,1 +1,2 @@
-export {default as HeaderHome} from './HeaderHome';
+export {default as HeaderProfile} from './HeaderProfile';
+export {default as CardComponent} from './Card';
