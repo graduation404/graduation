@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <View style={{flex: 1, backgroundColor: MainColors.white}}>
       <HeaderProfile />
-      <Slider Value={SnrValue} />
+      {/* <Slider Value={SnrValue} /> */}
       <CardComponent />
     </View>
   );
