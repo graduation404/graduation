@@ -13,7 +13,10 @@
     "react": "18.0.0",
     "react-native": "0.69.4",
     "react-native-linear-gradient": "^2.6.2",
+<<<<<<< HEAD
     "react-native-simple-slider": "^1.0.2",
+=======
+>>>>>>> ab20d8b3e7ec73614cb7eb198513bef8c211b809
     "react-native-splash-screen": "^3.3.0"
   },
   "devDependencies": {

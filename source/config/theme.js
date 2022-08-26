@@ -41,7 +41,8 @@ export const sizes = {
   h3: 18,
   h4: 16,
   body: 14,
-  radius: 30,
+  Lradius: 30,
+  Sradius: 12,
 };
 
 export const spacing = {
