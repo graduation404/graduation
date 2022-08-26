@@ -4,12 +4,13 @@ import {CardComponent, HeaderProfile, Slider} from '../../components';
 import {MainColors, sizes} from '../../config/theme';
 
 const Home = () => {
-  const [SnrValue, setSnrValue] = useState(50);
+  const [SnrValue, setSnrValue] = useState(100);
   return (
     <View style={{flex: 1, backgroundColor: MainColors.white}}>
       <HeaderProfile />
-      {/* <Slider Value={SnrValue} /> */}
       <CardComponent />
+      {/* <Slider Value={SnrValue} /> */}
+
     </View>
   );
 };
