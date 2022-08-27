@@ -1,11 +1,11 @@
 import React from "react"
 import { StyleSheet, View } from "react-native"
-import { MainColors, shadow, sizes } from "../../config/theme"
+import { COLORS, SHADOW, SIZES } from "../../config"
 
 const Slider = (props) => {
     return (
         <>
-            <View style={[styles.MainView, shadow.dark]}>
+            <View style={styles.MainView}>
                 <View style={[styles.SliderView, { width: props.Value + '%' }]}></View>
             </View>
         </>
@@ -13,18 +13,22 @@ const Slider = (props) => {
 }
 const styles = StyleSheet.create(
     {
-        MainView: {
+        MainView: [{
             alignSelf: 'center',
-            width: sizes.width * .9,
-            borderRadius: sizes.radius,
-            backgroundColor: MainColors.white,
-            height: sizes.height * .015
-        }
+            width: '100%',
+            borderRadius: SIZES.Lradius,
+            backgroundColor: COLORS.white,
+            height: SIZES.height * .0125,
+            elevation:4,
+
+        },
+        SHADOW.light,
+        ]
         ,
         SliderView: {
             height: '100%',
-            backgroundColor: MainColors.blue,
-            borderRadius: sizes.radius
+            backgroundColor: COLORS.blue,
+            borderRadius: SIZES.Lradius
         }
 
     }

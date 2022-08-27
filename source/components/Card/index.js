@@ -1,11 +1,11 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import {MainColors, shadow, sizes} from '../../config/theme';
+import { COLORS, SIZES, SPACING } from '../../config';
 
-const Card = () => {
+const Card = (props) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Card</Text>
+      {props.RenderItems}
     </View>
   );
 };
@@ -14,17 +14,17 @@ export default Card;
 
 const styles = StyleSheet.create({
   container: {
-    width: '80%',
-    height: sizes.height * 0.3,
-    backgroundColor: MainColors.light,
+    width: '85%',
+    height: SIZES.height * 0.275,
+    backgroundColor: COLORS.white,
     elevation: 4,
     alignItems: 'center',
     alignSelf: 'center',
-    //   marginTop:-sizes.height*.15,
-    borderRadius: sizes.Sradius,
+    padding: SPACING.l,
+    borderRadius: SIZES.Sradius,
   },
   title: {
-    color: MainColors.light,
-    marginTop: sizes.height * 0.1,
+    color: COLORS.blue,
+    marginTop: SIZES.height * 0.1,
   },
 });

@@ -1,20 +1,33 @@
 import {Dimensions} from 'react-native';
+import { RFPercentage } from "react-native-responsive-fontsize";
 
 const {width, height} = Dimensions.get('window');
 
-export const MainColors = {
-  primary: '#070d41',
-  gray: '#8b8989',
-  lightGray: '#b2b2b2',
-  light: '#fbfbfb',
+export const COLORS = {
+  blue: '#0089BA',
+  gray: '#E0E0E0',
+  lightGray: '#B8B8B8',
   white: '#fff',
   black: '#000',
-  blue: '#069',
+ 
 };
 
-export const shadow = {
+export const SIZES = {
+  width,
+  height,
+  title: RFPercentage(3.3),
+  h2: 24,
+  h3: RFPercentage(2.3),
+  h4: RFPercentage(1.8),
+  body: 14,
+  Lradius: 50,
+  Sradius: 12,
+};
+
+
+export const SHADOW = {
   light: {
-    shadowColor: MainColors.black,
+    shadowColor: COLORS.black,
     shadowRadius: 4,
     shadowOpacity: 0.1,
     shadowOffset: {
@@ -23,7 +36,7 @@ export const shadow = {
     },
   },
   dark: {
-    shadowColor: MainColors.black,
+    shadowColor: COLORS.black,
     shadowRadius: 4,
     shadowOpacity: 0.3,
     shadowOffset: {
@@ -33,19 +46,9 @@ export const shadow = {
   },
 };
 
-export const sizes = {
-  width,
-  height,
-  title: 32,
-  h2: 24,
-  h3: 18,
-  h4: 16,
-  body: 14,
-  Lradius: 30,
-  Sradius: 12,
-};
 
-export const spacing = {
+export const SPACING = {
+  vS:3,
   s: 8,
   m: 18,
   l: 24,

@@ -1,20 +1,29 @@
-import {StyleSheet, Text, View} from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import {MainColors, shadow, sizes} from '../../config/theme';
+import { Icons, COLORS, SHADOW, SIZES, SPACING } from '../../config';
 import LinearGradient from 'react-native-linear-gradient';
 
-const HeaderProfile = () => {
+const HeaderProfile = (props) => {
   return (
     <>
-    <LinearGradient colors={[MainColors.blue,MainColors.blue,MainColors.gray]} 
-    // start={{ x: 0, y: 0 }} end={{ x: 1, y: 2 }}
-    style={styles.container}>
-      <Text style={{color: MainColors.light, marginTop: sizes.height * 0.1}}>
-        HeaderProfile
-      </Text>
-   
-    </LinearGradient>
-    <View style={{width:"100%",height:1,marginTop:-sizes.height*.15}}></View>
+      <LinearGradient
+        colors={[COLORS.blue, COLORS.lightGray]}
+        style={styles.container}>
+
+          <TouchableOpacity activeOpacity={.85}>
+          <Image source={Icons.Back} style={styles.Image_Style} />
+          </TouchableOpacity>
+
+        <Text style={{ color: COLORS.white,alignSelf:'center',fontSize:SIZES.title ,marginTop:SIZES.height*.03}}>
+          {props.Header_name}
+        </Text>
+      </LinearGradient>
+      <View
+        style={{
+          width: '100%',
+          height: 1,
+          marginTop: -SIZES.height * 0.15,
+        }}></View>
     </>
   );
 };
@@ -25,11 +34,17 @@ const styles = StyleSheet.create({
   container: [
     {
       width: '100%',
-      height: sizes.height * 0.3,
-      backgroundColor: MainColors.blue,
+      height: SIZES.height * 0.3,
+      backgroundColor: COLORS.blue,
       elevation: 4,
-      alignItems: 'center',
+      paddingHorizontal:16,
+      paddingVertical:SPACING.s+5
     },
-    shadow.light,
+    SHADOW.light,
   ],
+  Image_Style: {
+    height: SIZES.height * .0325,
+    width: SIZES.height * .0325,
+    tintColor:COLORS.white
+  },
 });
