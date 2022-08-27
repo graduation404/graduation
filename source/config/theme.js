@@ -46,11 +46,10 @@ export const SHADOW = {
   },
 };
 
-
 export const SPACING = {
-  vS:3,
-  s: 8,
-  m: 18,
-  l: 24,
-  xl: 40,
+  vS: RFValue(3),
+  s: RFValue(8),
+  m: RFValue(18),
+  l: RFValue(24),
+  xl: RFValue(40),
 };
