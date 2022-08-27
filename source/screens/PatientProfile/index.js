@@ -31,6 +31,7 @@ const PatientProfile = () => {
 
   const DataList = () => {
     return (
+      <View style={{height:SIZES.height*.46}}>
       <FlatList
         data={PatientsDataValue}
         renderItem={({ item, index }) =>
@@ -40,6 +41,7 @@ const PatientProfile = () => {
           </>
         )}
       />
+      </View>
     )
   }
 
@@ -84,7 +86,7 @@ const PatientProfile = () => {
 
       < DataList />
 
-      <Line />
+      {/* <Line /> */}
 
       <View style={styles.Buttons_Container}>
         <SmallButton Text={'Test'} Icon={Icons.Test} />
@@ -126,18 +128,19 @@ const styles = StyleSheet.create(
     ageRange_Text:
     {
       fontWeight: 'bold',
-      color: COLORS.blue
+      color: COLORS.blue,
+      fontSize:SIZES.h4
     },
     ageRange_View:
       [{
-        padding: 1,
+        // padding: 1,
         borderRadius: SIZES.height,
         height: SIZES.height * .02,
         width: '20%',
         alignItems: 'center',
         elevation: 10,
         backgroundColor: COLORS.white,
-        marginTop: -2.5
+        marginTop: -SIZES.height*0.005
       }
         , SHADOW.light
       ],
@@ -164,7 +167,7 @@ const styles = StyleSheet.create(
       fontSize: SIZES.title,
       fontWeight: 'bold',
       color: COLORS.blue,
-      marginTop: SPACING.s
+      marginTop: SPACING.vS
     },
     Image_Container:
     {
@@ -181,6 +184,9 @@ const styles = StyleSheet.create(
     {
       width: '90%',
       flexDirection: 'row',
+      // alignItems:'center',
       justifyContent: 'space-around',
+      height:SIZES.height*.1,
+      paddingVertical:2
     },
   });
