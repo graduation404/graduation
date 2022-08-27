@@ -15,12 +15,13 @@ export default Card;
 const styles = StyleSheet.create({
   container: {
     width: '85%',
-    height: SIZES.height * 0.275,
+    height: SIZES.height * 0.278,
     backgroundColor: COLORS.white,
     elevation: 4,
     alignItems: 'center',
     alignSelf: 'center',
-    padding: SPACING.l,
+    paddingRight: SPACING.l,
+    paddingVertical: SPACING.m,
     borderRadius: SIZES.Sradius,
     // marginTop:-SIZES.height*.15
   },

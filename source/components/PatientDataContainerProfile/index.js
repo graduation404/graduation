@@ -58,12 +58,14 @@ const styles = StyleSheet.create(
             marginLeft: SPACING.s,
             width: SIZES.width * .675,
             height: '100%',
-            paddingVertical: 3
+            // justifyContent:'space-around'
+            // paddingVertical: 3
         },
         name_Style: {
             fontSize: SIZES.h3,
             fontWeight: 'bold',
             color: COLORS.blue,
+            marginTop: -SPACING.vS
         },
         Percentage_Style: {
             fontSize: SIZES.h4,
