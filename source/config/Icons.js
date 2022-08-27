@@ -23,8 +23,8 @@ const Woman = require('../assets/icons/woman.png')
 const Write = require('../assets/icons/write.png')
 const Back = require('../assets/icons/back.png')
 const Pen = require('../assets/icons/pen.png')
-
-
+const Avatar=require("../assets/imgs/avatar.jpg")
+const Search = require('../assets/icons/search.png')
 
 export default {
 AddFile,
@@ -51,5 +51,7 @@ User,
 Woman,
 Write,
 Back,
-Pen 
+Pen,
+Avatar,
+Search
 }

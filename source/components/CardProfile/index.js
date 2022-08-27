@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     padding: SPACING.l,
     borderRadius: SIZES.Sradius,
+    // marginTop:-SIZES.height*.15
   },
   title: {
     color: COLORS.blue,

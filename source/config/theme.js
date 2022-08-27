@@ -1,5 +1,5 @@
 import {Dimensions} from 'react-native';
-import { RFPercentage } from "react-native-responsive-fontsize";
+import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
 
 const {width, height} = Dimensions.get('window');
 
@@ -9,21 +9,21 @@ export const COLORS = {
   lightGray: '#B8B8B8',
   white: '#fff',
   black: '#000',
- 
 };
 
 export const SIZES = {
   width,
   height,
   title: RFPercentage(3.3),
-  h2: 24,
+  h2: RFPercentage(2.4),
   h3: RFPercentage(2.3),
   h4: RFPercentage(1.8),
   body: 14,
   Lradius: 50,
   Sradius: 12,
+  avatar: RFValue(60),
+  subTitle:RFValue(13)
 };
-
 
 export const SHADOW = {
   light: {
@@ -46,11 +46,10 @@ export const SHADOW = {
   },
 };
 
-
 export const SPACING = {
-  vS:3,
-  s: 8,
-  m: 18,
-  l: 24,
-  xl: 40,
+  vS: RFValue(3),
+  s: RFValue(8),
+  m: RFValue(18),
+  l: RFValue(24),
+  xl: RFValue(40),
 };

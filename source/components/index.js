@@ -1,15 +1,18 @@
 import Slider from './Slider';
 import HeaderProfile from './HeaderProfile';
 import { LargeButton, SmallButton } from './Buttons';
-import Card from './Card';
-import PatientsDataContainer from './PatientDataContainer';
-
+import Card from './CardProfile';
+import PatientsDataContainer from './PatientDataContainerProfile';
+import HeaderHome from './HeaderHome';
+import CardHome from './CardHome';
 export {
     Slider,
     HeaderProfile,
     LargeButton,
     SmallButton,
     Card,
-    PatientsDataContainer
+    PatientsDataContainer,
+    HeaderHome,
+    CardHome
 }
 
