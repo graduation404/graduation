@@ -1,11 +1,13 @@
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
+import { RFPercentage } from "react-native-responsive-fontsize";
 import { Icons, COLORS, SHADOW, SIZES, SPACING } from "../../config";
 import Slider from "../Slider";
 
 const PatientsDataContainer = (props) => {
     return (
         <>
+
             <View style={styles.Main_view}>
 
 
@@ -30,19 +32,18 @@ const PatientsDataContainer = (props) => {
 const styles = StyleSheet.create(
     {
         Main_view: {
-            height: SIZES.height * .07,
+            height: RFPercentage(7.5),
             borderRadius: SIZES.height,
-            width: SIZES.width * .9,
+            width: SIZES.width*.9,
             backgroundColor: COLORS.white,
-            elevation:3,
+            elevation: 3,
             flexDirection: 'row',
-            marginTop: SIZES.height * .03,
-            marginBottom:SIZES.height*0.015
+            alignItems: 'center',
         },
         Image_View: [
             {
-                height: SIZES.height * .07,
-                width: SIZES.height * .07,
+                height: '100%',
+                width: SIZES.height * .075,
                 borderRadius: SIZES.Lradius,
                 backgroundColor: COLORS.blue,
                 alignItems: 'center',
@@ -51,27 +52,26 @@ const styles = StyleSheet.create(
             SHADOW.dark
         ],
         Image_Style: {
-            height: SIZES.height * .045,
+            height: RFPercentage(4.5),
             width: SIZES.height * .045,
         },
         Second_View: {
-            marginLeft: SPACING.s,
-            width: SIZES.width * .675,
-            height: '100%',
-            // justifyContent:'space-around'
-            // paddingVertical: 3
+            marginLeft: RFPercentage(1.5),
+            width: '75%',
+            height: '80%',
+            justifyContent:'space-around',
         },
         name_Style: {
             fontSize: SIZES.h3,
             fontWeight: 'bold',
             color: COLORS.blue,
-            marginTop: -SPACING.vS
+
         },
         Percentage_Style: {
             fontSize: SIZES.h4,
             alignSelf: 'flex-end',
             color: COLORS.lightGray,
-            marginBottom: SPACING.vS
+            marginBottom: RFPercentage(1)
         }
 
 
