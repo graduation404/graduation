@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Card, HeaderProfile, PatientsDataContainer, SmallButton } from '../../components';
 import { Icons, Line, COLORS, sizes, SIZES, SPACING, SHADOW, Range_Function } from '../../config';
 
@@ -31,16 +32,18 @@ const PatientProfile = () => {
 
   const DataList = () => {
     return (
-      <View style={{height:SIZES.height*.46}}>
-      <FlatList
-        data={PatientsDataValue}
-        renderItem={({ item, index }) =>
-        (
-          <>
-            <PatientsDataContainer Percentage={item.Percentage} name={item.name} />
-          </>
-        )}
-      />
+      <View style={{ height: SIZES.height * .45,  justifyContent: 'space-between' }}>
+        <FlatList
+          data={PatientsDataValue}
+          renderItem={({ item, index }) =>
+          (
+            <>
+              <View style={{ height: RFPercentage(2) }} />
+              <PatientsDataContainer Percentage={item.Percentage} name={item.name} />
+              <View style={{ height: RFPercentage(2) }} />
+            </>
+          )}
+        />
       </View>
     )
   }
@@ -115,32 +118,29 @@ const styles = StyleSheet.create(
     },
     Image_Style:
     {
-      height: SIZES.height * .025,
-      width: SIZES.height * .025,
+      height: RFPercentage(2.5),
+      width: RFPercentage(2.5),
       tintColor: COLORS.blue,
     },
     GenderImage_Style:
     {
-      height: SIZES.height * .075,
-      width: SIZES.height * .075,
+      height: RFPercentage(6),
+      width: RFPercentage(6),
       tintColor: COLORS.blue,
     },
     ageRange_Text:
     {
       fontWeight: 'bold',
       color: COLORS.blue,
-      fontSize:SIZES.h4
+      fontSize: SIZES.h4
     },
     ageRange_View:
       [{
-        // padding: 1,
         borderRadius: SIZES.height,
-        height: SIZES.height * .02,
         width: '20%',
         alignItems: 'center',
         elevation: 10,
         backgroundColor: COLORS.white,
-        marginTop: -SIZES.height*0.005
       }
         , SHADOW.light
       ],
@@ -148,7 +148,8 @@ const styles = StyleSheet.create(
     {
       fontSize: SIZES.h4,
       fontWeight: 'bold',
-      color: COLORS.gray,
+      color: COLORS.lightGray,
+      marginTop: RFPercentage(.5)
     },
     last_Container_View:
     {
@@ -160,19 +161,20 @@ const styles = StyleSheet.create(
     {
       fontSize: SIZES.h4,
       fontWeight: 'bold',
-      color: COLORS.gray,
+      color: COLORS.lightGray,
+      marginTop: RFPercentage(1)
     },
     name_Style:
     {
       fontSize: SIZES.title,
       fontWeight: 'bold',
       color: COLORS.blue,
-      marginTop: SPACING.vS
+      marginTop: RFPercentage(2)
     },
     Image_Container:
     {
-      height: SIZES.height * .15,
-      width: SIZES.height * .15,
+      height: RFPercentage(12),
+      width: RFPercentage(12),
       borderRadius: SIZES.height,
       backgroundColor: COLORS.white,
       elevation: 5,
@@ -184,9 +186,7 @@ const styles = StyleSheet.create(
     {
       width: '90%',
       flexDirection: 'row',
-      // alignItems:'center',
       justifyContent: 'space-around',
-      height:SIZES.height*.1,
-      paddingVertical:2
+      paddingVertical: 2
     },
   });
