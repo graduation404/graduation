@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { COLORS, SIZES, SPACING } from '../../config';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 
 const Card = (props) => {
   return (
@@ -15,7 +16,7 @@ export default Card;
 const styles = StyleSheet.create({
   container: {
     width: '85%',
-    height: SIZES.height * 0.278,
+    paddingVertical:RFPercentage(2.5),
     backgroundColor: COLORS.white,
     elevation: 4,
     alignItems: 'center',
@@ -23,10 +24,6 @@ const styles = StyleSheet.create({
     paddingRight: SPACING.l,
     paddingVertical: SPACING.m,
     borderRadius: SIZES.Sradius,
-    // marginTop:-SIZES.height*.15
   },
-  title: {
-    color: COLORS.blue,
-    marginTop: SIZES.height * 0.1,
-  },
+ 
 });
