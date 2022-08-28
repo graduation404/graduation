@@ -1,5 +1,6 @@
 import React from "react"
 import { StyleSheet, View } from "react-native"
+import { RFPercentage } from "react-native-responsive-fontsize"
 import { COLORS, SHADOW, SIZES } from "../../config"
 
 const Slider = (props) => {
@@ -14,11 +15,10 @@ const Slider = (props) => {
 const styles = StyleSheet.create(
     {
         MainView: [{
-            alignSelf: 'center',
-            width: '100%',
+            width: '97.5%',
             borderRadius: SIZES.Lradius,
             backgroundColor: COLORS.white,
-            height: SIZES.height * .0125,
+            height: RFPercentage(1.2),
             elevation:4,
 
         },
