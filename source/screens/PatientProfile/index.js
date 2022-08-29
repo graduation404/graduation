@@ -141,6 +141,7 @@ const styles = StyleSheet.create(
     {
       height: RFPercentage(2.5),
       width: RFPercentage(2.5),
+      marginHorizontal:RFPercentage(2),
       tintColor: COLORS.blue,
     },
     GenderImage_Style:
