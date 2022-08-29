@@ -218,7 +218,7 @@ const Test = (props) => {
                 {BookletIndex === null ? (null) : (
                     <>
                         <Animatable.View animation={'zoomInUp'}>
-                            <LargeButton Text="Let's Go" />
+                            <LargeButton onPress={()=>{alert('lets Go')}} Text="Let's Go" />
                         </Animatable.View>
                     </>
                 )}

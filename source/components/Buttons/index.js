@@ -7,10 +7,10 @@ import LinearGradient from "react-native-linear-gradient";
 const LargeButton = (props) => {
     return (
         <>
-            <TouchableOpacity activeOpacity={.85} >
-                    <LinearGradient colors={[COLORS.blue,COLORS.lightGray]} style={styles.LargeButtonView}>
+            <TouchableOpacity activeOpacity={.85} onPress={props.onPress}>
+                <LinearGradient colors={[COLORS.blue, COLORS.lightGray]} style={styles.LargeButtonView}>
                     <Text style={styles.BookletText_Style}>{props.Text}</Text>
-                    </LinearGradient>
+                </LinearGradient>
             </TouchableOpacity>
         </>
     )
@@ -20,6 +20,7 @@ const SmallButton = (props) => {
     return (
         <>
             <TouchableOpacity
+                onPress={props.onPress}
                 activeOpacity={.85}
                 style={styles.SmallButtonView}>
                 <Image source={props.Icon} style={styles.Image_Style} />
@@ -47,7 +48,7 @@ const styles = StyleSheet.create(
         LargeButtonView: {
             height: SIZES.height * .055,
             width: '52.5%',
-            alignSelf:'center',
+            alignSelf: 'center',
             backgroundColor: COLORS.blue,
             borderRadius: 15,
             margin: SIZES.height * .025,

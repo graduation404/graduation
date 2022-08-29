@@ -213,7 +213,7 @@ const Report = (props) => {
                 {BookletIndex === null ? (null) : (
                     <>
                         <Animatable.View animation={'zoomInUp'}>
-                            <LargeButton Text="See Result" />
+                            <LargeButton onPress={()=>{alert('See Result')}} Text="See Result" />
                         </Animatable.View>
                     </>
                 )}

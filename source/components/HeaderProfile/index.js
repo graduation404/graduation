@@ -3,13 +3,13 @@ import React from 'react';
 import {Icons, COLORS, SHADOW, SIZES, SPACING} from '../../config';
 import LinearGradient from 'react-native-linear-gradient';
 
-const HeaderProfile = props => {
+const HeaderProfile = (props) => {
   return (
     <>
       <LinearGradient
         colors={[COLORS.blue, COLORS.lightGray]}
         style={styles.container}>
-        <TouchableOpacity activeOpacity={0.85}>
+        <TouchableOpacity onPress={props.onPress} activeOpacity={0.85}>
           <Image source={Icons.Back} style={styles.Image_Style} />
         </TouchableOpacity>
 

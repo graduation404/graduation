@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Card, HeaderProfile, PatientsDataContainer, SmallButton } from '../../components';
 import { Icons, Line, COLORS, sizes, SIZES, SPACING, SHADOW, Range_Function } from '../../config';
@@ -67,8 +67,9 @@ const PatientProfile = () => {
             <View style={styles.Image_Container}>
               <Image source={Icons.Male} style={styles.GenderImage_Style} />
             </View>
-
-            <Image source={Icons.Pen} style={styles.Image_Style} />
+            <TouchableOpacity onPress={()=>{alert('edit')}}>
+              <Image source={Icons.Pen} style={styles.Image_Style} />
+            </TouchableOpacity>
           </View>
 
           <Text style={styles.name_Style}>{name}</Text>
@@ -104,7 +105,7 @@ const PatientProfile = () => {
 
   return (
     <View style={styles.Container}>
-      <HeaderProfile Header_name={'Patient Profile'} />
+      <HeaderProfile onPress={()=>{alert('back')}} Header_name={'Patient Profile'} />
 
       <CardList />
 
@@ -113,8 +114,8 @@ const PatientProfile = () => {
       {/* <Line /> */}
 
       <View style={styles.Buttons_Container}>
-        <SmallButton Text={'Test'} Icon={Icons.Test} />
-        <SmallButton Text={'Report'} Icon={Icons.Report} />
+        <SmallButton onPress={() => { alert('Test') }} Text={'Test'} Icon={Icons.Test} />
+        <SmallButton onPress={() => { alert('Report') }} Text={'Report'} Icon={Icons.Report} />
       </View>
 
     </View >
@@ -141,7 +142,7 @@ const styles = StyleSheet.create(
     {
       height: RFPercentage(2.5),
       width: RFPercentage(2.5),
-      marginHorizontal:RFPercentage(2),
+      marginHorizontal: RFPercentage(2),
       tintColor: COLORS.blue,
     },
     GenderImage_Style:
@@ -161,7 +162,7 @@ const styles = StyleSheet.create(
         borderRadius: SIZES.height,
         height: RFPercentage(2.5),
         width: '15%',
-        justifyContent:'center',
+        justifyContent: 'center',
         alignItems: 'center',
         elevation: 10,
         backgroundColor: COLORS.white,
