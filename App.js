@@ -1,8 +1,9 @@
-import {StyleSheet, Text, View, StatusBar} from 'react-native';
-import React, {useEffect} from 'react';
-import {AdminProfile, Home, PatientProfile, Report} from './source/screens';
+import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import React, { useEffect } from 'react';
+import { AdminProfile, Home, PatientProfile, Report } from './source/screens';
 import SplashScreen from 'react-native-splash-screen';
-import {COLORS} from './source/config';
+import { COLORS } from './source/config';
+import { LevelContainer, StaticHeader } from './source/components';
 const App = () => {
   useEffect(() => {
     setTimeout(() => {

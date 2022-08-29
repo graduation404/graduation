@@ -1,7 +1,7 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {COLORS, SIZES, SPACING, SHADOW, Icons} from '../../config';
-const CardHome = () => {
+const CardHome = ({item, index, nav}) => {
   return (
     <View style={styles.Container}>
       <View style={styles.topContainer}>
@@ -14,7 +14,7 @@ const CardHome = () => {
           <View style={styles.subContainerTitleAge}>
             <View>
               <Text style={[styles.subTextStyle, {color: COLORS.blue}]}>
-                Ahmed Mohamed
+                {item.name}
               </Text>
             </View>
 
@@ -89,9 +89,13 @@ const CardHome = () => {
             </View>
           </View>
         </View>
-        <View style={styles.subContainerAge}>
+        <TouchableOpacity
+          style={styles.subContainerAge}
+          onPress={() => {
+            nav.navigation.navigate('PatientProfile');
+          }}>
           <Text style={[styles.subTextStyle, {color: COLORS.blue}]}>Visit</Text>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
