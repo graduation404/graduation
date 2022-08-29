@@ -53,7 +53,9 @@ const Report = (props) => {
 
                 <Text style={{ paddingHorizontal: RFPercentage(2.5), fontSize: SIZES.h1, color: COLORS.blue, fontWeight: 'bold', marginTop: RFPercentage(2) }}>All Tests For Patient</Text>
                 <Text style={{ paddingHorizontal: RFPercentage(2.5), fontSize: SIZES.h2, color: COLORS.black, fontWeight: 'bold', marginTop: RFPercentage(2) }}>Choose Level</Text>
-
+           
+           
+           
             </View>
         </>
     )

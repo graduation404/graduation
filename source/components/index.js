@@ -6,6 +6,7 @@ import PatientsDataContainer from './PatientDataContainerProfile';
 import HeaderHome from './HeaderHome';
 import CardHome from './CardHome';
 import StaticHeader from './StaticHeader';
+import SmallContainer from './SmallContainer';
 
 export {
     Slider,
@@ -16,6 +17,7 @@ export {
     PatientsDataContainer,
     HeaderHome,
     CardHome,
-    StaticHeader
+    StaticHeader,
+    SmallContainer
 }
 
