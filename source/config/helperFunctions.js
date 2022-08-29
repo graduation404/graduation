@@ -6,7 +6,7 @@ import { COLORS, SHADOW, SIZES } from "./theme"
 const Range_Function = (age) => {
     let range = ''
     age >= 5 ? (age > 6 ? (age > 10 ? (age > 18 ? (range = '< 18') : (range = '10-18')) : (range = '6-10')) : (range = '5-6')) : (null)
-    console.log(range)
+    // console.log(range)
 
     return range
 

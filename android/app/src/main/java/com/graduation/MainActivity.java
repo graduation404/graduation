@@ -3,6 +3,7 @@ import android.os.Bundle; // here
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
+import com.facebook.react.modules.i18nmanager.I18nUtil;
 // react-native-splash-screen >= 0.3.1
 import org.devio.rn.splashscreen.SplashScreen; // here
 public class MainActivity extends ReactActivity {
@@ -16,6 +17,10 @@ public class MainActivity extends ReactActivity {
   protected void onCreate(Bundle savedInstanceState) {
       SplashScreen.show(this, R.style.SplashScreenTheme,true);
       super.onCreate(savedInstanceState);
+      // SoLoader.init(this, /* native exopackage */ false);
+      I18nUtil sharedI18nUtilInstance = I18nUtil.getInstance();
+      sharedI18nUtilInstance.forceRTL(this,false);
+      sharedI18nUtilInstance.allowRTL(this, false);
   }
   // ...other code
   @Override

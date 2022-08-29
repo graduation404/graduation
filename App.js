@@ -1,8 +1,9 @@
-import {StyleSheet, Text, View, StatusBar} from 'react-native';
+import {StatusBar} from 'react-native';
 import React, {useEffect} from 'react';
-import {Home, PatientProfile} from './source/screens';
 import SplashScreen from 'react-native-splash-screen';
 import {COLORS} from './source/config';
+import Navigation from './source/navigation';
+import { AdminProfile } from './source/screens';
 const App = () => {
   useEffect(() => {
     setTimeout(() => {
@@ -13,11 +14,9 @@ const App = () => {
   return (
     <>
       <StatusBar barStyle={'light-content'} backgroundColor={COLORS.blue} />
-      <Home />
+      <Navigation />
     </>
   );
 };
 
 export default App;
-
-const styles = StyleSheet.create({});

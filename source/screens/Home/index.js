@@ -1,10 +1,23 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {CardHome, HeaderHome} from '../../components';
-
 import {COLORS, SIZES, SPACING} from '../../config';
-const data = [1, 2, 3, 4, 5];
-const Home = () => {
+const data = [
+  {name: 'ahmed'},
+  {name: 'hesham'},
+  {name: 'taha'},
+  {name: 'ahmed'},
+  {name: 'hesham'},
+  {name: 'taha'},
+];
+const Home = (props) => {
   const [searchInput, setSearchInput] = useState('');
   useEffect(() => {
     console.log(searchInput);
@@ -26,15 +39,29 @@ const Home = () => {
         }}
         value={searchInput}
       />
-      <TitleSection />
-      <View style={{width: '95%', alignItems: 'center'}}>
-        <FlatList
-        showsVerticalScrollIndicator={false}
-          style={{width: '100%', backgroundColor: COLORS.white}}
-          data={data}
-          renderItem={(item, index) => <CardHome />}
-        />
-      </View>
+
+      <ScrollView style={{width: '95%', alignSelf: 'center'}}>
+        <TitleSection />
+        <View style={{width: '100%', alignItems: 'center'}}>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            style={{
+              width: '100%',
+              backgroundColor: COLORS.white,
+              // marginBottom: SIZES.height * 0.43,
+            }}
+            data={data}
+            renderItem={({item, index}) => (
+              <CardHome item={item} index={index} nav={props} />
+            )}
+          />
+          {/* <ScrollView style={{width:"100%",marginBottom:SIZES.height*.43}}>
+        {data.map((item,index)=>(
+          <CardHome item={item} index={index} />
+        ))}
+        </ScrollView> */}
+        </View>
+      </ScrollView>
     </View>
   );
 };
