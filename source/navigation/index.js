@@ -1,10 +1,11 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-const Stack = createNativeStackNavigator();
 import {NavigationContainer} from '@react-navigation/native';
-import {Home, PatientProfile} from '../screens';
+import {AdminProfile, Home, PatientProfile, Report} from '../screens';
 
+
+const Stack = createNativeStackNavigator();
 const Navigation = () => {
   return (
     <NavigationContainer>
@@ -14,7 +15,9 @@ const Navigation = () => {
           headerShown: false,
         }}>
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Profile" component={PatientProfile} />
+        <Stack.Screen name="PatientProfile" component={PatientProfile} />
+        <Stack.Screen name="Report" component={Report} />
+        <Stack.Screen name="AdminProfile" component={AdminProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

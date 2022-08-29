@@ -16,6 +16,7 @@ export {
     PatientsDataContainer,
     HeaderHome,
     CardHome,
-    StaticHeader
+    StaticHeader,
+    
 }
 

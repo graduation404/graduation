@@ -37,6 +37,7 @@ const Home = (props) => {
         onChangeText={value => {
           setSearchInput(value);
         }}
+        nav={props}
         value={searchInput}
       />
 

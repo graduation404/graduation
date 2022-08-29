@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     {
       width: '100%',
       height: SIZES.height * 0.3,
-      backgroundColor: COLORS.blue,
+      // backgroundColor: COLORS.blue,
       elevation: 4,
       paddingHorizontal: 16,
       paddingVertical: SPACING.s + 5,

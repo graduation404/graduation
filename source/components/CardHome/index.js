@@ -92,7 +92,7 @@ const CardHome = ({item, index, nav}) => {
         <TouchableOpacity
           style={styles.subContainerAge}
           onPress={() => {
-            nav.navigation.navigate('Profile');
+            nav.navigation.navigate('PatientProfile');
           }}>
           <Text style={[styles.subTextStyle, {color: COLORS.blue}]}>Visit</Text>
         </TouchableOpacity>

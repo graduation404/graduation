@@ -10,7 +10,7 @@ import React from 'react';
 import {Icons, COLORS, SHADOW, SIZES, SPACING} from '../../config';
 import LinearGradient from 'react-native-linear-gradient';
 
-const HeaderHome = ({value,onChangeText}) => {
+const HeaderHome = ({value, onChangeText, nav}) => {
   return (
     <>
       <LinearGradient
@@ -24,7 +24,12 @@ const HeaderHome = ({value,onChangeText}) => {
             <View style={styles.IconContainer}>
               <Image style={styles.IconStyle} source={Icons.Question} />
             </View>
-            <Image style={styles.Image_Style} source={Icons.Avatar} />
+            <TouchableOpacity
+              onPress={() => {
+                nav.navigation.navigate('AdminProfile');
+              }}>
+              <Image style={styles.Image_Style} source={Icons.Avatar} />
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.TitleContainer}>
@@ -91,7 +96,7 @@ const styles = StyleSheet.create({
   IconStyle: {
     width: SIZES.avatar * 0.5,
     height: SIZES.avatar * 0.5,
-    resizeMode:"contain"
+    resizeMode: 'contain',
   },
   TitleContainer: {
     alignSelf: 'flex-start',

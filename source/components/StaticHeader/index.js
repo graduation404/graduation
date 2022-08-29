@@ -6,7 +6,7 @@ import { COLORS, Icons, SHADOW, SIZES, SPACING } from "../../config";
 const StaticHeader = (props) => {
     return (
         <>
-              <StatusBar barStyle={'dark-content'} backgroundColor={COLORS.white} />
+              {/* <StatusBar barStyle={'dark-content'} backgroundColor={COLORS.white} /> */}
 
             <View style={styles.container}>
                 <TouchableOpacity activeOpacity={0.85}>
