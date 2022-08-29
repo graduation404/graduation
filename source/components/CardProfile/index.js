@@ -16,13 +16,13 @@ export default Card;
 const styles = StyleSheet.create({
   container: {
     width: '85%',
-    paddingVertical:RFPercentage(2.5),
+    paddingVertical:RFPercentage(3),
+    paddingHorizontal:RFPercentage(2),
     backgroundColor: COLORS.white,
     elevation: 4,
     alignItems: 'center',
     alignSelf: 'center',
     paddingRight: SPACING.l,
-    paddingVertical: SPACING.m,
     borderRadius: SIZES.Sradius,
   },
  
