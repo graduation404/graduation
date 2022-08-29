@@ -29,6 +29,8 @@ const Lock = require('../assets/icons/lock.png')
 const Language = require('../assets/icons/language.png')
 const Logout = require('../assets/icons/logout.png')
 const Next = require('../assets/icons/next.png')
+const Signal = require('../assets/icons/signal.png')
+const Books = require('../assets/icons/books.png')
 
 
 export default {
@@ -62,5 +64,7 @@ Search,
 Lock,
 Language,
 Logout,
-Next
+Next,
+Signal,
+Books
 }
