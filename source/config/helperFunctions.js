@@ -1,5 +1,6 @@
 import React from "react"
 import { StyleSheet, View } from "react-native"
+import { RFPercentage } from "react-native-responsive-fontsize"
 import { COLORS, SHADOW, SIZES } from "./theme"
 
 
@@ -35,11 +36,11 @@ const styles = StyleSheet.create(
         lineStyle:
             [{
                 height: SIZES.height * .002,
-                width: SIZES.width * .9,
-                backgroundColor: COLORS.lightGray,
-                elevation: 10, marginTop: -100
+                width: '90%',
+                backgroundColor: COLORS.white,
+                elevation: 10,
+                marginVertical:RFPercentage(2)
             },
-            SHADOW.dark
             ]
     }
 )

@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View, StatusBar} from 'react-native';
 import React, {useEffect} from 'react';
-import {Home, PatientProfile} from './source/screens';
+import {AdminProfile, Home, PatientProfile, Report} from './source/screens';
 import SplashScreen from 'react-native-splash-screen';
 import {COLORS} from './source/config';
 const App = () => {
@@ -13,7 +13,7 @@ const App = () => {
   return (
     <>
       <StatusBar barStyle={'light-content'} backgroundColor={COLORS.blue} />
-      <Home />
+      <Report />
     </>
   );
 };

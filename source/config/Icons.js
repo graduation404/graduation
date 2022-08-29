@@ -28,6 +28,7 @@ const Search = require('../assets/icons/search.png')
 const Lock = require('../assets/icons/lock.png')
 const Language = require('../assets/icons/language.png')
 const Logout = require('../assets/icons/logout.png')
+const Next = require('../assets/icons/next.png')
 
 
 export default {
@@ -60,5 +61,6 @@ Avatar,
 Search,
 Lock,
 Language,
-Logout
+Logout,
+Next
 }

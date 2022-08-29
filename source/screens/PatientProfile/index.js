@@ -61,7 +61,7 @@ const PatientProfile = () => {
     <View style={styles.Container}>
       <HeaderProfile Header_name={'Patient Profile'} />
 
-      <Card RenderItems={
+      <Card colors={[COLORS.white,COLORS.white]} RenderItems={
         (<>
           <View style={styles.card_Container}>
 
