@@ -7,24 +7,30 @@ import { Icons, Line, COLORS, sizes, SIZES, SPACING, SHADOW, Range_Function } fr
 const PatientProfile = () => {
   const [name, setName] = useState('Ahmed Khalifa')
   const [id, setid] = useState(582222)
-  const [age, setage] = useState(22)
+  const [age, setage] = useState(12)
+  const [Time, setTime] = useState('11:00 Am')
+  const [Date, setDate] = useState('22 Aug')
   const [Range, setRange] = useState(Range_Function(age))
   const [PatientsDataValue, setPatientsDataValue] = useState([
     {
       name: 'Dual',
-      Percentage: 40
+      Percentage: 40,
+      image: Icons.PointHand
     },
     {
       name: 'Base Line',
-      Percentage: 20
+      Percentage: 20,
+      image: Icons.PointHand
     },
     {
       name: 'Hearing Level (Right)',
-      Percentage: 80
+      Percentage: 80,
+      image: Icons.PointHand
     },
     {
       name: 'Hearing Level (Left)',
-      Percentage: 87.5
+      Percentage: 87.5,
+      image: Icons.PointHand
     }
   ])
 
@@ -32,15 +38,14 @@ const PatientProfile = () => {
 
   const DataList = () => {
     return (
-      <View style={{ height: SIZES.height * .45,  justifyContent: 'space-between' }}>
+      <View style={{ height: SIZES.height * .425, justifyContent: 'space-between' }}>
         <FlatList
+        showsVerticalScrollIndicator={false}
           data={PatientsDataValue}
           renderItem={({ item, index }) =>
           (
             <>
-              <View style={{ height: RFPercentage(2) }} />
-              <PatientsDataContainer Percentage={item.Percentage} name={item.name} />
-              <View style={{ height: RFPercentage(2) }} />
+              <PatientsDataContainer Percentage={item.Percentage} name={item.name} Image={item.image} />
             </>
           )}
         />
@@ -59,7 +64,10 @@ const PatientProfile = () => {
       <Card RenderItems={
         (<>
           <View style={styles.card_Container}>
-            <Image source={Icons.Pen} style={[styles.Image_Style, { tintColor: COLORS.white }]} />
+
+            <View style={styles.ageRange_View}>
+              <Text style={styles.ageRange_Text}>{Range}</Text>
+            </View>
 
             <View style={styles.Image_Container}>
               <Image source={Icons.Male} style={styles.GenderImage_Style} />
@@ -75,12 +83,18 @@ const PatientProfile = () => {
 
           <View style={styles.last_Container_View}>
 
-            <View style={[{ width: '20%', }]}></View>
+            <View style={{ flexDirection: 'row',alignItems:'center' }}>
+              <Image source={Icons.Clock} style={{ height: RFPercentage(3), width: RFPercentage(3)}} />
+              <Text style={[ {fontSize:SIZES.h4, fontWeight: 'bold', color: COLORS.blue }]}>  {Time}</Text>
+            </View>
+
             <Text style={styles.Age_Text}>{age} Years</Text>
 
-            <View style={styles.ageRange_View}>
-              <Text style={styles.ageRange_Text}>{Range}</Text>
+            <View style={{ flexDirection: 'row',alignItems:'center' }}>
+              <Image source={Icons.Calendar} style={{ height: RFPercentage(3), width: RFPercentage(3), }} />
+              <Text style={[ {fontSize:SIZES.h4, fontWeight: 'bold', color: COLORS.blue }]}>  {Date}   </Text>
             </View>
+
           </View>
 
         </>)
@@ -124,8 +138,8 @@ const styles = StyleSheet.create(
     },
     GenderImage_Style:
     {
-      height: RFPercentage(6),
-      width: RFPercentage(6),
+      height: RFPercentage(7.5),
+      width: RFPercentage(7.5),
       tintColor: COLORS.blue,
     },
     ageRange_Text:
@@ -137,7 +151,8 @@ const styles = StyleSheet.create(
     ageRange_View:
       [{
         borderRadius: SIZES.height,
-        width: '20%',
+        height: RFPercentage(3),
+        width: '15%',
         alignItems: 'center',
         elevation: 10,
         backgroundColor: COLORS.white,
@@ -173,8 +188,8 @@ const styles = StyleSheet.create(
     },
     Image_Container:
     {
-      height: RFPercentage(12),
-      width: RFPercentage(12),
+      height: RFPercentage(15),
+      width: RFPercentage(15),
       borderRadius: SIZES.height,
       backgroundColor: COLORS.white,
       elevation: 5,
