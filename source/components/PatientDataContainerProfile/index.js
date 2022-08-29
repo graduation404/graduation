@@ -12,13 +12,18 @@ const PatientsDataContainer = (props) => {
 
 
                 <View style={styles.Image_View}>
-                    <Image source={Icons.PointHand} style={styles.Image_Style} />
+                    <Image source={props.Image} style={styles.Image_Style} />
                 </View>
 
                 <View style={styles.Second_View}>
                     <Text style={styles.name_Style}>{props.name}</Text>
-                    <Text style={styles.Percentage_Style}>{props.Percentage}%</Text>
-                    <Slider Value={props.Percentage} />
+                    {props.Percentage ?
+                        (<>
+                            <Text style={styles.Percentage_Style}>{props.Percentage}%</Text>
+                            <Slider Value={props.Percentage ? props.Percentage : 0} />
+                        </>
+                        ) : null}
+
                 </View>
 
 
@@ -34,11 +39,13 @@ const styles = StyleSheet.create(
         Main_view: {
             height: RFPercentage(7.5),
             borderRadius: SIZES.height,
-            width: SIZES.width*.9,
+            width: SIZES.width * .9,
             backgroundColor: COLORS.white,
             elevation: 3,
             flexDirection: 'row',
             alignItems: 'center',
+            marginTop:RFPercentage(3),
+            marginBottom:2
         },
         Image_View: [
             {
@@ -54,12 +61,13 @@ const styles = StyleSheet.create(
         Image_Style: {
             height: RFPercentage(4.5),
             width: SIZES.height * .045,
+            tintColor:'#fff'
         },
         Second_View: {
             marginLeft: RFPercentage(1.5),
             width: '75%',
             height: '80%',
-            justifyContent:'space-around',
+            justifyContent: 'space-around',
         },
         name_Style: {
             fontSize: SIZES.h3,
