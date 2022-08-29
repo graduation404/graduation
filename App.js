@@ -1,5 +1,6 @@
 import {StatusBar} from 'react-native';
 import React, {useEffect} from 'react';
+import {Home, PatientProfile} from './source/screens';
 import SplashScreen from 'react-native-splash-screen';
 import {COLORS} from './source/config';
 import Navigation from './source/navigation';

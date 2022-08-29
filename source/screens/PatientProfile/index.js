@@ -1,29 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Card, HeaderProfile, PatientsDataContainer, SmallButton } from '../../components';
 import { Icons, Line, COLORS, sizes, SIZES, SPACING, SHADOW, Range_Function } from '../../config';
 
 const PatientProfile = () => {
   const [name, setName] = useState('Ahmed Khalifa')
   const [id, setid] = useState(582222)
-  const [age, setage] = useState(22)
+  const [age, setage] = useState(12)
+  const [Time, setTime] = useState('11:00 Am')
+  const [Date, setDate] = useState('22 Aug')
   const [Range, setRange] = useState(Range_Function(age))
   const [PatientsDataValue, setPatientsDataValue] = useState([
     {
       name: 'Dual',
-      Percentage: 40
+      Percentage: 40,
+      image: Icons.PointHand
     },
     {
       name: 'Base Line',
-      Percentage: 20
+      Percentage: 20,
+      image: Icons.PointHand
     },
     {
       name: 'Hearing Level (Right)',
-      Percentage: 80
+      Percentage: 80,
+      image: Icons.PointHand
     },
     {
       name: 'Hearing Level (Left)',
-      Percentage: 87.5
+      Percentage: 87.5,
+      image: Icons.PointHand
     }
   ])
 
@@ -31,16 +38,17 @@ const PatientProfile = () => {
 
   const DataList = () => {
     return (
-      <View style={{height:SIZES.height*.46}}>
-      <FlatList
-        data={PatientsDataValue}
-        renderItem={({ item, index }) =>
-        (
-          <>
-            <PatientsDataContainer Percentage={item.Percentage} name={item.name} />
-          </>
-        )}
-      />
+      <View style={{ height: SIZES.height * .425, justifyContent: 'space-between' }}>
+        <FlatList
+        showsVerticalScrollIndicator={false}
+          data={PatientsDataValue}
+          renderItem={({ item, index }) =>
+          (
+            <>
+              <PatientsDataContainer Percentage={item.Percentage} name={item.name} Image={item.image} />
+            </>
+          )}
+        />
       </View>
     )
   }
@@ -53,10 +61,13 @@ const PatientProfile = () => {
     <View style={styles.Container}>
       <HeaderProfile Header_name={'Patient Profile'} />
 
-      <Card RenderItems={
+      <Card colors={[COLORS.white,COLORS.white]} RenderItems={
         (<>
           <View style={styles.card_Container}>
-            <Image source={Icons.Pen} style={[styles.Image_Style, { tintColor: COLORS.white }]} />
+
+            <View style={styles.ageRange_View}>
+              <Text style={styles.ageRange_Text}>{Range}</Text>
+            </View>
 
             <View style={styles.Image_Container}>
               <Image source={Icons.Male} style={styles.GenderImage_Style} />
@@ -72,12 +83,18 @@ const PatientProfile = () => {
 
           <View style={styles.last_Container_View}>
 
-            <View style={[{ width: '20%', }]}></View>
+            <View style={{ flexDirection: 'row',alignItems:'center' }}>
+              <Image source={Icons.Clock} style={{ height: RFPercentage(3), width: RFPercentage(3)}} />
+              <Text style={[ {fontSize:SIZES.h4, fontWeight: 'bold', color: COLORS.blue }]}>  {Time}</Text>
+            </View>
+
             <Text style={styles.Age_Text}>{age} Years</Text>
 
-            <View style={styles.ageRange_View}>
-              <Text style={styles.ageRange_Text}>{Range}</Text>
+            <View style={{ flexDirection: 'row',alignItems:'center' }}>
+              <Image source={Icons.Calendar} style={{ height: RFPercentage(3), width: RFPercentage(3), }} />
+              <Text style={[ {fontSize:SIZES.h4, fontWeight: 'bold', color: COLORS.blue }]}>  {Date}   </Text>
             </View>
+
           </View>
 
         </>)
@@ -115,32 +132,30 @@ const styles = StyleSheet.create(
     },
     Image_Style:
     {
-      height: SIZES.height * .025,
-      width: SIZES.height * .025,
+      height: RFPercentage(2.5),
+      width: RFPercentage(2.5),
       tintColor: COLORS.blue,
     },
     GenderImage_Style:
     {
-      height: SIZES.height * .075,
-      width: SIZES.height * .075,
+      height: RFPercentage(7.5),
+      width: RFPercentage(7.5),
       tintColor: COLORS.blue,
     },
     ageRange_Text:
     {
       fontWeight: 'bold',
       color: COLORS.blue,
-      fontSize:SIZES.h4
+      fontSize: SIZES.h4
     },
     ageRange_View:
       [{
-        // padding: 1,
         borderRadius: SIZES.height,
-        height: SIZES.height * .02,
-        width: '20%',
+        height: RFPercentage(3),
+        width: '15%',
         alignItems: 'center',
         elevation: 10,
         backgroundColor: COLORS.white,
-        marginTop: -SIZES.height*0.005
       }
         , SHADOW.light
       ],
@@ -148,7 +163,8 @@ const styles = StyleSheet.create(
     {
       fontSize: SIZES.h4,
       fontWeight: 'bold',
-      color: COLORS.gray,
+      color: COLORS.lightGray,
+      marginTop: RFPercentage(.5)
     },
     last_Container_View:
     {
@@ -160,19 +176,20 @@ const styles = StyleSheet.create(
     {
       fontSize: SIZES.h4,
       fontWeight: 'bold',
-      color: COLORS.gray,
+      color: COLORS.lightGray,
+      marginTop: RFPercentage(1)
     },
     name_Style:
     {
       fontSize: SIZES.title,
       fontWeight: 'bold',
       color: COLORS.blue,
-      marginTop: SPACING.vS
+      marginTop: RFPercentage(2)
     },
     Image_Container:
     {
-      height: SIZES.height * .15,
-      width: SIZES.height * .15,
+      height: RFPercentage(15),
+      width: RFPercentage(15),
       borderRadius: SIZES.height,
       backgroundColor: COLORS.white,
       elevation: 5,
@@ -184,9 +201,7 @@ const styles = StyleSheet.create(
     {
       width: '90%',
       flexDirection: 'row',
-      // alignItems:'center',
       justifyContent: 'space-around',
-      height:SIZES.height*.1,
-      paddingVertical:2
+      paddingVertical: 2
     },
   });

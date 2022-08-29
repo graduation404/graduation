@@ -25,6 +25,11 @@ const Back = require('../assets/icons/back.png')
 const Pen = require('../assets/icons/pen.png')
 const Avatar=require("../assets/imgs/avatar.jpg")
 const Search = require('../assets/icons/search.png')
+const Lock = require('../assets/icons/lock.png')
+const Language = require('../assets/icons/language.png')
+const Logout = require('../assets/icons/logout.png')
+const Next = require('../assets/icons/next.png')
+
 
 export default {
 AddFile,
@@ -53,5 +58,9 @@ Write,
 Back,
 Pen,
 Avatar,
-Search
+Search,
+Lock,
+Language,
+Logout,
+Next
 }
