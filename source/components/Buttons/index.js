@@ -7,7 +7,7 @@ import LinearGradient from "react-native-linear-gradient";
 const LargeButton = (props) => {
     return (
         <>
-            <TouchableOpacity >
+            <TouchableOpacity activeOpacity={.85} >
                     <LinearGradient colors={[COLORS.blue,COLORS.lightGray]} style={styles.LargeButtonView}>
                     <Text style={styles.BookletText_Style}>{props.Text}</Text>
                     </LinearGradient>

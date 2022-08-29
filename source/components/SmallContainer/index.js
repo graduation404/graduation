@@ -48,13 +48,14 @@ const styles = StyleSheet.create({
     {
         width: SIZES.width * .275,
         height: RFPercentage(17.5),
-        backgroundColor: COLORS.gray,
         borderRadius: SIZES.Sradius,
         alignItems: 'center',
         justifyContent: 'center',
         paddingTop: RFPercentage(2.5),
         marginVertical: RFPercentage(2.5),
         marginLeft: RFPercentage(2.25),
+        elevation:10,
+
     },
     LevelImage:
     {

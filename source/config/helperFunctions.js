@@ -36,10 +36,11 @@ const styles = StyleSheet.create(
         lineStyle:
             [{
                 height: SIZES.height * .002,
-                width: '90%',
+                width: '100%',
                 backgroundColor: COLORS.white,
                 elevation: 10,
-                marginVertical:RFPercentage(2)
+                marginVertical:RFPercentage(2),
+                marginLeft:RFPercentage(2),
             },
             ]
     }
