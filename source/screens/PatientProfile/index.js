@@ -40,7 +40,7 @@ const PatientProfile = () => {
     return (
       <View style={{ height: SIZES.height * .425, justifyContent: 'space-between' }}>
         <FlatList
-        showsVerticalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
           data={PatientsDataValue}
           renderItem={({ item, index }) =>
           (
@@ -54,14 +54,9 @@ const PatientProfile = () => {
   }
 
 
-  useEffect(() => {
-  }, [])
-
-  return (
-    <View style={styles.Container}>
-      <HeaderProfile Header_name={'Patient Profile'} />
-
-      <Card colors={[COLORS.white,COLORS.white]} RenderItems={
+  const CardList = () => {
+    return (
+      <Card colors={[COLORS.white, COLORS.white]} RenderItems={
         (<>
           <View style={styles.card_Container}>
 
@@ -83,16 +78,16 @@ const PatientProfile = () => {
 
           <View style={styles.last_Container_View}>
 
-            <View style={{ flexDirection: 'row',alignItems:'center' }}>
-              <Image source={Icons.Clock} style={{ height: RFPercentage(3), width: RFPercentage(3)}} />
-              <Text style={[ {fontSize:SIZES.h4, fontWeight: 'bold', color: COLORS.blue }]}>  {Time}</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image source={Icons.Clock} style={{ height: RFPercentage(3), width: RFPercentage(3) }} />
+              <Text style={[{ fontSize: SIZES.h4, fontWeight: 'bold', color: COLORS.blue }]}>  {Time}</Text>
             </View>
 
             <Text style={styles.Age_Text}>{age} Years</Text>
 
-            <View style={{ flexDirection: 'row',alignItems:'center' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Image source={Icons.Calendar} style={{ height: RFPercentage(3), width: RFPercentage(3), }} />
-              <Text style={[ {fontSize:SIZES.h4, fontWeight: 'bold', color: COLORS.blue }]}>  {Date}   </Text>
+              <Text style={[{ fontSize: SIZES.h4, fontWeight: 'bold', color: COLORS.blue }]}>  {Date}</Text>
             </View>
 
           </View>
@@ -100,6 +95,18 @@ const PatientProfile = () => {
         </>)
       }
       />
+    )
+  }
+
+
+  useEffect(() => {
+  }, [])
+
+  return (
+    <View style={styles.Container}>
+      <HeaderProfile Header_name={'Patient Profile'} />
+
+      <CardList />
 
       < DataList />
 
@@ -151,8 +158,9 @@ const styles = StyleSheet.create(
     ageRange_View:
       [{
         borderRadius: SIZES.height,
-        height: RFPercentage(3),
+        height: RFPercentage(2.5),
         width: '15%',
+        justifyContent:'center',
         alignItems: 'center',
         elevation: 10,
         backgroundColor: COLORS.white,
@@ -181,7 +189,7 @@ const styles = StyleSheet.create(
     },
     name_Style:
     {
-      fontSize: SIZES.title,
+      fontSize: RFPercentage(3),
       fontWeight: 'bold',
       color: COLORS.blue,
       marginTop: RFPercentage(2)
