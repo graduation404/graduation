@@ -41,7 +41,9 @@ const Home = (props) => {
         value={searchInput}
       />
 
-      <ScrollView style={{width: '95%', alignSelf: 'center'}}>
+      <ScrollView style={{width: '95%', alignSelf: 'center'}}
+      showsVerticalScrollIndicator={false}
+      >
         <TitleSection />
         <View style={{width: '100%', alignItems: 'center'}}>
           <FlatList
@@ -49,18 +51,13 @@ const Home = (props) => {
             style={{
               width: '100%',
               backgroundColor: COLORS.white,
-              // marginBottom: SIZES.height * 0.43,
             }}
             data={data}
             renderItem={({item, index}) => (
               <CardHome item={item} index={index} nav={props} />
             )}
           />
-          {/* <ScrollView style={{width:"100%",marginBottom:SIZES.height*.43}}>
-        {data.map((item,index)=>(
-          <CardHome item={item} index={index} />
-        ))}
-        </ScrollView> */}
+          
         </View>
       </ScrollView>
     </View>
