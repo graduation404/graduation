@@ -22,7 +22,7 @@ const HeaderProfile = props => {
         style={{
           width: '100%',
           height: 1,
-          marginTop: -SIZES.height * 0.15,
+          marginTop: -SIZES.height * 0.18,
         }}></View>
     </>
   );
@@ -51,6 +51,6 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     alignSelf: 'center',
     fontSize: SIZES.title,
-    marginTop: SIZES.height * 0.03,
+    marginTop: SIZES.height * 0.01,
   }
 });

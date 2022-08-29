@@ -15,7 +15,7 @@ const StaticHeader = (props) => {
 
                 <Text style={styles.textStyle}>{props.Header_name}</Text>
 
-                <Image style={styles.Image_Style} />
+                <View style={styles.Image_Style} />
             </View>
         </>
     )
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     },
     textStyle: {
         color: COLORS.blue,
-        fontSize: SIZES.title,
+        fontSize: SIZES.title-5,
         fontWeight:'bold'
     }
 });
