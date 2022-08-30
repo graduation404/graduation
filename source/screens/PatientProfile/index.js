@@ -67,7 +67,7 @@ const PatientProfile = () => {
             <View style={styles.Image_Container}>
               <Image source={Icons.Male} style={styles.GenderImage_Style} />
             </View>
-            <TouchableOpacity onPress={()=>{alert('edit')}}>
+            <TouchableOpacity style={{width:'15%'}} onPress={()=>{alert('edit')}}>
               <Image source={Icons.Pen} style={styles.Image_Style} />
             </TouchableOpacity>
           </View>
@@ -81,14 +81,14 @@ const PatientProfile = () => {
 
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Image source={Icons.Clock} style={{ height: RFPercentage(3), width: RFPercentage(3) }} />
-              <Text style={[{ fontSize: SIZES.h4, fontWeight: 'bold', color: COLORS.blue }]}>  {Time}</Text>
+              <Text style={[{ fontSize: SIZES.h4, fontWeight: 'bold', color: COLORS.blue }]}>{Time}</Text>
             </View>
 
-            <Text style={styles.Age_Text}>{age} Years</Text>
+            <Text style={styles.Age_Text}>{age} Years    </Text>
 
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Image source={Icons.Calendar} style={{ height: RFPercentage(3), width: RFPercentage(3), }} />
-              <Text style={[{ fontSize: SIZES.h4, fontWeight: 'bold', color: COLORS.blue }]}>  {Date}</Text>
+              <Text style={[{ fontSize: SIZES.h4, fontWeight: 'bold', color: COLORS.blue }]}> {Date}</Text>
             </View>
 
           </View>
@@ -174,7 +174,8 @@ const styles = StyleSheet.create(
       fontSize: SIZES.h4,
       fontWeight: 'bold',
       color: COLORS.lightGray,
-      marginTop: RFPercentage(.5)
+      marginTop: RFPercentage(.5),
+      textAlign:'center'
     },
     last_Container_View:
     {

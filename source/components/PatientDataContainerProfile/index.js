@@ -92,6 +92,7 @@ const styles = StyleSheet.create(
             width: '75%',
             height: '80%',
             justifyContent: 'space-around',
+            paddingBottom:RFPercentage(1)
         },
         name_Style: {
             fontSize: SIZES.h3,
@@ -100,7 +101,7 @@ const styles = StyleSheet.create(
 
         },
         Percentage_Style: {
-            fontSize: SIZES.h4,
+            fontSize: SIZES.h5,
             alignSelf: 'flex-end',
             color: COLORS.lightGray,
             marginBottom: RFPercentage(1)
