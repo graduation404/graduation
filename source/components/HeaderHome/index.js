@@ -17,9 +17,13 @@ const HeaderHome = ({value, onChangeText, nav}) => {
         colors={[COLORS.blue, COLORS.lightGray]}
         style={styles.container}>
         <View style={styles.subContainerImgs}>
-          <View style={styles.IconContainer}>
+          <TouchableOpacity style={styles.IconContainer}
+          onPress={()=>{
+            nav.navigation.navigate("AddPatientInfo")
+          }}
+          >
             <Image style={styles.IconStyle} source={Icons.AddUser} />
-          </View>
+          </TouchableOpacity>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={styles.IconContainer}>
               <Image style={styles.IconStyle} source={Icons.Question} />

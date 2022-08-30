@@ -24,7 +24,8 @@ export const SIZES = {
   Lradius: 50,
   Sradius: 12,
   avatar: RFValue(60),
-  subTitle:RFValue(13)
+  subTitle:RFValue(13),
+  inputHeight:RFValue(50)
 };
 
 export const SHADOW = {
