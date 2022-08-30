@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { Icons, COLORS, SHADOW, SIZES, SPACING } from "../../config";
 import Slider from "../Slider";
@@ -7,27 +7,51 @@ import Slider from "../Slider";
 const PatientsDataContainer = (props) => {
     return (
         <>
-
-            <View style={styles.Main_view}>
-
-
-                <View style={styles.Image_View}>
-                    <Image source={props.Image} style={styles.Image_Style} />
-                </View>
-
-                <View style={styles.Second_View}>
-                    <Text style={styles.name_Style}>{props.name}</Text>
-                    {props.Percentage ?
-                        (<>
-                            <Text style={styles.Percentage_Style}>{props.Percentage}%</Text>
-                            <Slider Value={props.Percentage ? props.Percentage : 0} />
-                        </>
-                        ) : null}
-
-                </View>
+            {props.button ? (
+                <TouchableOpacity activeOpacity={.85} onPress={props.onPress} style={styles.Main_view}>
 
 
-            </View>
+                    <View style={styles.Image_View}>
+                        <Image source={props.Image} style={styles.Image_Style} />
+                    </View>
+
+                    <View style={styles.Second_View}>
+                        <Text style={styles.name_Style}>{props.name}</Text>
+                        {props.Percentage ?
+                            (<>
+                                <Text style={styles.Percentage_Style}>{props.Percentage}%</Text>
+                                <Slider Value={props.Percentage ? props.Percentage : 0} />
+                            </>
+                            ) : null}
+
+                    </View>
+
+
+                </TouchableOpacity>
+            ) :
+                (
+                    <View style={styles.Main_view}>
+
+
+                        <View style={styles.Image_View}>
+                            <Image source={props.Image} style={styles.Image_Style} />
+                        </View>
+
+                        <View style={styles.Second_View}>
+                            <Text style={styles.name_Style}>{props.name}</Text>
+                            {props.Percentage ?
+                                (<>
+                                    <Text style={styles.Percentage_Style}>{props.Percentage}%</Text>
+                                    <Slider Value={props.Percentage ? props.Percentage : 0} />
+                                </>
+                                ) : null}
+
+                        </View>
+
+
+                    </View>
+                )}
+
         </>
     )
 }
@@ -44,8 +68,8 @@ const styles = StyleSheet.create(
             elevation: 3,
             flexDirection: 'row',
             alignItems: 'center',
-            marginTop:RFPercentage(3),
-            marginBottom:2
+            marginTop: RFPercentage(3),
+            marginBottom: 2
         },
         Image_View: [
             {
@@ -61,7 +85,7 @@ const styles = StyleSheet.create(
         Image_Style: {
             height: RFPercentage(4.5),
             width: SIZES.height * .045,
-            tintColor:'#fff'
+            tintColor: '#fff'
         },
         Second_View: {
             marginLeft: RFPercentage(1.5),

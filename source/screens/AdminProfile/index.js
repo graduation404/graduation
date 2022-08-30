@@ -29,7 +29,7 @@ const AdminProfile = () => {
   const [AdminName, setAdminName] = useState('Dr Khalifa');
   const [AdminEmail, setAdminEmail] = useState('admin@gmail.com');
   const [age, setage] = useState(22);
-  const [Range, setRange] = useState(Range_Function(age));
+  const [button, setbutton] = useState(true);
   const [PatientsDataValue, setPatientsDataValue] = useState([
     {
       name: 'Change Password',
@@ -53,7 +53,7 @@ const AdminProfile = () => {
           data={PatientsDataValue}
           renderItem={({ item, index }) => (
             <>
-              <PatientsDataContainer name={item.name} Image={item.image} />
+              <PatientsDataContainer button={button} onPress={()=>{alert(item.name)}} name={item.name} Image={item.image} />
             </>
           )}
         />
