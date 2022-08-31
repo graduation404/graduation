@@ -67,7 +67,7 @@ const PatientProfile = () => {
             <View style={styles.Image_Container}>
               <Image source={Icons.Male} style={styles.GenderImage_Style} />
             </View>
-            <TouchableOpacity style={{width:'15%'}} onPress={()=>{alert('edit')}}>
+            <TouchableOpacity style={{ width: '20%',alignItems:"flex-end" }} onPress={() => { alert('edit') }}>
               <Image source={Icons.Pen} style={styles.Image_Style} />
             </TouchableOpacity>
           </View>
@@ -81,7 +81,7 @@ const PatientProfile = () => {
 
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Image source={Icons.Clock} style={{ height: RFPercentage(3), width: RFPercentage(3) }} />
-              <Text style={[{ fontSize: SIZES.h4, fontWeight: 'bold', color: COLORS.blue }]}>{Time}</Text>
+              <Text style={[{ fontSize: SIZES.h4, fontWeight: 'bold', color: COLORS.blue }]}> {Time}</Text>
             </View>
 
             <Text style={styles.Age_Text}>{age} Years    </Text>
@@ -105,7 +105,7 @@ const PatientProfile = () => {
 
   return (
     <View style={styles.Container}>
-      <HeaderProfile onPress={()=>{alert('back')}} Header_name={'Patient Profile'} />
+      <HeaderProfile onPress={() => { alert('back') }} Header_name={'Patient Profile'} />
 
       <CardList />
 
@@ -159,12 +159,13 @@ const styles = StyleSheet.create(
     },
     ageRange_View:
       [{
-        paddingVertical: SPACING.vS,
-        elevation: 5,
-        paddingHorizontal: SPACING.m,
+        width: '20%',
+        height: RFPercentage(2.5),
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 15,
         backgroundColor: COLORS.white,
-        borderRadius: SPACING.m,
-        maxHeight:"23%"
+        borderRadius: SIZES.height,
       }
         , SHADOW.light
       ],
@@ -173,8 +174,7 @@ const styles = StyleSheet.create(
       fontSize: SIZES.h4,
       fontWeight: 'bold',
       color: COLORS.lightGray,
-      marginTop: RFPercentage(.5),
-      textAlign:'center'
+      textAlign: 'center'
     },
     last_Container_View:
     {
