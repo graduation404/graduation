@@ -9,6 +9,7 @@ import {
   Login,
   PatientProfile,
   Report,
+  Test,
 } from '../screens';
 
 const Stack = createNativeStackNavigator();
@@ -24,9 +25,11 @@ const Navigation = () => {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="PatientProfile" component={PatientProfile} />
-        <Stack.Screen name="Report" component={Report} />
+     
         <Stack.Screen name="AddPatientInfo" component={AddPatientInfo} />
         <Stack.Screen name="AdminProfile" component={AdminProfile} />
+        <Stack.Screen name="Report" component={Report} />
+        <Stack.Screen name="Test" component={Test} />
       </Stack.Navigator>
     </NavigationContainer>
   );

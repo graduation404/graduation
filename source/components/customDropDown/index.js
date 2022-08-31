@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: SPACING.s,
+    marginBottom: SPACING.m-4,
     // paddingHorizontal:1
   },
   containerImage: {

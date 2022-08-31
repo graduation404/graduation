@@ -9,6 +9,7 @@ import StaticHeader from './StaticHeader';
 import CustomDropDown from "./customDropDown"
 import CustomInputAddPatient from "./customInput"
 import CustomInputLogIn from './customInputLogin';
+import {LevelContainer,BookletContainer} from "./SmallContainer"
 export {
     Slider,
     HeaderProfile,
@@ -21,6 +22,8 @@ export {
     StaticHeader,
     CustomInputLogIn,
     CustomDropDown,
-    CustomInputAddPatient
+    CustomInputAddPatient,
+    LevelContainer,
+    BookletContainer
 }
 
