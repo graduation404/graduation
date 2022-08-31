@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FlatList,
   Image,
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
-import {RFPercentage} from 'react-native-responsive-fontsize';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 import {
   Card,
   HeaderProfile,
   PatientsDataContainer,
-  SmallButton,
 } from '../../components';
 import {
   Icons,
@@ -29,7 +29,7 @@ const AdminProfile = () => {
   const [AdminName, setAdminName] = useState('Dr Khalifa');
   const [AdminEmail, setAdminEmail] = useState('admin@gmail.com');
   const [age, setage] = useState(22);
-  const [Range, setRange] = useState(Range_Function(age));
+  const [button, setbutton] = useState(true);
   const [PatientsDataValue, setPatientsDataValue] = useState([
     {
       name: 'Change Password',
@@ -47,42 +47,40 @@ const AdminProfile = () => {
 
   const DataList = () => {
     return (
-      <View style={{height: SIZES.height * 0.7, justifyContent: 'center'}}>
-        <View style={{height: RFPercentage(8)}} />
+      <View style={{ height: SIZES.height * 0.7, justifyContent: 'center' }}>
+        <View style={{ height: RFPercentage(8) }} />
         <FlatList
           data={PatientsDataValue}
-          renderItem={({item, index}) => (
+          renderItem={({ item, index }) => (
             <>
-              <PatientsDataContainer name={item.name} Image={item.image} />
+              <PatientsDataContainer button={button} onPress={()=>{alert(item.name)}} name={item.name} Image={item.image} />
             </>
           )}
         />
-        <View style={{height: RFPercentage(2)}} />
+        <View style={{ height: RFPercentage(2) }} />
       </View>
     );
   };
 
-  useEffect(() => {}, []);
 
-  return (
-    <View style={styles.Container}>
-      <HeaderProfile Header_name={'My Profile'} />
-
+  const CardList = () => {
+    return (
       <Card
         colors={[COLORS.white, COLORS.white]}
         RenderItems={
           <>
             <View style={styles.card_Container}>
-              <Image
-                source={Icons.Pen}
-                style={[styles.Image_Style, {tintColor: COLORS.white}]}
-              />
+
+              <Image style={styles.Image_Style} />
 
               <View style={styles.Image_Container}>
                 <Image source={Icons.Avatar} style={styles.GenderImage_Style} />
               </View>
 
-              <Image source={Icons.Pen} style={styles.Image_Style} />
+              <TouchableOpacity onPress={() => { alert('edit') }}>
+                <Image source={Icons.Pen} style={styles.Image_Style} />
+              </TouchableOpacity>
+
             </View>
 
             <Text style={styles.AdminName_Style}>{AdminName}</Text>
@@ -90,6 +88,16 @@ const AdminProfile = () => {
           </>
         }
       />
+
+    )
+  }
+
+  return (
+    <View style={styles.Container}>
+      <HeaderProfile onPress={() => { alert('back') }} Header_name={'My Profile'} />
+
+
+      <CardList />
 
       <DataList />
     </View>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { Card, HeaderProfile, PatientsDataContainer, SmallButton } from '../../components';
 import { Icons, Line, COLORS, sizes, SIZES, SPACING, SHADOW, Range_Function } from '../../config';
@@ -40,7 +40,7 @@ const PatientProfile = () => {
     return (
       <View style={{ height: SIZES.height * .425, justifyContent: 'space-between' }}>
         <FlatList
-        showsVerticalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
           data={PatientsDataValue}
           renderItem={({ item, index }) =>
           (
@@ -54,14 +54,9 @@ const PatientProfile = () => {
   }
 
 
-  useEffect(() => {
-  }, [])
-
-  return (
-    <View style={styles.Container}>
-      <HeaderProfile Header_name={'Patient Profile'} />
-
-      <Card colors={[COLORS.white,COLORS.white]} RenderItems={
+  const CardList = () => {
+    return (
+      <Card colors={[COLORS.white, COLORS.white]} RenderItems={
         (<>
           <View style={styles.card_Container}>
 
@@ -72,8 +67,9 @@ const PatientProfile = () => {
             <View style={styles.Image_Container}>
               <Image source={Icons.Male} style={styles.GenderImage_Style} />
             </View>
-
-            <Image source={Icons.Pen} style={styles.Image_Style} />
+            <TouchableOpacity onPress={()=>{alert('edit')}}>
+              <Image source={Icons.Pen} style={styles.Image_Style} />
+            </TouchableOpacity>
           </View>
 
           <Text style={styles.name_Style}>{name}</Text>
@@ -83,16 +79,16 @@ const PatientProfile = () => {
 
           <View style={styles.last_Container_View}>
 
-            <View style={{ flexDirection: 'row',alignItems:'center' }}>
-              <Image source={Icons.Clock} style={{ height: RFPercentage(3), width: RFPercentage(3)}} />
-              <Text style={[ {fontSize:SIZES.h4, fontWeight: 'bold', color: COLORS.blue }]}>  {Time}</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <Image source={Icons.Clock} style={{ height: RFPercentage(3), width: RFPercentage(3) }} />
+              <Text style={[{ fontSize: SIZES.h4, fontWeight: 'bold', color: COLORS.blue }]}>  {Time}</Text>
             </View>
 
             <Text style={styles.Age_Text}>{age} Years</Text>
 
-            <View style={{ flexDirection: 'row',alignItems:'center' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Image source={Icons.Calendar} style={{ height: RFPercentage(3), width: RFPercentage(3), }} />
-              <Text style={[ {fontSize:SIZES.h4, fontWeight: 'bold', color: COLORS.blue }]}>  {Date}   </Text>
+              <Text style={[{ fontSize: SIZES.h4, fontWeight: 'bold', color: COLORS.blue }]}>  {Date}</Text>
             </View>
 
           </View>
@@ -100,14 +96,26 @@ const PatientProfile = () => {
         </>)
       }
       />
+    )
+  }
+
+
+  useEffect(() => {
+  }, [])
+
+  return (
+    <View style={styles.Container}>
+      <HeaderProfile onPress={()=>{alert('back')}} Header_name={'Patient Profile'} />
+
+      <CardList />
 
       < DataList />
 
       {/* <Line /> */}
 
       <View style={styles.Buttons_Container}>
-        <SmallButton Text={'Test'} Icon={Icons.Test} />
-        <SmallButton Text={'Report'} Icon={Icons.Report} />
+        <SmallButton onPress={() => { alert('Test') }} Text={'Test'} Icon={Icons.Test} />
+        <SmallButton onPress={() => { alert('Report') }} Text={'Report'} Icon={Icons.Report} />
       </View>
 
     </View >
@@ -134,6 +142,7 @@ const styles = StyleSheet.create(
     {
       height: RFPercentage(2.5),
       width: RFPercentage(2.5),
+      marginHorizontal: RFPercentage(2),
       tintColor: COLORS.blue,
     },
     GenderImage_Style:
@@ -151,8 +160,9 @@ const styles = StyleSheet.create(
     ageRange_View:
       [{
         borderRadius: SIZES.height,
-        height: RFPercentage(3),
+        height: RFPercentage(2.5),
         width: '15%',
+        justifyContent: 'center',
         alignItems: 'center',
         elevation: 10,
         backgroundColor: COLORS.white,
@@ -181,7 +191,7 @@ const styles = StyleSheet.create(
     },
     name_Style:
     {
-      fontSize: SIZES.title,
+      fontSize: RFPercentage(3),
       fontWeight: 'bold',
       color: COLORS.blue,
       marginTop: RFPercentage(2)

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { BookletContainer, Card, LargeButton, LevelContainer, StaticHeader } from "../../components";
 import { COLORS, Icons, Line, SHADOW, SIZES, } from "../../config";
 import * as Animatable from 'react-native-animatable';
 
-const Report = (props) => {
+const Test = (props) => {
     const [name, setName] = useState('Ahmed Khalifa')
     const [id, setid] = useState(582222)
     const [age, setage] = useState(12)
@@ -117,7 +117,8 @@ const Report = (props) => {
                             <>
                                 <LevelContainer
                                     onPress={() => { setLevelIndex(index), setBookletIndex(null) }}
-                                    style={{ backgroundColor: COLORS.gray, borderWidth: LevelIndex == index ? RFPercentage(0.3) : RFPercentage(0), borderColor: LevelIndex == index ? COLORS.blue : null, }}
+       
+                                    style={{ backgroundColor: COLORS.white, borderWidth: LevelIndex == index ? RFPercentage(0.3) : RFPercentage(0), borderColor: LevelIndex == index ? COLORS.blue : null, }}
                                     Text={item.Text} Image={item.Image} Persentage={item.Persentage} />
                             </>
                         )
@@ -140,7 +141,7 @@ const Report = (props) => {
                             <>
                                 <BookletContainer
                                     onPress={() => { setBookletIndex(index) }}
-                                    style={{backgroundColor: COLORS.gray, borderWidth: BookletIndex == index ? RFPercentage(0.3) : RFPercentage(0), borderColor: BookletIndex == index ? COLORS.blue : null, }}
+                                    style={{ backgroundColor: COLORS.white,borderWidth: BookletIndex == index ? RFPercentage(0.3) : RFPercentage(0), borderColor: BookletIndex == index ? COLORS.blue : null, }}
                                     Text={item.Text} Image={item.Image} Persentage={item.Persentage} />
                             </>
                         )
@@ -179,7 +180,7 @@ const Report = (props) => {
 
                     <View style={styles.MainOnline_View}>
                         <View style={styles.online_View} />
-                        <Text style={styles.online_Text}>Report is Active</Text>
+                        <Text style={styles.online_Text}>Test is Active</Text>
                     </View>
 
                 </>)
@@ -188,15 +189,19 @@ const Report = (props) => {
         )
     }
 
+    const sub = () => {
+        let myStr=name
+        let firstWord = myStr.split(" ")[0]
+        return(firstWord)
+    }
     return (
         <>
             <View style={styles.container}>
-                <StaticHeader Header_name="Report" />
-
+                <StaticHeader Header_name="Test" />
+                <Text style={{ fontSize: RFPercentage(4), paddingHorizontal: RFPercentage(2.5), paddingBottom: RFPercentage(2.5), fontWeight: 'bold' }}>Hi, {sub()}</Text>
                 <CardView />
 
 
-                <Text style={styles.LargeText}>All Tests For Patient</Text>
                 <Text style={styles.ChooseText}>Choose Level</Text>
 
                 <LevelsArrayList />
@@ -213,7 +218,7 @@ const Report = (props) => {
                 {BookletIndex === null ? (null) : (
                     <>
                         <Animatable.View animation={'zoomInUp'}>
-                            <LargeButton onPress={()=>{alert('See Result')}} Text="See Result" />
+                            <LargeButton onPress={()=>{alert('lets Go')}} Text="Let's Go" />
                         </Animatable.View>
                     </>
                 )}
@@ -253,23 +258,6 @@ const styles = StyleSheet.create({
         width: RFPercentage(5),
         tintColor: COLORS.blue,
     },
-    ageRange_Text:
-    {
-        fontWeight: 'bold',
-        color: COLORS.blue,
-        fontSize: SIZES.h4
-    },
-    ageRange_View:
-        [{
-            borderRadius: SIZES.height,
-            height: RFPercentage(3),
-            width: '15%',
-            alignItems: 'center',
-            elevation: 10,
-            backgroundColor: COLORS.white,
-        }
-            , SHADOW.light
-        ],
     Age_Text:
     {
         fontSize: SIZES.h5,
@@ -300,14 +288,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: RFPercentage(2.5),
         fontSize: SIZES.h2,
         color: COLORS.black,
-        fontWeight: 'bold',
-        marginTop: RFPercentage(2)
-    },
-    LargeText:
-    {
-        paddingHorizontal: RFPercentage(2.5),
-        fontSize: SIZES.h1,
-        color: COLORS.blue,
         fontWeight: 'bold',
         marginTop: RFPercentage(2)
     },
@@ -358,4 +338,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default Report
+export default Test

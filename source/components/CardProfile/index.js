@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     elevation: 4,
     alignItems: 'center',
     alignSelf: 'center',
-    paddingRight: SPACING.l,
     borderRadius: SIZES.Sradius,
   },
 
