@@ -7,15 +7,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {COLORS, Icons, SIZES, SPACING} from '../../config';
 import {
   CustomDropDown,
   CustomInputAddPatient,
   StaticHeader,
 } from '../../components';
-import {RFValue} from 'react-native-responsive-fontsize';
-import DropDownPicker from 'react-native-dropdown-picker';
+
 const GroupAges = [
   {
     label: '1-5',
@@ -44,9 +43,9 @@ const AddPatientInfo = props => {
   const [PatientInfo, setPatientInfo] = useState({
     id: null,
     name: '',
-    gender: genderValue,
+    gender: null,
     age: null,
-    ageGroup: ageGroupValue,
+    ageGroup: '',
     snrDual: null,
     snrBaseLine: null,
     hearingLevelLeft: null,
@@ -60,6 +59,10 @@ const AddPatientInfo = props => {
   const handleChange = (value, text) => {
     setPatientInfo(prevState => ({...prevState, [text]: value}));
   };
+  useEffect(() => {
+    handleChange(genderValue, 'gender');
+    handleChange(ageGroupValue, 'ageGroup');
+  }, [genderValue, ageGroupValue]);
 
   const TitleSection = () => {
     return (
@@ -82,6 +85,7 @@ const AddPatientInfo = props => {
             colorIcon={COLORS.blue}
             value={PatientInfo.id}
             onChangeText={text => handleChange(text.trim(), 'id')}
+            keyboardType="decimal-pad"
           />
           <CustomInputAddPatient
             placeholder="Enter Name"
@@ -89,6 +93,7 @@ const AddPatientInfo = props => {
             colorIcon={COLORS.white}
             value={PatientInfo.name}
             onChangeText={text => handleChange(text.trim(), 'name')}
+            keyboardType="name-phone-pad"
           />
           <CustomDropDown
             data={genders}
@@ -110,6 +115,7 @@ const AddPatientInfo = props => {
             colorIcon={COLORS.blue}
             value={PatientInfo.age}
             onChangeText={text => handleChange(text.trim(), 'age')}
+            keyboardType="decimal-pad"
           />
 
           <CustomDropDown
@@ -131,6 +137,7 @@ const AddPatientInfo = props => {
             colorIcon={COLORS.blue}
             value={PatientInfo.snrDual}
             onChangeText={text => handleChange(text.trim(), 'snrDual')}
+            keyboardType="decimal-pad"
           />
           <CustomInputAddPatient
             placeholder="Enter SNR Loss (Base Line)"
@@ -138,6 +145,7 @@ const AddPatientInfo = props => {
             colorIcon={COLORS.blue}
             value={PatientInfo.snrBaseLine}
             onChangeText={text => handleChange(text.trim(), 'snrBaseLine')}
+            keyboardType="decimal-pad"
           />
           <CustomInputAddPatient
             placeholder="Enter Hearing Level (left)"
@@ -145,6 +153,7 @@ const AddPatientInfo = props => {
             colorIcon={COLORS.blue}
             value={PatientInfo.hearingLevelLeft}
             onChangeText={text => handleChange(text.trim(), 'hearingLevelLeft')}
+            keyboardType="decimal-pad"
           />
 
           <CustomInputAddPatient
@@ -155,6 +164,7 @@ const AddPatientInfo = props => {
             onChangeText={text =>
               handleChange(text.trim(), 'hearingLevelRight')
             }
+            keyboardType="decimal-pad"
           />
         </View>
         <TouchableOpacity
@@ -173,10 +183,9 @@ const AddPatientInfo = props => {
               PatientInfo.snrDual
             ) {
               alert(JSON.stringify(PatientInfo));
-            }else{
-              alert("Please Fill All Data");
+            } else {
+              alert('Please Fill All Data');
             }
-
           }}>
           <Text style={styles.subTitleBtn}>Create Patient</Text>
         </TouchableOpacity>

@@ -6,7 +6,8 @@ import PatientsDataContainer from './PatientDataContainerProfile';
 import HeaderHome from './HeaderHome';
 import CardHome from './CardHome';
 import StaticHeader from './StaticHeader';
-
+import CustomDropDown from "./customDropDown"
+import CustomInputAddPatient from "./customInput"
 import CustomInputLogIn from './customInputLogin';
 export {
     Slider,
@@ -18,6 +19,8 @@ export {
     HeaderHome,
     CardHome,
     StaticHeader,
-    
+    CustomInputLogIn,
+    CustomDropDown,
+    CustomInputAddPatient
 }
 

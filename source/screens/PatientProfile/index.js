@@ -159,13 +159,12 @@ const styles = StyleSheet.create(
     },
     ageRange_View:
       [{
-        borderRadius: SIZES.height,
-        height: RFPercentage(2.5),
-        width: '15%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        elevation: 10,
+        paddingVertical: SPACING.vS,
+        elevation: 5,
+        paddingHorizontal: SPACING.m,
         backgroundColor: COLORS.white,
+        borderRadius: SPACING.m,
+        maxHeight:"23%"
       }
         , SHADOW.light
       ],

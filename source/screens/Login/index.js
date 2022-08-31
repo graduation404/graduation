@@ -11,13 +11,8 @@ import {
 } from 'react-native';
 import {
   Icons,
-  Line,
   COLORS,
-  sizes,
   SIZES,
-  SPACING,
-  SHADOW,
-  Range_Function,
 } from '../../config';
 import LinearGradient from 'react-native-linear-gradient';
 import {CustomInputLogIn} from '../../components';
@@ -95,7 +90,7 @@ const Login = props => {
               style={styles.signin_touchable}
               onPress={() => {
                 if (email && password) {
-                  props.navigation.navigate('Home');
+                  props.navigation.replace('Home');
                   // alert("hi")
                 } else {
                   alert('Please Fill All Data');

@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     marginTop: SIZES.height * 0.02,
     borderRadius: SIZES.height * 0.03,
     borderColor: COLORS.gray,
-    // borderWidth: 1,
+    borderWidth: 1,
     flexDirection: 'row',
     elevation: 3,
     alignItems: 'center',

@@ -1,16 +1,23 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {NavigationContainer} from '@react-navigation/native';
-import {AddPatientInfo, AdminProfile, Home, Login, PatientProfile, Report} from '../screens';
-
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {
+  AddPatientInfo,
+  AdminProfile,
+  Home,
+  Login,
+  PatientProfile,
+  Report,
+} from '../screens';
 
 const Stack = createNativeStackNavigator();
 const Navigation = () => {
+  const [data, setdata] = useState(true);
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Login"
+        initialRouteName={data ? 'Login' : 'Home'}
         screenOptions={{
           headerShown: false,
         }}>

@@ -14,6 +14,7 @@ const CustomInputAddPatient = props => {
         placeholderTextColor={COLORS.lightGray}
         onChangeText={props.onChangeText}
         value={props.value}
+        keyboardType={props.keyboardType}
       />
     </View>
   );

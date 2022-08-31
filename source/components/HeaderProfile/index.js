@@ -2,14 +2,18 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {Icons, COLORS, SHADOW, SIZES, SPACING} from '../../config';
 import LinearGradient from 'react-native-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
 
 const HeaderProfile = (props) => {
+  const navigation = useNavigation();
   return (
     <>
       <LinearGradient
         colors={[COLORS.blue, COLORS.lightGray]}
         style={styles.container}>
-        <TouchableOpacity onPress={props.onPress} activeOpacity={0.85}>
+        <TouchableOpacity  onPress={() => {
+            navigation.goBack();
+          }} activeOpacity={0.85}>
           <Image source={Icons.Back} style={styles.Image_Style} />
         </TouchableOpacity>
 
