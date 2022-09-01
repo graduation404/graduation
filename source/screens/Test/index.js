@@ -1,14 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
-import {RFPercentage} from 'react-native-responsive-fontsize';
+import React, { useEffect, useState } from 'react';
+import { FlatList, Image, Modal, Pressable, StyleSheet, Text, View } from 'react-native';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 import {
   BookletContainer,
   Card,
   LargeButton,
   LevelContainer,
+  SmallButton,
   StaticHeader,
 } from '../../components';
-import {COLORS, Icons, Line, SHADOW, SIZES} from '../../config';
+import { COLORS, GuideLineSubText, Icons, Line, SHADOW, SIZES } from '../../config';
 import * as Animatable from 'react-native-animatable';
 
 const Test = props => {
@@ -17,6 +18,24 @@ const Test = props => {
   const [age, setage] = useState(12);
   const [LevelIndex, setLevelIndex] = useState(null);
   const [BookletIndex, setBookletIndex] = useState(null);
+  const [modalVisible, setModalVisible] = useState(true);
+
+  const [Texts, setTexts] = useState([
+    {
+      text: 'Read the question carefully and check if the answer is amoung the answer given'
+    },
+    {
+      text: 'if you find a correct answer ,press the correct button ',
+      Image: Icons.Clock
+    },
+    {
+      text: "if you don't find a correct answer ,press the Worng button ",
+      Image: Icons.Clock
+    },
+    {
+      text: 'The reaction time for each question will be calculated separately from the start of pressing the start button until choosing the true or false button'
+    },
+  ]);
 
   const [LevelsArray, setLevelsArray] = useState([
     {
@@ -109,12 +128,12 @@ const Test = props => {
     return (
       <>
         <View
-          style={{height: RFPercentage(23.5), paddingRight: RFPercentage(1.5)}}>
+          style={{ height: RFPercentage(23.5), paddingRight: RFPercentage(1.5) }}>
           <FlatList
             data={LevelsArray}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            renderItem={({item, index}) => (
+            renderItem={({ item, index }) => (
               <>
                 <LevelContainer
                   onPress={() => {
@@ -142,12 +161,12 @@ const Test = props => {
     return (
       <>
         <View
-          style={{height: RFPercentage(23.5), paddingRight: RFPercentage(1.5)}}>
+          style={{ height: RFPercentage(23.5), paddingRight: RFPercentage(1.5) }}>
           <FlatList
             data={BookletArray[LevelIndex].Array}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            renderItem={({item, index}) => (
+            renderItem={({ item, index }) => (
               <>
                 <BookletContainer
                   onPress={() => {
@@ -213,6 +232,38 @@ const Test = props => {
     let firstWord = myStr.split(' ')[0];
     return firstWord;
   };
+
+
+  const ModalView = () => {
+    return (
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+       >
+        <View style={{ position: 'absolute', bottom: 0, paddingHorizontal: RFPercentage(4), elevation: 20, backgroundColor: COLORS.white, borderTopLeftRadius: 30, borderTopRightRadius: 30, width: SIZES.width, justifyContent: 'space-between', alignItems: 'center', paddingVertical: RFPercentage(2) }}>
+
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Image
+              source={Icons.Test}
+              style={{ height: RFPercentage(5), width: RFPercentage(5) }}
+            />
+            <Text style={{ color: COLORS.blue, fontSize: RFPercentage(5), fontWeight: 'bold' }}> GuideLine</Text>
+          </View>
+
+          <FlatList data={Texts}
+            style={{ marginTop: RFPercentage(5) }}
+            renderItem={({ item, index }) => (
+              <GuideLineSubText Text={item.text} Image={item.Image} />
+            )}
+          />
+
+          <SmallButton Text="Start" onPress={() => { setModalVisible(false) }} />
+        </View>
+      </Modal>
+
+    )
+  }
   return (
     <>
       <View style={styles.container}>
@@ -253,6 +304,7 @@ const Test = props => {
           </>
         )}
       </View>
+      <ModalView />
     </>
   );
 };
@@ -349,6 +401,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+
+
 });
 
 export default Test;

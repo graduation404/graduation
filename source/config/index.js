@@ -10,7 +10,7 @@ import {
 
 
 import Icons from './Icons'
-import { Line,Range_Function } from './helperFunctions'
+import { Line, Range_Function, GuideLineSubText } from './helperFunctions'
 
 export {
     COLORS,
@@ -20,6 +20,7 @@ export {
 
     Line,
     Range_Function,
+    GuideLineSubText,
 
     Icons,
 
