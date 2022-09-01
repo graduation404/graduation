@@ -9,7 +9,8 @@ import StaticHeader from './StaticHeader';
 import CustomDropDown from "./customDropDown"
 import CustomInputAddPatient from "./customInput"
 import CustomInputLogIn from './customInputLogin';
-import {LevelContainer,BookletContainer} from "./SmallContainer"
+import {LevelContainer,BookletContainer,ProgressQuiz} from "./SmallContainer"
+import HeaderQuiz from './HeaderQuiz';
 export {
     Slider,
     HeaderProfile,
@@ -24,6 +25,8 @@ export {
     CustomDropDown,
     CustomInputAddPatient,
     LevelContainer,
-    BookletContainer
+    BookletContainer,
+    HeaderQuiz,
+    ProgressQuiz
 }
 

@@ -34,7 +34,9 @@ const Books = require('../assets/icons/books.png')
 const eye = require('../assets/icons/eye.jpeg')
 const eyeSlash = require('../assets/icons/eyeSlash.jpeg')
 const patientInfo = require('../assets/imgs/patientInfo.png')
-
+const Check = require('../assets/icons/check.png')
+const stopwatch = require('../assets/icons/stopwatch.png')
+const Cancel = require('../assets/icons/cancel1.png')
 export default {
 AddFile,
 AddUser,
@@ -71,5 +73,8 @@ Signal,
 Books,
 patientInfo,
 eye,
-eyeSlash
+eyeSlash,
+Check,
+Cancel,
+stopwatch
 }
