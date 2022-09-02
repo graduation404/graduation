@@ -9,8 +9,10 @@ import {
 import React from 'react';
 import {Icons, COLORS, SHADOW, SIZES, SPACING} from '../../config';
 import LinearGradient from 'react-native-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
 
 const HeaderQuiz = () => {
+  const navigation=useNavigation()
   return (
     <>
       <LinearGradient
@@ -18,9 +20,9 @@ const HeaderQuiz = () => {
         style={styles.container}>
         <View style={styles.subHeader}>
           <TouchableOpacity
-          // onPress={() => {
-          //   navigation.goBack();
-          // }}
+          onPress={() => {
+            navigation.goBack();
+          }}
           >
             <Image source={Icons.Back} style={styles.Image_Style} />
           </TouchableOpacity>

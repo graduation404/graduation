@@ -11,8 +11,10 @@ import {
 } from '../../components';
 import { COLORS, GuideLineSubText, Icons, Line, SHADOW, SIZES } from '../../config';
 import * as Animatable from 'react-native-animatable';
+import { useNavigation } from '@react-navigation/native';
 
 const Test = props => {
+  const navigation=useNavigation()
   const [name, setName] = useState('Ahmed Khalifa');
   const [id, setid] = useState(582222);
   const [age, setage] = useState(12);
@@ -296,7 +298,7 @@ const Test = props => {
             <Animatable.View animation={'zoomInUp'}>
               <LargeButton
                 onPress={() => {
-                  alert('lets Go');
+                  navigation.navigate("Quiz")
                 }}
                 Text="Let's Go"
               />

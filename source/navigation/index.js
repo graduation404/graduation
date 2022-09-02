@@ -8,6 +8,7 @@ import {
   Home,
   Login,
   PatientProfile,
+  Quiz,
   Report,
   Test,
 } from '../screens';
@@ -25,11 +26,12 @@ const Navigation = () => {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="PatientProfile" component={PatientProfile} />
-     
         <Stack.Screen name="AddPatientInfo" component={AddPatientInfo} />
         <Stack.Screen name="AdminProfile" component={AdminProfile} />
         <Stack.Screen name="Report" component={Report} />
         <Stack.Screen name="Test" component={Test} />
+        <Stack.Screen name="Quiz" component={Quiz} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
