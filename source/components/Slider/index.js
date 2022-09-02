@@ -6,8 +6,8 @@ import { COLORS, SHADOW, SIZES } from "../../config"
 const Slider = (props) => {
     return (
         <>
-            <View style={styles.MainView}>
-                <View style={[styles.SliderView, { width: props.Value + '%' }]}></View>
+            <View style={[styles.MainView, { width: props.width,            elevation: props.elevation}]}>
+                <View style={[styles.SliderView, { width: props.Value + '%', backgroundColor: props.backgroundColor }]}></View>
             </View>
         </>
     )
@@ -15,11 +15,9 @@ const Slider = (props) => {
 const styles = StyleSheet.create(
     {
         MainView: [{
-            width: '97.5%',
             borderRadius: SIZES.Lradius,
             backgroundColor: COLORS.white,
             height: RFPercentage(1.2),
-            elevation:4,
 
         },
         SHADOW.light,
@@ -27,7 +25,6 @@ const styles = StyleSheet.create(
         ,
         SliderView: {
             height: '100%',
-            backgroundColor: COLORS.blue,
             borderRadius: SIZES.Lradius
         }
 

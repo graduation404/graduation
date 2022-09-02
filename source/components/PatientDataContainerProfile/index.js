@@ -20,7 +20,7 @@ const PatientsDataContainer = (props) => {
                         {props.Percentage ?
                             (<>
                                 <Text style={styles.Percentage_Style}>{props.Percentage}%</Text>
-                                <Slider Value={props.Percentage ? props.Percentage : 0} />
+                                <Slider elevation={4} width='97.5%' backgroundColor={COLORS.blue} Value={props.Percentage ? props.Percentage : 0} />
                             </>
                             ) : null}
 
@@ -42,7 +42,7 @@ const PatientsDataContainer = (props) => {
                             {props.Percentage ?
                                 (<>
                                     <Text style={styles.Percentage_Style}>{props.Percentage}%</Text>
-                                    <Slider Value={props.Percentage ? props.Percentage : 0} />
+                                    <Slider elevation={4} width='97.5%' backgroundColor={COLORS.blue} Value={props.Percentage ? props.Percentage : 0} />
                                 </>
                                 ) : null}
 
@@ -92,7 +92,7 @@ const styles = StyleSheet.create(
             width: '75%',
             height: '80%',
             justifyContent: 'space-around',
-            paddingBottom:RFPercentage(1)
+            paddingBottom: RFPercentage(1)
         },
         name_Style: {
             fontSize: SIZES.h3,

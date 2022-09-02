@@ -6,14 +6,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   HeaderQuiz,
   LevelContainer,
   ProgressQuiz,
+  Slider,
   SmallButton,
 } from '../../components';
-import {COLORS, Icons, SIZES, SPACING} from '../../config';
+import { COLORS, Icons, SIZES, SPACING } from '../../config';
 
 const Quiz = props => {
   const [quiz, setQuiz] = useState([
@@ -38,7 +39,12 @@ const Quiz = props => {
 
   const [selectedAswer, setSelectedAswer] = useState(null);
   const [numberQuestion, setnumberQuestion] = useState(0);
+  const [QuestionNum, setQuestionNum] = useState(2);
+  const [CorrectQuestion, setCorrectQuestion] = useState(0);
+  const [WrongQuestion, setWrongQuestion] = useState(0);
   const [stopwatch, setStopwatch] = useState(0);
+  const [Persentage, setPersentage] = useState(50);
+
   useEffect(() => {
     timer();
   }, [stopwatch]);
@@ -52,11 +58,15 @@ const Quiz = props => {
       // setStopwatch(0)
     }
   }, [stopwatch, selectedAswer]);
+
   const clickAnswer = answer => {
     setSelectedAswer(answer);
+
+    console.log(selectedAswer)
+    // selectedAswer==quiz[numberQuestion].correctAnswer?setCorrectQuestion(CorrectQuestion+1):setWrongQuestion(WrongQuestion+1)
   };
   return (
-    <ScrollView style={{flexGrow: 1, backgroundColor: COLORS.white}}>
+    <ScrollView style={{ flexGrow: 1, backgroundColor: COLORS.white }}>
       <View style={styles.Container}>
         <HeaderQuiz />
         <View style={styles.ContainerQuestion}>
@@ -66,40 +76,39 @@ const Quiz = props => {
               backgroundColor: COLORS.white,
               borderRadius: SIZES.height * 0.3,
             }}>
-            <ProgressQuiz Text="Total Score" Persentage={50} />
+            <ProgressQuiz Text="Total Score" Persentage={Persentage} />
           </View>
 
+
           <View
-            style={[styles.subRowContainer, {marginTop: -SIZES.height * 0.03}]}>
+            style={[styles.subRowContainer, { marginTop: -SIZES.height * 0.03 }]}>
+
             <View style={styles.persentageContaier}>
-              <Text style={{color: '#457567', marginHorizontal: 3}}>4</Text>
-              <View style={styles.persentageView}></View>
+              <Text style={{ color: '#457567', marginHorizontal: 3 }}>{CorrectQuestion}</Text>
+              <Slider width='90%' backgroundColor={'green'} Value={(CorrectQuestion / QuestionNum) * 100} />
             </View>
+
             <View style={styles.persentageContaier}>
-              <View
-                style={[
-                  styles.persentageView,
-                  {
-                    backgroundColor: '#f33',
-                  },
-                ]}></View>
-              <Text style={{color: '#f33', marginHorizontal: 3}}>3</Text>
+              <Slider width='90%' backgroundColor={'red'} Value={(WrongQuestion / QuestionNum) * 100} />
+              <Text style={{ color: '#f33', marginHorizontal: 3 }}>{WrongQuestion}</Text>
             </View>
           </View>
+
+
           <View>
             <Text
               style={[
                 styles.textStyleBtn,
-                {color: COLORS.blue, marginTop: '8%'},
+                { color: COLORS.blue, marginTop: '8%' },
               ]}>
               Question {numberQuestion + 1}{' '}
-              <Text style={{fontSize: SIZES.h2}}>/{quiz.length}</Text>
+              <Text style={{ fontSize: SIZES.h2 }}>/{quiz.length}</Text>
             </Text>
           </View>
           <Text
             style={[
               styles.textStyleBtn,
-              {color: COLORS.black, fontSize: SIZES.h2 + 4, marginTop: '8%'},
+              { color: COLORS.black, fontSize: SIZES.h2 + 4, marginTop: '8%' },
             ]}>
             {quiz[numberQuestion].question}
           </Text>
@@ -129,9 +138,9 @@ const Quiz = props => {
           </View>
           <View style={styles.timerContainer}>
             <Image source={Icons.stopwatch} style={styles.stopwatchStyle} />
-            <Text style={{textAlign: 'center', color: COLORS.blue}}>
+            <Text style={{ textAlign: 'center', color: COLORS.blue }}>
               {stopwatch + '\n'}
-              <Text style={{fontSize: SIZES.h5}}>millieSecond</Text>
+              <Text style={{ fontSize: SIZES.h5 }}>millieSecond</Text>
             </Text>
           </View>
           <View
@@ -147,7 +156,7 @@ const Quiz = props => {
               <Image source={Icons.Check} style={styles.checkAswerStyle} />
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.answerBtn, {backgroundColor: COLORS.gray}]}
+              style={[styles.answerBtn, { backgroundColor: COLORS.gray }]}
               onPress={() => clickAnswer(0)}>
               <Image
                 source={Icons.Cancel}
@@ -164,6 +173,11 @@ const Quiz = props => {
         <SmallButton
           Text={quiz.length == numberQuestion + 1 ? 'Done' : 'Next'}
           onPress={() => {
+            selectedAswer == quiz[numberQuestion].correctAnswer ? setCorrectQuestion(CorrectQuestion + 1) : setWrongQuestion(WrongQuestion + 1)
+           
+            numberQuestion < 1 ? setPersentage(((CorrectQuestion + 1 / QuestionNum) * 100) | 0) : setPersentage(((CorrectQuestion / QuestionNum) * 100) | 0)
+            console.log(Persentage)
+
             if (quiz.length > numberQuestion + 1) {
               let newQuiz = quiz;
               newQuiz[numberQuestion].stopwatch = stopwatch;

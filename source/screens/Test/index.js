@@ -26,11 +26,11 @@ const Test = props => {
     },
     {
       text: 'if you find a correct answer ,press the correct button ',
-      Image: Icons.Clock
+      Image: Icons.Check
     },
     {
       text: "if you don't find a correct answer ,press the Worng button ",
-      Image: Icons.Clock
+      Image: Icons.Cancel
     },
     {
       text: 'The reaction time for each question will be calculated separately from the start of pressing the start button until choosing the true or false button'
