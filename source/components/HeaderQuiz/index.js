@@ -1,5 +1,6 @@
 import {
   Image,
+  StatusBar,
   StyleSheet,
   Text,
   TextInput,
@@ -7,22 +8,24 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {Icons, COLORS, SHADOW, SIZES, SPACING} from '../../config';
+import { Icons, COLORS, SHADOW, SIZES, SPACING } from '../../config';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 
 const HeaderQuiz = () => {
-  const navigation=useNavigation()
+  const navigation = useNavigation()
   return (
     <>
+      <StatusBar barStyle={'light-content'} backgroundColor={COLORS.blue} />
+
       <LinearGradient
         colors={[COLORS.blue, COLORS.lightGray]}
         style={styles.container}>
         <View style={styles.subHeader}>
           <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-          }}
+            onPress={() => {
+              navigation.goBack();
+            }}
           >
             <Image source={Icons.Back} style={styles.Image_Style} />
           </TouchableOpacity>
@@ -50,7 +53,7 @@ const styles = StyleSheet.create({
   ],
   subHeader: {
     width: '100%',
-    alignItems:"flex-start"
+    alignItems: "flex-start"
   },
 
   subContainerImgs: {
@@ -60,10 +63,10 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   Image_Style: {
-    width: SPACING.l+5,
-    height: SPACING.l+5,
+    width: SPACING.l + 5,
+    height: SPACING.l + 5,
     marginHorizontal: SPACING.s,
-    tintColor:COLORS.white,
+    tintColor: COLORS.white,
   },
   IconContainer: {
     width: SIZES.avatar * 0.75,

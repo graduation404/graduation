@@ -20,7 +20,7 @@ const Test = props => {
   const [age, setage] = useState(12);
   const [LevelIndex, setLevelIndex] = useState(null);
   const [BookletIndex, setBookletIndex] = useState(null);
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [Texts, setTexts] = useState([
     {
@@ -260,7 +260,7 @@ const Test = props => {
             )}
           />
 
-          <SmallButton Text="Start" onPress={() => { setModalVisible(false) }} />
+          <SmallButton Text="Start" onPress={() => { setModalVisible(false), navigation.navigate("Quiz") }} />
         </View>
       </Modal>
 
@@ -298,7 +298,7 @@ const Test = props => {
             <Animatable.View animation={'zoomInUp'}>
               <LargeButton
                 onPress={() => {
-                  navigation.navigate("Quiz")
+                  setModalVisible(true)
                 }}
                 Text="Let's Go"
               />
