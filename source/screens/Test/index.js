@@ -1,6 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, Image, Modal, Pressable, StyleSheet, Text, View } from 'react-native';
-import { RFPercentage } from 'react-native-responsive-fontsize';
+import React, {useEffect, useState} from 'react';
+import {
+  FlatList,
+  Image,
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {RFPercentage} from 'react-native-responsive-fontsize';
 import {
   BookletContainer,
   Card,
@@ -9,12 +18,19 @@ import {
   SmallButton,
   StaticHeader,
 } from '../../components';
-import { COLORS, GuideLineSubText, Icons, Line, SHADOW, SIZES } from '../../config';
+import {
+  COLORS,
+  GuideLineSubText,
+  Icons,
+  Line,
+  SHADOW,
+  SIZES,
+} from '../../config';
 import * as Animatable from 'react-native-animatable';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 const Test = props => {
-  const navigation=useNavigation()
+  const navigation = useNavigation();
   const [name, setName] = useState('Ahmed Khalifa');
   const [id, setid] = useState(582222);
   const [age, setage] = useState(12);
@@ -24,18 +40,18 @@ const Test = props => {
 
   const [Texts, setTexts] = useState([
     {
-      text: 'Read the question carefully and check if the answer is amoung the answer given'
+      text: 'Read the question carefully and check if the answer is amoung the answer given',
     },
     {
       text: 'if you find a correct answer ,press the correct button ',
-      Image: Icons.Check
+      Image: Icons.Check,
     },
     {
       text: "if you don't find a correct answer ,press the Worng button ",
-      Image: Icons.Cancel
+      Image: Icons.Cancel,
     },
     {
-      text: 'The reaction time for each question will be calculated separately from the start of pressing the start button until choosing the true or false button'
+      text: 'The reaction time for each question will be calculated separately from the start of pressing the start button until choosing the true or false button',
     },
   ]);
 
@@ -130,12 +146,12 @@ const Test = props => {
     return (
       <>
         <View
-          style={{ height: RFPercentage(23.5), paddingRight: RFPercentage(1.5) }}>
+          style={{height: RFPercentage(23.5), paddingRight: RFPercentage(1.5)}}>
           <FlatList
             data={LevelsArray}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            renderItem={({ item, index }) => (
+            renderItem={({item, index}) => (
               <>
                 <LevelContainer
                   onPress={() => {
@@ -163,12 +179,12 @@ const Test = props => {
     return (
       <>
         <View
-          style={{ height: RFPercentage(23.5), paddingRight: RFPercentage(1.5) }}>
+          style={{height: RFPercentage(23.5), paddingRight: RFPercentage(1.5)}}>
           <FlatList
             data={BookletArray[LevelIndex].Array}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            renderItem={({ item, index }) => (
+            renderItem={({item, index}) => (
               <>
                 <BookletContainer
                   onPress={() => {
@@ -197,7 +213,7 @@ const Test = props => {
   const CardView = () => {
     return (
       <Card
-        colors={[COLORS.blue, COLORS.lightGray]}
+        colors={[COLORS.blue, COLORS.darkGray]}
         RenderItems={
           <>
             <View style={styles.card_Container}>
@@ -212,9 +228,13 @@ const Test = props => {
                   <Text style={styles.Age_Text}>{age} Years</Text>
                 </View>
               </View>
-              <View style={styles.backIconStyle}>
+              <TouchableOpacity
+                style={styles.backIconStyle}
+                onPress={() => {
+                  props.navigation.navigate('PatientProfile');
+                }}>
                 <Image source={Icons.Next} style={styles.Image_Style} />
-              </View>
+              </TouchableOpacity>
             </View>
 
             <Line />
@@ -235,47 +255,68 @@ const Test = props => {
     return firstWord;
   };
 
-
   const ModalView = () => {
     return (
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-       >
-        <View style={{ position: 'absolute', bottom: 0, paddingHorizontal: RFPercentage(4), elevation: 20, backgroundColor: COLORS.white, borderTopLeftRadius: 30, borderTopRightRadius: 30, width: SIZES.width, justifyContent: 'space-between', alignItems: 'center', paddingVertical: RFPercentage(2) }}>
-
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <Modal animationType="slide" transparent={true} visible={modalVisible}>
+        <View
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            paddingHorizontal: RFPercentage(4),
+            elevation: 20,
+            backgroundColor: COLORS.white,
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 30,
+            width: SIZES.width,
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingVertical: RFPercentage(2),
+          }}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Image
               source={Icons.Test}
-              style={{ height: RFPercentage(5), width: RFPercentage(5) }}
+              style={{height: RFPercentage(5), width: RFPercentage(5)}}
             />
-            <Text style={{ color: COLORS.blue, fontSize: RFPercentage(5), fontWeight: 'bold' }}> GuideLine</Text>
+            <Text
+              style={{
+                color: COLORS.blue,
+                fontSize: RFPercentage(3),
+                fontWeight: 'bold',
+              }}>
+              {' '}
+              GuideLine
+            </Text>
           </View>
 
-          <FlatList data={Texts}
-            style={{ marginTop: RFPercentage(5) }}
-            renderItem={({ item, index }) => (
+          <FlatList
+            data={Texts}
+            style={{marginTop: RFPercentage(5)}}
+            renderItem={({item, index}) => (
               <GuideLineSubText Text={item.text} Image={item.Image} />
             )}
           />
 
-          <SmallButton Text="Start" onPress={() => { setModalVisible(false), navigation.navigate("Quiz") }} />
+          <SmallButton
+            Text="Start"
+            onPress={() => {
+              setModalVisible(false), navigation.navigate('Quiz');
+            }}
+          />
         </View>
       </Modal>
-
-    )
-  }
+    );
+  };
   return (
     <>
       <View style={styles.container}>
         <StaticHeader Header_name="Test" />
         <Text
           style={{
-            fontSize: RFPercentage(4),
+            fontSize: SIZES.title,
             paddingHorizontal: RFPercentage(2.5),
-            paddingBottom: RFPercentage(2.5),
+            paddingBottom: RFPercentage(1),
             fontWeight: 'bold',
+            color: COLORS.darkGray,
           }}>
           Hi, {sub()}
         </Text>
@@ -298,7 +339,7 @@ const Test = props => {
             <Animatable.View animation={'zoomInUp'}>
               <LargeButton
                 onPress={() => {
-                  setModalVisible(true)
+                  setModalVisible(true);
                 }}
                 Text="Let's Go"
               />
@@ -363,7 +404,7 @@ const styles = StyleSheet.create({
     fontSize: SIZES.h2,
     color: COLORS.black,
     fontWeight: 'bold',
-    marginTop: RFPercentage(2),
+    marginTop: RFPercentage(1),
   },
   MainOnline_View: {
     flexDirection: 'row',
@@ -403,9 +444,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-
-
-
 });
 
 export default Test;

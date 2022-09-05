@@ -19,7 +19,7 @@ const HeaderQuiz = () => {
       <StatusBar barStyle={'light-content'} backgroundColor={COLORS.blue} />
 
       <LinearGradient
-        colors={[COLORS.blue, COLORS.lightGray]}
+        colors={[COLORS.blue, COLORS.darkGray]}
         style={styles.container}>
         <View style={styles.subHeader}>
           <TouchableOpacity
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   containerSearch: {
     width: '100%',
     height: SIZES.height * 0.055,
-    backgroundColor: COLORS.lightGray,
+    backgroundColor: COLORS.darkGray,
     borderRadius: SIZES.Lradius,
     elevation: 4,
     alignSelf: 'center',

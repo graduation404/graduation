@@ -103,7 +103,7 @@ const styles = StyleSheet.create(
         Percentage_Style: {
             fontSize: SIZES.h5,
             alignSelf: 'flex-end',
-            color: COLORS.lightGray,
+            color: COLORS.darkGray,
             marginBottom: RFPercentage(1)
         }
 

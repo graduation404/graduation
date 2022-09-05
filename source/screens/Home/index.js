@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {CardHome, HeaderHome} from '../../components';
 import {COLORS, SIZES, SPACING} from '../../config';
+import {welcomeMessage} from '../../config/helperFunctions';
 const data = [
   {name: 'ahmed'},
   {name: 'hesham'},
@@ -17,7 +18,7 @@ const data = [
   {name: 'hesham'},
   {name: 'taha'},
 ];
-const Home = (props) => {
+const Home = props => {
   const [searchInput, setSearchInput] = useState('');
   useEffect(() => {
     console.log(searchInput);
@@ -41,9 +42,9 @@ const Home = (props) => {
         value={searchInput}
       />
 
-      <ScrollView style={{width: '95%', alignSelf: 'center'}}
-      showsVerticalScrollIndicator={false}
-      >
+      <ScrollView
+        style={{width: '95%', alignSelf: 'center'}}
+        showsVerticalScrollIndicator={false}>
         <TitleSection />
         <View style={{width: '100%', alignItems: 'center'}}>
           <FlatList
@@ -54,10 +55,13 @@ const Home = (props) => {
             }}
             data={data}
             renderItem={({item, index}) => (
-              <CardHome item={item} index={index} nav={props} />
+              <>
+                {item.name.toLowerCase().includes(searchInput.toLowerCase()) ? (
+                  <CardHome item={item} index={index} nav={props} />
+                ) : null}
+              </>
             )}
           />
-          
         </View>
       </ScrollView>
     </View>
@@ -84,7 +88,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   subTextStyle: {
-    color: COLORS.lightGray,
+    color: COLORS.darkGray,
     fontSize: SIZES.subTitle,
     fontWeight: '600',
     alignSelf: 'flex-start',

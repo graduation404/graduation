@@ -15,8 +15,10 @@ import {
   SmallButton,
 } from '../../components';
 import {COLORS, Icons, SIZES, SPACING} from '../../config';
+import {useNavigation} from '@react-navigation/native';
 
 const Quiz = props => {
+  const navigation = useNavigation();
   const [quiz, setQuiz] = useState([
     {
       question: 'IS There Red Color ?',
@@ -51,7 +53,6 @@ const Quiz = props => {
   const [WrongQuestion, setWrongQuestion] = useState(0);
   const [stopwatch, setStopwatch] = useState(0);
 
-
   useEffect(() => {
     timer();
   }, [stopwatch]);
@@ -61,15 +62,13 @@ const Quiz = props => {
         setStopwatch(stopwatch + 1);
       }, 1);
     } else {
-
     }
   }, [stopwatch, selectedAswer]);
 
   const clickAnswer = answer => {
     setSelectedAswer(answer);
+  };
 
-  }
-   
   return (
     <ScrollView style={{flexGrow: 1, backgroundColor: COLORS.white}}>
       <View style={styles.Container}>
@@ -82,7 +81,7 @@ const Quiz = props => {
               borderRadius: SIZES.height * 0.3,
             }}>
             <ProgressQuiz
-              Text="Total Score"
+              // Text="Total Score"
               Persentage={((CorrectQuestion / QuestionLength) * 100) | 0}
             />
           </View>
@@ -211,7 +210,7 @@ const Quiz = props => {
               console.log(JSON.stringify(newQuiz));
               setQuiz(newQuiz);
               setSelectedAswer(null);
-              alert(JSON.stringify(quiz));
+              navigation.navigate('ReportResult');
             }
           }}
         />

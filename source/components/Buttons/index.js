@@ -9,7 +9,7 @@ const LargeButton = props => {
     <>
       <TouchableOpacity activeOpacity={0.85} onPress={props.onPress}>
         <LinearGradient
-          colors={[COLORS.blue, COLORS.lightGray]}
+          colors={[COLORS.blue, COLORS.darkGray]}
           style={styles.LargeButtonView}>
           <Text style={styles.BookletText_Style}>{props.Text}</Text>
         </LinearGradient>

@@ -9,7 +9,7 @@ const HeaderProfile = (props) => {
   return (
     <>
       <LinearGradient
-        colors={[COLORS.blue, COLORS.lightGray]}
+        colors={[COLORS.blue, COLORS.darkGray]}
         style={styles.container}>
         <TouchableOpacity  onPress={() => {
             navigation.goBack();

@@ -5,13 +5,16 @@ import {COLORS, Icons, SIZES, SPACING} from '../../config';
 const CustomInputAddPatient = props => {
   return (
     <View style={styles.container}>
-      <View style={[styles.containerImage, {backgroundColor: props.colorIcon}]}>
-        <Image style={styles.img} source={props.icon} />
+      <View style={[styles.containerImage]}>
+        <Image
+          style={[styles.img, {tintColor: COLORS.white}]}
+          source={props.icon}
+        />
       </View>
       <TextInput
         style={styles.inp}
         placeholder={props.placeholder}
-        placeholderTextColor={COLORS.lightGray}
+        placeholderTextColor={COLORS.darkGray}
         onChangeText={props.onChangeText}
         value={props.value}
         keyboardType={props.keyboardType}
@@ -32,12 +35,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: SPACING.m-4,
-    paddingHorizontal:1,
-    zIndex:-1
+    marginBottom: SPACING.m - 4,
+    paddingHorizontal: 1,
+    zIndex: -1,
   },
   containerImage: {
-    width: SIZES.inputHeight+3,
+    width: SIZES.inputHeight + 3,
     height: '100%',
     backgroundColor: COLORS.blue,
     borderRadius: SPACING.l,

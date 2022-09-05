@@ -14,7 +14,7 @@ const HeaderHome = ({value, onChangeText, nav}) => {
   return (
     <>
       <LinearGradient
-        colors={[COLORS.blue, COLORS.lightGray]}
+        colors={[COLORS.blue, COLORS.darkGray]}
         style={styles.container}>
         <View style={styles.subContainerImgs}>
           <TouchableOpacity style={styles.IconContainer}
@@ -49,7 +49,7 @@ const HeaderHome = ({value, onChangeText, nav}) => {
             onChangeText={onChangeText}
           />
           <View style={[styles.IconContainer, {width: '14%', height: '100%'}]}>
-            <Image style={styles.IconStyle} source={Icons.Search} />
+            <Image style={styles.IconStyle} source={Icons.loupe} />
           </View>
         </View>
       </LinearGradient>
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     marginHorizontal: SPACING.s,
     elevation: 3,
     borderWidth: 1,
-    borderColor: COLORS.lightGray,
+    borderColor: COLORS.darkGray,
   },
   IconContainer: {
     width: SIZES.avatar * 0.75,
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   containerSearch: {
     width: '100%',
     height: SIZES.height * 0.055,
-    backgroundColor: COLORS.lightGray,
+    backgroundColor: COLORS.darkGray,
     borderRadius: SIZES.Lradius,
     elevation: 4,
     alignSelf: 'center',
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: '4%',
     alignItems: 'center',
     color: COLORS.white,
-    fontSize: SIZES.h3,
+    fontSize: SIZES.h4,
     fontWeight: '700',
     overflow: 'hidden',
   },

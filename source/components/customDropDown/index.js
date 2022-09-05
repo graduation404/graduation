@@ -26,7 +26,7 @@ const CustomDropDown = props => {
             }}
             dropDownContainerStyle={styles.dropDownContainerStyle}
             placeholder={props.placeholder}
-            placeholderStyle={{color:COLORS.lightGray}}
+            placeholderStyle={{color:COLORS.darkGray}}
           />
     </View>
   );

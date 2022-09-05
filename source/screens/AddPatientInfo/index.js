@@ -89,7 +89,7 @@ const AddPatientInfo = props => {
           />
           <CustomInputAddPatient
             placeholder="Enter Name"
-            icon={Icons.User}
+            icon={Icons.User1}
             colorIcon={COLORS.white}
             value={PatientInfo.name}
             onChangeText={text => handleChange(text.trim(), 'name')}

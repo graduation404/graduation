@@ -16,7 +16,7 @@ const LevelContainer = props => {
           style={styles.ProgressStyle}
           size={RFPercentage(8.5)}
           borderWidth={RFPercentage(0)}
-          unfilledColor={COLORS.lightGray}
+          unfilledColor={COLORS.darkGray}
           animated={true}
           color={COLORS.blue}
           progress={props.Persentage / 100}
@@ -34,7 +34,7 @@ const ProgressQuiz = props => {
         style={styles.ProgressQuizStyle}
         size={RFPercentage(13)}
         fill={COLORS.white}
-        unfilledColor={COLORS.lightGray}
+        unfilledColor={COLORS.darkGray}
         animated={true}
         allowFontScaling
         color={COLORS.blue}
@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     marginVertical: RFPercentage(2.5),
     marginLeft: RFPercentage(2.25),
     elevation: 10,
+    backgroundColor:COLORS.white
   },
   LevelImage: {
     height: RFPercentage(4),

@@ -4,25 +4,21 @@ import {
   Text,
   View,
   Image,
-  TextInput,
   ScrollView,
   TouchableOpacity,
-  StatusBar,
 } from 'react-native';
-import {
-  Icons,
-  COLORS,
-  SIZES,
-} from '../../config';
+import {Icons, COLORS, SIZES} from '../../config';
 import LinearGradient from 'react-native-linear-gradient';
 import {CustomInputLogIn} from '../../components';
+import {SetAsyncStorage, welcomeMessage} from '../../config/helperFunctions';
 
 const Login = props => {
   const [email, setEmail] = useState('');
   const [password, setPass] = useState('');
   const [Icon_name, setIconName] = useState(Icons.eyeSlash);
   const [visible, setVisible] = useState(true);
-
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPassError] = useState('');
   function Visible() {
     if (visible == false) {
       setVisible(true);
@@ -33,12 +29,31 @@ const Login = props => {
     }
   }
 
+  const logInPress = () => {
+    if (email.length > 0 || password.length > 0) {
+      if (email.toLowerCase() != 'admin') {
+        setEmailError('Please Enter Valid Email');
+        setPassError('');
+      } else if (password.toLowerCase() != '12345') {
+        setEmailError('');
+        setPassError('Please Enter Valid Password');
+      } else {
+        SetAsyncStorage('admin', {email, password});
+        props.navigation.replace('HomeStack');
+        welcomeMessage();
+      }
+    } else {
+      setPassError('Please Enter Valid Password');
+      setEmailError('Please Enter Valid Email');
+    }
+  };
+
   return (
     <>
       <ScrollView style={{flexGrow: 1}}>
         <View style={styles.Container}>
           <LinearGradient
-            colors={[COLORS.blue, COLORS.lightGray]}
+            colors={[COLORS.blue, COLORS.darkGray]}
             style={styles.linearGradient}>
             <View style={styles.Image_Container}>
               <Image source={Icons.Auditory} style={styles.auditoryStyle} />
@@ -70,6 +85,7 @@ const Login = props => {
               onChangeText={val => {
                 setEmail(val.trim());
               }}
+              error={emailError ? emailError : false}
             />
             <CustomInputLogIn
               label="Password..."
@@ -84,32 +100,26 @@ const Login = props => {
               onChangeText={val => {
                 setPass(val.trim());
               }}
+              error={passwordError ? passwordError : false}
             />
 
             <TouchableOpacity
               style={styles.signin_touchable}
-              onPress={() => {
-                if (email && password) {
-                  props.navigation.replace('Home');
-                  // alert("hi")
-                } else {
-                  alert('Please Fill All Data');
-                }
-              }}>
+              onPress={logInPress}>
               <Text style={[styles.text_signin, {color: COLORS.white}]}>
                 SIGN IN
               </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.forgetPass_Container}>
+            {/* <TouchableOpacity style={styles.forgetPass_Container}>
               <Text
                 style={[
                   styles.text_signin,
-                  {color: COLORS.lightGray, fontSize: SIZES.h4},
+                  {color: COLORS.darkGray, fontSize: SIZES.h4},
                 ]}>
                 Forget Password ?
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
       </ScrollView>
@@ -161,7 +171,7 @@ const styles = StyleSheet.create({
   },
   inner_signin_view: {
     width: '25%',
-    borderColor: COLORS.lightGray,
+    borderColor: COLORS.darkGray,
     borderTopWidth: 1,
   },
   text_signin: {

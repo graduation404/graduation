@@ -1,6 +1,13 @@
-import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
-import { COLORS, SHADOW, SIZES } from '../../config';
+import {COLORS, SHADOW, SIZES} from '../../config';
 
 const CustomInputLogIn = props => {
   return (
@@ -27,14 +34,16 @@ const CustomInputLogIn = props => {
               width: props.label == 'Password...' ? '70%' : '85%',
               borderTopRightRadius: SIZES.height * 0.03,
               borderBottomRightRadius: SIZES.height * 0.03,
-              color: COLORS.lightGray,
+              color: COLORS.darkGray,
             },
           ]}
           keyboardType={props.keyboardType}
           placeholder={props.label}
-          placeholderTextColor={COLORS.lightGray}
+          placeholderTextColor={COLORS.darkGray}
           value={props.email}
-          secureTextEntry={props.label=="Password..."?props.secureTextEntry:false}
+          secureTextEntry={
+            props.label == 'Password...' ? props.secureTextEntry : false
+          }
           onChangeText={props.onChangeText}
         />
         {props.label == 'Password...' ? (
@@ -55,6 +64,11 @@ const CustomInputLogIn = props => {
           </TouchableOpacity>
         ) : null}
       </View>
+      {props.error ? (
+        <View style={{width: '85%',alignSelf:"center"}}>
+          <Text style={styles.textError}>{props.error}</Text>
+        </View>
+      ) : null}
     </>
   );
 };
@@ -93,5 +107,9 @@ const styles = StyleSheet.create({
   email_image: {
     width: '69%',
     height: '50%',
+  },
+  textError: {
+    color: '#a00',
+    fontSize: SIZES.h4,
   },
 });

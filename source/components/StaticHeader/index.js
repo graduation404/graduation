@@ -15,15 +15,20 @@ const StaticHeader = props => {
   const navigation = useNavigation();
   return (
     <>
-      <StatusBar barStyle={'dark-content'} backgroundColor={COLORS.white} />
+      <StatusBar
+        barStyle={'dark-content'}
+        backgroundColor={
+          props.style ? props.style.backgroundColor : COLORS.white
+        }
+      />
 
-      <View style={styles.container}>
+      <View style={[styles.container, props.style]}>
         <TouchableOpacity
           activeOpacity={0.85}
           onPress={() => {
             navigation.goBack();
           }}>
-          <Image source={Icons.Back} style={styles.Image_Style} />
+          <Image source={Icons.Back} style={[styles.Image_Style]} />
         </TouchableOpacity>
 
         <Text style={styles.textStyle}>{props.Header_name}</Text>
@@ -36,7 +41,7 @@ const StaticHeader = props => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: RFPercentage(3),
+    paddingVertical: RFPercentage(2),
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: RFPercentage(2.5),

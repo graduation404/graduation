@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
   Age_Text: {
     fontSize: SIZES.h4,
     fontWeight: 'bold',
-    color: COLORS.lightGray,
+    color: COLORS.darkGray,
     textAlign: 'center',
   },
   last_Container_View: {
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
   id_Style: {
     fontSize: SIZES.h4,
     fontWeight: 'bold',
-    color: COLORS.lightGray,
+    color: COLORS.darkGray,
     marginTop: RFPercentage(1),
   },
   name_Style: {

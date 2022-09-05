@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -8,12 +9,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { RFPercentage } from 'react-native-responsive-fontsize';
-import {
-  Card,
-  HeaderProfile,
-  PatientsDataContainer,
-} from '../../components';
+import {RFPercentage} from 'react-native-responsive-fontsize';
+import {Card, HeaderProfile, PatientsDataContainer} from '../../components';
 import {
   Icons,
   Line,
@@ -25,7 +22,8 @@ import {
   Range_Function,
 } from '../../config';
 
-const AdminProfile = () => {
+const AdminProfile = props => {
+
   const [AdminName, setAdminName] = useState('Dr Khalifa');
   const [AdminEmail, setAdminEmail] = useState('admin@gmail.com');
   const [age, setage] = useState(22);
@@ -34,34 +32,48 @@ const AdminProfile = () => {
     {
       name: 'Change Password',
       image: Icons.Lock,
+      onPress: async () => {
+        alert('Change Password');
+      },
     },
     {
       name: 'Change Language',
       image: Icons.Language,
+      onPress: async () => {
+        alert('Change Language');
+      },
     },
     {
       name: 'Log Out',
       image: Icons.Logout,
+      onPress: async () => {
+        await AsyncStorage.removeItem('admin');
+        props.navigation.replace('Login');
+      },
     },
   ]);
 
   const DataList = () => {
     return (
-      <View style={{ height: SIZES.height * 0.7, justifyContent: 'center' }}>
-        <View style={{ height: RFPercentage(8) }} />
+      <View style={{height: SIZES.height * 0.7, justifyContent: 'center'}}>
+        <View style={{height: RFPercentage(8)}} />
         <FlatList
           data={PatientsDataValue}
-          renderItem={({ item, index }) => (
+          renderItem={({item, index}) => (
             <>
-              <PatientsDataContainer button={button} onPress={()=>{alert(item.name)}} name={item.name} Image={item.image} />
+              <PatientsDataContainer
+                button={button}
+                onPress={item.onPress}
+                name={item.name}
+                Image={item.image}
+              />
             </>
           )}
         />
-        <View style={{ height: RFPercentage(2) }} />
+        <View style={{height: RFPercentage(2)}} />
       </View>
     );
   };
-
 
   const CardList = () => {
     return (
@@ -70,17 +82,18 @@ const AdminProfile = () => {
         RenderItems={
           <>
             <View style={styles.card_Container}>
-
               <Image style={styles.Image_Style} />
 
               <View style={styles.Image_Container}>
                 <Image source={Icons.Avatar} style={styles.GenderImage_Style} />
               </View>
 
-              <TouchableOpacity onPress={() => { alert('edit') }}>
+              <TouchableOpacity
+                onPress={() => {
+                  alert('edit');
+                }}>
                 <Image source={Icons.Pen} style={styles.Image_Style} />
               </TouchableOpacity>
-
             </View>
 
             <Text style={styles.AdminName_Style}>{AdminName}</Text>
@@ -88,14 +101,17 @@ const AdminProfile = () => {
           </>
         }
       />
-
-    )
-  }
+    );
+  };
 
   return (
     <View style={styles.Container}>
-      <HeaderProfile onPress={() => { alert('back') }} Header_name={'My Profile'} />
-
+      <HeaderProfile
+        onPress={() => {
+          alert('back');
+        }}
+        Header_name={'My Profile'}
+      />
 
       <CardList />
 
@@ -143,7 +159,7 @@ const styles = StyleSheet.create({
   Age_Text: {
     fontSize: SIZES.h4,
     fontWeight: 'bold',
-    color: COLORS.lightGray,
+    color: COLORS.darkGray,
     marginTop: RFPercentage(0.5),
   },
   last_Container_View: {
@@ -154,7 +170,7 @@ const styles = StyleSheet.create({
   AdminEmail_Style: {
     fontSize: SIZES.h4,
     fontWeight: 'bold',
-    color: COLORS.lightGray,
+    color: COLORS.darkGray,
     marginTop: RFPercentage(1),
   },
   AdminName_Style: {

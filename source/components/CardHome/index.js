@@ -106,16 +106,18 @@ export default CardHome;
 const styles = StyleSheet.create({
   Container: [
     {
-      width: '100%',
-      elevation: 3,
+      width: '98%',
+      elevation: 5,
       height: SIZES.height * 0.2,
       backgroundColor: COLORS.white,
       borderRadius: SPACING.s,
       overflow: 'hidden',
       padding: 0,
       marginVertical: SPACING.s,
+      marginLeft:"1%"
+      
     },
-    SHADOW.light,
+    SHADOW.dark,
   ],
   leftTopSubContainer: {
     width: '20%',
@@ -131,7 +133,7 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     width: '100%',
-    height: '75%',
+    height: '70%',
     flexDirection: 'row',
   },
   subContainerTitleAge: {
@@ -150,9 +152,9 @@ const styles = StyleSheet.create({
   },
   ButtomContainer: {
     width: '100%',
-    height: '26%',
+    height: '30%',
     paddingBottom: '1%',
-    backgroundColor: COLORS.lightGray,
+    backgroundColor: COLORS.gray,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -191,7 +193,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   subTextStyle: {
-    color: COLORS.lightGray,
+    color: COLORS.darkGray,
     fontSize: SIZES.subTitle,
     fontWeight: '600',
     alignSelf: 'flex-start',
