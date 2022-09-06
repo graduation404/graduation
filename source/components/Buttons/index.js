@@ -24,7 +24,7 @@ const SmallButton = props => {
       <TouchableOpacity
         onPress={props.onPress}
         activeOpacity={0.85}
-        style={styles.SmallButtonView}>
+        style={[styles.SmallButtonView,props.style]}>
         {props.Icon ? (
           <Image source={props.Icon} style={styles.Image_Style} />
         ) : null}

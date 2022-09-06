@@ -20,14 +20,13 @@ const Question = require('../assets/icons/question.png');
 const Test = require('../assets/icons/test.png');
 const User = require('../assets/icons/user.png');
 const User1 = require('../assets/icons/user1.png');
-
 const Woman = require('../assets/icons/woman.png');
 const Write = require('../assets/icons/write.png');
 const Back = require('../assets/icons/back.png');
 const Pen = require('../assets/icons/pen.png');
 const Avatar = require('../assets/imgs/avatar.jpg');
 const Search = require('../assets/icons/search.png');
-const Lock = require('../assets/icons/lock3.png');
+const Lock = require('../assets/icons/lock.png');
 const Language = require('../assets/icons/language.png');
 const Logout = require('../assets/icons/logout.png');
 const Next = require('../assets/icons/next.png');
@@ -41,6 +40,9 @@ const stopwatch = require('../assets/icons/stopwatch.png');
 const Cancel = require('../assets/icons/cancel1.png');
 const truee = require('../assets/icons/check-mark.png');
 const loupe = require('../assets/icons/loupe.png');
+const View = require('../assets/icons/view.png');
+const Hide = require('../assets/icons/hide.png');
+const Account = require('../assets/icons/account.png');
 export default {
   AddFile,
   AddUser,
@@ -83,5 +85,8 @@ export default {
   stopwatch,
   truee,
   loupe,
-  User1
+  User1,
+  Account,
+  View,
+  Hide,
 };

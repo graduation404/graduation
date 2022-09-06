@@ -58,14 +58,14 @@ const CustomInputLogIn = props => {
             onPress={props.onPress}>
             <Image
               source={props.iconEye}
-              style={styles.email_image}
+              style={[styles.email_image, {tintColor: COLORS.darkGray}]}
               resizeMode="contain"
             />
           </TouchableOpacity>
         ) : null}
       </View>
       {props.error ? (
-        <View style={{width: '85%',alignSelf:"center"}}>
+        <View style={{width: '85%', alignSelf: 'center'}}>
           <Text style={styles.textError}>{props.error}</Text>
         </View>
       ) : null}
@@ -105,8 +105,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   email_image: {
-    width: '69%',
-    height: '50%',
+    width: '100%',
+    height: '60%',
+    tintColor: COLORS.black,
   },
   textError: {
     color: '#a00',
