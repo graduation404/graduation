@@ -65,7 +65,7 @@ const ReportResult = () => {
             style={{backgroundColor: '#A3DEFF'}}
           />
           <View style={styles.Top_Container}>
-            <BookletContainer Text={'Level 1'} Image={Icons.Signal} />
+            <LevelContainer Persentage={50} Text={'Level 1'}  Image={Icons.Signal} />
 
             <BookletContainer Text={'Booklet 1'} Image={Icons.Books} />
             <View style={styles.progressContainer}>

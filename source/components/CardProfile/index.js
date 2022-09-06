@@ -16,7 +16,7 @@ export default Card;
 
 const styles = StyleSheet.create({
   container: {
-    width: '87.5%',
+    width: '92.5%',
     paddingVertical: RFPercentage(3),
     paddingHorizontal: RFPercentage(2),
     backgroundColor: COLORS.white,
