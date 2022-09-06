@@ -26,7 +26,7 @@ const HeaderHome = ({value, onChangeText, nav}) => {
           </TouchableOpacity>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={styles.IconContainer}>
-              <Image style={styles.IconStyle} source={Icons.Question} />
+              <Image style={styles.IconStyle} source={Icons.AddFile} />
             </View>
             <TouchableOpacity
               onPress={() => {
@@ -49,7 +49,7 @@ const HeaderHome = ({value, onChangeText, nav}) => {
             onChangeText={onChangeText}
           />
           <View style={[styles.IconContainer, {width: '14%', height: '100%'}]}>
-            <Image style={styles.IconStyle} source={Icons.loupe} />
+            <Image style={[styles.IconStyle,{tintColor:COLORS.blue}]} source={Icons.loupe} />
           </View>
         </View>
       </LinearGradient>

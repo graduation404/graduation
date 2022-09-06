@@ -15,17 +15,17 @@ import {SetAsyncStorage, welcomeMessage} from '../../config/helperFunctions';
 const Login = props => {
   const [email, setEmail] = useState('');
   const [password, setPass] = useState('');
-  const [Icon_name, setIconName] = useState(Icons.eyeSlash);
+  const [Icon_name, setIconName] = useState(Icons.Hide);
   const [visible, setVisible] = useState(true);
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPassError] = useState('');
   function Visible() {
     if (visible == false) {
       setVisible(true);
-      setIconName(Icons.eyeSlash);
+      setIconName(Icons.Hide);
     } else {
       setVisible(false);
-      setIconName(Icons.eye);
+      setIconName(Icons.View);
     }
   }
 
@@ -80,7 +80,7 @@ const Login = props => {
             <CustomInputLogIn
               label="Email..."
               keyboardType="email-address"
-              icon={Icons.User}
+              icon={Icons.Account}
               value={email}
               onChangeText={val => {
                 setEmail(val.trim());
