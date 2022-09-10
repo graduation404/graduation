@@ -18,7 +18,7 @@ import {
   SHADOW,
   Range_Function,
 } from '../../config';
-import {LevelContainer, ProgressQuiz, SmallButton, StaticHeader} from '../../components';
+import {LevelContainer, ProgressQuiz, StaticHeader} from '../../components';
 import {RFPercentage} from 'react-native-responsive-fontsize';
 import {BookletContainer} from '../../components';
 import React, {useEffect, useState} from 'react';
@@ -58,25 +58,16 @@ const ReportResult = () => {
 
   return (
     <>
- 
+      <ScrollView>
         <View style={styles.Container}>
           <StaticHeader
             Header_name={'Result'}
             style={{backgroundColor: '#A3DEFF'}}
           />
-               <ScrollView style={{flexGrow:1}}>
           <View style={styles.Top_Container}>
-            <BookletContainer
-              Text={'Level 1'}
-              Image={Icons.Signal}
-              style={{borderWidth: 2, borderColor: COLORS.blue}}
-            />
+            <LevelContainer Persentage={50} Text={'Level 1'}  Image={Icons.Signal} />
 
-            <BookletContainer
-              Text={'Booklet 1'}
-              Image={Icons.Books}
-              style={{borderWidth: 2, borderColor: COLORS.blue}}
-            />
+            <BookletContainer Text={'Booklet 1'} Image={Icons.Books} />
             <View style={styles.progressContainer}>
               <ProgressQuiz Persentage={50} />
             </View>
@@ -90,9 +81,7 @@ const ReportResult = () => {
                 <>
                   <View style={styles.Main_view}>
                     <View style={styles.Trial_View}>
-                      <Text style={[styles.trialText, {color: COLORS.white}]}>
-                        Trial {item.id}
-                      </Text>
+                      <Text style={[styles.trialText,{color:COLORS.white}]}>Trial {item.id}</Text>
                     </View>
 
                     <View style={styles.Time_View}>
@@ -111,17 +100,9 @@ const ReportResult = () => {
 
           <View style={styles.blue_contianer}>
             <View style={styles.blue_view}>
-              <View
-                style={styles.rowsSubBottomContainer}>
-                <Text style={styles.Reaction_Time_Title}>
-                  Reaction Time (Booklet)
-                </Text>
-                <Image
-                  source={Icons.stopwatch}
-                  style={styles.iconStopwatch}
-                />
-              </View>
-
+              <Text style={styles.Reaction_Time_Title}>
+                Reaction Time (Booklet)
+              </Text>
               <View style={styles.Reaction_Time_Contianer}>
                 <Text style={styles.Reaction_Time_Text}>2230.830</Text>
               </View>
@@ -132,13 +113,11 @@ const ReportResult = () => {
             </View>
           </View>
 
-          {/* <View style={styles.touchableopacity_style}>
+          <View style={styles.touchableopacity_style}>
             <Text style={styles.done_style}>Done</Text>
-          </View> */}
-          <SmallButton Text="Done" style={{alignSelf:"center"}}/>
-          </ScrollView>
+          </View>
         </View>
-      
+      </ScrollView>
     </>
   );
 };
@@ -277,16 +256,15 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.blue,
     height: '15%',
     borderRadius: 15,
-    alignSelf: 'flex-end',
-    marginTop: "2%",
+    alignSelf: 'center',
+    marginTop: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal:"2%"
   },
   Reaction_Time_Text: {
     color: COLORS.white,
     fontWeight: 'bold',
-    paddingHorizontal: "2%",
+    paddingHorizontal: 8,
   },
 
   touchableopacity_style: {
@@ -305,16 +283,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 15,
   },
-  rowsSubBottomContainer:{
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    marginTop: '1%',
-  },
-  iconStopwatch:{
-    width: '20%',
-    height: SIZES.height * 0.04,
-    resizeMode: 'contain',
-    // marginTop:"2%"
-  }
 });

@@ -237,7 +237,8 @@ const Report = props => {
             <Animatable.View animation={'zoomInUp'}>
               <LargeButton
                 onPress={() => {
-                  alert('See Result');
+                  // alert('See Result');
+                  props.navigation.navigate('ReportResult')
                 }}
                 Text="See Result"
               />

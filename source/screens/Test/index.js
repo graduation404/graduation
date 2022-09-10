@@ -59,22 +59,22 @@ const Test = props => {
     {
       Text: 'Level 1',
       Image: Icons.Signal,
-      Persentage: 40,
+      Persentage: 25,
     },
     {
       Text: 'Level 2',
       Image: Icons.Signal,
-      Persentage: 80,
+      Persentage: 50,
     },
     {
       Text: 'Level 3',
       Image: Icons.Signal,
-      Persentage: 5,
+      Persentage: 75,
     },
     {
       Text: 'Level 4',
       Image: Icons.Signal,
-      Persentage: 10,
+      Persentage: 100,
     },
   ]);
 
@@ -141,6 +141,7 @@ const Test = props => {
       ],
     },
   ]);
+  
 
   const LevelsArrayList = () => {
     return (
