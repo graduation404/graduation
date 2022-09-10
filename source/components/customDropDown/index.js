@@ -8,7 +8,7 @@ const CustomDropDown = props => {
   return (
     <View style={styles.container}>
       <View style={[styles.containerImage, {backgroundColor: props.colorIcon}]}>
-        <Image style={styles.img} source={props.icon} />
+        <Image style={styles.img} source={props.icon} resizeMode="contain" />
       </View>
       
       <DropDownPicker
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     width: '70%',
     height: '70%',
     resizeMode: 'contain',
+    tintColor:COLORS.white
   },
   inp: {
     width: '83%',

@@ -25,9 +25,13 @@ const HeaderHome = ({value, onChangeText, nav}) => {
             <Image style={styles.IconStyle} source={Icons.AddUser} />
           </TouchableOpacity>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={styles.IconContainer}>
+            <TouchableOpacity style={styles.IconContainer}
+             onPress={() => {
+              nav.navigation.navigate('ChooseDataQuiz');
+            }}
+            >
               <Image style={styles.IconStyle} source={Icons.AddFile} />
-            </View>
+            </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
                 nav.navigation.navigate('AdminProfile');
