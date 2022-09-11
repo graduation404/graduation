@@ -5,6 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {
   AddPatientInfo,
   AdminProfile,
+  ChooseDataQuiz,
   Home,
   Login,
   PatientProfile,
@@ -49,6 +50,7 @@ const Navigation = () => {
           <Stack.Screen name="Test" component={Test} />
           <Stack.Screen name="ReportResult" component={ReportResult} />
           <Stack.Screen name="Quiz" component={Quiz} />
+          <Stack.Screen name="ChooseDataQuiz" component={ChooseDataQuiz} />
         </Stack.Navigator>
     )
   }
