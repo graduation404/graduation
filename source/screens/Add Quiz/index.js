@@ -24,13 +24,16 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import { BookletContainer } from '../../components';
 import React, { useEffect, useState } from 'react';
 
-const AddQuiz = () => {
+const AddQuiz = ({ route, navigation }) => {
+    const { ageGroup, ChooseBooklet, ChooseLevel, LevelLength } = route.params
+
     const [isFocused, setisFocused] = useState(false);
     const [QuestionText, setQuestionText] = useState('');
     const [clickedIndex, setclickedIndex] = useState(null);
-    const [YearsValue, setYearsValue] = useState('6-10');
-    const [LevelIndex, setLevelIndex] = useState(1);
-    const [BookletIndex, setBookletIndex] = useState(1);
+    const [YearsValue, setYearsValue] = useState(ageGroup + '');
+    const [LevelIndex, setLevelIndex] = useState(ChooseLevel);
+    const [BookletIndex, setBookletIndex] = useState(ChooseBooklet);
+    const [Persentage, setPersentager] = useState((100 / LevelLength) * ChooseLevel);
     const [selectedAswer, setSelectedAswer] = useState(null);
     const [Questions, setQuestions] = useState([])
     const [QuestionInd, setQuestionInd] = useState(1)
@@ -56,7 +59,7 @@ const AddQuiz = () => {
     }
 
     useEffect(() => {
-        console.log(Questions)
+        // console.log(Persentage)
     },)
 
     return (
@@ -70,16 +73,16 @@ const AddQuiz = () => {
                 <View style={styles.Top_Container}>
 
                     <BookletContainer Text={'(' + YearsValue + ')' + ' Years'} Image={Icons.Age} />
-                    <LevelContainer Persentage={50} Text={'Level ' + LevelIndex} Image={Icons.Signal} />
+                    <LevelContainer Persentage={Persentage} Text={'Level ' + LevelIndex} Image={Icons.Signal} />
                     <BookletContainer Text={'Booklet ' + BookletIndex} Image={Icons.Books} />
 
                 </View>
                 <ScrollView>
 
-                    <Text style={{ alignSelf: 'center', fontSize: RFPercentage(3.5), fontWeight: 'bold', marginTop: RFPercentage(1) }}>Question {QuestionInd} </Text>
+                    <Text style={styles.WordQuestion}>Question {QuestionInd} </Text>
 
                     <View style={{ padding: RFPercentage(2) }}>
-                        <Text style={{ fontSize: RFPercentage(3), color: COLORS.blue, fontWeight: 'bold', marginTop: RFPercentage(1) }}>Add Question</Text>
+                        <Text style={styles.HeadText}>Add Question</Text>
                         <TextInput
                             value={QuestionText}
                             onFocus={() => { setisFocused(true) }}
@@ -90,14 +93,11 @@ const AddQuiz = () => {
                                 setQuestionText(value)
                             }}
 
-                            style={{
-                                borderColor: isFocused ? COLORS.blue : COLORS.white, borderWidth: 1.5, padding: RFPercentage(2), width: '95%', backgroundColor: COLORS.white, elevation: 5, fontSize: RFPercentage(2.1), color: COLORS.black,
-                                alignSelf: 'center', marginTop: RFPercentage(2), borderRadius: 15
-                            }} />
+                            style={[styles.TextInputStyle, { borderColor: isFocused ? COLORS.blue : COLORS.white, }]} />
                     </View>
 
                     <View style={{ padding: RFPercentage(2) }}>
-                        <Text style={{ fontSize: RFPercentage(3), color: COLORS.blue, fontWeight: 'bold', marginTop: RFPercentage(1) }}>Answer</Text>
+                        <Text style={styles.HeadText}>Answer</Text>
                         <View
                             style={[
                                 styles.subRowContainer,
@@ -125,21 +125,21 @@ const AddQuiz = () => {
                     </View>
 
                     <View style={{ padding: RFPercentage(2) }}>
-                        <Text style={{ fontSize: RFPercentage(3), color: COLORS.blue, fontWeight: 'bold', marginTop: RFPercentage(1) }}>Choose Two Colors</Text>
+                        <Text style={styles.HeadText}>Choose Two Colors</Text>
                         <FlatList
                             data={ColorsArray}
                             renderItem={({ item, index }) => (
-                                <TouchableOpacity activeOpacity={.8} style={{ paddingVertical: RFPercentage(3), width: '95%', borderRadius: 10, alignSelf: 'center', marginTop: RFPercentage(2), backgroundColor: item }} />
+                                <TouchableOpacity activeOpacity={.8} style={[styles.ColorView, { backgroundColor: item }]} />
 
                             )}
                         />
 
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                    <View style={styles.ButtonsContainer}>
                         <SmallButton onPress={() => {
                             AddQuestion()
-                        }} Text={'Another Question'} style={{ alignSelf: 'center', marginTop: RFPercentage(3) }} />
-                        <SmallButton Text={'Done'} style={{ alignSelf: 'center', marginTop: RFPercentage(3) }} />
+                        }} Text={'Another Question'} style={styles.SmallButton} />
+                        <SmallButton Text={'Done'} style={styles.SmallButton} />
                     </View>
 
                 </ScrollView>
@@ -167,174 +167,32 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         paddingRight: RFPercentage(2)
     },
-    progressContainer: {
-        width: '40%',
-        alignItems: 'center',
-        justifyContent: 'center',
+    WordQuestion:
+    {
+        alignSelf: 'center',
+        fontSize: RFPercentage(3.5),
+        fontWeight: 'bold',
+        marginTop: RFPercentage(1)
     },
-    bottom_Container: {
-        width: '100%',
-        alignItems: 'center',
+    HeadText:
+    {
+        fontSize: RFPercentage(3),
+        color: COLORS.blue,
+        fontWeight: 'bold',
+        marginTop: RFPercentage(1)
     },
-    Main_view: {
-        height: RFPercentage(7.7),
-        borderRadius: SIZES.height,
-        width: SIZES.width * 0.9,
+    TextInputStyle:
+    {
+        borderWidth: 1.5,
+        padding: RFPercentage(2),
+        width: '95%',
         backgroundColor: COLORS.white,
-        elevation: 3,
-        flexDirection: 'row',
+        elevation: 5,
+        fontSize: RFPercentage(2.1),
+        color: COLORS.black,
+        alignSelf: 'center',
         marginTop: RFPercentage(2),
-        marginBottom: 2,
-    },
-    Trial_View: [
-        {
-            height: '100%',
-            width: '17%',
-            borderRadius: SIZES.Lradius,
-            backgroundColor: COLORS.blue,
-            alignItems: 'center',
-            justifyContent: 'center',
-        },
-        SHADOW.dark,
-    ],
-    trialText: {
-        color: COLORS.blue,
-        // alignSelf: 'center',
-        fontSize: SIZES.h2,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    Time_View: [
-        {
-            height: '100%',
-            alignSelf: 'center',
-            width: '65%',
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
-    ],
-    Image_View: [
-        {
-            height: '100%',
-            width: '16%',
-
-            alignItems: 'center',
-            justifyContent: 'center',
-        },
-        SHADOW.dark,
-    ],
-    Image_Style: {
-        height: RFPercentage(4.2),
-        width: SIZES.height * 0.04,
-    },
-    container: {
-        width: SIZES.width * 0.275,
-        height: RFPercentage(17.5),
-        borderRadius: SIZES.Sradius,
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingTop: RFPercentage(2.5),
-        marginVertical: RFPercentage(2.5),
-        marginLeft: RFPercentage(2.25),
-        elevation: 10,
-    },
-    LevelImage: {
-        height: RFPercentage(4),
-        width: RFPercentage(4),
-        marginBottom: RFPercentage(-6),
-        tintColor: COLORS.blue,
-    },
-    BookletImage: {
-        height: RFPercentage(6.5),
-        width: RFPercentage(6.5),
-        tintColor: COLORS.blue,
-    },
-    ProgressStyle: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    Text: {
-        marginTop: RFPercentage(1.5),
-        fontWeight: 'bold',
-        fontSize: SIZES.h2,
-        color: COLORS.blue,
-    },
-    blue_contianer: {
-        width: '100%',
-        height: SIZES.height * 0.19,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    blue_view: {
-        width: SIZES.width * 0.9,
-        height: '90%',
-        backgroundColor: '#A3DEFF',
-        borderRadius: 13,
-        marginTop: 15,
-    },
-
-    Reaction_Time_Title: {
-        color: COLORS.blue,
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginTop: 5,
-        marginLeft: 10,
-    },
-    Reaction_Time_Contianer: {
-        backgroundColor: COLORS.blue,
-        height: '15%',
-        borderRadius: 15,
-        alignSelf: 'center',
-        marginTop: 8,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    Reaction_Time_Text: {
-        color: COLORS.white,
-        fontWeight: 'bold',
-        paddingHorizontal: 8,
-    },
-
-    touchableopacity_style: {
-        backgroundColor: COLORS.blue,
-        width: '35%',
-        height: '5%',
-        borderRadius: 15,
-        alignSelf: 'center',
-        marginBottom: 35,
-        marginTop: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    done_style: {
-        color: COLORS.white,
-        fontWeight: 'bold',
-        fontSize: 15,
-    },
-    ContainerQuestion: {
-        width: '90%',
-        height: SIZES.height * 0.65,
-        backgroundColor: COLORS.white,
-        elevation: 4,
-        borderRadius: SIZES.Sradius,
-        marginTop: -SIZES.height * 0.23,
-        marginBottom: SPACING.xl,
-        alignItems: 'center',
-    },
-    btnNext: {
-        width: '50%',
-        height: SIZES.inputHeight,
-        backgroundColor: COLORS.blue,
-        marginBottom: SPACING.s,
-        borderRadius: SIZES.Sradius,
-        elevation: 4,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    textStyleBtn: {
-        color: COLORS.white,
-        fontSize: SIZES.h2 + 5,
-        fontWeight: '700',
+        borderRadius: 15
     },
     subRowContainer: {
         width: '100%',
@@ -344,45 +202,7 @@ const styles = StyleSheet.create({
         marginTop: '2%',
         paddingHorizontal: '2%',
     },
-    persentageContaier: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        width: '37%',
-    },
-    persentageView: {
-        width: '90%',
-        height: SIZES.height * 0.02,
-        borderRadius: SIZES.Sradius,
-        backgroundColor: '#00ff44',
-    },
-    timerContainer: {
-        alignSelf: 'flex-end',
-        marginTop: '5%',
-        height: SIZES.inputHeight,
-        alignItems: 'center',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        elevation: 3,
-        backgroundColor: COLORS.white,
-        paddingVertical: SPACING.s,
-        paddingHorizontal: SPACING.m,
-        borderTopLeftRadius: SIZES.Sradius,
-        borderBottomLeftRadius: SIZES.Sradius,
-    },
-    stopwatchStyle: {
-        width: SIZES.h1 * 2,
-        height: SIZES.h1 * 2,
-        resizeMode: 'contain',
-    },
-    shapeQuestion: {
-        width: '47%',
-        height: SIZES.height * 0.2,
-        backgroundColor: '#639fff',
-        borderRadius: SIZES.Sradius,
-        // elevation: 1,
-        borderWidth: 0.8,
-        borderColor: COLORS.gray,
-    },
+
     answerBtn: {
         width: '47%',
         height: SIZES.inputHeight,
@@ -397,5 +217,23 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         paddingVertical: SPACING.s,
     },
+    ColorView:
+    {
+        paddingVertical: RFPercentage(3),
+        width: '95%',
+        borderRadius: 10,
+        alignSelf: 'center',
+        marginTop: RFPercentage(2),
+    },
+    ButtonsContainer:
+    {
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+    },
+    SmallButton:
+    {
+        alignSelf: 'center',
+        marginTop: RFPercentage(3)
+    }
 });
 

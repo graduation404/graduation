@@ -1,6 +1,6 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
-import {COLORS, Icons, SIZES, SPACING} from '../../config';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { COLORS, Icons, SIZES, SPACING } from '../../config';
 import {
   CustomDropDown,
   LargeButton,
@@ -17,13 +17,71 @@ const GroupAges = [
     value: '6-10',
   },
 ];
+const GroupLevel = [
+  {
+    label: '1',
+    value: '1',
+  },
+  {
+    label: '2',
+    value: '2',
+  },
+  {
+    label: '3',
+    value: '3',
+  },
+  {
+    label: '4',
+    value: '4',
+  },
+  {
+    label: '5',
+    value: '5',
+  },
+]
+const GroupBooklet = [
+  {
+    label: '1',
+    value: '1',
+  },
+  {
+    label: '2',
+    value: '2',
+  },
+  {
+    label: '3',
+    value: '3',
+  },
+  {
+    label: '4',
+    value: '4',
+  },
+  {
+    label: '5',
+    value: '5',
+  },
+]
 const ChooseDataQuiz = (props) => {
   const [OpenageGroupList, setOpenageGroupList] = useState(false);
-  const [ageGroupValue, setAgeGroupValue] = useState();
+  const [ageGroupValue, setAgeGroupValue] = useState('');
   const [OpenChooseLevel, setOpenChooseLevel] = useState(false);
-  const [ChooseLevelValue, setChooseLevelValue] = useState();
+  const [ChooseLevelValue, setChooseLevelValue] = useState('');
   const [OpenChooseBooklet, setOpenChooseBooklet] = useState(false);
-  const [ChooseBookletValue, setChooseBookletValue] = useState();
+  const [ChooseBookletValue, setChooseBookletValue] = useState('');
+
+  const ClickedFun = () => {
+    if (ageGroupValue == '' || ChooseBookletValue == '' || ChooseLevelValue == '') {
+      alert('Please Fill All Data')
+    }
+    else {
+      props.navigation.navigate("AddQuiz", {
+        ageGroup: ageGroupValue,
+        ChooseBooklet: ChooseBookletValue,
+        ChooseLevel: ChooseLevelValue,
+        LevelLength: GroupLevel.length
+      })
+    }
+  }
   return (
     <View style={styles.Container}>
       <StaticHeader />
@@ -33,7 +91,7 @@ const ChooseDataQuiz = (props) => {
         resizeMode="contain"
       />
 
-      <View style={{width: '95%', zIndex: 10}}>
+      <View style={{ width: '95%', zIndex: 10 }}>
         <CustomDropDown
           data={GroupAges}
           value={ageGroupValue}
@@ -47,9 +105,13 @@ const ChooseDataQuiz = (props) => {
           colorIcon={COLORS.blue}
         />
       </View>
-      <View style={{width: '95%', zIndex: 9}}>
+      <View style={{ width: '95%', zIndex: 9 }}>
         <CustomDropDown
-          data={GroupAges}
+          iconStyle={{
+            width: '57.5%',
+            height: '57.5%',
+          }}
+          data={GroupLevel}
           value={ChooseLevelValue}
           setValue={setChooseLevelValue}
           setOpen={() => {
@@ -61,9 +123,9 @@ const ChooseDataQuiz = (props) => {
           colorIcon={COLORS.blue}
         />
       </View>
-      <View style={{width: '95%', zIndex: 8}}>
+      <View style={{ width: '95%', zIndex: 8 }}>
         <CustomDropDown
-          data={GroupAges}
+          data={GroupBooklet}
           value={ChooseBookletValue}
           setValue={setChooseBookletValue}
           setOpen={() => {
@@ -75,14 +137,11 @@ const ChooseDataQuiz = (props) => {
           colorIcon={COLORS.blue}
         />
       </View>
-      <SmallButton Text="let's go" style={{marginTop:SPACING.xl}}
-      onPress={()=>{
-        props.navigation.navigate("name",{
-            ageGroup:ageGroupValue,
-            ChooseBooklet:ChooseBookletValue,
-            ChooseLevel:ChooseLevelValue
-        })
-      }}
+      <SmallButton Text="let's go"
+        style={{ marginTop: SPACING.xl }}
+        onPress={() => {
+          ClickedFun()
+        }}
       />
     </View>
   );
