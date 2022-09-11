@@ -39,7 +39,7 @@ const SmallButton = props => {
 
 const styles = StyleSheet.create({
   SmallButtonView: {
-    height: SIZES.height * 0.055,
+    height: SIZES.height * 0.065,
     width: '42.5%',
     backgroundColor: COLORS.blue,
     borderRadius: SIZES.Lradius,

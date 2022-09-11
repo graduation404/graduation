@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   HeaderQuiz,
   LevelContainer,
@@ -14,8 +14,8 @@ import {
   Slider,
   SmallButton,
 } from '../../components';
-import {COLORS, Icons, SIZES, SPACING} from '../../config';
-import {useNavigation} from '@react-navigation/native';
+import { COLORS, Icons, SIZES, SPACING } from '../../config';
+import { useNavigation } from '@react-navigation/native';
 
 const Quiz = props => {
   const navigation = useNavigation();
@@ -51,6 +51,7 @@ const Quiz = props => {
   const [QuestionLength, setQuestionLength] = useState(quiz.length);
   const [CorrectQuestion, setCorrectQuestion] = useState(0);
   const [WrongQuestion, setWrongQuestion] = useState(0);
+  const [clickedIndex, setclickedIndex] = useState(null);
   const [stopwatch, setStopwatch] = useState(0);
 
   useEffect(() => {
@@ -70,7 +71,7 @@ const Quiz = props => {
   };
 
   return (
-    <ScrollView style={{flexGrow: 1, backgroundColor: COLORS.white}}>
+    <ScrollView style={{ flexGrow: 1, backgroundColor: COLORS.white }}>
       <View style={styles.Container}>
         <HeaderQuiz />
         <View style={styles.ContainerQuestion}>
@@ -87,9 +88,9 @@ const Quiz = props => {
           </View>
 
           <View
-            style={[styles.subRowContainer, {marginTop: -SIZES.height * 0.03}]}>
+            style={[styles.subRowContainer, { marginTop: -SIZES.height * 0.03 }]}>
             <View style={styles.persentageContaier}>
-              <Text style={{color: '#457567', marginHorizontal: 3}}>
+              <Text style={{ color: '#457567', marginHorizontal: 3 }}>
                 {CorrectQuestion}
               </Text>
               <Slider
@@ -105,7 +106,7 @@ const Quiz = props => {
                 backgroundColor={'red'}
                 Value={(WrongQuestion / QuestionLength) * 100}
               />
-              <Text style={{color: '#f33', marginHorizontal: 3}}>
+              <Text style={{ color: '#f33', marginHorizontal: 3 }}>
                 {WrongQuestion}
               </Text>
             </View>
@@ -115,16 +116,16 @@ const Quiz = props => {
             <Text
               style={[
                 styles.textStyleBtn,
-                {color: COLORS.blue, marginTop: '8%'},
+                { color: COLORS.blue, marginTop: '8%' },
               ]}>
               Question {numberQuestion + 1}{' '}
-              <Text style={{fontSize: SIZES.h2}}>/{quiz.length}</Text>
+              <Text style={{ fontSize: SIZES.h2 }}>/{quiz.length}</Text>
             </Text>
           </View>
           <Text
             style={[
               styles.textStyleBtn,
-              {color: COLORS.black, fontSize: SIZES.h2 + 4, marginTop: '8%'},
+              { color: COLORS.black, fontSize: SIZES.h2 + 4, marginTop: '8%' },
             ]}>
             {quiz[numberQuestion].question}
           </Text>
@@ -154,9 +155,9 @@ const Quiz = props => {
           </View>
           <View style={styles.timerContainer}>
             <Image source={Icons.stopwatch} style={styles.stopwatchStyle} />
-            <Text style={{textAlign: 'center', color: COLORS.blue}}>
+            <Text style={{ textAlign: 'center', color: COLORS.blue }}>
               {stopwatch + '\n'}
-              <Text style={{fontSize: SIZES.h5}}>millieSecond</Text>
+              <Text style={{ fontSize: SIZES.h5 }}>millieSecond</Text>
             </Text>
           </View>
           <View
@@ -167,13 +168,19 @@ const Quiz = props => {
               },
             ]}>
             <TouchableOpacity
-              style={styles.answerBtn}
-              onPress={() => clickAnswer(1)}>
+              style={[styles.answerBtn, { backgroundColor: clickedIndex == null ? COLORS.white : (clickedIndex == 0 ? COLORS.white : COLORS.gray) }]}
+              onPress={() => {
+                clickAnswer(1)
+                setclickedIndex(1)
+              }} >
               <Image source={Icons.Check} style={styles.checkAswerStyle} />
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.answerBtn, {backgroundColor: COLORS.gray}]}
-              onPress={() => clickAnswer(0)}>
+              style={[styles.answerBtn, { backgroundColor: clickedIndex == null ? COLORS.white : (clickedIndex == 0 ? COLORS.gray : COLORS.white) }]}
+              onPress={() => {
+                clickAnswer(0)
+                setclickedIndex(0)
+              }} >
               <Image
                 source={Icons.Cancel}
                 style={[
@@ -186,34 +193,44 @@ const Quiz = props => {
             </TouchableOpacity>
           </View>
         </View>
-        <SmallButton
-          Text={quiz.length == numberQuestion + 1 ? 'Done' : 'Next'}
-          onPress={() => {
-            selectedAswer == quiz[numberQuestion].correctAnswer
-              ? setCorrectQuestion(CorrectQuestion + 1)
-              : setWrongQuestion(WrongQuestion + 1);
 
-            if (quiz.length > numberQuestion + 1) {
-              let newQuiz = quiz;
-              newQuiz[numberQuestion].stopwatch = stopwatch;
-              newQuiz[numberQuestion].userAnswer = selectedAswer;
-              console.log(JSON.stringify(newQuiz));
-              setQuiz(newQuiz);
-              setStopwatch(0);
-              setSelectedAswer(null);
-              setnumberQuestion(numberQuestion + 1);
-            } else {
-              let newQuiz = quiz;
-              newQuiz = quiz;
-              newQuiz[numberQuestion].stopwatch = stopwatch;
-              newQuiz[numberQuestion].userAnswer = selectedAswer;
-              console.log(JSON.stringify(newQuiz));
-              setQuiz(newQuiz);
-              setSelectedAswer(null);
-              navigation.navigate('ReportResult');
-            }
-          }}
-        />
+        {
+          clickedIndex == null ?
+            null
+            :
+            (
+              <SmallButton
+                Text={quiz.length == numberQuestion + 1 ? 'Done' : 'Next'}
+                onPress={() => {
+                  selectedAswer == quiz[numberQuestion].correctAnswer
+                    ? setCorrectQuestion(CorrectQuestion + 1)
+                    : setWrongQuestion(WrongQuestion + 1);
+
+                  if (quiz.length > numberQuestion + 1) {
+                    let newQuiz = quiz;
+                    newQuiz[numberQuestion].stopwatch = stopwatch;
+                    newQuiz[numberQuestion].userAnswer = selectedAswer;
+                    console.log(JSON.stringify(newQuiz));
+                    setQuiz(newQuiz);
+                    setStopwatch(0);
+                    setSelectedAswer(null);
+                    setnumberQuestion(numberQuestion + 1);
+                  } else {
+                    let newQuiz = quiz;
+                    newQuiz = quiz;
+                    newQuiz[numberQuestion].stopwatch = stopwatch;
+                    newQuiz[numberQuestion].userAnswer = selectedAswer;
+                    console.log(JSON.stringify(newQuiz));
+                    setQuiz(newQuiz);
+                    setSelectedAswer(null);
+                    navigation.navigate('ReportResult');
+                  }
+                }}
+              />
+            )
+
+        }
+
       </View>
     </ScrollView>
   );
@@ -303,7 +320,6 @@ const styles = StyleSheet.create({
   answerBtn: {
     width: '47%',
     height: SIZES.inputHeight,
-    backgroundColor: COLORS.white,
     borderRadius: SIZES.Sradius,
     elevation: 3,
     alignItems: 'center',

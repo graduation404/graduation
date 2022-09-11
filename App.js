@@ -1,8 +1,10 @@
-import {StatusBar} from 'react-native';
-import React, {useEffect} from 'react';
+import { StatusBar } from 'react-native';
+import React, { useEffect } from 'react';
 import SplashScreen from 'react-native-splash-screen';
-import {COLORS} from './source/config';
+import { COLORS } from './source/config';
 import Navigation from './source/navigation';
+import AddQuiz from './source/screens/Add Quiz';
+import { NavigationContainer } from '@react-navigation/native';
 
 const App = () => {
   useEffect(() => {
@@ -13,8 +15,10 @@ const App = () => {
 
   return (
     <>
-      <StatusBar barStyle={'light-content'} backgroundColor={COLORS.blue} />
-      <Navigation />
+      {/* <NavigationContainer> */}
+        <StatusBar barStyle={'light-content'} backgroundColor={COLORS.blue} />
+        <Navigation />
+      {/* </NavigationContainer> */}
     </>
   );
 };

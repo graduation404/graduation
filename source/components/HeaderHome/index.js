@@ -7,10 +7,10 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {Icons, COLORS, SHADOW, SIZES, SPACING} from '../../config';
+import { Icons, COLORS, SHADOW, SIZES, SPACING } from '../../config';
 import LinearGradient from 'react-native-linear-gradient';
 
-const HeaderHome = ({value, onChangeText, nav}) => {
+const HeaderHome = ({ value, onChangeText, nav }) => {
   return (
     <>
       <LinearGradient
@@ -18,16 +18,16 @@ const HeaderHome = ({value, onChangeText, nav}) => {
         style={styles.container}>
         <View style={styles.subContainerImgs}>
           <TouchableOpacity style={styles.IconContainer}
-          onPress={()=>{
-            nav.navigation.navigate("AddPatientInfo")
-          }}
+            onPress={() => {
+              nav.navigation.navigate("AddPatientInfo")
+            }}
           >
             <Image style={styles.IconStyle} source={Icons.AddUser} />
           </TouchableOpacity>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <View style={styles.IconContainer}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <TouchableOpacity activeOpacity={.85} onPress={()=>{}} style={styles.IconContainer}>
               <Image style={styles.IconStyle} source={Icons.AddFile} />
-            </View>
+            </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
                 nav.navigation.navigate('AdminProfile');
@@ -48,8 +48,8 @@ const HeaderHome = ({value, onChangeText, nav}) => {
             value={value}
             onChangeText={onChangeText}
           />
-          <View style={[styles.IconContainer, {width: '14%', height: '100%'}]}>
-            <Image style={[styles.IconStyle,{tintColor:COLORS.blue}]} source={Icons.loupe} />
+          <View style={[styles.IconContainer, { width: '14%', height: '100%' }]}>
+            <Image style={[styles.IconStyle, { tintColor: COLORS.blue }]} source={Icons.loupe} />
           </View>
         </View>
       </LinearGradient>
