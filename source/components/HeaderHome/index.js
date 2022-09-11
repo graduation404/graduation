@@ -24,11 +24,6 @@ const HeaderHome = ({value, onChangeText, nav}) => {
           >
             <Image style={styles.IconStyle} source={Icons.AddUser} />
           </TouchableOpacity>
-<<<<<<< HEAD
-=======
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <TouchableOpacity activeOpacity={.85} onPress={()=>{}} style={styles.IconContainer}>
->>>>>>> bd914e97d82dc6cd5e007ef9326bc5c60acf3149
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <TouchableOpacity activeOpacity={.85} style={styles.IconContainer}
              onPress={() => {
