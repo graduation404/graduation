@@ -24,17 +24,14 @@ const HeaderHome = ({ value, onChangeText, nav }) => {
           >
             <Image style={styles.IconStyle} source={Icons.AddUser} />
           </TouchableOpacity>
-<<<<<<< HEAD
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <TouchableOpacity activeOpacity={.85} onPress={()=>{}} style={styles.IconContainer}>
-=======
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <TouchableOpacity style={styles.IconContainer}
              onPress={() => {
               nav.navigation.navigate('ChooseDataQuiz');
             }}
             >
->>>>>>> 935c0e29061210bc1d56e39d917457810135c4ab
               <Image style={styles.IconStyle} source={Icons.AddFile} />
             </TouchableOpacity>
             <TouchableOpacity
