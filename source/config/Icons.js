@@ -43,6 +43,8 @@ const loupe = require('../assets/icons/loupe.png');
 const View = require('../assets/icons/view.png');
 const Hide = require('../assets/icons/hide.png');
 const Account = require('../assets/icons/account.png');
+const Colors = require('../assets/icons/colors.png');
+const Camera = require('../assets/icons/camera.png');
 export default {
   AddFile,
   AddUser,
@@ -89,4 +91,6 @@ export default {
   Account,
   View,
   Hide,
+  Camera,
+  Colors
 };

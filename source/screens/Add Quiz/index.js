@@ -1,5 +1,4 @@
 import {
-  StatusBar,
   StyleSheet,
   Text,
   View,
@@ -8,11 +7,12 @@ import {
   Image,
   FlatList,
   TextInput,
-  Dimensions,
 } from 'react-native';
 import {Icons, Line, COLORS, sizes, SIZES, SPACING, SHADOW} from '../../config';
 import {
   LevelContainer,
+  ModalColors,
+  ModalImgs,
   ProgressQuiz,
   SmallButton,
   StaticHeader,
@@ -36,13 +36,6 @@ const AddQuiz = ({route, navigation}) => {
   const [selectedAswer, setSelectedAswer] = useState(null);
   const [Questions, setQuestions] = useState([]);
   const [QuestionInd, setQuestionInd] = useState(1);
-  const [ColorsArray, setColorsArray] = useState([
-    '#7aa',
-    '#455',
-    '#125',
-    '#f88',
-    '#dd7',
-  ]);
 
   const AddQuestion = () => {
     if (QuestionText == '' || clickedIndex == null) {
@@ -64,6 +57,40 @@ const AddQuiz = ({route, navigation}) => {
   useEffect(() => {
     // console.log(Persentage)
   });
+  const [modalColorVisible, setModalColorVisible] = useState(false);
+  const [modalImgVisible, setModalImgVisible] = useState(false);
+  const [listColors, setlistColors] = useState([]);
+  const [listImgs, setlistImgs] = useState([]);
+  const RowContainerTypeData = () => (
+    <View style={styles.rowContainerTypeData}>
+      <TouchableOpacity
+        style={styles.btnContainerData}
+        disabled={listImgs.length ? true : false}
+        onPress={() => {
+          setModalColorVisible(true);
+        }}>
+        <Image
+          style={styles.iconBtn}
+          source={Icons.Colors}
+          resizeMode="contain"
+        />
+        <Text style={styles.HeadText}>Colors</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.btnContainerData}
+        disabled={listColors.length ? true : false}
+        onPress={() => {
+          setModalImgVisible(true);
+        }}>
+        <Image
+          style={styles.iconBtn}
+          source={Icons.Camera}
+          resizeMode="contain"
+        />
+        <Text style={styles.HeadText}>Images</Text>
+      </TouchableOpacity>
+    </View>
+  );
 
   return (
     <>
@@ -102,6 +129,7 @@ const AddQuiz = ({route, navigation}) => {
               }}
               multiline={true}
               placeholder="Enter Question Here"
+              placeholderTextColor={COLORS.darkGray}
               onChangeText={value => {
                 setQuestionText(value);
               }}
@@ -165,16 +193,8 @@ const AddQuiz = ({route, navigation}) => {
           </View>
 
           <View style={{padding: RFPercentage(2)}}>
-            <Text style={styles.HeadText}>Choose Two Colors</Text>
-            <FlatList
-              data={ColorsArray}
-              renderItem={({item, index}) => (
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  style={[styles.ColorView, {backgroundColor: item}]}
-                />
-              )}
-            />
+            <Text style={styles.HeadText}>Choose Colors Or Images</Text>
+            <RowContainerTypeData />
           </View>
           <View style={styles.ButtonsContainer}>
             <SmallButton
@@ -186,6 +206,18 @@ const AddQuiz = ({route, navigation}) => {
             />
             <SmallButton Text={'Done'} style={styles.SmallButton} />
           </View>
+          <ModalColors
+            modalColorVisible={modalColorVisible}
+            setModalColorVisible={setModalColorVisible}
+            listColors={listColors}
+            setlistColors={setlistColors}
+          />
+          <ModalImgs
+            modalImgVisible={modalImgVisible}
+            setModalImgVisible={setModalImgVisible}
+            listImgs={listImgs}
+            setlistImgs={setlistImgs}
+          />
         </ScrollView>
       </View>
     </>
@@ -271,5 +303,25 @@ const styles = StyleSheet.create({
   SmallButton: {
     alignSelf: 'center',
     marginTop: RFPercentage(3),
+  },
+  rowContainerTypeData: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    width: '100%',
+    marginTop: SPACING.s,
+  },
+  btnContainerData: {
+    width: '40%',
+    height: SIZES.height * 0.2,
+    backgroundColor: COLORS.gray,
+    borderRadius: SIZES.Sradius,
+    elevation: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconBtn: {
+    width: '70%',
+    height: SIZES.avatar,
   },
 });

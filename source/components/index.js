@@ -11,6 +11,8 @@ import CustomInputAddPatient from "./customInput"
 import CustomInputLogIn from './customInputLogin';
 import {LevelContainer,BookletContainer,ProgressQuiz} from "./SmallContainer"
 import HeaderQuiz from './HeaderQuiz';
+import ModalColors from './ModalColors';
+import ModalImgs from './ModalImgs';
 export {
     Slider,
     HeaderProfile,
@@ -27,6 +29,8 @@ export {
     LevelContainer,
     BookletContainer,
     HeaderQuiz,
-    ProgressQuiz
+    ProgressQuiz,
+    ModalColors,
+    ModalImgs
 }
 
