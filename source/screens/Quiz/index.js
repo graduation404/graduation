@@ -1,4 +1,5 @@
 import {
+  FlatList,
   Image,
   ScrollView,
   StyleSheet,
@@ -16,6 +17,7 @@ import {
 } from '../../components';
 import {COLORS, Icons, SIZES, SPACING} from '../../config';
 import {useNavigation} from '@react-navigation/native';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 const Quiz = props => {
   const navigation = useNavigation();
@@ -23,24 +25,24 @@ const Quiz = props => {
     {
       question: 'IS There Red Color ?',
       correctAnswer: 1,
-      color1: '#000',
-      color2: '#9867',
+      colors: ['#f45', '#323', '#5678'],
+      images: null,
       userAnswer: null,
       stopwatch: 0,
     },
     {
       question: 'IS There black Color ?',
       correctAnswer: 0,
-      color1: '#000',
-      color2: '#fff',
+      images: null,
+      colors: ['#a00', '#000', '#fff'],
       userAnswer: null,
       stopwatch: 0,
     },
     {
       question: 'IS There black Color ?',
       correctAnswer: 0,
-      color1: '#000',
-      color2: '#fff',
+      colors: null,
+      images: [Icons.Account, Icons.AddUser, Icons.Age],
       userAnswer: null,
       stopwatch: 0,
     },
@@ -136,21 +138,31 @@ const Quiz = props => {
                 marginTop: '5%',
               },
             ]}>
-            <View
-              style={[
-                styles.shapeQuestion,
-                {
-                  backgroundColor: quiz[numberQuestion].color1,
-                },
-              ]}
-            />
-            <View
-              style={[
-                styles.shapeQuestion,
-                {
-                  backgroundColor: quiz[numberQuestion].color2,
-                },
-              ]}
+            <FlatList
+              data={
+                quiz[numberQuestion].colors
+                  ? quiz[numberQuestion].colors
+                  : quiz[numberQuestion].images
+              }
+              horizontal={true}
+              renderItem={({item, index}) =>
+                quiz[numberQuestion].colors ? (
+                  <View
+                    style={[
+                      styles.shapeQuestion,
+                      {
+                        backgroundColor: item,
+                      },
+                    ]}
+                  />
+                ) : (
+                  <Image
+                    source={item}
+                    style={styles.shapeQuestion}
+                    resizeMode="contain"
+                  />
+                )
+              }
             />
           </View>
           <View style={styles.timerContainer}>
@@ -322,13 +334,14 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   shapeQuestion: {
-    width: '47%',
+    width: RFValue(140),
     height: SIZES.height * 0.2,
-    backgroundColor: '#639fff',
+    backgroundColor: COLORS.gray,
     borderRadius: SIZES.Sradius,
     // elevation: 1,
     borderWidth: 0.8,
     borderColor: COLORS.gray,
+    marginHorizontal: SPACING.vS,
   },
   answerBtn: {
     width: '47%',
