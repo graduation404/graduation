@@ -101,9 +101,8 @@ const PatientProfile = props => {
               </TouchableOpacity>
             </View>
 
-            <Text style={styles.name_Style}>{name}</Text>
+            <Text style={styles.name_Style}>{props.route.params.name}</Text>
             <Text style={styles.id_Style}>id: {id}</Text>
-
             <View style={styles.last_Container_View}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Image

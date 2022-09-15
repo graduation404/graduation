@@ -7,19 +7,22 @@ import {
   Text,
   View,
 } from 'react-native';
+import {RFValue} from 'react-native-responsive-fontsize';
 import {CardHome, HeaderHome} from '../../components';
+import NoInternet from '../../components/noInternet';
 import {COLORS, SIZES, SPACING} from '../../config';
 import {welcomeMessage} from '../../config/helperFunctions';
 const data = [
-  {name: 'ahmed'},
-  {name: 'hesham'},
-  {name: 'taha'},
-  {name: 'ahmed'},
-  {name: 'hesham'},
-  {name: 'taha'},
+  {name: 'ahmed', gender: 1},
+  {name: 'hesham', gender: 1},
+  {name: 'abdo', gender: 1},
+  {name: 'rahaf', gender: 2},
+  {name: 'shaimaa', gender: 2},
 ];
 const Home = props => {
   const [searchInput, setSearchInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   useEffect(() => {
     console.log(searchInput);
   }, [searchInput]);
@@ -32,6 +35,56 @@ const Home = props => {
       </View>
     );
   };
+
+  const renderContent = () => {
+    if (loading) {
+      return (
+        <View style={styles.indicatorContainer}>
+          <ActivityIndicator size="large" color={COLORS.blue} />
+        </View>
+      );
+    }
+    if (error) {
+      return <NoInternet buttonHandler={() => {}} />;
+    }
+
+    if (data && data.length == 0) {
+      return (
+        <>
+          <View style={styles.indicatorContainer}>
+            <Image
+              resizeMode="contain"
+              source={require('../../assets/imgs/nodata.png')}
+              style={styles.image}
+            />
+            <Text style={[styles.textStyle, {alignSelf: 'center'}]}>
+              No Data
+            </Text>
+          </View>
+        </>
+      );
+    }
+
+    return (
+      <View style={{width: '100%', alignItems: 'center'}}>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          style={{
+            width: '100%',
+            backgroundColor: COLORS.white,
+          }}
+          data={data}
+          renderItem={({item, index}) => (
+            <>
+              {item.name.toLowerCase().includes(searchInput.toLowerCase()) ? (
+                <CardHome item={item} index={index} nav={props} />
+              ) : null}
+            </>
+          )}
+        />
+      </View>
+    );
+  };
   return (
     <View style={styles.Container}>
       <HeaderHome
@@ -41,28 +94,11 @@ const Home = props => {
         nav={props}
         value={searchInput}
       />
-
       <ScrollView
         style={{width: '95%', alignSelf: 'center'}}
         showsVerticalScrollIndicator={false}>
         <TitleSection />
-        <View style={{width: '100%', alignItems: 'center'}}>
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            style={{
-              width: '100%',
-              backgroundColor: COLORS.white,
-            }}
-            data={data}
-            renderItem={({item, index}) => (
-              <>
-                {item.name.toLowerCase().includes(searchInput.toLowerCase()) ? (
-                  <CardHome item={item} index={index} nav={props} />
-                ) : null}
-              </>
-            )}
-          />
-        </View>
+        {renderContent()}
       </ScrollView>
     </View>
   );
@@ -92,5 +128,14 @@ const styles = StyleSheet.create({
     fontSize: SIZES.subTitle,
     fontWeight: '600',
     alignSelf: 'flex-start',
+  },
+  indicatorContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+  image: {
+    width: RFValue(190),
+    height: RFValue(250),
   },
 });

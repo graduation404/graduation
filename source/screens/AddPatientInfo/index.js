@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {COLORS, Icons, SIZES, SPACING} from '../../config';
@@ -14,16 +15,25 @@ import {
   CustomInputAddPatient,
   StaticHeader,
 } from '../../components';
+import {CreateUser} from '../../config/utils';
 
 const GroupAges = [
   {
     label: '1-5',
-    value: '1-5',
+    value: 1,
   },
   {
     label: '6-10',
-    value: '6-10',
+    value: 2,
   },
+  {
+    label: '10-18',
+    value: 3,
+  },
+  {
+    label: '+18',
+    value: 4,
+  }
 ];
 const AddPatientInfo = props => {
   const genders = [
@@ -41,7 +51,6 @@ const AddPatientInfo = props => {
     },
   ];
   const [PatientInfo, setPatientInfo] = useState({
-    id: null,
     name: '',
     gender: null,
     age: null,
@@ -55,7 +64,7 @@ const AddPatientInfo = props => {
   const [OpenageGroupList, setOpenageGroupList] = useState(false);
   const [ageGroupValue, setAgeGroupValue] = useState();
   const [genderValue, setGenderValue] = useState();
-
+  const [loading, setLoading] = useState(false);
   const handleChange = (value, text) => {
     setPatientInfo(prevState => ({...prevState, [text]: value}));
   };
@@ -79,14 +88,6 @@ const AddPatientInfo = props => {
         <TitleSection />
 
         <View style={{width: '100%', paddingVertical: SPACING.s}}>
-          <CustomInputAddPatient
-            placeholder="Enter ID"
-            icon={Icons.driver_license}
-            colorIcon={COLORS.blue}
-            value={PatientInfo.id}
-            onChangeText={text => handleChange(text.trim(), 'id')}
-            keyboardType="decimal-pad"
-          />
           <CustomInputAddPatient
             placeholder="Enter Name"
             icon={Icons.User1}
@@ -169,10 +170,12 @@ const AddPatientInfo = props => {
         </View>
         <TouchableOpacity
           style={styles.btn}
+          disabled={loading}
           onPress={() => {
+              alert(JSON.stringify(PatientInfo));
+
             // props.navigation.navigate("")
             if (
-              PatientInfo.id &&
               PatientInfo.age &&
               PatientInfo.ageGroup &&
               PatientInfo.name &&
@@ -182,12 +185,28 @@ const AddPatientInfo = props => {
               PatientInfo.snrBaseLine &&
               PatientInfo.snrDual
             ) {
-              alert(JSON.stringify(PatientInfo));
+              // alert(JSON.stringify(PatientInfo));
+              setLoading(true);
+              CreateUser({
+                name: PatientInfo.name,
+                gender: PatientInfo.gender, // 1 for male || 2 for female
+                ageGroup: PatientInfo.ageGroup, // 1 ( 5=>6 ) , 2 ( 6=>10 ) , 3 ( 10=>18 ) , 4 (18 => above)
+                age: PatientInfo.age,
+                dual: PatientInfo.snrDual,
+                baseLine: PatientInfo.snrBaseLine,
+                hearingLevelRight: PatientInfo.hearingLevelRight,
+                hearingLevelLeft: PatientInfo.hearingLevelLeft,
+              });
+              setLoading(false);
             } else {
               alert('Please Fill All Data');
             }
           }}>
-          <Text style={styles.subTitleBtn}>Create Patient</Text>
+          {loading ? (
+            <ActivityIndicator size="large" color={COLORS.white} />
+          ) : (
+            <Text style={styles.subTitleBtn}>Create Patient</Text>
+          )}
         </TouchableOpacity>
       </ScrollView>
     </View>

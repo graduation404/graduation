@@ -7,7 +7,7 @@ const CardHome = ({item, index, nav}) => {
       <View style={styles.topContainer}>
         <View style={styles.leftTopSubContainer}>
           <View style={styles.IconContainer}>
-            <Image style={styles.IconStyle} source={Icons.Male} />
+            <Image style={styles.IconStyle} source={item.gender==1?Icons.Male:Icons.Woman} />
           </View>
         </View>
         <View style={styles.rightTopSubContainer}>
@@ -92,7 +92,7 @@ const CardHome = ({item, index, nav}) => {
         <TouchableOpacity
           style={styles.subContainerAge}
           onPress={() => {
-            nav.navigation.navigate('PatientProfile');
+            nav.navigation.navigate('PatientProfile',item);
           }}>
           <Text style={[styles.subTextStyle, {color: COLORS.blue}]}>Visit</Text>
         </TouchableOpacity>
