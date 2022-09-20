@@ -1,17 +1,27 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {COLORS, SIZES, SPACING} from '../../config';
-import {RFPercentage} from 'react-native-responsive-fontsize';
+import { ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { COLORS, SIZES, SPACING } from '../../config';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 import LinearGradient from 'react-native-linear-gradient';
 
 const LargeButton = props => {
   return (
     <>
-      <TouchableOpacity activeOpacity={0.85} onPress={props.onPress}>
+      <TouchableOpacity
+        activeOpacity={0.85}
+        onPress={props.onPress}
+        disabled={props.Loading}
+      >
         <LinearGradient
-          colors={[COLORS.blue, COLORS.darkGray]}
+          colors={props.colors}
           style={styles.LargeButtonView}>
-          <Text style={styles.BookletText_Style}>{props.Text}</Text>
+          {props.Loading
+            ?
+            (<ActivityIndicator size={RFPercentage(4)} color={COLORS.white} />)
+            :
+            (<Text style={styles.BookletText_Style}>{props.Text}</Text>)
+          }
+
         </LinearGradient>
       </TouchableOpacity>
     </>
@@ -24,11 +34,17 @@ const SmallButton = props => {
       <TouchableOpacity
         onPress={props.onPress}
         activeOpacity={0.85}
-        style={[styles.SmallButtonView,props.style]}>
+        disabled={props.Loading}
+        style={[styles.SmallButtonView, props.style]}>
         {props.Icon ? (
           <Image source={props.Icon} style={styles.Image_Style} />
         ) : null}
-        <Text style={styles.LevelText_Style}>{props.Text}</Text>
+        {props.Loading
+          ?
+          (<ActivityIndicator size={RFPercentage(4)} color={COLORS.white} />)
+          :
+          (<Text style={styles.LevelText_Style}>{props.Text}</Text>)
+        }
         {props.Icon ? (
           <Image source={props.s} style={styles.Image_Style} />
         ) : null}
@@ -51,7 +67,7 @@ const styles = StyleSheet.create({
   },
   LargeButtonView: {
     height: SIZES.height * 0.055,
-    width: '52.5%',
+    width: '55%',
     alignSelf: 'center',
     backgroundColor: COLORS.blue,
     borderRadius: 15,
@@ -69,10 +85,10 @@ const styles = StyleSheet.create({
     color: COLORS.white,
   },
   BookletText_Style: {
-    fontSize: RFPercentage(3),
+    fontSize: RFPercentage(2.6),
     fontWeight: 'bold',
     color: COLORS.white,
   },
 });
 
-export {LargeButton, SmallButton};
+export { LargeButton, SmallButton };

@@ -8,14 +8,16 @@ import {
   View,
   ActivityIndicator,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {COLORS, Icons, SIZES, SPACING} from '../../config';
+import React, { useEffect, useState } from 'react';
+import { COLORS, Icons, SIZES, SPACING } from '../../config';
 import {
   CustomDropDown,
   CustomInputAddPatient,
+  LargeButton,
   StaticHeader,
 } from '../../components';
-import {CreateUser} from '../../config/utils';
+import { CreateUser } from '../../config/utils';
+
 
 const GroupAges = [
   {
@@ -40,13 +42,13 @@ const AddPatientInfo = props => {
     {
       label: 'Male',
       value: 1,
-      icon: () => <Image source={Icons.Male} style={{width: 30, height: 30}} />,
+      icon: () => <Image source={Icons.Male} style={{ width: 30, height: 30 }} />,
     },
     {
       label: 'Female',
       value: 2,
       icon: () => (
-        <Image source={Icons.Woman} style={{width: 30, height: 30}} />
+        <Image source={Icons.Woman} style={{ width: 30, height: 30 }} />
       ),
     },
   ];
@@ -64,10 +66,42 @@ const AddPatientInfo = props => {
   const [OpenageGroupList, setOpenageGroupList] = useState(false);
   const [ageGroupValue, setAgeGroupValue] = useState();
   const [genderValue, setGenderValue] = useState();
-  const [loading, setLoading] = useState(false);
+  const [Loading, setLoading] = useState(false);
   const handleChange = (value, text) => {
-    setPatientInfo(prevState => ({...prevState, [text]: value}));
+    setPatientInfo(prevState => ({ ...prevState, [text]: value }));
   };
+  
+
+const AddUser=()=>{
+  if (
+    PatientInfo.age &&
+    PatientInfo.ageGroup &&
+    PatientInfo.name &&
+    PatientInfo.gender &&
+    PatientInfo.hearingLevelLeft &&
+    PatientInfo.hearingLevelRight &&
+    PatientInfo.snrBaseLine &&
+    PatientInfo.snrDual
+  ) {
+    setLoading(true);
+    CreateUser({
+      name: PatientInfo.name,
+      gender: PatientInfo.gender, // 1 for male || 2 for female
+      ageGroup: PatientInfo.ageGroup, // 1 ( 5=>6 ) , 2 ( 6=>10 ) , 3 ( 10=>18 ) , 4 (18 => above)
+      age: PatientInfo.age,
+      dual: PatientInfo.snrDual,
+      baseLine: PatientInfo.snrBaseLine,
+      hearingLevelRight: PatientInfo.hearingLevelRight,
+      hearingLevelLeft: PatientInfo.hearingLevelLeft,
+    });
+    setLoading(false);
+    props.navigation.navigate('PatientProfile',{PatientInfo})
+  } else {
+    alert('Please Fill All Data');
+  }
+}
+
+
   useEffect(() => {
     handleChange(genderValue, 'gender');
     handleChange(ageGroupValue, 'ageGroup');
@@ -84,10 +118,10 @@ const AddPatientInfo = props => {
     <View style={styles.container}>
       <StaticHeader Header_name="" nav={props} />
       <Image style={styles.ImageHeader} source={Icons.patientInfo} />
-      <ScrollView style={{width: '93%'}} showsVerticalScrollIndicator={false}>
+      <ScrollView style={{ width: '93%' }} showsVerticalScrollIndicator={false}>
         <TitleSection />
 
-        <View style={{width: '100%', paddingVertical: SPACING.s}}>
+        <View style={{ width: '100%', paddingVertical: SPACING.s }}>
           <CustomInputAddPatient
             placeholder="Enter Name"
             icon={Icons.User1}
@@ -100,7 +134,7 @@ const AddPatientInfo = props => {
             data={genders}
             setOpen={() => {
               setOpenGenderList(!OpenGenderList);
-              console.log(OpenGenderList);
+              // console.log(OpenGenderList);
             }}
             badgeDotColors={['#00b4d8', '#e76f51']}
             open={OpenGenderList}
@@ -168,7 +202,17 @@ const AddPatientInfo = props => {
             keyboardType="decimal-pad"
           />
         </View>
-        <TouchableOpacity
+        <LargeButton
+          colors={[COLORS.blue, COLORS.blue]}
+          Text='Create Patient'
+          Loading={Loading}
+          onPress={() => {
+          // props.navigation.navigate("")
+          AddUser()
+        
+        }}
+        />
+        {/* <TouchableOpacity
           style={styles.btn}
           disabled={loading}
           onPress={() => {
@@ -207,7 +251,7 @@ const AddPatientInfo = props => {
           ) : (
             <Text style={styles.subTitleBtn}>Create Patient</Text>
           )}
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </ScrollView>
     </View>
   );

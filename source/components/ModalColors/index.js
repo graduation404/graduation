@@ -15,7 +15,7 @@ import ColorPicker from 'react-native-wheel-color-picker';
 
 const ModalColors = ({modalColorVisible, setModalColorVisible,listColors,setlistColors}) => {
  
-  const [currentColor, setCurrentColor] = useState('#a00');
+  const [currentColor, setCurrentColor] = useState('#fff');
   return (
     <Modal animationType="slide" transparent={true} visible={modalColorVisible}>
       <View style={styles.container}>
@@ -29,8 +29,8 @@ const ModalColors = ({modalColorVisible, setModalColorVisible,listColors,setlist
           onColorChangeComplete={color => {
             setCurrentColor(color);
           }}
-          thumbSize={40}
-          sliderSize={40}
+          thumbSize={30}
+          sliderSize={25}
           noSnap={true}
           row={true}
           swatchesLast={true}
@@ -44,7 +44,7 @@ const ModalColors = ({modalColorVisible, setModalColorVisible,listColors,setlist
               style={[
                 styles.icon,
                 {
-                  backgroundColor: item,
+                  backgroundColor: item.colorCode,
                   marginHorizontal: RFPercentage(1),
                   elevation: 3,
                 },
@@ -67,7 +67,7 @@ const ModalColors = ({modalColorVisible, setModalColorVisible,listColors,setlist
           <SmallButton
             Text="Add Color"
             onPress={() => {
-              setlistColors(prev => [...prev, currentColor]);
+              setlistColors(prev => [...prev, {colorCode:currentColor}]);
             }}
           />
         </View>
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     width: SIZES.width,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: RFPercentage(2),
+    paddingVertical: RFPercentage(4),
   },
   icon: {
     height: RFPercentage(5),

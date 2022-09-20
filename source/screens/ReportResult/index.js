@@ -18,43 +18,53 @@ import {
   SHADOW,
   Range_Function,
 } from '../../config';
-import {LevelContainer, ProgressQuiz, StaticHeader} from '../../components';
-import {RFPercentage} from 'react-native-responsive-fontsize';
-import {BookletContainer} from '../../components';
-import React, {useEffect, useState} from 'react';
-const ReportResult = () => {
+import { LevelContainer, ProgressQuiz, StaticHeader } from '../../components';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import { BookletContainer } from '../../components';
+import React, { useEffect, useState } from 'react';
+import { GetSpecifiecUserquizs } from '../../config/utils';
+const ReportResult = (props) => {
+  const {levelInd,BookletInd,id}=props.route.params
   const [PatientResult, setPatientResult] = useState([
     {
       id: 1,
-      Time: '3872',
+      reactionTime: '3872',
       image: Icons.Check,
     },
     {
       id: 2,
-      Time: '2709',
+      reactionTime: '2709',
       image: Icons.Check,
     },
     {
       id: 3,
-      Time: '1567',
+      reactionTime: '1567',
       image: Icons.Cancel,
     },
     {
       id: 4,
-      Time: '1256',
+      reactionTime: '1256',
       image: Icons.Check,
     },
     {
       id: 5,
-      Time: '1256',
+      reactionTime: '1256',
       image: Icons.Cancel,
     },
     {
       id: 6,
-      Time: '1256',
+      reactionTime: '1256',
       image: Icons.Cancel,
     },
   ]);
+
+  const GetSpecifiecUserquis = () => {
+    GetSpecifiecUserquizs(id,setPatientResult)
+  }
+  useEffect(()=>{
+    // GetSpecifiecUserquis()
+    console.log(levelInd,BookletInd)
+  },[])
 
   return (
     <>
@@ -62,12 +72,12 @@ const ReportResult = () => {
         <View style={styles.Container}>
           <StaticHeader
             Header_name={'Result'}
-            style={{backgroundColor: '#A3DEFF'}}
+            style={{ backgroundColor: '#A3DEFF' }}
           />
           <View style={styles.Top_Container}>
-            <LevelContainer Persentage={50} Text={'Level 1'}  Image={Icons.Signal} />
+            <LevelContainer Persentage={50} Text={'Level '+JSON.stringify(levelInd)} Image={Icons.Signal} />
 
-            <BookletContainer Text={'Booklet 1'} Image={Icons.Books} />
+            <BookletContainer Text={'Booklet '+JSON.stringify(BookletInd)} Image={Icons.Books} />
             <View style={styles.progressContainer}>
               <ProgressQuiz Persentage={50} />
             </View>
@@ -77,16 +87,16 @@ const ReportResult = () => {
             <FlatList
               showsVerticalScrollIndicator={false}
               data={PatientResult}
-              renderItem={({item, index}) => (
+              renderItem={({ item, index }) => (
                 <>
                   <View style={styles.Main_view}>
                     <View style={styles.Trial_View}>
-                      <Text style={[styles.trialText,{color:COLORS.white}]}>Trial {item.id}</Text>
+                      <Text style={[styles.trialText, { color: COLORS.white }]}>Trial {item.id}</Text>
                     </View>
 
                     <View style={styles.Time_View}>
                       <Text style={styles.trialText}>
-                        {item.Time} milliseconds
+                        {item.reactionTime} milliseconds
                       </Text>
                     </View>
                     <View style={styles.Image_View}>

@@ -8,26 +8,32 @@ import {
   FlatList,
   TextInput,
 } from 'react-native';
-import {Icons, Line, COLORS, sizes, SIZES, SPACING, SHADOW} from '../../config';
+import { Icons, Line, COLORS, sizes, SIZES, SPACING, SHADOW } from '../../config';
 import {
   LevelContainer,
   ModalColors,
   ModalImgs,
-  ProgressQuiz,
   SmallButton,
   StaticHeader,
 } from '../../components';
-import {RFPercentage} from 'react-native-responsive-fontsize';
-import {BookletContainer} from '../../components';
-import React, {useEffect, useState} from 'react';
+import { RFPercentage } from 'react-native-responsive-fontsize';
+import { BookletContainer } from '../../components';
+import React, { useEffect, useState } from 'react';
+import { CreateQuiz } from '../../config/utils';
 
-const AddQuiz = ({route, navigation}) => {
-  const {ageGroup, ChooseBooklet, ChooseLevel, LevelLength} = route.params;
+const AddQuiz = ({ route, navigation }) => {
+  const { ageGroup, ChooseBooklet, ChooseLevel, LevelLength } = route.params;
+
+
+  const [modalColorVisible, setModalColorVisible] = useState(false);
+  const [modalImgVisible, setModalImgVisible] = useState(false);
+  const [listColors, setlistColors] = useState([]);
+  const [listImgs, setlistImgs] = useState([]);
 
   const [isFocused, setisFocused] = useState(false);
   const [QuestionText, setQuestionText] = useState('');
   const [clickedIndex, setclickedIndex] = useState(null);
-  const [YearsValue, setYearsValue] = useState(ageGroup + '');
+  const [YearsValue, setYearsValue] = useState(ageGroup);
   const [LevelIndex, setLevelIndex] = useState(ChooseLevel);
   const [BookletIndex, setBookletIndex] = useState(ChooseBooklet);
   const [Persentage, setPersentager] = useState(
@@ -38,29 +44,61 @@ const AddQuiz = ({route, navigation}) => {
   const [QuestionInd, setQuestionInd] = useState(1);
 
   const AddQuestion = () => {
-    if (QuestionText == '' || clickedIndex == null) {
+    if (QuestionText == '' || clickedIndex == null && (listColors != [] || listImgs != [])) {
       alert('Please fill All Data');
     } else {
       let Questionss = Questions;
       let new_item = {
-        question: QuestionText,
-        correctAnswer: clickedIndex,
+        question:
+        {
+          title: QuestionText,
+          colors: listColors.length == 0 ? null : listColors,
+          images: listImgs.length == 0 ? null : listImgs,
+          isExist: selectedAswer == 0 ? true : false
+        }
       };
       Questionss.push(new_item);
       setQuestions(Questionss);
       setQuestionInd(QuestionInd + 1);
       setQuestionText('');
+      setlistColors([])
+      setlistImgs([])
       setclickedIndex(null);
     }
   };
 
+
+  const SendQuestions = () => {
+    if (Questions.length==0) {
+      alert('You must Add One Question At least');
+    } else {
+      CreateQuiz(
+        {
+          level: ChooseLevel,
+          booklet: ChooseBooklet,
+          quizQuestions:Questions
+          //  [
+          //   {
+
+          //     question: {
+          //       title: QuestionText,
+          //       colors: listColors.length == 0 ? null : listColors,
+          //       images: listImgs.length == 0 ? null : listImgs,
+          //       isExist: selectedAswer == 0 ? true : false
+          //     }
+          //   }
+          // ]
+        }
+      )
+    }
+  }
+
+
   useEffect(() => {
-    // console.log(Persentage)
+    // console.log(Questions)
   });
-  const [modalColorVisible, setModalColorVisible] = useState(false);
-  const [modalImgVisible, setModalImgVisible] = useState(false);
-  const [listColors, setlistColors] = useState([]);
-  const [listImgs, setlistImgs] = useState([]);
+
+
   const RowContainerTypeData = () => (
     <View style={styles.rowContainerTypeData}>
       <TouchableOpacity
@@ -97,7 +135,7 @@ const AddQuiz = ({route, navigation}) => {
       <View style={styles.Container}>
         <StaticHeader
           Header_name={'Add Question'}
-          style={{backgroundColor: '#A3DEFF'}}
+          style={{ backgroundColor: '#A3DEFF' }}
         />
         <View style={styles.Top_Container}>
           <BookletContainer
@@ -117,7 +155,7 @@ const AddQuiz = ({route, navigation}) => {
         <ScrollView>
           <Text style={styles.WordQuestion}>Question {QuestionInd} </Text>
 
-          <View style={{padding: RFPercentage(2)}}>
+          <View style={{ padding: RFPercentage(2) }}>
             <Text style={styles.HeadText}>Add Question</Text>
             <TextInput
               value={QuestionText}
@@ -135,12 +173,12 @@ const AddQuiz = ({route, navigation}) => {
               }}
               style={[
                 styles.TextInputStyle,
-                {borderColor: isFocused ? COLORS.blue : COLORS.white},
+                { borderColor: isFocused ? COLORS.blue : COLORS.white },
               ]}
             />
           </View>
 
-          <View style={{padding: RFPercentage(2)}}>
+          <View style={{ padding: RFPercentage(2) }}>
             <Text style={styles.HeadText}>Answer</Text>
             <View
               style={[
@@ -157,8 +195,8 @@ const AddQuiz = ({route, navigation}) => {
                       clickedIndex == null
                         ? COLORS.white
                         : clickedIndex == 0
-                        ? COLORS.white
-                        : COLORS.gray,
+                          ? COLORS.white
+                          : COLORS.gray,
                   },
                 ]}
                 onPress={() => {
@@ -176,8 +214,8 @@ const AddQuiz = ({route, navigation}) => {
                       clickedIndex == null
                         ? COLORS.white
                         : clickedIndex == 0
-                        ? COLORS.gray
-                        : COLORS.white,
+                          ? COLORS.gray
+                          : COLORS.white,
                   },
                 ]}
                 onPress={() => {
@@ -186,13 +224,13 @@ const AddQuiz = ({route, navigation}) => {
                 }}>
                 <Image
                   source={Icons.Cancel}
-                  style={[styles.checkAswerStyle, {height: SPACING.l}]}
+                  style={[styles.checkAswerStyle, { height: SPACING.l }]}
                 />
               </TouchableOpacity>
             </View>
           </View>
 
-          <View style={{padding: RFPercentage(2)}}>
+          <View style={{ padding: RFPercentage(2) }}>
             <Text style={styles.HeadText}>Choose Colors Or Images</Text>
             <RowContainerTypeData />
           </View>
@@ -204,8 +242,15 @@ const AddQuiz = ({route, navigation}) => {
               Text={'Another Question'}
               style={styles.SmallButton}
             />
-            <SmallButton Text={'Done'} style={styles.SmallButton} />
+            <SmallButton
+              onPress={() => {
+                SendQuestions()
+              }}
+              Text={'Done'}
+              style={styles.SmallButton} />
           </View>
+
+
           <ModalColors
             modalColorVisible={modalColorVisible}
             setModalColorVisible={setModalColorVisible}

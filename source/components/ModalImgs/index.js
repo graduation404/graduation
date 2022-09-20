@@ -24,11 +24,11 @@ const ModalImgs = ({
     ImagePicker.openPicker({
       width: 300,
       height: 400,
-      multiple: true,
+      // multiple: true,
       includeBase64: true,
     }).then(images => {
-      console.log(images);
-      setlistImgs(prev => [...prev, ...images]);
+      // console.log(images);
+      setlistImgs(prev => [...prev, {imageBase64:images.data}]);
     });
   };
 
@@ -52,7 +52,7 @@ const ModalImgs = ({
                   setlistImgs(list);
                 }}>
                 <Image
-                  source={{uri: `data:${item.mime};base64,${item.data}`}}
+                  source={{uri: `data:${item.imageBase64};base64,${item.imageBase64}`}}
                   style={styles.imageStyle}
                   resizeMode="contain"
                 />

@@ -1,7 +1,7 @@
-import {StyleSheet} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {NavigationContainer} from '@react-navigation/native';
+import { StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
 import {
   AddPatientInfo,
   AddQuiz,
@@ -15,13 +15,13 @@ import {
   ReportResult,
   Test,
 } from '../screens';
-import {GetAsyncStorage} from '../config/helperFunctions';
+import { GetAsyncStorage } from '../config/helperFunctions';
 
 const Stack = createNativeStackNavigator();
 const Navigation = () => {
   const getAdmin = async () => {
     let admin = await GetAsyncStorage('admin');
-    console.log(admin);
+    // console.log(admin);
     if (admin) {
       setInitialRouteName('HomeStack');
     } else {
@@ -36,24 +36,24 @@ const Navigation = () => {
 
 
 
-  const HomeStack=()=>{
-    return(
+  const HomeStack = () => {
+    return (
       <Stack.Navigator
-          initialRouteName="Home"
-          screenOptions={{
-            headerShown: false,
-          }}>
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="PatientProfile" component={PatientProfile} />
-          <Stack.Screen name="AddPatientInfo" component={AddPatientInfo} />
-          <Stack.Screen name="AdminProfile" component={AdminProfile} />
-          <Stack.Screen name="Report" component={Report} />
-          <Stack.Screen name="Test" component={Test} />
-          <Stack.Screen name="ReportResult" component={ReportResult} />
-          <Stack.Screen name="Quiz" component={Quiz} />
-          <Stack.Screen name="ChooseDataQuiz" component={ChooseDataQuiz} />
-          <Stack.Screen name="AddQuiz" component={AddQuiz} />
-        </Stack.Navigator>
+        initialRouteName="Home"
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="AddPatientInfo" component={AddPatientInfo} />
+        <Stack.Screen name="PatientProfile" component={PatientProfile} />
+        <Stack.Screen name="AdminProfile" component={AdminProfile} />
+        <Stack.Screen name="Report" component={Report} />
+        <Stack.Screen name="Test" component={Test} />
+        <Stack.Screen name="ReportResult" component={ReportResult} />
+        <Stack.Screen name="Quiz" component={Quiz} />
+        <Stack.Screen name="ChooseDataQuiz" component={ChooseDataQuiz} />
+        <Stack.Screen name="AddQuiz" component={AddQuiz} />
+      </Stack.Navigator>
     )
   }
   return (
@@ -66,7 +66,7 @@ const Navigation = () => {
           }}>
           <Stack.Screen name="HomeStack" component={HomeStack} />
           <Stack.Screen name="Login" component={Login} />
-          
+
         </Stack.Navigator>
       ) : null}
     </NavigationContainer>

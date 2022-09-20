@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   HeaderQuiz,
   LevelContainer,
@@ -15,38 +15,42 @@ import {
   Slider,
   SmallButton,
 } from '../../components';
-import {COLORS, Icons, SIZES, SPACING} from '../../config';
-import {useNavigation} from '@react-navigation/native';
-import {RFValue} from 'react-native-responsive-fontsize';
+import { COLORS, Icons, SIZES, SPACING } from '../../config';
+import { useNavigation } from '@react-navigation/native';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { GetQuizsInLevelAndBooklet } from '../../config/utils';
 
 const Quiz = props => {
   const navigation = useNavigation();
-  const [quiz, setQuiz] = useState([
-    {
-      question: 'IS There Red Color ?',
-      correctAnswer: 1,
-      colors: ['#f45', '#323', '#5678'],
-      images: null,
-      userAnswer: null,
-      stopwatch: 0,
-    },
-    {
-      question: 'IS There black Color ?',
-      correctAnswer: 0,
-      images: null,
-      colors: ['#a00', '#000', '#fff'],
-      userAnswer: null,
-      stopwatch: 0,
-    },
-    {
-      question: 'IS There black Color ?',
-      correctAnswer: 0,
-      colors: null,
-      images: [Icons.Account, Icons.AddUser, Icons.Age],
-      userAnswer: null,
-      stopwatch: 0,
-    },
-  ]);
+  const { LevelIndex, BookletIndex } = props.route.params
+  const [quiz, setQuiz] = useState(
+    [
+      {
+        title: 'IS There Red Color ?',
+        correctAnswer: 1,
+        colors: ['#f45', '#323', '#5678'],
+        images: null,
+        userAnswer: null,
+        stopwatch: 0,
+      },
+      // {
+      //   question: 'IS There black Color ?',
+      //   correctAnswer: 0,
+      //   images: null,
+      //   colors: ['#a00', '#000', '#fff'],
+      //   userAnswer: null,
+      //   stopwatch: 0,
+      // },
+      // {
+      //   question: 'IS There black Color ?',
+      //   correctAnswer: 0,
+      //   colors: null,
+      //   images: [Icons.Account, Icons.AddUser, Icons.Age],
+      //   userAnswer: null,
+      //   stopwatch: 0,
+      // },
+    ]
+  );
 
   const [selectedAswer, setSelectedAswer] = useState(null);
   const [numberQuestion, setnumberQuestion] = useState(0);
@@ -55,6 +59,9 @@ const Quiz = props => {
   const [WrongQuestion, setWrongQuestion] = useState(0);
   const [clickedIndex, setclickedIndex] = useState(null);
   const [stopwatch, setStopwatch] = useState(0);
+
+
+  const [GetQuiz, setGetQuiz] = useState([]);
 
   useEffect(() => {
     timer();
@@ -72,8 +79,20 @@ const Quiz = props => {
     setSelectedAswer(answer);
   };
 
+  
+  useEffect(() => {
+    setTimeout(() => {
+      GetQuizsInLevelAndBooklet((LevelIndex + 1), (BookletIndex + 1), GetQuiz, setGetQuiz)
+
+      // setQuiz(GetQuiz)
+      console.log(GetQuiz )
+    }, 200);
+    // setQuiz(GetQuiz)
+  }, [])
+
+
   return (
-    <ScrollView style={{flexGrow: 1, backgroundColor: COLORS.white}}>
+    <ScrollView style={{ flexGrow: 1, backgroundColor: COLORS.white }}>
       <View style={styles.Container}>
         <HeaderQuiz />
         <View style={styles.ContainerQuestion}>
@@ -90,9 +109,9 @@ const Quiz = props => {
           </View>
 
           <View
-            style={[styles.subRowContainer, {marginTop: -SIZES.height * 0.03}]}>
+            style={[styles.subRowContainer, { marginTop: -SIZES.height * 0.03 }]}>
             <View style={styles.persentageContaier}>
-              <Text style={{color: '#457567', marginHorizontal: 3}}>
+              <Text style={{ color: '#457567', marginHorizontal: 3 }}>
                 {CorrectQuestion}
               </Text>
               <Slider
@@ -108,7 +127,7 @@ const Quiz = props => {
                 backgroundColor={'red'}
                 Value={(WrongQuestion / QuestionLength) * 100}
               />
-              <Text style={{color: '#f33', marginHorizontal: 3}}>
+              <Text style={{ color: '#f33', marginHorizontal: 3 }}>
                 {WrongQuestion}
               </Text>
             </View>
@@ -118,18 +137,18 @@ const Quiz = props => {
             <Text
               style={[
                 styles.textStyleBtn,
-                {color: COLORS.blue, marginTop: '8%'},
+                { color: COLORS.blue, marginTop: '8%' },
               ]}>
               Question {numberQuestion + 1}{' '}
-              <Text style={{fontSize: SIZES.h2}}>/{quiz.length}</Text>
+              <Text style={{ fontSize: SIZES.h2 }}>/{quiz.length}</Text>
             </Text>
           </View>
           <Text
             style={[
               styles.textStyleBtn,
-              {color: COLORS.black, fontSize: SIZES.h2 + 4, marginTop: '8%'},
+              { color: COLORS.black, fontSize: SIZES.h2 + 4, marginTop: '8%' },
             ]}>
-            {quiz[numberQuestion].question}
+            {quiz[numberQuestion].title}
           </Text>
           <View
             style={[
@@ -145,13 +164,14 @@ const Quiz = props => {
                   : quiz[numberQuestion].images
               }
               horizontal={true}
-              renderItem={({item, index}) =>
+              showsHorizontalScrollIndicator={false}
+              renderItem={({ item, index }) =>
                 quiz[numberQuestion].colors ? (
                   <View
                     style={[
                       styles.shapeQuestion,
                       {
-                        backgroundColor: item,
+                        backgroundColor: item.colorCode,
                       },
                     ]}
                   />
@@ -167,9 +187,9 @@ const Quiz = props => {
           </View>
           <View style={styles.timerContainer}>
             <Image source={Icons.stopwatch} style={styles.stopwatchStyle} />
-            <Text style={{textAlign: 'center', color: COLORS.blue}}>
+            <Text style={{ textAlign: 'center', color: COLORS.blue }}>
               {stopwatch + '\n'}
-              <Text style={{fontSize: SIZES.h5}}>millieSecond</Text>
+              <Text style={{ fontSize: SIZES.h5 }}>millieSecond</Text>
             </Text>
           </View>
           <View
@@ -186,9 +206,9 @@ const Quiz = props => {
                   backgroundColor:
                     clickedIndex == null
                       ? COLORS.white
-                      : clickedIndex == 0
-                      ? COLORS.white
-                      : COLORS.gray,
+                      : clickedIndex == false
+                        ? COLORS.white
+                        : COLORS.gray,
                 },
               ]}
               onPress={() => {
@@ -197,6 +217,7 @@ const Quiz = props => {
               }}>
               <Image source={Icons.Check} style={styles.checkAswerStyle} />
             </TouchableOpacity>
+
             <TouchableOpacity
               style={[
                 styles.answerBtn,
@@ -204,14 +225,14 @@ const Quiz = props => {
                   backgroundColor:
                     clickedIndex == null
                       ? COLORS.white
-                      : clickedIndex == 0
-                      ? COLORS.gray
-                      : COLORS.white,
+                      : clickedIndex == false
+                        ? COLORS.gray
+                        : COLORS.white,
                 },
               ]}
               onPress={() => {
                 clickAnswer(0);
-                setclickedIndex(0);
+                setclickedIndex(false);
               }}>
               <Image
                 source={Icons.Cancel}
@@ -230,7 +251,7 @@ const Quiz = props => {
           <SmallButton
             Text={quiz.length == numberQuestion + 1 ? 'Done' : 'Next'}
             onPress={() => {
-              selectedAswer == quiz[numberQuestion].correctAnswer
+              selectedAswer == quiz[numberQuestion].isExist
                 ? setCorrectQuestion(CorrectQuestion + 1)
                 : setWrongQuestion(WrongQuestion + 1);
 

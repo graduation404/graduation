@@ -1,25 +1,31 @@
 import axios from 'axios';
-const baseURL = 'https://localhost:7043/api';
+const baseURL = 'http://www.medicalapi.somee.com/api';
 export default axios.create({
   baseURL: baseURL,
   timeout: 30000,
 });
 
 // get All users
-export const GetAllUsers = async () => {
+export const GetAllUsers = async (setData,setError) => {
   try {
-    const {data} = await axios.get('/users');
-    return data;
+    const { data } = await axios.get(baseURL + '/users');
+    setData(data)
+    // return data;
   } catch (error) {
     console.log('error all users', error.response.data.message);
     let message = '';
     if (error.response !== undefined) {
       message = error.response.data.message;
+      setError(error.response.data.message)
+
     } else {
       message = 'connection-error';
+      setError('connection-error')
     }
 
-    alert(message);
+    alert(message);  
+      // return message
+setError(message)
     throw new Error(message);
   }
 };
@@ -27,7 +33,7 @@ export const GetAllUsers = async () => {
 // get specifiec user
 export const GetSpecifiecUser = async id => {
   try {
-    const {data} = await axios.get('/users/' + id);
+    const { data } = await axios.get(baseURL + '/users/' + id);
     return data;
   } catch (error) {
     console.log('error specifiec users', error.response.data.message);
@@ -45,7 +51,7 @@ export const GetSpecifiecUser = async id => {
 // delete specifiec user
 export const DeleteSpecifiecUser = async id => {
   try {
-    const {data} = await axios.delete('/users/' + id);
+    const { data } = await axios.delete(baseURL + '/users/' + id);
     return data;
   } catch (error) {
     console.log('error delete users', error.response.data.message);
@@ -64,7 +70,7 @@ export const DeleteSpecifiecUser = async id => {
 // Creating a user
 export const CreateUser = async userData => {
   try {
-    const {data} = await axios.post('/users', userData);
+    const { data } = await axios.post(baseURL + '/users', userData);
     console.log('data', data);
     return data;
   } catch (error) {
@@ -89,11 +95,14 @@ export const CreateUser = async userData => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 // Creating a quiz
 export const CreateQuiz = async quizData => {
   try {
-    const {data} = await axios.post('/quizs', quizData);
-    console.log('data', data);
+    const { data } = await axios.post(baseURL + '/quizs', quizData);
+    // console.log('data', data);
     return data;
   } catch (error) {
     console.log('error Create quiz', error.response.data.message);
@@ -112,7 +121,7 @@ export const CreateQuiz = async quizData => {
 // get All quizes
 export const GetAllQuizs = async () => {
   try {
-    const {data} = await axios.get('/quizs');
+    const { data } = await axios.get(baseURL + '/quizs');
     return data;
   } catch (error) {
     console.log('error all quizs', error.response.data.message);
@@ -131,7 +140,7 @@ export const GetAllQuizs = async () => {
 // delete specifiec quiz
 export const DeleteSpecifiecQuiz = async id => {
   try {
-    const {data} = await axios.delete('/quizs/' + id);
+    const { data } = await axios.delete(baseURL + '/quizs/' + id);
     return data;
   } catch (error) {
     console.log('error delete quizs', error.response.data.message);
@@ -150,7 +159,7 @@ export const DeleteSpecifiecQuiz = async id => {
 // get specifiec quiz
 export const GetSpecifiecQuiz = async id => {
   try {
-    const {data} = await axios.get('/quizs/' + id);
+    const { data } = await axios.get(baseURL + '/quizs/' + id);
     return data;
   } catch (error) {
     console.log('error specifiec quizs', error.response.data.message);
@@ -167,10 +176,15 @@ export const GetSpecifiecQuiz = async id => {
 };
 
 // get quizs in level and booklet
-export const GetQuizsInLevelAndBooklet = async (level, booklet) => {
+export const GetQuizsInLevelAndBooklet = async (level, booklet,GetQuiz,setQuiz) => {
   try {
-    const {data} = await axios.get('/quizs/' + level + '/' + booklet);
-    return data;
+    const { data } = await axios.get(baseURL + '/quizs/getbylevelandbooklet' + '/' + level + '/' + booklet);
+    for(let i=0;i<=data.length;i++){
+      GetQuiz.push(data[i].quizQuestions[0].question)
+      setQuiz(GetQuiz)
+      // return GetQuiz
+    }
+    //  console.log(data)
   } catch (error) {
     console.log(
       'error quizs in level and booklet',
@@ -201,7 +215,7 @@ export const GetQuizsInLevelAndBooklet = async (level, booklet) => {
 // Creating a quiz
 export const CreateUserquizs = async quizData => {
   try {
-    const {data} = await axios.post('/Userquizs', quizData);
+    const { data } = await axios.post(baseURL + '/Userquizs', quizData);
     console.log('data', data);
     return data;
   } catch (error) {
@@ -219,10 +233,11 @@ export const CreateUserquizs = async quizData => {
 };
 
 // Get All Userquizs
-export const GetAllUserquizs = async () => {
+export const GetAllUserquizs = async (setData) => {
   try {
-    const {data} = await axios.get('/Userquizs');
-    return data;
+    const { data } = await axios.get(baseURL + '/Userquizs');
+    setData(data)
+    console.log(data)
   } catch (error) {
     console.log('error all Userquizs', error.response.data.message);
     let message = '';
@@ -238,10 +253,11 @@ export const GetAllUserquizs = async () => {
 };
 
 // get specifiec quiz
-export const GetSpecifiecUserquizs = async id => {
+export const GetSpecifiecUserquizs = async (id,setData )=> {
   try {
-    const {data} = await axios.get('/Userquizs/' + id);
-    return data;
+    const { data } = await axios.get(baseURL + '/Userquizs/' + id);
+     setData(data)
+     console.log(data)
   } catch (error) {
     console.log('error specifiec Userquizs', error.response.data.message);
     let message = '';
@@ -259,13 +275,13 @@ export const GetSpecifiecUserquizs = async id => {
 // get Userquizs in level and booklet
 export const GetUserquizsInLevelAndBooklet = async (UserId, level, booklet) => {
   try {
-    const {data} = await axios.get(
-      '/Userquizs/GetByUserIdAndLevelAndBooklet/' +
-        UserId +
-        '/' +
-        level +
-        '/' +
-        booklet,
+    const { data } = await axios.get(
+      baseURL + '/Userquizs/GetByUserIdAndLevelAndBooklet/' +
+      UserId +
+      '/' +
+      level +
+      '/' +
+      booklet,
     );
     return data;
   } catch (error) {

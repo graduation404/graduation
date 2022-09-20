@@ -62,6 +62,7 @@ const GroupBooklet = [
   },
 ]
 const ChooseDataQuiz = (props) => {
+  const [Loading, setLoading] = useState(false);
   const [OpenageGroupList, setOpenageGroupList] = useState(false);
   const [ageGroupValue, setAgeGroupValue] = useState('');
   const [OpenChooseLevel, setOpenChooseLevel] = useState(false);
@@ -137,7 +138,9 @@ const ChooseDataQuiz = (props) => {
           colorIcon={COLORS.blue}
         />
       </View>
-      <SmallButton Text="let's go"
+      <SmallButton
+        Loading={Loading}
+        Text="let's go"
         style={{ marginTop: SPACING.xl }}
         onPress={() => {
           ClickedFun()

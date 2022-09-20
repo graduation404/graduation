@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {FlatList, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {RFPercentage} from 'react-native-responsive-fontsize';
+import React, { useState } from 'react';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 import {
   BookletContainer,
   Card,
@@ -8,13 +8,14 @@ import {
   LevelContainer,
   StaticHeader,
 } from '../../components';
-import {COLORS, Icons, Line, SHADOW, SIZES} from '../../config';
+import { COLORS, Icons, Line, SHADOW, SIZES } from '../../config';
 import * as Animatable from 'react-native-animatable';
 
 const Report = props => {
-  const [name, setName] = useState('Ahmed Khalifa');
+  const { PatientInfo } = props.route.params
+  const [name, setName] = useState(PatientInfo.name);
   const [id, setid] = useState(582222);
-  const [age, setage] = useState(12);
+  const [age, setage] = useState(PatientInfo.age);
   const [LevelIndex, setLevelIndex] = useState(null);
   const [BookletIndex, setBookletIndex] = useState(null);
 
@@ -22,24 +23,25 @@ const Report = props => {
     {
       Text: 'Level 1',
       Image: Icons.Signal,
-      Persentage: 40,
+      Persentage: 25,
     },
     {
       Text: 'Level 2',
       Image: Icons.Signal,
-      Persentage: 80,
+      Persentage: 50,
     },
     {
       Text: 'Level 3',
       Image: Icons.Signal,
-      Persentage: 5,
+      Persentage: 75,
     },
     {
       Text: 'Level 4',
       Image: Icons.Signal,
-      Persentage: 10,
+      Persentage: 100,
     },
   ]);
+  const [Levelslength, setLevelslength] = useState(LevelsArray.length)
 
   const [BookletArray, setBookletArray] = useState([
     {
@@ -109,12 +111,12 @@ const Report = props => {
     return (
       <>
         <View
-          style={{height: RFPercentage(23.5), paddingRight: RFPercentage(1.5)}}>
+          style={{ height: RFPercentage(23.5), paddingRight: RFPercentage(1.5) }}>
           <FlatList
             data={LevelsArray}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            renderItem={({item, index}) => (
+            renderItem={({ item, index }) => (
               <>
                 <LevelContainer
                   onPress={() => {
@@ -142,12 +144,12 @@ const Report = props => {
     return (
       <>
         <View
-          style={{height: RFPercentage(23.5), paddingRight: RFPercentage(1.5)}}>
+          style={{ height: RFPercentage(23.5), paddingRight: RFPercentage(1.5) }}>
           <FlatList
             data={BookletArray[LevelIndex].Array}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            renderItem={({item, index}) => (
+            renderItem={({ item, index }) => (
               <>
                 <BookletContainer
                   onPress={() => {
@@ -192,9 +194,9 @@ const Report = props => {
                 </View>
               </View>
               <TouchableOpacity style={styles.backIconStyle}
-              onPress={()=>{
-                props.navigation.navigate("PatientProfile")
-              }}
+                onPress={() => {
+                  props.navigation.navigate("PatientProfile")
+                }}
               >
                 <Image source={Icons.Next} style={styles.Image_Style} />
               </TouchableOpacity>
@@ -236,9 +238,10 @@ const Report = props => {
           <>
             <Animatable.View animation={'zoomInUp'}>
               <LargeButton
+                colors={[COLORS.blue, COLORS.darkGray]}
                 onPress={() => {
                   // alert('See Result');
-                  props.navigation.navigate('ReportResult')
+                  props.navigation.navigate('ReportResult', { id: PatientInfo.id, levelInd: (LevelIndex + 1), BookletInd: (BookletIndex + 1) })
                 }}
                 Text="See Result"
               />

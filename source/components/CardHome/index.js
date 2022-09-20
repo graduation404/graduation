@@ -1,7 +1,8 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
-import {COLORS, SIZES, SPACING, SHADOW, Icons} from '../../config';
+import React, { useState } from 'react';
+import {COLORS, SIZES, SPACING, SHADOW, Icons, Range_Function} from '../../config';
 const CardHome = ({item, index, nav}) => {
+  const [Range, setRange] = useState(Range_Function(item.age))
   return (
     <View style={styles.Container}>
       <View style={styles.topContainer}>
@@ -20,7 +21,7 @@ const CardHome = ({item, index, nav}) => {
 
             <View style={styles.subContainerAge}>
               <Text style={[styles.subTextStyle, {color: COLORS.blue}]}>
-                6-10
+                { Range}
               </Text>
             </View>
           </View>
@@ -43,7 +44,7 @@ const CardHome = ({item, index, nav}) => {
                 marginHorizontal: SPACING.vS,
               },
             ]}>
-            9 years
+            {item.age} years
           </Text>
         </View>
       </View>
@@ -92,7 +93,7 @@ const CardHome = ({item, index, nav}) => {
         <TouchableOpacity
           style={styles.subContainerAge}
           onPress={() => {
-            nav.navigation.navigate('PatientProfile',item);
+            nav.navigation.navigate('PatientProfile',{PatientInfo:item});
           }}>
           <Text style={[styles.subTextStyle, {color: COLORS.blue}]}>Visit</Text>
         </TouchableOpacity>

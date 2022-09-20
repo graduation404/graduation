@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FlatList,
   Image,
@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {RFPercentage} from 'react-native-responsive-fontsize';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 import {
   Card,
   HeaderProfile,
@@ -27,44 +27,46 @@ import {
 } from '../../config';
 
 const PatientProfile = props => {
-  const navigation=useNavigation()
-  const [name, setName] = useState('Ahmed Khalifa');
+  const navigation = useNavigation()
+  const { PatientInfo } = props.route.params
+  const [name, setName] = useState(PatientInfo.name);
   const [id, setid] = useState(582222);
-  const [age, setage] = useState(12);
+  const [age, setage] = useState(PatientInfo.age);
   const [Time, setTime] = useState('11:00 Am');
   const [Date, setDate] = useState('22 Aug');
   const [Range, setRange] = useState(Range_Function(age));
   const [PatientsDataValue, setPatientsDataValue] = useState([
     {
       name: 'Dual',
-      Percentage: 40,
+      Percentage: PatientInfo.dual,
       image: Icons.PointHand,
     },
     {
       name: 'Base Line',
-      Percentage: 20,
+      Percentage: PatientInfo.baseLine,
       image: Icons.PointHand,
     },
     {
       name: 'Hearing Level (Right)',
-      Percentage: 80,
+      Percentage: PatientInfo.hearingLevelRight,
       image: Icons.PointHand,
     },
     {
       name: 'Hearing Level (Left)',
-      Percentage: 87.5,
+      Percentage: PatientInfo.hearingLevelLeft,
       image: Icons.PointHand,
     },
   ]);
+  // console.log(PatientInfo)
 
   const DataList = () => {
     return (
       <View
-        style={{height: SIZES.height * 0.425, justifyContent: 'space-between'}}>
+        style={{ height: SIZES.height * 0.425, justifyContent: 'space-between' }}>
         <FlatList
           showsVerticalScrollIndicator={false}
           data={PatientsDataValue}
-          renderItem={({item, index}) => (
+          renderItem={({ item, index }) => (
             <>
               <PatientsDataContainer
                 Percentage={item.Percentage}
@@ -90,10 +92,10 @@ const PatientProfile = props => {
               </View>
 
               <View style={styles.Image_Container}>
-                <Image source={Icons.Male} style={styles.GenderImage_Style} />
+                <Image source={PatientInfo.gender == "1" ? Icons.Male : Icons.Woman} style={[styles.GenderImage_Style, { tintColor: PatientInfo.gender == "1" ? COLORS.blue : null }]} />
               </View>
               <TouchableOpacity
-                style={{width: '20%', alignItems: 'flex-end'}}
+                style={{ width: '20%', alignItems: 'flex-end' }}
                 onPress={() => {
                   alert('edit');
                 }}>
@@ -101,13 +103,13 @@ const PatientProfile = props => {
               </TouchableOpacity>
             </View>
 
-            <Text style={styles.name_Style}>{props.route.params.name}</Text>
+            <Text style={styles.name_Style}>{PatientInfo.name}</Text>
             <Text style={styles.id_Style}>id: {id}</Text>
             <View style={styles.last_Container_View}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Image
                   source={Icons.Clock}
-                  style={{height: RFPercentage(3), width: RFPercentage(3)}}
+                  style={{ height: RFPercentage(3), width: RFPercentage(3) }}
                 />
                 <Text
                   style={[
@@ -124,10 +126,10 @@ const PatientProfile = props => {
 
               <Text style={styles.Age_Text}>{age} Years </Text>
 
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Image
                   source={Icons.Calendar}
-                  style={{height: RFPercentage(3), width: RFPercentage(3)}}
+                  style={{ height: RFPercentage(3), width: RFPercentage(3) }}
                 />
                 <Text
                   style={[
@@ -148,7 +150,7 @@ const PatientProfile = props => {
     );
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   return (
     <View style={styles.Container}>
@@ -166,8 +168,8 @@ const PatientProfile = props => {
       {/* <Line /> */}
 
       <View style={styles.Buttons_Container}>
-        <SmallButton onPress={()=>{navigation.navigate('Test')}} Text={'Test'} Icon={Icons.Test} />
-        <SmallButton onPress={()=>{navigation.navigate('Report')}} Text={'Report'} Icon={Icons.Report} />
+        <SmallButton onPress={() => { navigation.navigate('Test',{PatientInfo}) }} Text={'Test'} Icon={Icons.Test} />
+        <SmallButton onPress={() => { navigation.navigate('Report',{PatientInfo}) }} Text={'Report'} Icon={Icons.Report} />
       </View>
     </View>
   );
@@ -195,7 +197,6 @@ const styles = StyleSheet.create({
   GenderImage_Style: {
     height: RFPercentage(7.5),
     width: RFPercentage(7.5),
-    tintColor: COLORS.blue,
   },
   ageRange_Text: {
     fontWeight: 'bold',
