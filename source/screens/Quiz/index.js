@@ -81,14 +81,14 @@ const Quiz = props => {
 
   
   useEffect(() => {
-    setTimeout(() => {
+    // setTimeout(() => {
       GetQuizsInLevelAndBooklet((LevelIndex + 1), (BookletIndex + 1), GetQuiz, setGetQuiz)
 
       // setQuiz(GetQuiz)
       console.log(GetQuiz )
-    }, 200);
+    // }, 200);
     // setQuiz(GetQuiz)
-  }, [])
+  }, [GetQuiz,setGetQuiz])
 
 
   return (

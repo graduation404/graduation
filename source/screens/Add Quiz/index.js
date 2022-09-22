@@ -7,6 +7,7 @@ import {
   Image,
   FlatList,
   TextInput,
+  Alert,
 } from 'react-native';
 import { Icons, Line, COLORS, sizes, SIZES, SPACING, SHADOW } from '../../config';
 import {
@@ -47,7 +48,7 @@ const AddQuiz = ({ route, navigation }) => {
     if (QuestionText == '' || clickedIndex == null && (listColors != [] || listImgs != [])) {
       alert('Please fill All Data');
     } else {
-      let Questionss = Questions;
+      let Questionss = []
       let new_item = {
         question:
         {
@@ -58,39 +59,81 @@ const AddQuiz = ({ route, navigation }) => {
         }
       };
       Questionss.push(new_item);
-      setQuestions(Questionss);
+
       setQuestionInd(QuestionInd + 1);
       setQuestionText('');
       setlistColors([])
       setlistImgs([])
       setclickedIndex(null);
+
+      CreateQuiz(
+        {
+          level: ChooseLevel,
+          booklet: ChooseBooklet,
+          quizQuestions: Questionss
+
+        }
+      )
+
+      Questionss = []
+
+
     }
   };
 
 
   const SendQuestions = () => {
-    if (Questions.length==0) {
-      alert('You must Add One Question At least');
+
+    if (QuestionText == '' || clickedIndex == null && (listColors != [] || listImgs != [])) {
+      if (Questions.length == 0) {
+        Alert.alert(
+          "You Aren't Add Any Questions",
+          "Are you sure to leave..!?",
+          [
+            {
+              text: "Cancel",
+            },
+            {
+              text: "ok",
+              onPress: () => navigation.navigate('Home')
+            },
+          ],
+        );
+      }
+      else {
+        navigation.navigate('Home')
+      }
+
     } else {
+      let Questionss = []
+      let new_item = {
+        question:
+        {
+          title: QuestionText,
+          colors: listColors.length == 0 ? null : listColors,
+          images: listImgs.length == 0 ? null : listImgs,
+          isExist: selectedAswer == 0 ? true : false
+        }
+      };
+      Questionss.push(new_item);
+
+
       CreateQuiz(
         {
           level: ChooseLevel,
           booklet: ChooseBooklet,
-          quizQuestions:Questions
-          //  [
-          //   {
+          quizQuestions: Questionss
 
-          //     question: {
-          //       title: QuestionText,
-          //       colors: listColors.length == 0 ? null : listColors,
-          //       images: listImgs.length == 0 ? null : listImgs,
-          //       isExist: selectedAswer == 0 ? true : false
-          //     }
-          //   }
-          // ]
         }
       )
+
+      navigation.navigate('Home')
+
+
     }
+
+
+
   }
 
 
