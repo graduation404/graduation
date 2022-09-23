@@ -56,7 +56,7 @@ const AddQuiz = ({ route, navigation }) => {
           title: QuestionText,
           colors: listColors.length == 0 ? null : listColors,
           images: listImgs.length == 0 ? null : listImgs,
-          isExist: selectedAswer == 0 ? true : false
+          isExist: selectedAswer ? true : false
         }
       };
       Questionss.push(new_item);
@@ -68,18 +68,18 @@ const AddQuiz = ({ route, navigation }) => {
       setclickedIndex(null);
 
 
-      CreateQuiz(
-        {
-          level: ChooseLevel,
-          booklet: ChooseBooklet,
-          ageGroup: ageGroup,
-          quizQuestions: Questionss
+      // CreateQuiz(
+      //   {
+      //     level: ChooseLevel,
+      //     booklet: ChooseBooklet,
+      //     ageGroup: ageGroup,
+      //     quizQuestions: Questionss
 
-        }
-      )
+      //   }
+      // )
 
-      console.log(Questionss)
-      Questionss = []
+      // console.log(Questionss)
+      // Questionss = []
 
 
     }

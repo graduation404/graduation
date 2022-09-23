@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   ScrollView,
@@ -15,21 +16,32 @@ import {subDate, subtime, welcomeMessage} from '../../config/helperFunctions';
 import {GetAllUsers} from '../../config/utils';
 
 const Home = props => {
-  const [data, setData] = useState([
-    // { name: 'ahmed', gender: 1, age: 25 },
-    // { name: 'hesham', gender: 1, age: 25 },
-    // { name: 'abdo', gender: 1, age: 25 },
-    // { name: 'rahaf', gender: 2, age: 25 },
-    // { name: 'shaimaa', gender: 2, age: 25 },
-  ]);
+  const [data, setData] = useState([]);
   const [searchInput, setSearchInput] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     GetAllUsers(setData, setError);
     // subtime(0)
+    setLoading(false);
+
+    return () => {
+      setLoading(true);
+
+      GetAllUsers(setData, setError);
+      setLoading(false);
+    };
   }, [setData]);
+  useEffect(() => {
+    return () => {
+      setLoading(true);
+
+      GetAllUsers(setData, setError);
+      setLoading(false);
+    };
+  }, []);
 
   const TitleSection = () => {
     return (
@@ -44,7 +56,7 @@ const Home = props => {
     if (loading) {
       return (
         <View style={styles.indicatorContainer}>
-          <ActivityIndicator size="large" color={COLORS.blue} />
+          <ActivityIndicator size="large"  color={COLORS.blue} />
         </View>
       );
     }
@@ -52,7 +64,7 @@ const Home = props => {
       return <NoInternet buttonHandler={() => {}} />;
     }
 
-    if (data && data.length == 0) {
+    if (data.length == 0) {
       return (
         <>
           <View style={styles.indicatorContainer}>
@@ -69,7 +81,7 @@ const Home = props => {
       );
     }
 
-    return (
+    return  (
       <View style={{width: '100%', alignItems: 'center'}}>
         <FlatList
           showsVerticalScrollIndicator={false}
@@ -143,6 +155,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
+    backgroundColor:"#a00"
   },
   image: {
     width: RFValue(190),

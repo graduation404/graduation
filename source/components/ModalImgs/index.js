@@ -27,8 +27,11 @@ const ModalImgs = ({
       // multiple: true,
       includeBase64: true,
     }).then(images => {
-      // console.log(images);
-      setlistImgs(prev => [...prev, {imageBase64:images.data}]);
+      console.log(images);
+      setlistImgs(prev => [
+        ...prev,
+        {imageBase64: images.data, Mime: images.mime},
+      ]);
     });
   };
 
@@ -52,7 +55,9 @@ const ModalImgs = ({
                   setlistImgs(list);
                 }}>
                 <Image
-                  source={{uri: `data:${item.imageBase64};base64,${item.imageBase64}`}}
+                  source={{
+                    uri: `data:${item.imageBase64};base64,${item.imageBase64}`,
+                  }}
                   style={styles.imageStyle}
                   resizeMode="contain"
                 />

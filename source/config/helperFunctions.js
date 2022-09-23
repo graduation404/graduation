@@ -18,10 +18,10 @@ const Range_Function = age => {
     ? age > 6
       ? age > 10
         ? age > 18
-          ? (range = '< 18')
+          ? (range = '+18')
           : (range = '10-18')
         : (range = '6-10')
-      : (range = '5-6')
+      : (range = '2-6')
     : null;
   // console.log(range)
 
@@ -105,7 +105,20 @@ const handleAgeGroup = ageGroup => {
 
   return agevalue;
 };
+const handleAgeGroup2 = ageGroup => {
+  let agevalue = '';
+  if (ageGroup == '1-5') {
+    agevalue = 1;
+  } else if (ageGroup =='5-10' ) {
+    agevalue =2 ;
+  } else if (ageGroup =='10-18') {
+    agevalue =  3;
+  } else if (ageGroup == '+18') {
+    agevalue = 4;
+  }
 
+  return agevalue;
+};
 export {
   Line,
   Range_Function,
@@ -116,6 +129,7 @@ export {
   subDate,
   subtime,
   handleAgeGroup,
+  handleAgeGroup2
 };
 
 const styles = StyleSheet.create({
