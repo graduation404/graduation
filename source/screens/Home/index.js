@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -7,34 +7,29 @@ import {
   Text,
   View,
 } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
-import { CardHome, HeaderHome } from '../../components';
+import {RFValue} from 'react-native-responsive-fontsize';
+import {CardHome, HeaderHome} from '../../components';
 import NoInternet from '../../components/noInternet';
-import { COLORS, SIZES, SPACING } from '../../config';
-import { subDate, subtime, welcomeMessage } from '../../config/helperFunctions';
-import { GetAllUsers } from '../../config/utils';
+import {COLORS, SIZES, SPACING} from '../../config';
+import {subDate, subtime, welcomeMessage} from '../../config/helperFunctions';
+import {GetAllUsers} from '../../config/utils';
 
 const Home = props => {
-  const [data, setData] = useState(
-    [
-      // { name: 'ahmed', gender: 1, age: 25 },
-      // { name: 'hesham', gender: 1, age: 25 },
-      // { name: 'abdo', gender: 1, age: 25 },
-      // { name: 'rahaf', gender: 2, age: 25 },
-      // { name: 'shaimaa', gender: 2, age: 25 },
-    ]
-  )
+  const [data, setData] = useState([
+    // { name: 'ahmed', gender: 1, age: 25 },
+    // { name: 'hesham', gender: 1, age: 25 },
+    // { name: 'abdo', gender: 1, age: 25 },
+    // { name: 'rahaf', gender: 2, age: 25 },
+    // { name: 'shaimaa', gender: 2, age: 25 },
+  ]);
   const [searchInput, setSearchInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-
   useEffect(() => {
-    GetAllUsers(setData, setError)
+    GetAllUsers(setData, setError);
     // subtime(0)
   }, [setData]);
-
-
 
   const TitleSection = () => {
     return (
@@ -54,7 +49,7 @@ const Home = props => {
       );
     }
     if (error) {
-      return <NoInternet buttonHandler={() => { }} />;
+      return <NoInternet buttonHandler={() => {}} />;
     }
 
     if (data && data.length == 0) {
@@ -66,7 +61,7 @@ const Home = props => {
               source={require('../../assets/imgs/nodata.png')}
               style={styles.image}
             />
-            <Text style={[styles.textStyle, { alignSelf: 'center' }]}>
+            <Text style={[styles.textStyle, {alignSelf: 'center'}]}>
               No Data
             </Text>
           </View>
@@ -75,7 +70,7 @@ const Home = props => {
     }
 
     return (
-      <View style={{ width: '100%', alignItems: 'center' }}>
+      <View style={{width: '100%', alignItems: 'center'}}>
         <FlatList
           showsVerticalScrollIndicator={false}
           style={{
@@ -83,10 +78,16 @@ const Home = props => {
             backgroundColor: COLORS.white,
           }}
           data={data}
-          renderItem={({ item, index }) => (
+          renderItem={({item, index}) => (
             <>
               {item.name.toLowerCase().includes(searchInput.toLowerCase()) ? (
-                <CardHome hours={subtime(item)} date={subDate(item)} item={item} index={index} nav={props} />
+                <CardHome
+                  hours={subtime(item)}
+                  date={subDate(item)}
+                  item={item}
+                  index={index}
+                  nav={props}
+                />
               ) : null}
             </>
           )}
@@ -104,7 +105,7 @@ const Home = props => {
         value={searchInput}
       />
       <ScrollView
-        style={{ width: '95%', alignSelf: 'center' }}
+        style={{width: '95%', alignSelf: 'center'}}
         showsVerticalScrollIndicator={false}>
         <TitleSection />
         {renderContent()}

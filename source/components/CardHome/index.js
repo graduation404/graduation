@@ -151,19 +151,21 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.s,
   },
   leftBottomSubContainer: {
-    width: '60%',
+    width: '75%',
     height: '100%',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
+    overflow:'visible',
+    // backgroundColor:"#f00"
   },
   IconTitleBottomContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   iconBottomContainer: {
-    width: SIZES.width * 0.08,
-    height: SIZES.height * 0.045,
+    width: SIZES.width * 0.06,
+    height: SIZES.height * 0.04,
     resizeMode: 'contain',
   },
   card_Container: {

@@ -60,60 +60,51 @@ const GetAsyncStorage = async key => {
   return data;
 };
 const welcomeMessage = () => {
-  return(
-  ToastAndroid.show(
+  return ToastAndroid.show(
     'Welcome DR.Mostafa',
     ToastAndroid.SHORT,
     ToastAndroid.BOTTOM,
-  )
-  )
+  );
 };
 
-
-const subDate = (data) => {
+const subDate = data => {
   let fulldate = data.creationtime;
-  let date = fulldate.slice(0, 10).split('-')
-  date = date[2] + ' / ' + date[1] + ' / ' + date[0] + '         '
+  let date = fulldate.slice(0, 10).split('-');
+  date = date[2] + ' / ' + date[1] + ' / ' + date[0] ;
 
-  return date
+  return date;
 };
 
-const subtime = (data) => {
+const subtime = data => {
   let fulldate = data.creationtime;
 
-  let M = ''
-  let hours = fulldate.slice(11, 13)
-  hours > 12 ? (M = 'AM') : (M = 'PM')
-  hours > 12 ? (hours = (hours - 12)) : hours = hours
+  let M = '';
+  let hours = fulldate.slice(11, 13);
+  hours > 12 ? (M = 'AM') : (M = 'PM');
+  hours > 12 ? (hours = hours - 12) : (hours = hours);
 
-  let minuts = fulldate.slice(14, 16)
+  let minuts = fulldate.slice(14, 16);
 
-  let date = hours + ' : ' + minuts +' ' +M
-  console.log(minuts)
+  let date = hours + ' : ' + minuts + ' ' + M;
+  console.log(minuts);
 
-  return (date)
+  return date;
 };
 
-
-const handleAgeGroup = (ageGroup) => {
-  let agevalue = ''
+const handleAgeGroup = ageGroup => {
+  let agevalue = '';
   if (ageGroup == 1) {
-    agevalue='1-5'
-  }
-  else if(ageGroup == 2){
-    agevalue='5-10'
-  }
-  else if(ageGroup == 3){
-    agevalue='10-18'
-  }
-  else if(ageGroup == 4){
-    agevalue='+18'
+    agevalue = '1-5';
+  } else if (ageGroup == 2) {
+    agevalue = '5-10';
+  } else if (ageGroup == 3) {
+    agevalue = '10-18';
+  } else if (ageGroup == 4) {
+    agevalue = '+18';
   }
 
-  return agevalue
-}
-
-
+  return agevalue;
+};
 
 export {
   Line,
@@ -124,7 +115,7 @@ export {
   welcomeMessage,
   subDate,
   subtime,
-  handleAgeGroup
+  handleAgeGroup,
 };
 
 const styles = StyleSheet.create({

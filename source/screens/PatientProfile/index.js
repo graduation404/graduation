@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { RFPercentage } from 'react-native-responsive-fontsize';
+import {RFPercentage} from 'react-native-responsive-fontsize';
 import {
   Card,
   HeaderProfile,
@@ -25,11 +25,11 @@ import {
   SHADOW,
   Range_Function,
 } from '../../config';
-import { subDate, subtime } from '../../config/helperFunctions';
+import {subDate, subtime} from '../../config/helperFunctions';
 
 const PatientProfile = props => {
-  const navigation = useNavigation()
-  const { PatientInfo, hours, date } = props.route.params
+  const navigation = useNavigation();
+  const {PatientInfo, hours, date} = props.route.params;
   const [name, setName] = useState(PatientInfo.name);
   // const [id, setid] = useState(582222);
   const [age, setage] = useState(PatientInfo.age);
@@ -58,16 +58,16 @@ const PatientProfile = props => {
       image: Icons.PointHand,
     },
   ]);
-  console.log(hours,date )
+  console.log(hours, date);
 
   const DataList = () => {
     return (
       <View
-        style={{ height: SIZES.height * 0.425, justifyContent: 'space-between' }}>
+        style={{height: SIZES.height * 0.425, justifyContent: 'space-between'}}>
         <FlatList
           showsVerticalScrollIndicator={false}
           data={PatientsDataValue}
-          renderItem={({ item, index }) => (
+          renderItem={({item, index}) => (
             <>
               <PatientsDataContainer
                 Percentage={item.Percentage}
@@ -93,24 +93,25 @@ const PatientProfile = props => {
               </View>
 
               <View style={styles.Image_Container}>
-                <Image source={PatientInfo.gender == "1" ? Icons.Male : Icons.Woman} style={[styles.GenderImage_Style, { tintColor: PatientInfo.gender == "1" ? COLORS.blue : null }]} />
+                <Image
+                  source={PatientInfo.gender == '1' ? Icons.Male : Icons.Woman}
+                  style={[
+                    styles.GenderImage_Style,
+                    {tintColor: PatientInfo.gender == '1' ? COLORS.blue : null},
+                  ]}
+                />
               </View>
-              <TouchableOpacity
-                style={{ width: '20%', alignItems: 'flex-end' }}
-                onPress={() => {
-                  alert('edit');
-                }}>
-                <Image source={Icons.Pen} style={styles.Image_Style} />
-              </TouchableOpacity>
+              <View style={{alignItems: 'flex-end'}}>
+                <Text style={styles.Age_Text}>{age} Years </Text>
+              </View>
             </View>
 
             <Text style={styles.name_Style}>{PatientInfo.name}</Text>
             <View style={styles.last_Container_View}>
-
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Image
                   source={Icons.Calendar}
-                  style={{ height: RFPercentage(3), width: RFPercentage(3) }}
+                  style={{height: RFPercentage(3), width: RFPercentage(3)}}
                 />
                 <Text
                   style={[
@@ -125,15 +126,10 @@ const PatientProfile = props => {
                 </Text>
               </View>
 
-
-
-              <Text style={styles.Age_Text}>{age} Years                 </Text>
-
-
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Image
                   source={Icons.Clock}
-                  style={{ height: RFPercentage(3), width: RFPercentage(3) }}
+                  style={{height: RFPercentage(3), width: RFPercentage(3)}}
                 />
                 <Text
                   style={[
@@ -147,7 +143,6 @@ const PatientProfile = props => {
                   {Time}
                 </Text>
               </View>
-
             </View>
           </>
         }
@@ -155,7 +150,7 @@ const PatientProfile = props => {
     );
   };
 
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
 
   return (
     <View style={styles.Container}>
@@ -173,8 +168,20 @@ const PatientProfile = props => {
       {/* <Line /> */}
 
       <View style={styles.Buttons_Container}>
-        <SmallButton onPress={() => { navigation.navigate('Test', { PatientInfo }) }} Text={'Test'} Icon={Icons.Test} />
-        <SmallButton onPress={() => { navigation.navigate('Report', { PatientInfo }) }} Text={'Report'} Icon={Icons.Report} />
+        <SmallButton
+          onPress={() => {
+            navigation.navigate('Test', {PatientInfo});
+          }}
+          Text={'Test'}
+          Icon={Icons.Test}
+        />
+        <SmallButton
+          onPress={() => {
+            navigation.navigate('Report', {PatientInfo});
+          }}
+          Text={'Report'}
+          Icon={Icons.Report}
+        />
       </View>
     </View>
   );
