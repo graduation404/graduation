@@ -25,15 +25,16 @@ import {
   SHADOW,
   Range_Function,
 } from '../../config';
+import { subDate, subtime } from '../../config/helperFunctions';
 
 const PatientProfile = props => {
   const navigation = useNavigation()
-  const { PatientInfo } = props.route.params
+  const { PatientInfo, hours, date } = props.route.params
   const [name, setName] = useState(PatientInfo.name);
-  const [id, setid] = useState(582222);
+  // const [id, setid] = useState(582222);
   const [age, setage] = useState(PatientInfo.age);
-  const [Time, setTime] = useState('11:00 Am');
-  const [Date, setDate] = useState('22 Aug');
+  const [Time, setTime] = useState(subtime(PatientInfo));
+  const [Date, setDate] = useState(subDate(PatientInfo));
   const [Range, setRange] = useState(Range_Function(age));
   const [PatientsDataValue, setPatientsDataValue] = useState([
     {
@@ -57,7 +58,7 @@ const PatientProfile = props => {
       image: Icons.PointHand,
     },
   ]);
-  // console.log(PatientInfo)
+  console.log(hours,date )
 
   const DataList = () => {
     return (
@@ -104,27 +105,7 @@ const PatientProfile = props => {
             </View>
 
             <Text style={styles.name_Style}>{PatientInfo.name}</Text>
-            <Text style={styles.id_Style}>id: {id}</Text>
             <View style={styles.last_Container_View}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Image
-                  source={Icons.Clock}
-                  style={{ height: RFPercentage(3), width: RFPercentage(3) }}
-                />
-                <Text
-                  style={[
-                    {
-                      fontSize: SIZES.h4,
-                      fontWeight: 'bold',
-                      color: COLORS.blue,
-                    },
-                  ]}>
-                  {' '}
-                  {Time}
-                </Text>
-              </View>
-
-              <Text style={styles.Age_Text}>{age} Years </Text>
 
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Image
@@ -143,6 +124,30 @@ const PatientProfile = props => {
                   {Date}
                 </Text>
               </View>
+
+
+
+              <Text style={styles.Age_Text}>{age} Years                 </Text>
+
+
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Image
+                  source={Icons.Clock}
+                  style={{ height: RFPercentage(3), width: RFPercentage(3) }}
+                />
+                <Text
+                  style={[
+                    {
+                      fontSize: SIZES.h4,
+                      fontWeight: 'bold',
+                      color: COLORS.blue,
+                    },
+                  ]}>
+                  {' '}
+                  {Time}
+                </Text>
+              </View>
+
             </View>
           </>
         }
@@ -168,8 +173,8 @@ const PatientProfile = props => {
       {/* <Line /> */}
 
       <View style={styles.Buttons_Container}>
-        <SmallButton onPress={() => { navigation.navigate('Test',{PatientInfo}) }} Text={'Test'} Icon={Icons.Test} />
-        <SmallButton onPress={() => { navigation.navigate('Report',{PatientInfo}) }} Text={'Report'} Icon={Icons.Report} />
+        <SmallButton onPress={() => { navigation.navigate('Test', { PatientInfo }) }} Text={'Test'} Icon={Icons.Test} />
+        <SmallButton onPress={() => { navigation.navigate('Report', { PatientInfo }) }} Text={'Report'} Icon={Icons.Report} />
       </View>
     </View>
   );

@@ -6,10 +6,11 @@ export default axios.create({
 });
 
 // get All users
-export const GetAllUsers = async (setData,setError) => {
+export const GetAllUsers = async (setData,setError,setrefres) => {
   try {
     const { data } = await axios.get(baseURL + '/users');
     setData(data)
+    setrefres(false)
     // return data;
   } catch (error) {
     console.log('error all users', error.response.data.message);

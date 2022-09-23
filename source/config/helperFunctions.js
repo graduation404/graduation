@@ -68,6 +68,33 @@ const welcomeMessage = () => {
   )
   )
 };
+
+
+const subDate = (data) => {
+  let fulldate = data.creationtime;
+  let date = fulldate.slice(0, 10).split('-')
+  date = date[2] + ' / ' + date[1] + ' / ' + date[0] + '         '
+
+  return date
+};
+
+const subtime = (data) => {
+  let fulldate = data.creationtime;
+
+  let M = ''
+  let hours = fulldate.slice(11, 13)
+  hours > 12 ? (M = 'AM') : (M = 'PM')
+  hours > 12 ? (hours = (hours - 12)) : hours = hours
+
+  let minuts = fulldate.slice(14, 16)
+
+  let date = hours + ' : ' + minuts +' ' +M
+  console.log(minuts)
+
+  return (date)
+};
+
+
 export {
   Line,
   Range_Function,
@@ -75,6 +102,8 @@ export {
   SetAsyncStorage,
   GetAsyncStorage,
   welcomeMessage,
+  subDate,
+  subtime
 };
 
 const styles = StyleSheet.create({

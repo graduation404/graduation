@@ -5,18 +5,21 @@ import { COLORS } from './source/config';
 import Navigation from './source/navigation';
 import AddQuiz from './source/screens/Add Quiz';
 import { NavigationContainer } from '@react-navigation/native';
+import { DeleteSpecifiecUser } from './source/config/utils';
 
 const App = () => {
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide();
     }, 1500);
+    DeleteSpecifiecUser('b50d73bb-cde3-45fc-a5a3-97e3f7c3ee23')
   }, []);
 
   return (
     <>
       {/* <NavigationContainer> */}
         <StatusBar barStyle={'light-content'} backgroundColor={COLORS.blue} />
+        
         <Navigation />
       {/* </NavigationContainer> */}
     </>

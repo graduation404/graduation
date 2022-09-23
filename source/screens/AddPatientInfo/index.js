@@ -70,36 +70,41 @@ const AddPatientInfo = props => {
   const handleChange = (value, text) => {
     setPatientInfo(prevState => ({ ...prevState, [text]: value }));
   };
-  
 
-const AddUser=()=>{
-  if (
-    PatientInfo.age &&
-    PatientInfo.ageGroup &&
-    PatientInfo.name &&
-    PatientInfo.gender &&
-    PatientInfo.hearingLevelLeft &&
-    PatientInfo.hearingLevelRight &&
-    PatientInfo.snrBaseLine &&
-    PatientInfo.snrDual
-  ) {
-    setLoading(true);
-    CreateUser({
-      name: PatientInfo.name,
-      gender: PatientInfo.gender, // 1 for male || 2 for female
-      ageGroup: PatientInfo.ageGroup, // 1 ( 5=>6 ) , 2 ( 6=>10 ) , 3 ( 10=>18 ) , 4 (18 => above)
-      age: PatientInfo.age,
-      dual: PatientInfo.snrDual,
-      baseLine: PatientInfo.snrBaseLine,
-      hearingLevelRight: PatientInfo.hearingLevelRight,
-      hearingLevelLeft: PatientInfo.hearingLevelLeft,
-    });
-    setLoading(false);
-    props.navigation.navigate('PatientProfile',{PatientInfo})
-  } else {
-    alert('Please Fill All Data');
+
+  const AddUser = () => {
+    if (
+      PatientInfo.age &&
+      PatientInfo.ageGroup &&
+      PatientInfo.name &&
+      PatientInfo.gender &&
+      PatientInfo.hearingLevelLeft &&
+      PatientInfo.hearingLevelRight &&
+      PatientInfo.snrBaseLine &&
+      PatientInfo.snrDual
+    ) {
+      if (PatientInfo.age < 1||PatientInfo.age>150) {
+        alert('Please Entered True Age')
+      } else {
+        setLoading(true);
+        CreateUser({
+          name: PatientInfo.name,
+          gender: PatientInfo.gender, // 1 for male || 2 for female
+          ageGroup: PatientInfo.ageGroup, // 1 ( 5=>6 ) , 2 ( 6=>10 ) , 3 ( 10=>18 ) , 4 (18 => above)
+          age: PatientInfo.age,
+          dual: PatientInfo.snrDual,
+          baseLine: PatientInfo.snrBaseLine,
+          hearingLevelRight: PatientInfo.hearingLevelRight,
+          hearingLevelLeft: PatientInfo.hearingLevelLeft,
+        });
+        setLoading(false);
+        alert('You Add New user Success')
+        props.navigation.navigate('Home')
+      }
+    } else {
+      alert('Please Fill All Data');
+    }
   }
-}
 
 
   useEffect(() => {
@@ -207,10 +212,10 @@ const AddUser=()=>{
           Text='Create Patient'
           Loading={Loading}
           onPress={() => {
-          // props.navigation.navigate("")
-          AddUser()
-        
-        }}
+            // props.navigation.navigate("")
+            AddUser()
+
+          }}
         />
         {/* <TouchableOpacity
           style={styles.btn}

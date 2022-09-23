@@ -1,41 +1,30 @@
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
-import {COLORS, SIZES, SPACING, SHADOW, Icons, Range_Function} from '../../config';
-const CardHome = ({item, index, nav}) => {
+import { COLORS, SIZES, SPACING, SHADOW, Icons, Range_Function } from '../../config';
+const CardHome = ({ item, index, nav, hours, date }) => {
   const [Range, setRange] = useState(Range_Function(item.age))
   return (
     <View style={styles.Container}>
       <View style={styles.topContainer}>
         <View style={styles.leftTopSubContainer}>
           <View style={styles.IconContainer}>
-            <Image style={styles.IconStyle} source={item.gender==1?Icons.Male:Icons.Woman} />
+            <Image style={styles.IconStyle} source={item.gender == 1 ? Icons.Male : Icons.Woman} />
           </View>
         </View>
         <View style={styles.rightTopSubContainer}>
           <View style={styles.subContainerTitleAge}>
             <View>
-              <Text style={[styles.subTextStyle, {color: COLORS.blue}]}>
+              <Text style={[styles.subTextStyle, { color: COLORS.blue }]}>
                 {item.name}
               </Text>
             </View>
 
             <View style={styles.subContainerAge}>
-              <Text style={[styles.subTextStyle, {color: COLORS.blue}]}>
-                { Range}
+              <Text style={[styles.subTextStyle, { color: COLORS.blue }]}>
+                {Range}
               </Text>
             </View>
           </View>
-          <Text
-            style={[
-              styles.subTextStyle,
-              {
-                fontSize: SIZES.subTitle - 2,
-                marginTop: SPACING.vS,
-                marginHorizontal: SPACING.vS,
-              },
-            ]}>
-            1234
-          </Text>
           <Text
             style={[
               styles.subTextStyle,
@@ -67,7 +56,7 @@ const CardHome = ({item, index, nav}) => {
                     marginHorizontal: SPACING.s,
                   },
                 ]}>
-                22 Jun
+                {date}
               </Text>
             </View>
           </View>
@@ -85,7 +74,7 @@ const CardHome = ({item, index, nav}) => {
                     marginHorizontal: SPACING.s,
                   },
                 ]}>
-                9:00 Am
+                {hours}
               </Text>
             </View>
           </View>
@@ -93,9 +82,9 @@ const CardHome = ({item, index, nav}) => {
         <TouchableOpacity
           style={styles.subContainerAge}
           onPress={() => {
-            nav.navigation.navigate('PatientProfile',{PatientInfo:item});
+            nav.navigation.navigate('PatientProfile', { PatientInfo: item });
           }}>
-          <Text style={[styles.subTextStyle, {color: COLORS.blue}]}>Visit</Text>
+          <Text style={[styles.subTextStyle, { color: COLORS.blue }]}>Visit</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -115,8 +104,8 @@ const styles = StyleSheet.create({
       overflow: 'hidden',
       padding: 0,
       marginVertical: SPACING.s,
-      marginLeft:"1%"
-      
+      marginLeft: "1%"
+
     },
     SHADOW.dark,
   ],

@@ -11,7 +11,7 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import { CardHome, HeaderHome } from '../../components';
 import NoInternet from '../../components/noInternet';
 import { COLORS, SIZES, SPACING } from '../../config';
-import { welcomeMessage } from '../../config/helperFunctions';
+import { subDate, subtime, welcomeMessage } from '../../config/helperFunctions';
 import { GetAllUsers } from '../../config/utils';
 
 const Home = props => {
@@ -24,90 +24,93 @@ const Home = props => {
       // { name: 'shaimaa', gender: 2, age: 25 },
     ]
   )
-const [searchInput, setSearchInput] = useState('');
-const [loading, setLoading] = useState(false);
-const [error, setError] = useState(false);
-useEffect(() => {
-  // console.log(searchInput);
-  GetAllUsers(setData,setError)
-  console.log(error)
-}, [setData]);
+  const [searchInput, setSearchInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
-const TitleSection = () => {
-  return (
-    <View style={styles.TitleContainer}>
-      <Text style={styles.textStyle}>Patients</Text>
-      <Text style={styles.subTextStyle}>find your patients quick</Text>
-    </View>
-  );
-};
 
-const renderContent = () => {
-  if (loading) {
+  useEffect(() => {
+    GetAllUsers(setData, setError)
+    // subtime(0)
+  }, [setData]);
+
+
+
+  const TitleSection = () => {
     return (
-      <View style={styles.indicatorContainer}>
-        <ActivityIndicator size="large" color={COLORS.blue} />
+      <View style={styles.TitleContainer}>
+        <Text style={styles.textStyle}>Patients</Text>
+        <Text style={styles.subTextStyle}>find your patients quick</Text>
       </View>
     );
-  }
-  if (error) {
-    return <NoInternet buttonHandler={() => { }} />;
-  }
+  };
 
-  if (data && data.length == 0) {
-    return (
-      <>
+  const renderContent = () => {
+    if (loading) {
+      return (
         <View style={styles.indicatorContainer}>
-          <Image
-            resizeMode="contain"
-            source={require('../../assets/imgs/nodata.png')}
-            style={styles.image}
-          />
-          <Text style={[styles.textStyle, { alignSelf: 'center' }]}>
-            No Data
-          </Text>
+          <ActivityIndicator size="large" color={COLORS.blue} />
         </View>
-      </>
-    );
-  }
+      );
+    }
+    if (error) {
+      return <NoInternet buttonHandler={() => { }} />;
+    }
 
+    if (data && data.length == 0) {
+      return (
+        <>
+          <View style={styles.indicatorContainer}>
+            <Image
+              resizeMode="contain"
+              source={require('../../assets/imgs/nodata.png')}
+              style={styles.image}
+            />
+            <Text style={[styles.textStyle, { alignSelf: 'center' }]}>
+              No Data
+            </Text>
+          </View>
+        </>
+      );
+    }
+
+    return (
+      <View style={{ width: '100%', alignItems: 'center' }}>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          style={{
+            width: '100%',
+            backgroundColor: COLORS.white,
+          }}
+          data={data}
+          renderItem={({ item, index }) => (
+            <>
+              {item.name.toLowerCase().includes(searchInput.toLowerCase()) ? (
+                <CardHome hours={subtime(item)} date={subDate(item)} item={item} index={index} nav={props} />
+              ) : null}
+            </>
+          )}
+        />
+      </View>
+    );
+  };
   return (
-    <View style={{ width: '100%', alignItems: 'center' }}>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        style={{
-          width: '100%',
-          backgroundColor: COLORS.white,
+    <View style={styles.Container}>
+      <HeaderHome
+        onChangeText={value => {
+          setSearchInput(value);
         }}
-        data={data}
-        renderItem={({ item, index }) => (
-          <>
-            {/* {item.name.toLowerCase().includes(searchInput.toLowerCase()) ? (  */}
-              <CardHome  item={item} index={index} nav={props} />
-            {/* ) : null} */}
-          </>
-        )}
+        nav={props}
+        value={searchInput}
       />
+      <ScrollView
+        style={{ width: '95%', alignSelf: 'center' }}
+        showsVerticalScrollIndicator={false}>
+        <TitleSection />
+        {renderContent()}
+      </ScrollView>
     </View>
   );
-};
-return (
-  <View style={styles.Container}>
-    <HeaderHome
-      onChangeText={value => {
-        setSearchInput(value);
-      }}
-      nav={props}
-      value={searchInput}
-    />
-    <ScrollView
-      style={{ width: '95%', alignSelf: 'center' }}
-      showsVerticalScrollIndicator={false}>
-      <TitleSection />
-      {renderContent()}
-    </ScrollView>
-  </View>
-);
 };
 
 export default Home;
