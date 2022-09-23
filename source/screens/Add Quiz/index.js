@@ -72,7 +72,7 @@ const AddQuiz = ({ route, navigation }) => {
         {
           level: ChooseLevel,
           booklet: ChooseBooklet,
-          // ageGroup: ageGroup,
+          ageGroup: ageGroup,
           quizQuestions: Questionss
 
         }
