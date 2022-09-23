@@ -21,6 +21,7 @@ import { RFPercentage } from 'react-native-responsive-fontsize';
 import { BookletContainer } from '../../components';
 import React, { useEffect, useState } from 'react';
 import { CreateQuiz } from '../../config/utils';
+import { handleAgeGroup } from '../../config/helperFunctions';
 
 const AddQuiz = ({ route, navigation }) => {
   const { ageGroup, ChooseBooklet, ChooseLevel, LevelLength } = route.params;
@@ -34,7 +35,7 @@ const AddQuiz = ({ route, navigation }) => {
   const [isFocused, setisFocused] = useState(false);
   const [QuestionText, setQuestionText] = useState('');
   const [clickedIndex, setclickedIndex] = useState(null);
-  const [YearsValue, setYearsValue] = useState(ageGroup);
+  const [YearsValue, setYearsValue] = useState(handleAgeGroup(ageGroup));
   const [LevelIndex, setLevelIndex] = useState(ChooseLevel);
   const [BookletIndex, setBookletIndex] = useState(ChooseBooklet);
   const [Persentage, setPersentager] = useState(
@@ -66,21 +67,29 @@ const AddQuiz = ({ route, navigation }) => {
       setlistImgs([])
       setclickedIndex(null);
 
+
       CreateQuiz(
         {
           level: ChooseLevel,
           booklet: ChooseBooklet,
+          // ageGroup: ageGroup,
           quizQuestions: Questionss
 
         }
       )
 
+      console.log(Questionss)
       Questionss = []
 
 
     }
   };
 
+
+  useEffect(() => {
+    // ageGroup
+    console.log(ageGroup)
+  }, [])
 
   const SendQuestions = () => {
 
@@ -117,11 +126,37 @@ const AddQuiz = ({ route, navigation }) => {
       };
       Questionss.push(new_item);
 
-
+      // {
+      //   "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      //   "level": 0,
+      //   "booklet": 0,
+      //   "ageGroup": 1,
+      //   "quizQuestions": [
+      //     {
+      //       "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      //       "quizId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      //       "questionId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      //       "question": {
+      //         "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      //         "title": "string",
+      //         "colors": null,
+      //         "images": [
+      //           {
+      //             "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      //             "imageBase64": "string",
+      //             "mime": "string"
+      //           }
+      //         ],
+      //         "isExist": true
+      //       }
+      //     }
+      //   ]
+      // }
       CreateQuiz(
         {
           level: ChooseLevel,
           booklet: ChooseBooklet,
+          ageGroup:ageGroup,
           quizQuestions: Questionss
 
         }

@@ -10,11 +10,19 @@ import {
 const GroupAges = [
   {
     label: '1-5',
-    value: '1-5',
+    value: '1',
   },
   {
     label: '6-10',
-    value: '6-10',
+    value: '2',
+  },
+  {
+    label: '10-18',
+    value: '3',
+  },
+  {
+    label: '+18',
+    value: '4',
   },
 ];
 const GroupLevel = [

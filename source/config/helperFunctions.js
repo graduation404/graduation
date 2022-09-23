@@ -95,6 +95,26 @@ const subtime = (data) => {
 };
 
 
+const handleAgeGroup = (ageGroup) => {
+  let agevalue = ''
+  if (ageGroup == 1) {
+    agevalue='1-5'
+  }
+  else if(ageGroup == 2){
+    agevalue='5-10'
+  }
+  else if(ageGroup == 3){
+    agevalue='10-18'
+  }
+  else if(ageGroup == 4){
+    agevalue='+18'
+  }
+
+  return agevalue
+}
+
+
+
 export {
   Line,
   Range_Function,
@@ -103,7 +123,8 @@ export {
   GetAsyncStorage,
   welcomeMessage,
   subDate,
-  subtime
+  subtime,
+  handleAgeGroup
 };
 
 const styles = StyleSheet.create({

@@ -103,7 +103,7 @@ export const CreateUser = async userData => {
 export const CreateQuiz = async quizData => {
   try {
     const { data } = await axios.post(baseURL + '/quizs', quizData);
-    // console.log('data', data);
+    alert( 'created');
     return data;
   } catch (error) {
     console.log('error Create quiz', error.response.data.message);
@@ -114,7 +114,7 @@ export const CreateQuiz = async quizData => {
       message = 'connection-error';
     }
 
-    alert(message);
+    alert('message');
     throw new Error(message);
   }
 };
