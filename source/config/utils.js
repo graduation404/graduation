@@ -8,7 +8,7 @@ export default axios.create({
 // get All users
 export const GetAllUsers = async (setData, setError, setrefres) => {
   try {
-    const {data} = await axios.get(baseURL + '/users');
+    const { data } = await axios.get(baseURL + '/users');
     setData(data);
     setrefres(false);
     // return data;
@@ -33,7 +33,7 @@ export const GetAllUsers = async (setData, setError, setrefres) => {
 // get specifiec user
 export const GetSpecifiecUser = async id => {
   try {
-    const {data} = await axios.get(baseURL + '/users/' + id);
+    const { data } = await axios.get(baseURL + '/users/' + id);
     return data;
   } catch (error) {
     console.log('error specifiec users', error.response.message);
@@ -51,7 +51,7 @@ export const GetSpecifiecUser = async id => {
 // delete specifiec user
 export const DeleteSpecifiecUser = async id => {
   try {
-    const {data} = await axios.delete(baseURL + '/users/' + id);
+    const { data } = await axios.delete(baseURL + '/users/' + id);
     return data;
   } catch (error) {
     console.log('error delete users', error.response.message);
@@ -70,7 +70,7 @@ export const DeleteSpecifiecUser = async id => {
 // Creating a user
 export const CreateUser = async userData => {
   try {
-    const {data} = await axios.post(baseURL + '/users', userData);
+    const { data } = await axios.post(baseURL + '/users', userData);
     console.log('data', data);
     return data;
   } catch (error) {
@@ -99,7 +99,7 @@ export const CreateUser = async userData => {
 // Creating a quiz
 export const CreateQuiz = async quizData => {
   try {
-    const {data} = await axios.post(baseURL + '/quizs', quizData);
+    const { data } = await axios.post(baseURL + '/quizs', quizData);
     alert('created');
     return data;
   } catch (error) {
@@ -119,7 +119,7 @@ export const CreateQuiz = async quizData => {
 // get All quizes
 export const GetAllQuizs = async () => {
   try {
-    const {data} = await axios.get(baseURL + '/quizs');
+    const { data } = await axios.get(baseURL + '/quizs');
     return data;
   } catch (error) {
     console.log('error all quizs', error.response.message);
@@ -138,7 +138,7 @@ export const GetAllQuizs = async () => {
 // delete specifiec quiz
 export const DeleteSpecifiecQuiz = async id => {
   try {
-    const {data} = await axios.delete(baseURL + '/quizs/' + id);
+    const { data } = await axios.delete(baseURL + '/quizs/' + id);
     return data;
   } catch (error) {
     console.log('error delete quizs', error.response.message);
@@ -157,7 +157,7 @@ export const DeleteSpecifiecQuiz = async id => {
 // get specifiec quiz
 export const GetSpecifiecQuiz = async id => {
   try {
-    const {data} = await axios.get(baseURL + '/quizs/' + id);
+    const { data } = await axios.get(baseURL + '/quizs/' + id);
     return data;
   } catch (error) {
     console.log('error specifiec quizs', error.response.message);
@@ -174,24 +174,30 @@ export const GetSpecifiecQuiz = async id => {
 };
 
 // get quizs in level and booklet
-export const GetQuizsInLevelAndBooklet = async (level, booklet, ageGroup) => {
+export const GetQuizsInLevelAndBooklet = async (level, booklet, ageGroup, setId) => {
   try {
     let list = [];
-    const {data} = await axios.get(
+    const { data } = await axios.get(
       baseURL +
-        '/quizs/getbylevelandbooklet' +
-        '/' +
-        level +
-        '/' +
-        booklet +
-        '/' +
-        ageGroup,
+      '/quizs/getbylevelandbooklet' +
+      '/' +
+      level +
+      '/' +
+      booklet +
+      '/' +
+      ageGroup,
     );
-    for (let i = 0; i < data.length; i++) {
-      list.push(data[i].quizQuestions[0]);
-    }
-    console.log(JSON.stringify(data[0].quizQuestions[0]));
-    return list;
+
+    // alert(JSON.stringify(data))
+    // data !=[] ? null : setId(data[0].id)
+
+
+
+    // for (let i = 0; i < data.length; i++) {
+    //   list.push(data[i].quizQuestions[0]);
+    // }
+
+    return data;
   } catch (error) {
     console.log('error quizs in level and booklet', error.response);
     let message = '';
@@ -220,7 +226,7 @@ export const GetQuizsInLevelAndBooklet = async (level, booklet, ageGroup) => {
 export const CreateUserquizs = async quizData => {
   console.log('quizData', JSON.stringify(quizData));
   try {
-    const {data} = await axios.post(baseURL + '/Userquizs', quizData);
+    const { data } = await axios.post(baseURL + '/Userquizs', quizData);
     console.log('data', data);
     alert("done")
     return data;
@@ -241,7 +247,7 @@ export const CreateUserquizs = async quizData => {
 // Get All Userquizs
 export const GetAllUserquizs = async setData => {
   try {
-    const {data} = await axios.get(baseURL + '/Userquizs');
+    const { data } = await axios.get(baseURL + '/Userquizs');
     setData(data);
     console.log(data);
   } catch (error) {
@@ -261,11 +267,11 @@ export const GetAllUserquizs = async setData => {
 // get specifiec quiz
 export const GetSpecifiecUserquizs = async (id, setData) => {
   try {
-    const {data} = await axios.get(baseURL + '/Userquizs/' + id);
+    const { data } = await axios.get(baseURL + '/Userquizs/' + id);
     setData(data);
     console.log(data);
 
-    
+
   } catch (error) {
     console.log('error specifiec Userquizs', error.response.message);
     let message = '';
@@ -283,14 +289,14 @@ export const GetSpecifiecUserquizs = async (id, setData) => {
 // get Userquizs in level and booklet
 export const GetUserquizsInLevelAndBooklet = async (UserId, level, booklet) => {
   try {
-    const {data} = await axios.get(
+    const { data } = await axios.get(
       baseURL +
-        '/Userquizs/GetByUserIdAndLevelAndBooklet/' +
-        UserId +
-        '/' +
-        level +
-        '/' +
-        booklet,
+      '/Userquizs/GetByUserIdAndLevelAndBooklet/' +
+      UserId +
+      '/' +
+      level +
+      '/' +
+      booklet,
     );
     return data;
   } catch (error) {

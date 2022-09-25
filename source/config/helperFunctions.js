@@ -21,7 +21,7 @@ const Range_Function = age => {
           ? (range = '+18')
           : (range = '10-18')
         : (range = '6-10')
-      : (range = '2-6')
+      : (range = '1-5')
     : null;
   // console.log(range)
 

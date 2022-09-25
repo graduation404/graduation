@@ -49,7 +49,6 @@ const AddQuiz = ({ route, navigation }) => {
     if (QuestionText == '' || clickedIndex == null && (listColors != [] || listImgs != [])) {
       alert('Please fill All Data');
     } else {
-      let Questionss = []
       let new_item = {
         question:
         {
@@ -59,27 +58,13 @@ const AddQuiz = ({ route, navigation }) => {
           isExist: selectedAswer ? true : false
         }
       };
-      Questionss.push(new_item);
+      Questions.push(new_item);
 
       setQuestionInd(QuestionInd + 1);
       setQuestionText('');
       setlistColors([])
       setlistImgs([])
       setclickedIndex(null);
-
-
-      // CreateQuiz(
-      //   {
-      //     level: ChooseLevel,
-      //     booklet: ChooseBooklet,
-      //     ageGroup: ageGroup,
-      //     quizQuestions: Questionss
-
-      //   }
-      // )
-
-      // console.log(Questionss)
-      // Questionss = []
 
 
     }
@@ -110,61 +95,52 @@ const AddQuiz = ({ route, navigation }) => {
         );
       }
       else {
+        CreateQuiz(
+          {
+            level: ChooseLevel,
+            booklet: ChooseBooklet,
+            ageGroup: ageGroup,
+            quizQuestions: Questions
+
+          }
+        )
         navigation.navigate('Home')
       }
 
     } else {
-      let Questionss = []
-      let new_item = {
-        question:
-        {
-          title: QuestionText,
-          colors: listColors.length == 0 ? null : listColors,
-          images: listImgs.length == 0 ? null : listImgs,
-          isExist: selectedAswer == 0 ? true : false
-        }
-      };
-      Questionss.push(new_item);
+      if (QuestionText == '' || clickedIndex == null && (listColors != [] || listImgs != [])) {
+              navigation.navigate('Home')
+      } else {
+        let new_item = {
+          question:
+          {
+            title: QuestionText,
+            colors: listColors.length == 0 ? null : listColors,
+            images: listImgs.length == 0 ? null : listImgs,
+            isExist: selectedAswer ? true : false
+          }
+        };
+        Questions.push(new_item);
+  
+        setQuestionInd(QuestionInd + 1);
+        setQuestionText('');
+        setlistColors([])
+        setlistImgs([])
+        setclickedIndex(null);
+  
+  
+        CreateQuiz(
+          {
+            level: ChooseLevel,
+            booklet: ChooseBooklet,
+            ageGroup: ageGroup,
+            quizQuestions: Questions
 
-      // {
-      //   "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      //   "level": 0,
-      //   "booklet": 0,
-      //   "ageGroup": 1,
-      //   "quizQuestions": [
-      //     {
-      //       "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      //       "quizId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      //       "questionId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      //       "question": {
-      //         "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      //         "title": "string",
-      //         "colors": null,
-      //         "images": [
-      //           {
-      //             "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-      //             "imageBase64": "string",
-      //             "mime": "string"
-      //           }
-      //         ],
-      //         "isExist": true
-      //       }
-      //     }
-      //   ]
-      // }
-      CreateQuiz(
-        {
-          level: ChooseLevel,
-          booklet: ChooseBooklet,
-          ageGroup:ageGroup,
-          quizQuestions: Questionss
-
-        }
-      )
-
-      navigation.navigate('Home')
-
-
+          }
+        )
+        navigation.navigate('Home')
+      
+      }
     }
 
 

@@ -38,7 +38,7 @@ const Quiz = props => {
   const dataQuiz = {
     id: null,
     userId: PatientInfo.id,
-    quizId: 'c15ae79d-4f64-4205-8514-29719087cff7',
+    quizId: quizz[0].quizQuestions[0].quizId,
     quiz: null,
     listeningEffort: 0,
     reactionTime: 0,
@@ -46,7 +46,7 @@ const Quiz = props => {
   };
   const [totalQuizAnswers, setTotalQuizAnswers] = useState({
     userId: PatientInfo.id,
-    quizId: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+    quizId: quizz[0].quizQuestions[0].quizId,
     quiz: null,
     listeningEffort: 0,
     reactionTime: 0,
@@ -70,8 +70,8 @@ const Quiz = props => {
 
   useEffect(() => {
     setLoading(true);
-    setQuiz(quizz);
-    console.log('q : ' + JSON.stringify(quizz));
+    // setQuiz(quizz);
+    // console.log('q : ' + JSON.stringify(quizz));
     setLoading(false);
   }, []);
 
@@ -145,7 +145,7 @@ const Quiz = props => {
                 styles.textStyleBtn,
                 {color: COLORS.black, fontSize: SIZES.h2 + 4, marginTop: '8%'},
               ]}>
-              {quiz[numberQuestion].question.title}
+              {quizz[0].quizQuestions[numberQuestion].question.title}
             </Text>
             <View
               style={[
@@ -156,14 +156,14 @@ const Quiz = props => {
               ]}>
               <FlatList
                 data={
-                  quiz[numberQuestion].question.colors
-                    ? quiz[numberQuestion].question.colors
-                    : quiz[numberQuestion].question.images
+                  quizz[0].quizQuestions[numberQuestion].question.colors
+                    ? quizz[0].quizQuestions[numberQuestion].question.colors
+                    :quizz[0].quizQuestions[numberQuestion].question.images
                 }
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 renderItem={({item, index}) =>
-                  quiz[numberQuestion].question.colors ? (
+                quizz[0].quizQuestions[numberQuestion].question.colors ? (
                     <View
                       style={[
                         styles.shapeQuestion,
@@ -249,14 +249,14 @@ const Quiz = props => {
           <SmallButton
             Text={quiz.length == numberQuestion + 1 ? 'Done' : 'Next'}
             onPress={() => {
-              selectedAswer == quiz[numberQuestion].question.isExist
+              selectedAswer == quizz[0].quizQuestions[numberQuestion].question.isExist
                 ? setCorrectQuestion(CorrectQuestion + 1)
                 : setWrongQuestion(WrongQuestion + 1);
 
               if (quiz.length > numberQuestion + 1) {
                 let answerObject = {
                   userId: PatientInfo.id,
-                  questionId: quizz[numberQuestion].questionId,
+                  questionId: quizz[0].quizQuestions[numberQuestion].questionId,
                   question: null,
                   takenTime: stopwatch,
                   answer: selectedAswer,
@@ -286,7 +286,7 @@ const Quiz = props => {
                 console.log(JSON.stringify(newQuiz));
                 let answerObject = {
                   userId: PatientInfo.id,
-                  questionId: quizz[numberQuestion].questionId,
+                  questionId:quizz[0].quizQuestions[numberQuestion].questionId,
                   question: null,
                   takenTime: stopwatch,
                   answer: selectedAswer,

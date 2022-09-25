@@ -308,16 +308,17 @@ const Test = props => {
             onPress={async () => {
               let range = await Range_Function(age);
               let ageeee = await handleAgeGroup2(range);
-              console.log(ageeee);
               let dataaa = await GetQuizsInLevelAndBooklet(
                 LevelIndex + 1,
                 BookletIndex + 1,
                 ageeee,
-                
               );
+
+              console.log(ageeee);
               console.log(dataaa);
               if(dataaa){
-                setModalVisible(false), navigation.navigate('Quiz',{quizz:dataaa,PatientInfo});
+                setModalVisible(false)
+                navigation.navigate('Quiz',{quizz:dataaa,PatientInfo});
               }
               
             }}
