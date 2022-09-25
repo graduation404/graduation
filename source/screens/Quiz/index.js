@@ -2,6 +2,7 @@ import {
   ActivityIndicator,
   FlatList,
   Image,
+  Modal,
   ScrollView,
   StyleSheet,
   Text,
@@ -22,13 +23,15 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import {CreateUserquizs, GetQuizsInLevelAndBooklet} from '../../config/utils';
 
 const Quiz = props => {
-  const navigation = useNavigation();
+  const {navigation} = props;
   const {quizz, PatientInfo} = props.route.params;
   const [quiz, setQuiz] = useState([]);
-
+  const [LoadingSendResult, setLoadingSendResult] = useState(false);
   const [selectedAswer, setSelectedAswer] = useState(null);
   const [numberQuestion, setnumberQuestion] = useState(0);
-  const [QuestionLength, setQuestionLength] = useState(quiz.length);
+  const [QuestionLength, setQuestionLength] = useState(
+    quizz[0]?.quizQuestions?.length,
+  );
   const [CorrectQuestion, setCorrectQuestion] = useState(0);
   const [WrongQuestion, setWrongQuestion] = useState(0);
   const [clickedIndex, setclickedIndex] = useState(null);
@@ -70,8 +73,8 @@ const Quiz = props => {
 
   useEffect(() => {
     setLoading(true);
-    // setQuiz(quizz);
-    // console.log('q : ' + JSON.stringify(quizz));
+    setQuiz(quizz);
+    console.log('q : ' + JSON.stringify(quizz));
     setLoading(false);
   }, []);
 
@@ -137,7 +140,7 @@ const Quiz = props => {
                   {color: COLORS.blue, marginTop: '8%'},
                 ]}>
                 Question {numberQuestion + 1}{' '}
-                <Text style={{fontSize: SIZES.h2}}>/{quiz.length}</Text>
+                <Text style={{fontSize: SIZES.h2}}>/{QuestionLength}</Text>
               </Text>
             </View>
             <Text
@@ -156,14 +159,14 @@ const Quiz = props => {
               ]}>
               <FlatList
                 data={
-                  quizz[0].quizQuestions[numberQuestion].question.colors
+                  quizz[0].quizQuestions[numberQuestion].question.colors.length
                     ? quizz[0].quizQuestions[numberQuestion].question.colors
-                    :quizz[0].quizQuestions[numberQuestion].question.images
+                    : quizz[0].quizQuestions[numberQuestion].question.images
                 }
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 renderItem={({item, index}) =>
-                quizz[0].quizQuestions[numberQuestion].question.colors ? (
+                  quizz[0].quizQuestions[numberQuestion].question.colors.length ? (
                     <View
                       style={[
                         styles.shapeQuestion,
@@ -174,7 +177,9 @@ const Quiz = props => {
                     />
                   ) : (
                     <Image
-                      source={item.imageBase64}
+                      source={{
+                        uri: `data:${item.mime};base64,${item.imageBase64}`
+                      }}
                       style={styles.shapeQuestion}
                       resizeMode="contain"
                     />
@@ -247,19 +252,24 @@ const Quiz = props => {
 
         {clickedIndex == null ? null : (
           <SmallButton
-            Text={quiz.length == numberQuestion + 1 ? 'Done' : 'Next'}
+            Text={
+              quiz[0].quizQuestions.length == numberQuestion + 1
+                ? 'Done'
+                : 'Next'
+            }
             onPress={() => {
-              selectedAswer == quizz[0].quizQuestions[numberQuestion].question.isExist
+              selectedAswer ==
+              quizz[0].quizQuestions[numberQuestion].question.isExist
                 ? setCorrectQuestion(CorrectQuestion + 1)
                 : setWrongQuestion(WrongQuestion + 1);
 
-              if (quiz.length > numberQuestion + 1) {
+              if (quizz[0].quizQuestions.length > numberQuestion + 1) {
                 let answerObject = {
                   userId: PatientInfo.id,
                   questionId: quizz[0].quizQuestions[numberQuestion].questionId,
                   question: null,
                   takenTime: stopwatch,
-                  answer: selectedAswer,
+                  answer: selectedAswer ? true : false,
                 };
                 let totalAns = totalQuizAnswers;
                 totalAns.userQuestionResults.push(answerObject);
@@ -268,8 +278,9 @@ const Quiz = props => {
                   console.log(JSON.stringify(totalQuizAnswers));
                 }, 2000);
                 let newQuiz = quiz;
-                newQuiz[numberQuestion].stopwatch = stopwatch;
-                newQuiz[numberQuestion].userAnswer = selectedAswer;
+                newQuiz[0].quizQuestions[numberQuestion].stopwatch = stopwatch;
+                newQuiz[0].quizQuestions[numberQuestion].userAnswer =
+                  selectedAswer;
 
                 console.log(JSON.stringify(stopwatch + '  ' + selectedAswer));
                 setQuiz(newQuiz);
@@ -281,30 +292,39 @@ const Quiz = props => {
               } else {
                 let newQuiz = quiz;
                 newQuiz = quiz;
-                newQuiz[numberQuestion].stopwatch = stopwatch;
-                newQuiz[numberQuestion].userAnswer = selectedAswer;
+                newQuiz[0].quizQuestions[numberQuestion].stopwatch = stopwatch;
+                newQuiz[0].quizQuestions[numberQuestion].userAnswer =
+                  selectedAswer;
                 console.log(JSON.stringify(newQuiz));
                 let answerObject = {
                   userId: PatientInfo.id,
-                  questionId:quizz[0].quizQuestions[numberQuestion].questionId,
+                  questionId: quizz[0].quizQuestions[numberQuestion].questionId,
                   question: null,
                   takenTime: stopwatch,
-                  answer: selectedAswer,
+                  answer: selectedAswer ? true : false,
                 };
                 let totalAns = totalQuizAnswers;
                 totalAns.userQuestionResults.push(answerObject);
                 setTotalQuizAnswers(totalAns);
-                CreateUserquizs(totalAns);
-                console.log(JSON.stringify(totalAns));
-                setQuiz(newQuiz);
-                setclickedIndex(null);
-
-                setSelectedAswer(null);
-                // navigation.navigate('ReportResult');
+                setLoadingSendResult(true);
+                try {
+                  CreateUserquizs(totalAns);
+                  setLoadingSendResult(false);
+                  console.log(JSON.stringify(totalAns));
+                  setQuiz(newQuiz);
+                  setclickedIndex(null);
+                  setSelectedAswer(null);
+                  navigation.replace('Home');
+                } catch (error) {}
               }
             }}
           />
         )}
+        <Modal
+          style={styles.modalStyle}
+          visible={LoadingSendResult}>
+          <ActivityIndicator color={COLORS.blue} size="large" />
+        </Modal>
       </View>
     </ScrollView>
   );
@@ -406,4 +426,11 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     paddingVertical: SPACING.s,
   },
+  modalStyle:{
+    flex: 1,
+    backgroundColor: COLORS.white,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 10000,
+  }
 });
