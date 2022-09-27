@@ -174,7 +174,7 @@ export const GetSpecifiecQuiz = async id => {
 };
 
 // get quizs in level and booklet
-export const GetQuizsInLevelAndBooklet = async (level, booklet, ageGroup, setId) => {
+export const GetQuizsInLevelAndBooklet = async (level, booklet, ageGroup) => {
   try {
     const { data } = await axios.get(
       baseURL +
@@ -186,19 +186,8 @@ export const GetQuizsInLevelAndBooklet = async (level, booklet, ageGroup, setId)
       '/' +
       ageGroup,
     );
-
-    // alert(JSON.stringify(data))
-    // data !=[] ? null : setId(data[0].id)
-
-
-
-    // for (let i = 0; i < data.length; i++) {
-    //   list.push(data[i].quizQuestions[0]);
-    // }
-
-    return data;
+    return (data);
   } catch (error) {
-    console.log('error quizs in level and booklet', error.response);
     let message = '';
     if (error.response !== undefined) {
       message = error.response;
@@ -206,7 +195,7 @@ export const GetQuizsInLevelAndBooklet = async (level, booklet, ageGroup, setId)
       message = 'connection-error';
     }
 
-    // alert(message);
+    alert(message);
     throw new Error(message);
   }
 };

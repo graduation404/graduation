@@ -81,7 +81,7 @@ const subtime = data => {
   let M = '';
   let hours = fulldate.slice(11, 13);
   hours > 12 ? (M = 'AM') : (M = 'PM');
-  hours > 12 ? (hours = hours - 12) : (hours = hours);
+  hours > 12 ? (hours =(hours-17<0)?-( hours - 17):( hours - 17)) : (hours = hours-5);
 
   let minuts = fulldate.slice(14, 16);
 

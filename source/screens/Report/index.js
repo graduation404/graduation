@@ -73,7 +73,7 @@ const Report = props => {
         },
 
         {
-          Text: 'Booklet 3',
+          Text: 'Booklet 2',
           Image: Icons.Books,
         },
       ],
