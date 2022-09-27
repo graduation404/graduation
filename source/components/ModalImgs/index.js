@@ -27,7 +27,7 @@ const ModalImgs = ({
       // multiple: true,
       includeBase64: true,
     }).then(images => {
-      console.log(images);
+      // console.log(images);
       setlistImgs(prev => [
         ...prev,
         {imageBase64: images.data, Mime: images.mime},

@@ -58,7 +58,7 @@ const PatientProfile = props => {
       image: Icons.PointHand,
     },
   ]);
-  console.log(hours, date);
+  // console.log(hours, date);
 
   const DataList = () => {
     return (

@@ -314,8 +314,7 @@ const Test = props => {
                 ageeee,
               );
 
-              console.log(ageeee);
-              console.log(dataaa);
+            
               if(dataaa){
                 setModalVisible(false)
                 navigation.navigate('Quiz',{quizz:dataaa,PatientInfo});

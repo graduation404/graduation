@@ -74,7 +74,6 @@ const Quiz = props => {
   useEffect(() => {
     setLoading(true);
     setQuiz(quizz);
-    console.log('q : ' + JSON.stringify(quizz));
     setLoading(false);
   }, []);
 
@@ -275,14 +274,14 @@ const Quiz = props => {
                 totalAns.userQuestionResults.push(answerObject);
                 setTotalQuizAnswers(totalAns);
                 setTimeout(() => {
-                  console.log(JSON.stringify(totalQuizAnswers));
+                  // console.log(JSON.stringify(totalQuizAnswers));
                 }, 2000);
                 let newQuiz = quiz;
                 newQuiz[0].quizQuestions[numberQuestion].stopwatch = stopwatch;
                 newQuiz[0].quizQuestions[numberQuestion].userAnswer =
                   selectedAswer;
 
-                console.log(JSON.stringify(stopwatch + '  ' + selectedAswer));
+                // console.log(JSON.stringify(stopwatch + '  ' + selectedAswer));
                 setQuiz(newQuiz);
 
                 setStopwatch(0);
@@ -295,7 +294,7 @@ const Quiz = props => {
                 newQuiz[0].quizQuestions[numberQuestion].stopwatch = stopwatch;
                 newQuiz[0].quizQuestions[numberQuestion].userAnswer =
                   selectedAswer;
-                console.log(JSON.stringify(newQuiz));
+                // console.log(JSON.stringify(newQuiz));
                 let answerObject = {
                   userId: PatientInfo.id,
                   questionId: quizz[0].quizQuestions[numberQuestion].questionId,
@@ -310,7 +309,7 @@ const Quiz = props => {
                 try {
                   CreateUserquizs(totalAns);
                   setLoadingSendResult(false);
-                  console.log(JSON.stringify(totalAns));
+                  // console.log(JSON.stringify(totalAns));
                   setQuiz(newQuiz);
                   setclickedIndex(null);
                   setSelectedAswer(null);

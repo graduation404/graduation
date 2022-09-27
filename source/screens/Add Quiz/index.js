@@ -73,7 +73,7 @@ const AddQuiz = ({ route, navigation }) => {
 
   useEffect(() => {
     // ageGroup
-    console.log(ageGroup)
+    // console.log(ageGroup)
   }, [])
 
   const SendQuestions = () => {

@@ -1,70 +1,55 @@
 import {
-  StatusBar,
   StyleSheet,
   Text,
   View,
   ScrollView,
-  TouchableOpacity,
   Image,
   FlatList,
 } from 'react-native';
 import {
   Icons,
-  Line,
   COLORS,
-  sizes,
   SIZES,
-  SPACING,
   SHADOW,
-  Range_Function,
 } from '../../config';
-import { LevelContainer, ProgressQuiz, StaticHeader } from '../../components';
+import { LevelContainer, ProgressQuiz, SmallButton, StaticHeader } from '../../components';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import { BookletContainer } from '../../components';
 import React, { useEffect, useState } from 'react';
-import { GetSpecifiecUserquizs } from '../../config/utils';
+import { GetSpecifiecUser, GetUserquizsInLevelAndBooklet } from '../../config/utils';
+import { TimeAvarage } from '../../config/helperFunctions';
 const ReportResult = (props) => {
-  const {levelInd,BookletInd,id}=props.route.params
-  const [PatientResult, setPatientResult] = useState([
-    {
-      id: 1,
-      reactionTime: '3872',
-      image: Icons.Check,
-    },
-    {
-      id: 2,
-      reactionTime: '2709',
-      image: Icons.Check,
-    },
-    {
-      id: 3,
-      reactionTime: '1567',
-      image: Icons.Cancel,
-    },
-    {
-      id: 4,
-      reactionTime: '1256',
-      image: Icons.Check,
-    },
-    {
-      id: 5,
-      reactionTime: '1256',
-      image: Icons.Cancel,
-    },
-    {
-      id: 6,
-      reactionTime: '1256',
-      image: Icons.Cancel,
-    },
+  const { levelInd, BookletInd, id, PatientInfo, Persentage } = props.route.params
+  const [Indpersentage, setIndpersentage] = useState(0)
+  const [questionData, setquestionData] = useState([
   ]);
 
-  const GetSpecifiecUserquis = () => {
-    GetSpecifiecUserquizs(id,setPatientResult)
+
+ 
+  const PersentageCalc = () => {
+    let totalQues = questionData.length
+    let PersentageC = 0
+    for (let i = 0; i < questionData.length; i++) {
+      questionData[i].answer == questionData[i].question.isExist ? PersentageC += 1 : PersentageC = PersentageC
+    }
+    setIndpersentage((PersentageC / (totalQues == 0 ? totalQues = 1 : totalQues))*100)
   }
-  useEffect(()=>{
-    // GetSpecifiecUserquis()
-    console.log(levelInd,BookletInd)
-  },[])
+
+
+  const GetSpecifiecUserquis = () => {
+    GetUserquizsInLevelAndBooklet(id, levelInd, BookletInd, setquestionData,)
+  }
+
+  useEffect(() => {
+    GetSpecifiecUserquis()
+  }, [GetSpecifiecUserquis])
+
+
+  useEffect(() => {
+    PersentageCalc()
+  }, [PersentageCalc])
+
+
 
   return (
     <>
@@ -75,32 +60,37 @@ const ReportResult = (props) => {
             style={{ backgroundColor: '#A3DEFF' }}
           />
           <View style={styles.Top_Container}>
-            <LevelContainer Persentage={50} Text={'Level '+JSON.stringify(levelInd)} Image={Icons.Signal} />
+            <LevelContainer Persentage={25} Text={'Level ' + JSON.stringify(levelInd)} Image={Icons.Signal} />
 
-            <BookletContainer Text={'Booklet '+JSON.stringify(BookletInd)} Image={Icons.Books} />
+            <BookletContainer Text={'Booklet ' + JSON.stringify(BookletInd)} Image={Icons.Books} />
             <View style={styles.progressContainer}>
-              <ProgressQuiz Persentage={50} />
+              <ProgressQuiz Persentage={Indpersentage} />
             </View>
           </View>
 
           <View style={styles.bottom_Container}>
             <FlatList
               showsVerticalScrollIndicator={false}
-              data={PatientResult}
-              renderItem={({ item, index }) => (
+              data={questionData}
+              renderItem={({ item, index }) =>
+              (
                 <>
                   <View style={styles.Main_view}>
                     <View style={styles.Trial_View}>
-                      <Text style={[styles.trialText, { color: COLORS.white }]}>Trial {item.id}</Text>
+                      <Text style={[styles.trialText, { color: COLORS.white }]}>Trial {index + 1}</Text>
                     </View>
 
                     <View style={styles.Time_View}>
                       <Text style={styles.trialText}>
-                        {item.reactionTime} milliseconds
+                        {item.takenTime} milliseconds
                       </Text>
                     </View>
                     <View style={styles.Image_View}>
-                      <Image source={item.image} style={styles.Image_Style} />
+                      <Image source={
+                        item.answer == item.question.isExist ?
+                          Icons.Check :
+                          Icons.Cancel
+                      } style={styles.Image_Style} />
                     </View>
                   </View>
                 </>
@@ -114,18 +104,18 @@ const ReportResult = (props) => {
                 Reaction Time (Booklet)
               </Text>
               <View style={styles.Reaction_Time_Contianer}>
-                <Text style={styles.Reaction_Time_Text}>2230.830</Text>
+                <Text style={styles.Reaction_Time_Text}>{TimeAvarage(questionData)}</Text>
               </View>
               <Text style={styles.Reaction_Time_Title}>Listening Efforts</Text>
               <View style={styles.Reaction_Time_Contianer}>
-                <Text style={styles.Reaction_Time_Text}>0.324555666929209</Text>
+                <Text style={styles.Reaction_Time_Text}>{(PatientInfo.baseLine - PatientInfo.dual) / PatientInfo.baseLine}</Text>
               </View>
             </View>
           </View>
 
-          <View style={styles.touchableopacity_style}>
-            <Text style={styles.done_style}>Done</Text>
-          </View>
+          <SmallButton onPress={()=>{
+            props.navigation.navigate('Home')
+          }} Text='Done' style={{alignSelf:'center'}}/>
         </View>
       </ScrollView>
     </>

@@ -51,12 +51,12 @@ const GuideLineSubText = props => {
 
 const SetAsyncStorage = async (key, data) => {
   await AsyncStorage.setItem(key, JSON.stringify(data), (err, res) => {
-    console.log(res);
+    // console.log(res);
   });
 };
 const GetAsyncStorage = async key => {
   let data = await AsyncStorage.getItem(key);
-  console.log('data' + data);
+  // console.log('data' + data);
   return data;
 };
 const welcomeMessage = () => {
@@ -86,7 +86,7 @@ const subtime = data => {
   let minuts = fulldate.slice(14, 16);
 
   let date = hours + ' : ' + minuts + ' ' + M;
-  console.log(minuts);
+  // console.log(minuts);
 
   return date;
 };
@@ -119,6 +119,18 @@ const handleAgeGroup2 = ageGroup => {
 
   return agevalue;
 };
+
+
+const TimeAvarage = (questionData) => {
+  let Avarage = 0
+  for (let i = 0; i < questionData.length; i++) {
+    Avarage += questionData[i].takenTime
+  }
+  return Avarage
+}
+
+
+
 export {
   Line,
   Range_Function,
@@ -129,7 +141,8 @@ export {
   subDate,
   subtime,
   handleAgeGroup,
-  handleAgeGroup2
+  handleAgeGroup2,
+  TimeAvarage
 };
 
 const styles = StyleSheet.create({
