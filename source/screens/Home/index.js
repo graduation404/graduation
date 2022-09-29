@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   ActivityIndicator,
   FlatList,
@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Text,
   View,
+  RefreshControl,
 } from 'react-native';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {CardHome, HeaderHome} from '../../components';
@@ -24,15 +25,7 @@ const Home = props => {
   useEffect(() => {
     setLoading(true);
     GetAllUsers(setData, setError);
-    // subtime(0)
     setLoading(false);
-
-    return () => {
-      setLoading(true);
-
-      GetAllUsers(setData, setError);
-      setLoading(false);
-    };
   }, [setData]);
   useEffect(() => {
     return () => {
@@ -42,7 +35,12 @@ const Home = props => {
       setLoading(false);
     };
   }, []);
+  const onRefresh = useCallback(async () => {
+    setLoading(true);
 
+    GetAllUsers(setData, setError);
+    setLoading(false);
+  }, [data]);
   const TitleSection = () => {
     return (
       <View style={styles.TitleContainer}>
@@ -53,18 +51,11 @@ const Home = props => {
   };
 
   const renderContent = () => {
-    if (loading) {
-      return (
-        <View style={styles.indicatorContainer}>
-          <ActivityIndicator size="large"  color={COLORS.blue} />
-        </View>
-      );
-    }
     if (error) {
       return <NoInternet buttonHandler={() => {}} />;
     }
 
-    if (data.length == 0) {
+    if (loading == false && data.length === 0) {
       return (
         <>
           <View style={styles.indicatorContainer}>
@@ -80,8 +71,14 @@ const Home = props => {
         </>
       );
     }
-
-    return  (
+    if (loading == true) {
+      return (
+        <View style={styles.indicatorContainer}>
+          <ActivityIndicator size="large" color={COLORS.blue} />
+        </View>
+      );
+    }
+    return (
       <View style={{width: '100%', alignItems: 'center'}}>
         <FlatList
           showsVerticalScrollIndicator={false}
@@ -90,6 +87,13 @@ const Home = props => {
             backgroundColor: COLORS.white,
           }}
           data={data}
+          refreshControl={
+            <RefreshControl
+              refreshing={loading}
+              onRefresh={onRefresh}
+              enabled={true}
+            />
+          }
           renderItem={({item, index}) => (
             <>
               {item.name.toLowerCase().includes(searchInput.toLowerCase()) ? (
@@ -155,7 +159,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-    backgroundColor:"#a00"
+    // backgroundColor:"#a00"
   },
   image: {
     width: RFValue(190),

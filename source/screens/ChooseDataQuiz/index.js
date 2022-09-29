@@ -1,15 +1,28 @@
-import { ActivityIndicator, Alert, Image, Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  Image,
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
-import React, { useEffect, useState } from 'react';
-import { COLORS, Icons, SIZES, SPACING } from '../../config';
+import React, {useEffect, useState} from 'react';
+import {COLORS, Icons, SIZES, SPACING} from '../../config';
 import {
   CustomDropDown,
   LargeButton,
   SmallButton,
   StaticHeader,
 } from '../../components';
-import { RFPercentage } from 'react-native-responsive-fontsize';
-import { DeleteSpecifiecQuiz, GetQuizsInLevelAndBooklet } from '../../config/utils';
+import {RFPercentage} from 'react-native-responsive-fontsize';
+import {
+  DeleteSpecifiecQuiz,
+  GetQuizsInLevelAndBooklet,
+} from '../../config/utils';
 const GroupAges = [
   {
     label: '1-5',
@@ -81,21 +94,20 @@ const ChooseDataQuiz = props => {
   const [OpenChooseBooklet, setOpenChooseBooklet] = useState(false);
   const [ChooseBookletValue, setChooseBookletValue] = useState('');
 
-
-
-  useEffect(() => {
-
-  }, [])
+  useEffect(() => {}, []);
 
   const ClickedFun = () => {
-    var lengthe, QuizId
-    GetQuizsInLevelAndBooklet(ChooseLevelValue, ChooseBookletValue, ageGroupValue).then(
-      res => {
-        res.length ? QuizId = res[0].id : QuizId = 0
-        lengthe = res.length
-      }
-    ).then(
-      () => {
+    var lengthe, QuizId;
+    GetQuizsInLevelAndBooklet(
+      ChooseLevelValue,
+      ChooseBookletValue,
+      ageGroupValue,
+    )
+      .then(res => {
+        res.length ? (QuizId = res[0].id) : (QuizId = 0);
+        lengthe = res.length;
+      })
+      .then(() => {
         if (lengthe == 0) {
           if (
             ageGroupValue == '' ||
@@ -113,33 +125,38 @@ const ChooseDataQuiz = props => {
           }
         } else {
           Alert.alert(
-            "There is Questions in This Booklet",
-            "Do You Want to Replace it.!",
+            'There is Questions in This Booklet',
+            'Do You Want to Replace it.!',
             [
               {
-                text: "Cancel",
+                text: 'Cancel',
               },
               {
-                text: "Replace",
-                onPress: () =>{
-                   DeleteSpecifiecQuiz(QuizId)
-                   props.navigation.navigate('AddQuiz')
-                  }
+                text: 'Replace',
+                onPress: () => {
+                  DeleteSpecifiecQuiz(QuizId);
+                  props.navigation.navigate(
+                    'AddQuiz',
+                    {
+                      ageGroup: ageGroupValue,
+                      ChooseBooklet: ChooseBookletValue,
+                      ChooseLevel: ChooseLevelValue,
+                      LevelLength: GroupLevel.length,
+                    },
+                  );
+                },
               },
             ],
-          )
+          );
           // alert(QuizId)
         }
-      }
-    )
-
+      });
   };
 
   const MyModal = () => {
     // return (
-
     // )
-  }
+  };
 
   return (
     <>
@@ -157,7 +174,7 @@ const ChooseDataQuiz = props => {
           resizeMode="contain"
         />
 
-        <View style={{ width: '95%', zIndex: 10 }}>
+        <View style={{width: '95%', zIndex: 10}}>
           <CustomDropDown
             data={GroupAges}
             value={ageGroupValue}
@@ -171,7 +188,7 @@ const ChooseDataQuiz = props => {
             colorIcon={COLORS.blue}
           />
         </View>
-        <View style={{ width: '95%', zIndex: 9 }}>
+        <View style={{width: '95%', zIndex: 9}}>
           <CustomDropDown
             iconStyle={{
               width: '57.5%',
@@ -189,7 +206,7 @@ const ChooseDataQuiz = props => {
             colorIcon={COLORS.blue}
           />
         </View>
-        <View style={{ width: '95%', zIndex: 8 }}>
+        <View style={{width: '95%', zIndex: 8}}>
           <CustomDropDown
             data={GroupBooklet}
             value={ChooseBookletValue}
@@ -206,7 +223,7 @@ const ChooseDataQuiz = props => {
         <SmallButton
           Loading={Loading}
           Text="let's go"
-          style={{ marginTop: SPACING.xl }}
+          style={{marginTop: SPACING.xl}}
           onPress={() => {
             ClickedFun();
           }}
@@ -243,16 +260,16 @@ const styles = StyleSheet.create({
   },
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   modalView: {
     backgroundColor: COLORS.gray,
     borderColor: COLORS.blue,
     borderRadius: RFPercentage(5),
     padding: RFPercentage(5),
-    alignItems: "center",
-    width: RFPercentage(45)
+    alignItems: 'center',
+    width: RFPercentage(45),
   },
   button: {
     borderRadius: RFPercentage(10),
@@ -260,23 +277,23 @@ const styles = StyleSheet.create({
     width: RFPercentage(15),
     marginTop: RFPercentage(3),
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   buttonDel: {
-    backgroundColor: "#c91414",
+    backgroundColor: '#c91414',
   },
   buttonClose: {
     backgroundColor: COLORS.blue,
   },
   ModaltextStyle: {
-    color: "white",
-    fontWeight: "bold",
+    color: 'white',
+    fontWeight: 'bold',
     fontSize: RFPercentage(2),
-    textAlign: "center"
+    textAlign: 'center',
   },
   modalText: {
     marginBottom: RFPercentage(2),
-    textAlign: "center",
-    fontSize: RFPercentage(2.2)
+    textAlign: 'center',
+    fontSize: RFPercentage(2.2),
   },
 });
