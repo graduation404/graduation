@@ -42,6 +42,9 @@ const Navigation = () => {
         initialRouteName="Home"
         screenOptions={{
           headerShown: false,
+          animation:'slide_from_bottom',
+          animationDuration:2000
+          
         }}>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="AddPatientInfo" component={AddPatientInfo} />

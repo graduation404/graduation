@@ -6,6 +6,7 @@ import {
   Pressable,
   StyleSheet,
   Text,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -114,7 +115,9 @@ const ChooseDataQuiz = props => {
             ChooseBookletValue == '' ||
             ChooseLevelValue == ''
           ) {
-            alert('Please Fill All Data');
+            ToastAndroid.showWithGravity('Please Fill All Data', 
+            ToastAndroid.LONG, ToastAndroid.BOTTOM)
+           
           } else {
             props.navigation.navigate('AddQuiz', {
               ageGroup: ageGroupValue,
@@ -153,11 +156,7 @@ const ChooseDataQuiz = props => {
       });
   };
 
-  const MyModal = () => {
-    // return (
-    // )
-  };
-
+ 
   return (
     <>
       {/* {Loading ?
@@ -227,6 +226,7 @@ const ChooseDataQuiz = props => {
           onPress={() => {
             ClickedFun();
           }}
+     
         />
       </View>
     </>

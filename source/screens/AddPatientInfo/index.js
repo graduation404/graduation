@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
   ActivityIndicator,
+  ToastAndroid,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { COLORS, Icons, SIZES, SPACING } from '../../config';
@@ -98,11 +99,13 @@ const AddPatientInfo = props => {
           hearingLevelLeft: PatientInfo.hearingLevelLeft,
         });
         setLoading(false);
-        alert('You Add New user Success')
+        ToastAndroid.showWithGravity('You Add New user Success', 
+        ToastAndroid.LONG, ToastAndroid.BOTTOM)
         props.navigation.navigate('Home')
       }
     } else {
-      alert('Please Fill All Data');
+      ToastAndroid.showWithGravity('Please Fill All Data', 
+      ToastAndroid.LONG, ToastAndroid.BOTTOM)
     }
   }
 

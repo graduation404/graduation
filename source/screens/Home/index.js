@@ -24,22 +24,40 @@ const Home = props => {
 
   useEffect(() => {
     setLoading(true);
-    GetAllUsers(setData, setError);
-    setLoading(false);
-  }, [setData]);
+    try {
+      GetAllUsers(setData, setError);
+    } catch (error) {
+      setError(true);
+    }
+    setTimeout(() => {
+      setLoading(false);
+    }, 400);
+  }, [setData,GetAllUsers]);
   useEffect(() => {
     return () => {
       setLoading(true);
 
-      GetAllUsers(setData, setError);
-      setLoading(false);
+      try {
+        GetAllUsers(setData, setError);
+      } catch (error) {
+        setError(true);
+      }
+      setTimeout(() => {
+        setLoading(false);
+      }, 400);
     };
   }, []);
   const onRefresh = useCallback(async () => {
     setLoading(true);
 
-    GetAllUsers(setData, setError);
-    setLoading(false);
+    try {
+      GetAllUsers(setData, setError);
+    } catch (error) {
+      setError(true);
+    }
+    setTimeout(() => {
+      setLoading(false);
+    }, 400);
   }, [data]);
   const TitleSection = () => {
     return (

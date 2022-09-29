@@ -8,6 +8,7 @@ import {
   FlatList,
   TextInput,
   Alert,
+  ToastAndroid
 } from 'react-native';
 import { Icons, Line, COLORS, sizes, SIZES, SPACING, SHADOW } from '../../config';
 import {
@@ -31,6 +32,7 @@ const AddQuiz = ({ route, navigation }) => {
   const [modalImgVisible, setModalImgVisible] = useState(false);
   const [listColors, setlistColors] = useState([]);
   const [listImgs, setlistImgs] = useState([]);
+  const [loadingBtn, setloadingBtn] = useState(false);
 
   const [isFocused, setisFocused] = useState(false);
   const [QuestionText, setQuestionText] = useState('');
@@ -47,7 +49,9 @@ const AddQuiz = ({ route, navigation }) => {
 
   const AddQuestion = () => {
     if (QuestionText == '' || clickedIndex == null && (listColors != [] || listImgs != [])) {
-      alert('Please fill All Data');
+
+      ToastAndroid.showWithGravity('Please fill All Data', 
+      ToastAndroid.LONG, ToastAndroid.BOTTOM)
     } else {
       let new_item = {
         question:
@@ -81,7 +85,7 @@ const AddQuiz = ({ route, navigation }) => {
     if (QuestionText == '' || clickedIndex == null && (listColors != [] || listImgs != [])) {
       if (Questions.length == 0) {
         Alert.alert(
-          "You Aren't Add Any Questions",
+          "You Coundn't Add Any Questions",
           "Are you sure to leave..!?",
           [
             {
@@ -95,6 +99,7 @@ const AddQuiz = ({ route, navigation }) => {
         );
       }
       else {
+        setloadingBtn(true)
         CreateQuiz(
           {
             level: ChooseLevel,
@@ -104,6 +109,7 @@ const AddQuiz = ({ route, navigation }) => {
 
           }
         )
+        setloadingBtn(false)
         navigation.navigate('Home')
       }
 
@@ -300,6 +306,7 @@ const AddQuiz = ({ route, navigation }) => {
               onPress={() => {
                 SendQuestions()
               }}
+              Loading={loadingBtn}
               Text={'Done'}
               style={styles.SmallButton} />
           </View>

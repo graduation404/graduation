@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {Icons, COLORS, SHADOW, SIZES, SPACING} from '../../config';
 import LinearGradient from 'react-native-linear-gradient';
@@ -11,6 +11,8 @@ const HeaderProfile = (props) => {
       <LinearGradient
         colors={[COLORS.blue, COLORS.darkGray]}
         style={styles.container}>
+        <StatusBar barStyle={'light-content'} backgroundColor={COLORS.blue} />
+
         <TouchableOpacity  onPress={() => {
             navigation.goBack();
           }} activeOpacity={0.85}>

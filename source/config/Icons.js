@@ -25,6 +25,7 @@ const Write = require('../assets/icons/write.png');
 const Back = require('../assets/icons/back.png');
 const Pen = require('../assets/icons/pen.png');
 const Avatar = require('../assets/imgs/avatar.jpg');
+const Hearing = require('../assets/imgs/hearing.png');
 const Search = require('../assets/icons/search.png');
 const Lock = require('../assets/icons/lock.png');
 const Language = require('../assets/icons/language.png');
@@ -92,5 +93,6 @@ export default {
   View,
   Hide,
   Camera,
-  Colors
+  Colors,
+  Hearing
 };

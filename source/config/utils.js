@@ -1,17 +1,18 @@
 import axios from 'axios';
-const baseURL = 'http://www.medicalapi.somee.com/api';
+import { ToastAndroid } from 'react-native';
+const baseURL = 'https://www.medicalapi.somee.com/api';
 export default axios.create({
   baseURL: baseURL,
   timeout: 30000,
 });
 
 // get All users
-export const GetAllUsers = async (setData, setError, setrefres) => {
+export const GetAllUsers = async (setData, setError ) => {
   try {
     const { data } = await axios.get(baseURL + '/users');
     setData(data);
-    setrefres(false);
-    // return data;
+   
+    return data;
   } catch (error) {
     console.log('error all users', error.response.message);
     let message = '';
@@ -100,7 +101,8 @@ export const CreateUser = async userData => {
 export const CreateQuiz = async quizData => {
   try {
     const { data } = await axios.post(baseURL + '/quizs', quizData);
-    alert('created');
+    ToastAndroid.showWithGravity('Created', 
+                                 ToastAndroid.LONG, ToastAndroid.BOTTOM)
     return data;
   } catch (error) {
     console.log('error Create quiz', error.response.message);

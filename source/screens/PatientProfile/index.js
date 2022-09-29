@@ -150,14 +150,12 @@ const PatientProfile = props => {
     );
   };
 
-  useEffect(() => {}, []);
+
 
   return (
     <View style={styles.Container}>
       <HeaderProfile
-        onPress={() => {
-          alert('back');
-        }}
+      
         Header_name={'Patient Profile'}
       />
 

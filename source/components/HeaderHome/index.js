@@ -1,5 +1,6 @@
 import {
   Image,
+  StatusBar,
   StyleSheet,
   Text,
   TextInput,
@@ -7,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import { Icons, COLORS, SHADOW, SIZES, SPACING } from '../../config';
+import {Icons, COLORS, SHADOW, SIZES, SPACING} from '../../config';
 import LinearGradient from 'react-native-linear-gradient';
 
 const HeaderHome = ({value, onChangeText, nav}) => {
@@ -16,27 +17,41 @@ const HeaderHome = ({value, onChangeText, nav}) => {
       <LinearGradient
         colors={[COLORS.blue, COLORS.darkGray]}
         style={styles.container}>
+        <StatusBar barStyle={'light-content'} backgroundColor={COLORS.blue} />
+
         <View style={styles.subContainerImgs}>
-          <TouchableOpacity style={styles.IconContainer}
-          onPress={()=>{
-            nav.navigation.navigate("AddPatientInfo")
-          }}
-          >
+          <TouchableOpacity
+            style={styles.IconContainer}
+            onPress={() => {
+              nav.navigation.navigate('AddPatientInfo');
+            }}>
             <Image style={styles.IconStyle} source={Icons.AddUser} />
           </TouchableOpacity>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <TouchableOpacity activeOpacity={.85} style={styles.IconContainer}
-             onPress={() => {
-              nav.navigation.navigate('ChooseDataQuiz');
-            }}
-            >
-              <Image style={styles.IconStyle} source={Icons.AddFile} />
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <TouchableOpacity
+              activeOpacity={0.85}
+              style={styles.IconContainer}
+              onPress={() => {
+                nav.navigation.navigate('ChooseDataQuiz');
+              }}>
+              <Image style={[styles.IconStyle]} source={Icons.AddFile} />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
                 nav.navigation.navigate('AdminProfile');
               }}>
-              <Image style={styles.Image_Style} source={Icons.Avatar} />
+              <Image
+                style={[
+                  styles.Image_Style,
+                  {backgroundColor: '#FFFF', resizeMode: 'contain'},
+                ]}
+                source={Icons.Hearing}
+              />
             </TouchableOpacity>
           </View>
         </View>
@@ -53,7 +68,10 @@ const HeaderHome = ({value, onChangeText, nav}) => {
             onChangeText={onChangeText}
           />
           <View style={[styles.IconContainer, {width: '14%', height: '100%'}]}>
-            <Image style={[styles.IconStyle,{tintColor:COLORS.blue}]} source={Icons.loupe} />
+            <Image
+              style={[styles.IconStyle, {tintColor: COLORS.blue}]}
+              source={Icons.loupe}
+            />
           </View>
         </View>
       </LinearGradient>

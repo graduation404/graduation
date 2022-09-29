@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -6,10 +6,11 @@ import {
   Pressable,
   StyleSheet,
   Text,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native';
-import { RFPercentage } from 'react-native-responsive-fontsize';
+import {RFPercentage} from 'react-native-responsive-fontsize';
 import {
   BookletContainer,
   Card,
@@ -28,19 +29,20 @@ import {
   SIZES,
 } from '../../config';
 import * as Animatable from 'react-native-animatable';
-import { useNavigation } from '@react-navigation/native';
-import { GetQuizsInLevelAndBooklet } from '../../config/utils';
-import { handleAgeGroup2 } from '../../config/helperFunctions';
+import {useNavigation} from '@react-navigation/native';
+import {GetQuizsInLevelAndBooklet} from '../../config/utils';
+import {handleAgeGroup2} from '../../config/helperFunctions';
 
 const Test = props => {
   const navigation = useNavigation();
-  const { PatientInfo } = props.route.params;
+  const {PatientInfo} = props.route.params;
   const [name, setName] = useState(PatientInfo.name);
   const [id, setid] = useState(582222);
   const [age, setage] = useState(PatientInfo.age);
   const [LevelIndex, setLevelIndex] = useState(null);
   const [BookletIndex, setBookletIndex] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [loadingBtn, setloadingBtn] = useState(false);
   const [Array, setArray] = useState([]);
 
   const [Texts, setTexts] = useState([
@@ -150,21 +152,18 @@ const Test = props => {
     },
   ]);
 
-  useEffect(() => {
-  }, [GetQuizsInLevelAndBooklet])
-
-
+  useEffect(() => {}, [GetQuizsInLevelAndBooklet]);
 
   const LevelsArrayList = () => {
     return (
       <>
         <View
-          style={{ height: RFPercentage(23.5), paddingRight: RFPercentage(1.5) }}>
+          style={{height: RFPercentage(23.5), paddingRight: RFPercentage(1.5)}}>
           <FlatList
             data={LevelsArray}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            renderItem={({ item, index }) => (
+            renderItem={({item, index}) => (
               <>
                 <LevelContainer
                   onPress={() => {
@@ -192,12 +191,12 @@ const Test = props => {
     return (
       <>
         <View
-          style={{ height: RFPercentage(23.5), paddingRight: RFPercentage(1.5) }}>
+          style={{height: RFPercentage(23.5), paddingRight: RFPercentage(1.5)}}>
           <FlatList
             data={BookletArray[LevelIndex].Array}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            renderItem={({ item, index }) => (
+            renderItem={({item, index}) => (
               <>
                 <BookletContainer
                   onPress={() => {
@@ -244,7 +243,7 @@ const Test = props => {
               <TouchableOpacity
                 style={styles.backIconStyle}
                 onPress={() => {
-                  props.navigation.navigate('PatientProfile');
+                  props.navigation.navigate('PatientProfile', {PatientInfo});
                 }}>
                 <Image source={Icons.Next} style={styles.Image_Style} />
               </TouchableOpacity>
@@ -285,10 +284,10 @@ const Test = props => {
             alignItems: 'center',
             paddingVertical: RFPercentage(2),
           }}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Image
               source={Icons.Test}
-              style={{ height: RFPercentage(5), width: RFPercentage(5) }}
+              style={{height: RFPercentage(5), width: RFPercentage(5)}}
             />
             <Text
               style={{
@@ -303,8 +302,8 @@ const Test = props => {
 
           <FlatList
             data={Texts}
-            style={{ marginTop: RFPercentage(5) }}
-            renderItem={({ item, index }) => (
+            style={{marginTop: RFPercentage(5)}}
+            renderItem={({item, index}) => (
               <GuideLineSubText Text={item.text} Image={item.Image} />
             )}
           />
@@ -312,27 +311,32 @@ const Test = props => {
           <SmallButton
             Text="Start"
             onPress={async () => {
+              setloadingBtn(true);
               let range = await Range_Function(age);
               let ageeee = await handleAgeGroup2(range);
               let dataaa = await GetQuizsInLevelAndBooklet(
                 LevelIndex + 1,
                 BookletIndex + 1,
                 ageeee,
-              ).then(
-                res => {
-                  res.length ?
-                    setModalVisible(false)
-                      (props.navigation.navigate('Quiz', { quizz: res, PatientInfo }))
-                    :
-                    alert('There Is No Test In this Booklet')
-                  setModalVisible(false)
-
-                }
-              )
-
-              
-
+              ).then(res => {
+                res.length
+                  ? setModalVisible(false)(
+                      props.navigation.navigate('Quiz', {
+                        quizz: res,
+                        PatientInfo,
+                      }),
+                      setloadingBtn(false),
+                    )
+                  : ToastAndroid.showWithGravity(
+                      'There Is No Test In this Booklet',
+                      ToastAndroid.LONG,
+                      ToastAndroid.BOTTOM,
+                    );
+                setModalVisible(false);
+              });
+              setloadingBtn(false);
             }}
+            Loading={loadingBtn}
           />
         </View>
       </Modal>
