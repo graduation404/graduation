@@ -12,7 +12,7 @@ import { COLORS, Icons, Line, SHADOW, SIZES } from '../../config';
 import * as Animatable from 'react-native-animatable';
 
 const Report = props => {
-  const { PatientInfo } = props.route.params
+  const { PatientInfo,Persentage } = props.route.params
   const [name, setName] = useState(PatientInfo.name);
   const [id, setid] = useState(582222);
   const [age, setage] = useState(PatientInfo.age);
@@ -42,7 +42,6 @@ const Report = props => {
     },
   ]);
   const [Levelslength, setLevelslength] = useState(LevelsArray.length)
-
   const [BookletArray, setBookletArray] = useState([
     {
       id: 1,
@@ -74,7 +73,7 @@ const Report = props => {
         },
 
         {
-          Text: 'Booklet 3',
+          Text: 'Booklet 2',
           Image: Icons.Books,
         },
       ],
@@ -241,7 +240,7 @@ const Report = props => {
                 colors={[COLORS.blue, COLORS.darkGray]}
                 onPress={() => {
                   // alert('See Result');
-                  props.navigation.navigate('ReportResult', { id: PatientInfo.id, levelInd: (LevelIndex + 1), BookletInd: (BookletIndex + 1) })
+                  props.navigation.navigate('ReportResult', { id: PatientInfo.id, levelInd: (LevelIndex + 1), BookletInd: (BookletIndex + 1),PatientInfo })
                 }}
                 Text="See Result"
               />

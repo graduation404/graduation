@@ -275,14 +275,14 @@ const Quiz = props => {
                 totalAns.userQuestionResults.push(answerObject);
                 setTotalQuizAnswers(totalAns);
                 setTimeout(() => {
-                  console.log(JSON.stringify(totalQuizAnswers));
+                  // console.log(JSON.stringify(totalQuizAnswers));
                 }, 2000);
                 let newQuiz = quiz;
                 newQuiz[0].quizQuestions[numberQuestion].stopwatch = stopwatch;
                 newQuiz[0].quizQuestions[numberQuestion].userAnswer =
                   selectedAswer;
 
-                console.log(JSON.stringify(stopwatch + '  ' + selectedAswer));
+                // console.log(JSON.stringify(stopwatch + '  ' + selectedAswer));
                 setQuiz(newQuiz);
 
                 setStopwatch(0);

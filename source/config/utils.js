@@ -174,9 +174,8 @@ export const GetSpecifiecQuiz = async id => {
 };
 
 // get quizs in level and booklet
-export const GetQuizsInLevelAndBooklet = async (level, booklet, ageGroup, setId) => {
+export const GetQuizsInLevelAndBooklet = async (level, booklet, ageGroup) => {
   try {
-    let list = [];
     const { data } = await axios.get(
       baseURL +
       '/quizs/getbylevelandbooklet' +
@@ -187,19 +186,8 @@ export const GetQuizsInLevelAndBooklet = async (level, booklet, ageGroup, setId)
       '/' +
       ageGroup,
     );
-
-    // alert(JSON.stringify(data))
-    // data !=[] ? null : setId(data[0].id)
-
-
-
-    // for (let i = 0; i < data.length; i++) {
-    //   list.push(data[i].quizQuestions[0]);
-    // }
-
-    return data;
+    return (data);
   } catch (error) {
-    console.log('error quizs in level and booklet', error.response);
     let message = '';
     if (error.response !== undefined) {
       message = error.response;
@@ -207,7 +195,7 @@ export const GetQuizsInLevelAndBooklet = async (level, booklet, ageGroup, setId)
       message = 'connection-error';
     }
 
-    // alert(message);
+    alert(message);
     throw new Error(message);
   }
 };
@@ -249,6 +237,7 @@ export const GetAllUserquizs = async setData => {
   try {
     const { data } = await axios.get(baseURL + '/Userquizs');
     setData(data);
+    alert(data)
     console.log(data);
   } catch (error) {
     console.log('error all Userquizs', error.response.message);
@@ -269,7 +258,7 @@ export const GetSpecifiecUserquizs = async (id, setData) => {
   try {
     const { data } = await axios.get(baseURL + '/Userquizs/' + id);
     setData(data);
-    console.log(data);
+    alert(JSON.stringify(data));
 
 
   } catch (error) {
@@ -287,7 +276,7 @@ export const GetSpecifiecUserquizs = async (id, setData) => {
 };
 
 // get Userquizs in level and booklet
-export const GetUserquizsInLevelAndBooklet = async (UserId, level, booklet) => {
+export const GetUserquizsInLevelAndBooklet = async (UserId, level, booklet, setData, setQData) => {
   try {
     const { data } = await axios.get(
       baseURL +
@@ -298,6 +287,18 @@ export const GetUserquizsInLevelAndBooklet = async (UserId, level, booklet) => {
       '/' +
       booklet,
     );
+    let list1 = []
+    let list2 = []
+    for (let i = 0; i < data.length; i++) {
+      for (let j = 0; j < (data[i].userQuestionResults).length; j++) {
+        // list2.push(data[i].userQuestionResults[j]);
+        list1.push(data[i].userQuestionResults[j]);
+      }
+    }
+    setData(list1);
+    // setQData(list2);
+
+    // alert(list1)
     return data;
   } catch (error) {
     console.log(
