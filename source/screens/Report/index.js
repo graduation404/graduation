@@ -1,6 +1,13 @@
-import React, { useState } from 'react';
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { RFPercentage } from 'react-native-responsive-fontsize';
+import React, {useState} from 'react';
+import {
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {RFPercentage} from 'react-native-responsive-fontsize';
 import {
   BookletContainer,
   Card,
@@ -8,11 +15,11 @@ import {
   LevelContainer,
   StaticHeader,
 } from '../../components';
-import { COLORS, Icons, Line, SHADOW, SIZES } from '../../config';
+import {COLORS, Icons, Line, SHADOW, SIZES} from '../../config';
 import * as Animatable from 'react-native-animatable';
 
 const Report = props => {
-  const { PatientInfo,Persentage } = props.route.params
+  const {PatientInfo, Persentage} = props.route.params;
   const [name, setName] = useState(PatientInfo.name);
   const [id, setid] = useState(582222);
   const [age, setage] = useState(PatientInfo.age);
@@ -41,7 +48,7 @@ const Report = props => {
       Persentage: 100,
     },
   ]);
-  const [Levelslength, setLevelslength] = useState(LevelsArray.length)
+  const [Levelslength, setLevelslength] = useState(LevelsArray.length);
   const [BookletArray, setBookletArray] = useState([
     {
       id: 1,
@@ -110,12 +117,12 @@ const Report = props => {
     return (
       <>
         <View
-          style={{ height: RFPercentage(23.5), paddingRight: RFPercentage(1.5) }}>
+          style={{height: RFPercentage(23.5), paddingRight: RFPercentage(1.5)}}>
           <FlatList
             data={LevelsArray}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            renderItem={({ item, index }) => (
+            renderItem={({item, index}) => (
               <>
                 <LevelContainer
                   onPress={() => {
@@ -143,12 +150,12 @@ const Report = props => {
     return (
       <>
         <View
-          style={{ height: RFPercentage(23.5), paddingRight: RFPercentage(1.5) }}>
+          style={{height: RFPercentage(23.5), paddingRight: RFPercentage(1.5)}}>
           <FlatList
             data={BookletArray[LevelIndex].Array}
             showsHorizontalScrollIndicator={false}
             horizontal={true}
-            renderItem={({ item, index }) => (
+            renderItem={({item, index}) => (
               <>
                 <BookletContainer
                   onPress={() => {
@@ -192,11 +199,11 @@ const Report = props => {
                   <Text style={styles.Age_Text}>{age} Years</Text>
                 </View>
               </View>
-              <TouchableOpacity style={styles.backIconStyle}
+              <TouchableOpacity
+                style={styles.backIconStyle}
                 onPress={() => {
-                  props.navigation.navigate("PatientProfile")
-                }}
-              >
+                  props.navigation.navigate('PatientProfile');
+                }}>
                 <Image source={Icons.Next} style={styles.Image_Style} />
               </TouchableOpacity>
             </View>
@@ -240,7 +247,12 @@ const Report = props => {
                 colors={[COLORS.blue, COLORS.darkGray]}
                 onPress={() => {
                   // alert('See Result');
-                  props.navigation.navigate('ReportResult', { id: PatientInfo.id, levelInd: (LevelIndex + 1), BookletInd: (BookletIndex + 1),PatientInfo })
+                  props.navigation.navigate('ReportResult', {
+                    id: PatientInfo.id,
+                    levelInd: LevelIndex + 1,
+                    BookletInd: BookletIndex + 1,
+                    PatientInfo,
+                  });
                 }}
                 Text="See Result"
               />
@@ -256,6 +268,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.white,
+    // height:SIZES.height*1
   },
   Image_Style: {
     height: SIZES.height * 0.0325,

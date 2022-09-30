@@ -257,6 +257,7 @@ const Quiz = props => {
                 ? 'Done'
                 : 'Next'
             }
+
             onPress={() => {
               selectedAswer ==
               quizz[0].quizQuestions[numberQuestion].question.isExist
@@ -290,6 +291,7 @@ const Quiz = props => {
                 setclickedIndex(null);
                 setnumberQuestion(prev => prev + 1);
               } else {
+                // setLoadingSendResult
                 let newQuiz = quiz;
                 newQuiz = quiz;
                 newQuiz[0].quizQuestions[numberQuestion].stopwatch = stopwatch;
@@ -309,15 +311,17 @@ const Quiz = props => {
                 setLoadingSendResult(true);
                 try {
                   CreateUserquizs(totalAns);
-                  setLoadingSendResult(false);
                   console.log(JSON.stringify(totalAns));
                   setQuiz(newQuiz);
                   setclickedIndex(null);
                   setSelectedAswer(null);
+                  setLoadingSendResult(false);
+
                   navigation.replace('Home');
                 } catch (error) {}
               }
             }}
+            Loading={LoadingSendResult}
           />
         )}
         <Modal

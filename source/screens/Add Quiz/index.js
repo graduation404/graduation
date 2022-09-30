@@ -100,15 +100,24 @@ const AddQuiz = ({ route, navigation }) => {
       }
       else {
         setloadingBtn(true)
-        CreateQuiz(
-          {
-            level: ChooseLevel,
-            booklet: ChooseBooklet,
-            ageGroup: ageGroup,
-            quizQuestions: Questions
-
-          }
-        )
+        try {
+          CreateQuiz(
+            {
+              level: ChooseLevel,
+              booklet: ChooseBooklet,
+              ageGroup: ageGroup,
+              quizQuestions: Questions
+  
+            }
+          )
+        } catch (error) {
+          ToastAndroid.showWithGravity(
+            'Error, Please Try Again',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+          );
+        }
+        
         setloadingBtn(false)
         navigation.navigate('Home')
       }
@@ -353,6 +362,7 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(3.5),
     fontWeight: 'bold',
     marginTop: RFPercentage(1),
+    color:COLORS.darkGray
   },
   HeadText: {
     fontSize: RFPercentage(3),

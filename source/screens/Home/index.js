@@ -24,34 +24,26 @@ const Home = props => {
 
   useEffect(() => {
     setLoading(true);
-    try {
+    let getData = async () => {
       GetAllUsers(setData, setError);
+    };
+    try {
+      getData();
+      setError(false);
     } catch (error) {
       setError(true);
     }
     setTimeout(() => {
       setLoading(false);
-    }, 400);
-  }, [setData,GetAllUsers]);
-  useEffect(() => {
-    return () => {
-      setLoading(true);
+    }, 1000);
+  }, [setData, GetAllUsers]);
 
-      try {
-        GetAllUsers(setData, setError);
-      } catch (error) {
-        setError(true);
-      }
-      setTimeout(() => {
-        setLoading(false);
-      }, 400);
-    };
-  }, []);
   const onRefresh = useCallback(async () => {
     setLoading(true);
 
     try {
       GetAllUsers(setData, setError);
+      setError(false);
     } catch (error) {
       setError(true);
     }
@@ -69,11 +61,19 @@ const Home = props => {
   };
 
   const renderContent = () => {
-    if (error) {
-      return <NoInternet buttonHandler={() => {}} />;
+    if (loading == false && data.length === 0 && error == true) {
+      return (
+        <>
+          <NoInternet
+            buttonHandler={() => {
+              onRefresh();
+            }}
+          />
+        </>
+      );
     }
 
-    if (loading == false && data.length === 0) {
+    if (loading == false && data.length === 0 && error == false) {
       return (
         <>
           <View style={styles.indicatorContainer}>
@@ -105,13 +105,13 @@ const Home = props => {
             backgroundColor: COLORS.white,
           }}
           data={data}
-          refreshControl={
-            <RefreshControl
-              refreshing={loading}
-              onRefresh={onRefresh}
-              enabled={true}
-            />
-          }
+          // refreshControl={
+          //   <RefreshControl
+          //     refreshing={loading}
+          //     onRefresh={onRefresh}
+          //     enabled={true}
+          //   />
+          // }
           renderItem={({item, index}) => (
             <>
               {item.name.toLowerCase().includes(searchInput.toLowerCase()) ? (
@@ -140,6 +140,13 @@ const Home = props => {
       />
       <ScrollView
         style={{width: '95%', alignSelf: 'center'}}
+        refreshControl={
+          <RefreshControl
+            refreshing={loading}
+            onRefresh={onRefresh}
+            enabled={true}
+          />
+        }
         showsVerticalScrollIndicator={false}>
         <TitleSection />
         {renderContent()}

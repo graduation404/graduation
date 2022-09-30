@@ -9,16 +9,15 @@ import {
   ActivityIndicator,
   ToastAndroid,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { COLORS, Icons, SIZES, SPACING } from '../../config';
+import React, {useEffect, useState} from 'react';
+import {COLORS, Icons, SIZES, SPACING} from '../../config';
 import {
   CustomDropDown,
   CustomInputAddPatient,
   LargeButton,
   StaticHeader,
 } from '../../components';
-import { CreateUser } from '../../config/utils';
-
+import {CreateUser} from '../../config/utils';
 
 const GroupAges = [
   {
@@ -36,20 +35,20 @@ const GroupAges = [
   {
     label: '+18',
     value: 4,
-  }
+  },
 ];
 const AddPatientInfo = props => {
   const genders = [
     {
       label: 'Male',
       value: 1,
-      icon: () => <Image source={Icons.Male} style={{ width: 30, height: 30 }} />,
+      icon: () => <Image source={Icons.Male} style={{width: 30, height: 30}} />,
     },
     {
       label: 'Female',
       value: 2,
       icon: () => (
-        <Image source={Icons.Woman} style={{ width: 30, height: 30 }} />
+        <Image source={Icons.Woman} style={{width: 30, height: 30}} />
       ),
     },
   ];
@@ -69,9 +68,8 @@ const AddPatientInfo = props => {
   const [genderValue, setGenderValue] = useState();
   const [Loading, setLoading] = useState(false);
   const handleChange = (value, text) => {
-    setPatientInfo(prevState => ({ ...prevState, [text]: value }));
+    setPatientInfo(prevState => ({...prevState, [text]: value}));
   };
-
 
   const AddUser = () => {
     if (
@@ -84,31 +82,50 @@ const AddPatientInfo = props => {
       PatientInfo.snrBaseLine &&
       PatientInfo.snrDual
     ) {
-      if (PatientInfo.age < 1||PatientInfo.age>150) {
-        alert('Please Entered True Age')
+      if (PatientInfo.age < 1 || PatientInfo.age > 150) {
+        ToastAndroid.showWithGravity(
+          'Please Entered True Age',
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
+        );
       } else {
         setLoading(true);
-        CreateUser({
-          name: PatientInfo.name,
-          gender: PatientInfo.gender, // 1 for male || 2 for female
-          ageGroup: PatientInfo.ageGroup, // 1 ( 5=>6 ) , 2 ( 6=>10 ) , 3 ( 10=>18 ) , 4 (18 => above)
-          age: PatientInfo.age,
-          dual: PatientInfo.snrDual,
-          baseLine: PatientInfo.snrBaseLine,
-          hearingLevelRight: PatientInfo.hearingLevelRight,
-          hearingLevelLeft: PatientInfo.hearingLevelLeft,
-        });
-        setLoading(false);
-        ToastAndroid.showWithGravity('You Add New user Success', 
-        ToastAndroid.LONG, ToastAndroid.BOTTOM)
-        props.navigation.navigate('Home')
+        try {
+          CreateUser({
+            name: PatientInfo.name,
+            gender: PatientInfo.gender, // 1 for male || 2 for female
+            ageGroup: PatientInfo.ageGroup, // 1 ( 5=>6 ) , 2 ( 6=>10 ) , 3 ( 10=>18 ) , 4 (18 => above)
+            age: PatientInfo.age,
+            dual: PatientInfo.snrDual,
+            baseLine: PatientInfo.snrBaseLine,
+            hearingLevelRight: PatientInfo.hearingLevelRight,
+            hearingLevelLeft: PatientInfo.hearingLevelLeft,
+          });
+        } catch (error) {
+          ToastAndroid.showWithGravity(
+            'Error, Please Try Again',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+          );
+          setLoading(false);
+        }
+
+  
+        ToastAndroid.showWithGravity(
+          'You Add New user Success',
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
+        );
+        props.navigation.replace('Home');
       }
     } else {
-      ToastAndroid.showWithGravity('Please Fill All Data', 
-      ToastAndroid.LONG, ToastAndroid.BOTTOM)
+      ToastAndroid.showWithGravity(
+        'Please Fill All Data',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+      );
     }
-  }
-
+  };
 
   useEffect(() => {
     handleChange(genderValue, 'gender');
@@ -126,10 +143,10 @@ const AddPatientInfo = props => {
     <View style={styles.container}>
       <StaticHeader Header_name="" nav={props} />
       <Image style={styles.ImageHeader} source={Icons.patientInfo} />
-      <ScrollView style={{ width: '93%' }} showsVerticalScrollIndicator={false}>
+      <ScrollView style={{width: '93%'}} showsVerticalScrollIndicator={false}>
         <TitleSection />
 
-        <View style={{ width: '100%', paddingVertical: SPACING.s }}>
+        <View style={{width: '100%', paddingVertical: SPACING.s}}>
           <CustomInputAddPatient
             placeholder="Enter Name"
             icon={Icons.User1}
@@ -212,12 +229,11 @@ const AddPatientInfo = props => {
         </View>
         <LargeButton
           colors={[COLORS.blue, COLORS.blue]}
-          Text='Create Patient'
+          Text="Create Patient"
           Loading={Loading}
           onPress={() => {
             // props.navigation.navigate("")
-            AddUser()
-
+            AddUser();
           }}
         />
         {/* <TouchableOpacity

@@ -5,51 +5,192 @@ import {
   ScrollView,
   Image,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
+import {Icons, COLORS, SIZES, SHADOW} from '../../config';
 import {
-  Icons,
-  COLORS,
-  SIZES,
-  SHADOW,
-} from '../../config';
-import { LevelContainer, ProgressQuiz, SmallButton, StaticHeader } from '../../components';
-import { RFPercentage } from 'react-native-responsive-fontsize';
-import { BookletContainer } from '../../components';
-import React, { useEffect, useState } from 'react';
-import { GetSpecifiecUser, GetUserquizsInLevelAndBooklet } from '../../config/utils';
-import { TimeAvarage } from '../../config/helperFunctions';
-const ReportResult = (props) => {
-  const { levelInd, BookletInd, id, PatientInfo, Persentage } = props.route.params
-  const [Indpersentage, setIndpersentage] = useState(0)
-  const [questionData, setquestionData] = useState([
-  ]);
+  LevelContainer,
+  ProgressQuiz,
+  SmallButton,
+  StaticHeader,
+} from '../../components';
+import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
+import {BookletContainer} from '../../components';
+import React, {useCallback, useEffect, useState} from 'react';
+import {
+  GetSpecifiecUser,
+  GetUserquizsInLevelAndBooklet,
+} from '../../config/utils';
+import {TimeAvarage} from '../../config/helperFunctions';
+import NoInternet from '../../components/noInternet';
+const ReportResult = props => {
+  const {levelInd, BookletInd, id, PatientInfo, Persentage} =
+    props.route.params;
+  const [Indpersentage, setIndpersentage] = useState(0);
+  const [questionData, setquestionData] = useState([]);
+  const [error, setError] = useState(false);
 
+  const [loading, setLoading] = useState(true);
 
- 
   const PersentageCalc = () => {
-    let totalQues = questionData.length
-    let PersentageC = 0
+    let totalQues = questionData.length;
+    let PersentageC = 0;
     for (let i = 0; i < questionData.length; i++) {
-      questionData[i].answer == questionData[i].question.isExist ? PersentageC += 1 : PersentageC = PersentageC
+      questionData[i].answer == questionData[i].question.isExist
+        ? (PersentageC += 1)
+        : (PersentageC = PersentageC);
     }
-    setIndpersentage((PersentageC / (totalQues == 0 ? totalQues = 1 : totalQues))*100)
-  }
-
+    setIndpersentage(
+      (PersentageC / (totalQues == 0 ? (totalQues = 1) : totalQues)) * 100,
+    );
+  };
 
   const GetSpecifiecUserquis = () => {
-    GetUserquizsInLevelAndBooklet(id, levelInd, BookletInd, setquestionData,)
-  }
+    // alert("hii")
+    GetUserquizsInLevelAndBooklet(id, levelInd, BookletInd, setquestionData);
+  };
 
   useEffect(() => {
-    GetSpecifiecUserquis()
-  }, [GetSpecifiecUserquis])
+    setLoading(true);
+    try {
+      GetSpecifiecUserquis();
+      PersentageCalc();
+      setError(false);
+    } catch (error) {
+      setError(true);
+    }
+    setLoading(false);
+  }, [GetSpecifiecUserquis, PersentageCalc]);
+  const onRefresh = useCallback(async () => {
+    setLoading(true);
+    try {
+      GetSpecifiecUserquis();
+      PersentageCalc();
+      setError(false);
+    } catch (error) {
+      setError(true);
+    }
+    setLoading(false);
+  }, [GetSpecifiecUserquis, PersentageCalc]);
+  const renderContent = () => {
+    if (loading === true) {
+      return (
+        <View style={styles.indicatorContainer}>
+          <ActivityIndicator size="large" color={COLORS.blue} />
+        </View>
+      );
+    }
+    if (loading == false && questionData?.length === 0 && error == true) {
+      return (
+        <>
+          <NoInternet
+            buttonHandler={() => {
+              onRefresh();
+            }}
+          />
+        </>
+      );
+    }
 
+    if (loading == false && questionData?.length === 0 && error == false) {
+      return (
+        <>
+          <View style={styles.indicatorContainer}>
+            <Image
+              resizeMode="contain"
+              source={require('../../assets/imgs/nodata.png')}
+              style={styles.image}
+            />
+            <Text style={[styles.textStyle, {alignSelf: 'center'}]}>
+              No Data
+            </Text>
+          </View>
+        </>
+      );
+    }
 
-  useEffect(() => {
-    PersentageCalc()
-  }, [PersentageCalc])
+    return (
+      <>
+        <View style={styles.Top_Container}>
+          <LevelContainer
+            Persentage={25}
+            Text={'Level ' + JSON.stringify(levelInd)}
+            Image={Icons.Signal}
+          />
 
+          <BookletContainer
+            Text={'Booklet ' + JSON.stringify(BookletInd)}
+            Image={Icons.Books}
+          />
+          <View style={styles.progressContainer}>
+            <ProgressQuiz Persentage={Indpersentage} />
+          </View>
+        </View>
 
+        <View style={styles.bottom_Container}>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={questionData}
+            renderItem={({item, index}) => (
+              <>
+                <View style={styles.Main_view}>
+                  <View style={styles.Trial_View}>
+                    <Text style={[styles.trialText, {color: COLORS.white}]}>
+                      Trial {index + 1}
+                    </Text>
+                  </View>
+
+                  <View style={styles.Time_View}>
+                    <Text style={styles.trialText}>
+                      {item.takenTime} milliseconds
+                    </Text>
+                  </View>
+                  <View style={styles.Image_View}>
+                    <Image
+                      source={
+                        item.answer == item.question.isExist
+                          ? Icons.Check
+                          : Icons.Cancel
+                      }
+                      style={styles.Image_Style}
+                    />
+                  </View>
+                </View>
+              </>
+            )}
+          />
+        </View>
+
+        <View style={styles.blue_contianer}>
+          <View style={styles.blue_view}>
+            <Text style={styles.Reaction_Time_Title}>
+              Reaction Time (Booklet)
+            </Text>
+            <View style={styles.Reaction_Time_Contianer}>
+              <Text style={styles.Reaction_Time_Text}>
+                {TimeAvarage(questionData)}
+              </Text>
+            </View>
+            <Text style={styles.Reaction_Time_Title}>Listening Efforts</Text>
+            <View style={styles.Reaction_Time_Contianer}>
+              <Text style={styles.Reaction_Time_Text}>
+                {(PatientInfo.baseLine - PatientInfo.dual) /
+                  PatientInfo.baseLine}
+              </Text>
+            </View>
+          </View>
+        </View>
+
+        <SmallButton
+          onPress={() => {
+            props.navigation.navigate('Home');
+          }}
+          Text="Done"
+          style={{alignSelf: 'center'}}
+        />
+      </>
+    );
+  };
 
   return (
     <>
@@ -57,65 +198,9 @@ const ReportResult = (props) => {
         <View style={styles.Container}>
           <StaticHeader
             Header_name={'Result'}
-            style={{ backgroundColor: '#A3DEFF' }}
+            style={{backgroundColor: '#A3DEFF'}}
           />
-          <View style={styles.Top_Container}>
-            <LevelContainer Persentage={25} Text={'Level ' + JSON.stringify(levelInd)} Image={Icons.Signal} />
-
-            <BookletContainer Text={'Booklet ' + JSON.stringify(BookletInd)} Image={Icons.Books} />
-            <View style={styles.progressContainer}>
-              <ProgressQuiz Persentage={Indpersentage} />
-            </View>
-          </View>
-
-          <View style={styles.bottom_Container}>
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              data={questionData}
-              renderItem={({ item, index }) =>
-              (
-                <>
-                  <View style={styles.Main_view}>
-                    <View style={styles.Trial_View}>
-                      <Text style={[styles.trialText, { color: COLORS.white }]}>Trial {index + 1}</Text>
-                    </View>
-
-                    <View style={styles.Time_View}>
-                      <Text style={styles.trialText}>
-                        {item.takenTime} milliseconds
-                      </Text>
-                    </View>
-                    <View style={styles.Image_View}>
-                      <Image source={
-                        item.answer == item.question.isExist ?
-                          Icons.Check :
-                          Icons.Cancel
-                      } style={styles.Image_Style} />
-                    </View>
-                  </View>
-                </>
-              )}
-            />
-          </View>
-
-          <View style={styles.blue_contianer}>
-            <View style={styles.blue_view}>
-              <Text style={styles.Reaction_Time_Title}>
-                Reaction Time (Booklet)
-              </Text>
-              <View style={styles.Reaction_Time_Contianer}>
-                <Text style={styles.Reaction_Time_Text}>{TimeAvarage(questionData)}</Text>
-              </View>
-              <Text style={styles.Reaction_Time_Title}>Listening Efforts</Text>
-              <View style={styles.Reaction_Time_Contianer}>
-                <Text style={styles.Reaction_Time_Text}>{(PatientInfo.baseLine - PatientInfo.dual) / PatientInfo.baseLine}</Text>
-              </View>
-            </View>
-          </View>
-
-          <SmallButton onPress={()=>{
-            props.navigation.navigate('Home')
-          }} Text='Done' style={{alignSelf:'center'}}/>
+          {renderContent()}
         </View>
       </ScrollView>
     </>
@@ -128,6 +213,7 @@ const styles = StyleSheet.create({
   Container: {
     flex: 1,
     backgroundColor: COLORS.white,
+    height: SIZES.height * 1,
   },
   Top_Container: {
     width: '100%',
@@ -282,5 +368,21 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontWeight: 'bold',
     fontSize: 15,
+  },
+  image: {
+    width: RFValue(190),
+    height: RFValue(250),
+  },
+  textStyle: {
+    color: COLORS.blue,
+    alignSelf: 'flex-start',
+    fontSize: SIZES.h2 + 5,
+    fontWeight: '700',
+  },
+  indicatorContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+    // backgroundColor:"#a00"
   },
 });

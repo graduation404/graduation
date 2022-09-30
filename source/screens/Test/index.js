@@ -319,20 +319,21 @@ const Test = props => {
                 BookletIndex + 1,
                 ageeee,
               ).then(res => {
-                res.length
-                  ? setModalVisible(false)(
-                      props.navigation.navigate('Quiz', {
-                        quizz: res,
-                        PatientInfo,
-                      }),
-                      setloadingBtn(false),
-                    )
-                  : ToastAndroid.showWithGravity(
-                      'There Is No Test In this Booklet',
-                      ToastAndroid.LONG,
-                      ToastAndroid.BOTTOM,
-                    );
-                setModalVisible(false);
+                if (res.length) {
+                  setModalVisible(false);
+                  props.navigation.navigate('Quiz', {
+                    quizz: res,
+                    PatientInfo,
+                  }),
+                    setloadingBtn(false);
+                } else {
+                  ToastAndroid.showWithGravity(
+                    'There Is No Test In this Booklet',
+                    ToastAndroid.LONG,
+                    ToastAndroid.BOTTOM,
+                  );
+                  setModalVisible(false);
+                }
               });
               setloadingBtn(false);
             }}
