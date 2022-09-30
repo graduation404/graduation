@@ -1,6 +1,5 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
-  ActivityIndicator,
   FlatList,
   Image,
   ScrollView,
@@ -8,13 +7,15 @@ import {
   Text,
   View,
   RefreshControl,
+  Alert,
+  ToastAndroid
 } from 'react-native';
-import {RFValue} from 'react-native-responsive-fontsize';
-import {CardHome, HeaderHome} from '../../components';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { CardHome, HeaderHome } from '../../components';
 import NoInternet from '../../components/noInternet';
-import {COLORS, SIZES, SPACING} from '../../config';
-import {subDate, subtime, welcomeMessage} from '../../config/helperFunctions';
-import {GetAllUsers} from '../../config/utils';
+import { COLORS, SIZES, SPACING } from '../../config';
+import { subDate, subtime, welcomeMessage } from '../../config/helperFunctions';
+import { DeleteSpecifiecUser, GetAllUsers } from '../../config/utils';
 
 const Home = props => {
   const [data, setData] = useState([]);
@@ -22,6 +23,30 @@ const Home = props => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
+  const DeleteUserFun = (id) => {
+    Alert.alert(
+      "You Coundn't Add Any Questions",
+      "Are you sure to leave..!?",
+      [
+        {
+          text: "Cancel",
+        },
+        {
+          text: "ok",
+          onPress: () => {
+            DeleteSpecifiecUser(id)
+
+
+          }
+        },
+      ],
+    );
+  }
+
+useEffect(()=>{
+  // DeleteSpecifiecUser("74728ef6-afb4-4bc3-ad9b-8e75ca2b7d6a")
+},[])
+  // console.log(data)
   useEffect(() => {
     setLoading(true);
     let getData = async () => {
@@ -36,7 +61,7 @@ const Home = props => {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, [setData, GetAllUsers]);
+  }, [setData, GetAllUsers,]);
 
   const onRefresh = useCallback(async () => {
     setLoading(true);
@@ -82,7 +107,7 @@ const Home = props => {
               source={require('../../assets/imgs/nodata.png')}
               style={styles.image}
             />
-            <Text style={[styles.textStyle, {alignSelf: 'center'}]}>
+            <Text style={[styles.textStyle, { alignSelf: 'center' }]}>
               No Data
             </Text>
           </View>
@@ -92,12 +117,12 @@ const Home = props => {
     if (loading == true) {
       return (
         <View style={styles.indicatorContainer}>
-          <ActivityIndicator size="large" color={COLORS.blue} />
+          {/* <ActivityIndicator size="large" color={COLORS.blue} /> */}
         </View>
       );
     }
     return (
-      <View style={{width: '100%', alignItems: 'center'}}>
+      <View style={{ width: '100%', alignItems: 'center' }}>
         <FlatList
           showsVerticalScrollIndicator={false}
           style={{
@@ -105,14 +130,8 @@ const Home = props => {
             backgroundColor: COLORS.white,
           }}
           data={data}
-          // refreshControl={
-          //   <RefreshControl
-          //     refreshing={loading}
-          //     onRefresh={onRefresh}
-          //     enabled={true}
-          //   />
-          // }
-          renderItem={({item, index}) => (
+
+          renderItem={({ item, index }) => (
             <>
               {item.name.toLowerCase().includes(searchInput.toLowerCase()) ? (
                 <CardHome
@@ -121,6 +140,7 @@ const Home = props => {
                   item={item}
                   index={index}
                   nav={props}
+                  onPress={() =>DeleteUserFun(item.id)}
                 />
               ) : null}
             </>
@@ -139,7 +159,7 @@ const Home = props => {
         value={searchInput}
       />
       <ScrollView
-        style={{width: '95%', alignSelf: 'center'}}
+        style={{ width: '95%', alignSelf: 'center' }}
         refreshControl={
           <RefreshControl
             refreshing={loading}
@@ -154,6 +174,7 @@ const Home = props => {
     </View>
   );
 };
+
 
 export default Home;
 

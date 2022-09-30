@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { COLORS, SIZES, SPACING, SHADOW, Icons, Range_Function } from '../../config';
-const CardHome = ({ item, index, nav, hours, date }) => {
+import { RFPercentage } from 'react-native-responsive-fontsize';
+const CardHome = ({ item, index, nav, hours, date,onPress }) => {
   const [Range, setRange] = useState(Range_Function(item.age))
   return (
     <View style={styles.Container}>
@@ -18,25 +19,28 @@ const CardHome = ({ item, index, nav, hours, date }) => {
                 {item.name}
               </Text>
             </View>
-
-            <View style={styles.subContainerAge}>
-              <Text style={[styles.subTextStyle, { color: COLORS.blue }]}>
-                {Range}
-              </Text>
+            <View>
+              <View style={styles.subContainerAge}>
+                <Text style={[styles.subTextStyle, { color: COLORS.blue }]}>
+                  {Range}
+                </Text>
+              </View>
+           
             </View>
+
           </View>
           <Text
             style={[
               styles.subTextStyle,
               {
                 fontSize: SIZES.subTitle - 2,
-                marginHorizontal: SPACING.vS,
               },
             ]}>
             {item.age} years
           </Text>
         </View>
       </View>
+
       <View style={styles.ButtomContainer}>
         <View style={styles.leftBottomSubContainer}>
           <View style={styles.IconTitleBottomContainer}>
@@ -53,7 +57,7 @@ const CardHome = ({ item, index, nav, hours, date }) => {
                   {
                     color: COLORS.blue,
                     fontSize: SIZES.subTitle - 2,
-                    marginHorizontal: SPACING.s,
+                    marginHorizontal: SPACING.vS,
                   },
                 ]}>
                 {date}
@@ -85,6 +89,11 @@ const CardHome = ({ item, index, nav, hours, date }) => {
             nav.navigation.navigate('PatientProfile', { PatientInfo: item });
           }}>
           <Text style={[styles.subTextStyle, { color: COLORS.blue }]}>Visit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.subContainerAge,{backgroundColor:'#e51c3f'}]}
+          onPress={onPress}>
+          <Text style={[styles.subTextStyle, { color: COLORS.white }]}>Delete</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -136,7 +145,7 @@ const styles = StyleSheet.create({
   subContainerAge: {
     paddingVertical: SPACING.vS,
     elevation: 5,
-    paddingHorizontal: SPACING.m,
+    paddingHorizontal: RFPercentage(2),
     backgroundColor: COLORS.white,
     borderRadius: SPACING.m,
   },
@@ -151,12 +160,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.s,
   },
   leftBottomSubContainer: {
-    width: '75%',
+    width: '60%',
     height: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    overflow:'visible',
+    overflow: 'visible',
     // backgroundColor:"#f00"
   },
   IconTitleBottomContainer: {

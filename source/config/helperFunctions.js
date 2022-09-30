@@ -22,7 +22,7 @@ const Range_Function = age => {
           : (range = '10-18')
         : (range = '6-10')
       : (range = '1-5')
-    : null;
+    : (range = '1-5');
   // console.log(range)
 
   return range;
