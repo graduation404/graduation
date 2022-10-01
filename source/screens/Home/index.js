@@ -117,7 +117,7 @@ useEffect(()=>{
     if (loading == true) {
       return (
         <View style={styles.indicatorContainer}>
-          {/* <ActivityIndicator size="large" color={COLORS.blue} /> */}
+          <ActivityIndicator size="large" color={COLORS.blue} />
         </View>
       );
     }
