@@ -57,6 +57,11 @@ export const GetSpecifiecUser = async id => {
 export const DeleteSpecifiecUser = async id => {
   try {
     const {data} = await axios.delete(baseURL + '/users/' + id);
+    ToastAndroid.showWithGravity(
+      'Deleted Succes',
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+    )
     return data;
   } catch (error) {
     console.log('error delete users', error.response);
@@ -67,8 +72,12 @@ export const DeleteSpecifiecUser = async id => {
       message = 'connection-error';
     }
 
-    // alert(message);
-    throw new Error(message);
+    ToastAndroid.showWithGravity(
+      'Deleted Failed',
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+    )   
+     throw new Error(message);
   }
 };
 
