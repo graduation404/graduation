@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {ToastAndroid} from 'react-native';
-const baseURL = 'https://www.medicalapi.somee.com/api';
+const baseURL = 'https://drhearing.azurewebsites.net/api';
 export default axios.create({
   baseURL: baseURL,
   timeout: 30000,
