@@ -32,9 +32,11 @@ import * as Animatable from 'react-native-animatable';
 import {useNavigation} from '@react-navigation/native';
 import {GetQuizsInLevelAndBooklet} from '../../config/utils';
 import {handleAgeGroup2} from '../../config/helperFunctions';
+import {useTranslation} from 'react-i18next';
 
 const Test = props => {
   const navigation = useNavigation();
+  const { t , i18n} = useTranslation();
   const {PatientInfo} = props.route.params;
   const [name, setName] = useState(PatientInfo.name);
   const [id, setid] = useState(582222);
@@ -47,39 +49,39 @@ const Test = props => {
 
   const [Texts, setTexts] = useState([
     {
-      text: 'Read the question carefully and check if the answer is amoung the answer given',
+      text: t('common:Guidance1'),
     },
     {
-      text: 'if you find a correct answer ,press the correct button ',
+      text: t('common:Guidance2'),
       Image: Icons.Check,
     },
     {
-      text: "if you don't find a correct answer ,press the Worng button ",
+      text: t('common:Guidance3'),
       Image: Icons.Cancel,
     },
     {
-      text: 'The reaction time for each question will be calculated separately from the start of pressing the start button until choosing the true or false button',
+      text: t('common:Guidance4'),
     },
   ]);
 
   const [LevelsArray, setLevelsArray] = useState([
     {
-      Text: 'Level 1',
+      Text: t('common:Level1'),
       Image: Icons.Signal,
       Persentage: 25,
     },
     {
-      Text: 'Level 2',
+      Text:  t('common:Level2'),
       Image: Icons.Signal,
       Persentage: 50,
     },
     {
-      Text: 'Level 3',
+      Text:  t('common:Level3'),
       Image: Icons.Signal,
       Persentage: 75,
     },
     {
-      Text: 'Level 4',
+      Text: t('common:Level4'),
       Image: Icons.Signal,
       Persentage: 100,
     },
@@ -90,19 +92,19 @@ const Test = props => {
       id: 1,
       Array: [
         {
-          Text: 'Booklet 1',
+          Text: t('common:Booklet1'),
           Image: Icons.Books,
         },
         {
-          Text: 'Booklet 2',
+          Text: t('common:Booklet2'),
           Image: Icons.Books,
         },
         {
-          Text: 'Booklet 3',
+          Text: t('common:Booklet3'),
           Image: Icons.Books,
         },
         {
-          Text: 'Booklet 4',
+          Text:t('common:Booklet4'),
           Image: Icons.Books,
         },
       ],
@@ -111,15 +113,15 @@ const Test = props => {
       id: 2,
       Array: [
         {
-          Text: 'Booklet 1',
+          Text: t('common:Booklet1'),
           Image: Icons.Books,
         },
         {
-          Text: 'Booklet 2',
+          Text: t('common:Booklet2'),
           Image: Icons.Books,
         },
         {
-          Text: 'Booklet 3',
+          Text: t('common:Booklet3'),
           Image: Icons.Books,
         },
       ],
@@ -128,15 +130,15 @@ const Test = props => {
       id: 3,
       Array: [
         {
-          Text: 'Booklet 1',
+          Text: t('common:Booklet1'),
           Image: Icons.Books,
         },
         {
-          Text: 'Booklet 2',
+          Text: t('common:Booklet2'),
           Image: Icons.Books,
         },
         {
-          Text: 'Booklet 3',
+          Text:t('common:Booklet3'),
           Image: Icons.Books,
         },
       ],
@@ -145,7 +147,7 @@ const Test = props => {
       id: 4,
       Array: [
         {
-          Text: 'Booklet 1',
+          Text: t('common:Booklet1'),
           Image: Icons.Books,
         },
       ],
@@ -237,7 +239,7 @@ const Test = props => {
                 <View style={styles.DataContainer}>
                   <Text style={styles.name_Style}>{name}</Text>
                   <Text style={styles.id_Style}>id: {id}</Text>
-                  <Text style={styles.Age_Text}>{age} Years</Text>
+                  <Text style={styles.Age_Text}>{age} {t('common:Years')}</Text>
                 </View>
               </View>
               <TouchableOpacity
@@ -253,7 +255,7 @@ const Test = props => {
 
             <View style={styles.MainOnline_View}>
               <View style={styles.online_View} />
-              <Text style={styles.online_Text}>Test is Active</Text>
+              <Text style={styles.online_Text}>{t('common:TestisActive')}</Text>
             </View>
           </>
         }
@@ -296,7 +298,7 @@ const Test = props => {
                 fontWeight: 'bold',
               }}>
               {' '}
-              GuideLine
+              {t('common:GuideLine')}
             </Text>
           </View>
 
@@ -328,7 +330,7 @@ const Test = props => {
                     setloadingBtn(false);
                 } else {
                   ToastAndroid.showWithGravity(
-                    'There Is No Test In this Booklet',
+                    t('common:ThereIsNoTestInthisBooklet'),
                     ToastAndroid.LONG,
                     ToastAndroid.BOTTOM,
                   );
@@ -346,7 +348,7 @@ const Test = props => {
   return (
     <>
       <View style={styles.container}>
-        <StaticHeader Header_name="Test" />
+        <StaticHeader Header_name={t('common:Test')} />
         <Text
           style={{
             fontSize: SIZES.title,
@@ -355,17 +357,17 @@ const Test = props => {
             fontWeight: 'bold',
             color: COLORS.darkGray,
           }}>
-          Hi, {sub()}
+          {t('common:Hi')}{sub()}
         </Text>
         <CardView />
 
-        <Text style={styles.ChooseText}>Choose Level</Text>
+        <Text style={styles.ChooseText}>{t('common:ChooseLevel')}</Text>
 
         <LevelsArrayList />
 
         {LevelIndex === null ? null : (
           <>
-            <Text style={styles.ChooseText}>Choose Booklet</Text>
+            <Text style={styles.ChooseText}>{t('common:ChooseBooklet')}</Text>
 
             <BookletArrayList />
           </>
@@ -379,7 +381,7 @@ const Test = props => {
                 onPress={() => {
                   setModalVisible(true);
                 }}
-                Text="Let's Go"
+                Text={t('common:letGo')}
               />
             </Animatable.View>
           </>

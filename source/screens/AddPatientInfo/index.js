@@ -6,9 +6,9 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  ActivityIndicator,
   ToastAndroid,
 } from 'react-native';
+import {useTranslation} from 'react-i18next';
 import React, {useEffect, useState} from 'react';
 import {COLORS, Icons, SIZES, SPACING} from '../../config';
 import {
@@ -18,34 +18,36 @@ import {
   StaticHeader,
 } from '../../components';
 import {CreateUser} from '../../config/utils';
+import { t } from 'i18next';
 
 const GroupAges = [
   {
-    label: '1-5',
+    label: t('common:label1'),
     value: 1,
   },
   {
-    label: '6-10',
+    label: t('common:label2'),
     value: 2,
   },
   {
-    label: '10-18',
+    label: t('common:label3'),
     value: 3,
   },
   {
-    label: '+18',
+    label: t('common:label4'),
     value: 4,
   },
 ];
 const AddPatientInfo = props => {
+  const { t , i18n} = useTranslation();
   const genders = [
     {
-      label: 'Male',
+      label: t('common:Male'),
       value: 1,
       icon: () => <Image source={Icons.Male} style={{width: 30, height: 30}} />,
     },
     {
-      label: 'Female',
+      label: t('common:Female'),
       value: 2,
       icon: () => (
         <Image source={Icons.Woman} style={{width: 30, height: 30}} />
@@ -84,7 +86,7 @@ const AddPatientInfo = props => {
     ) {
       if (PatientInfo.age < 1 || PatientInfo.age > 150) {
         ToastAndroid.showWithGravity(
-          'Please Entered True Age',
+         t('common:ToastAndroidAge'),
           ToastAndroid.LONG,
           ToastAndroid.BOTTOM,
         );
@@ -103,7 +105,7 @@ const AddPatientInfo = props => {
           });
         } catch (error) {
           ToastAndroid.showWithGravity(
-            'Error, Please Try Again',
+            t('common:ToastAndroidTryAgain'),
             ToastAndroid.LONG,
             ToastAndroid.BOTTOM,
           );
@@ -112,7 +114,7 @@ const AddPatientInfo = props => {
 
   
         ToastAndroid.showWithGravity(
-          'You Add New user Success',
+          t('common:ToastAndroidTryAgain'),
           ToastAndroid.LONG,
           ToastAndroid.BOTTOM,
         );
@@ -120,7 +122,7 @@ const AddPatientInfo = props => {
       }
     } else {
       ToastAndroid.showWithGravity(
-        'Please Fill All Data',
+        t('common:ToastAndroidFillData'),
         ToastAndroid.LONG,
         ToastAndroid.BOTTOM,
       );
@@ -135,7 +137,7 @@ const AddPatientInfo = props => {
   const TitleSection = () => {
     return (
       <View style={styles.TitleContainer}>
-        <Text style={styles.textStyle}>Add Patient Information</Text>
+        <Text style={styles.textStyle}>{t('common:AddPatientInformation')}</Text>
       </View>
     );
   };
@@ -148,7 +150,7 @@ const AddPatientInfo = props => {
 
         <View style={{width: '100%', paddingVertical: SPACING.s}}>
           <CustomInputAddPatient
-            placeholder="Enter Name"
+            placeholder={t('common:EnterName')}
             icon={Icons.User1}
             colorIcon={COLORS.white}
             value={PatientInfo.name}
@@ -163,14 +165,14 @@ const AddPatientInfo = props => {
             }}
             badgeDotColors={['#00b4d8', '#e76f51']}
             open={OpenGenderList}
-            placeholder="Enter Gender"
+            placeholder={t('common:EnterGender')}
             icon={Icons.Bigender}
             colorIcon={COLORS.blue}
             value={genderValue}
             setValue={setGenderValue}
           />
           <CustomInputAddPatient
-            placeholder="Enter Age"
+            placeholder={t('common:EnterAge')}
             icon={Icons.Age}
             colorIcon={COLORS.blue}
             value={PatientInfo.age}
@@ -187,7 +189,7 @@ const AddPatientInfo = props => {
             }}
             badgeDotColors={['#00b4d8', '#e76f51']}
             open={OpenageGroupList}
-            placeholder="Enter Age Group"
+            placeholder={t('common:EnterAgeGroup')}
             icon={Icons.Bigender}
             colorIcon={COLORS.blue}
           />
@@ -208,7 +210,7 @@ const AddPatientInfo = props => {
             keyboardType="decimal-pad"
           />
           <CustomInputAddPatient
-            placeholder="Enter Hearing Level (left)"
+            placeholder={t('common:EnterHearingLevelLeft')}
             icon={Icons.PointHand}
             colorIcon={COLORS.blue}
             value={PatientInfo.hearingLevelLeft}
@@ -217,7 +219,7 @@ const AddPatientInfo = props => {
           />
 
           <CustomInputAddPatient
-            placeholder="Enter Hearing Level (right)"
+            placeholder={t('common:EnterHearingLevelRight')}
             icon={Icons.PointHand}
             colorIcon={COLORS.blue}
             value={PatientInfo.hearingLevelRight}
@@ -229,7 +231,7 @@ const AddPatientInfo = props => {
         </View>
         <LargeButton
           colors={[COLORS.blue, COLORS.blue]}
-          Text="Create Patient"
+          Text={t('common:CreatePatient')}
           Loading={Loading}
           onPress={() => {
             // props.navigation.navigate("")

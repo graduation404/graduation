@@ -11,8 +11,10 @@ import {Icons, COLORS, SIZES} from '../../config';
 import LinearGradient from 'react-native-linear-gradient';
 import {CustomInputLogIn} from '../../components';
 import {SetAsyncStorage, welcomeMessage} from '../../config/helperFunctions';
+import {useTranslation} from 'react-i18next';
 
 const Login = props => {
+  const { t , i18n} = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPass] = useState('');
   const [Icon_name, setIconName] = useState(Icons.Hide);
@@ -32,19 +34,19 @@ const Login = props => {
   const logInPress = () => {
     if (email.length > 0 || password.length > 0) {
       if (email.toLowerCase() != 'admin') {
-        setEmailError('Please Enter Valid Email');
+        setEmailError(t('common:EnterValidEmail'));
         setPassError('');
       } else if (password.toLowerCase() != '12345') {
         setEmailError('');
-        setPassError('Please Enter Valid Password');
+        setPassError(t('common:EnterValidPassword'));
       } else {
         SetAsyncStorage('admin', {email, password});
         props.navigation.replace('HomeStack');
         welcomeMessage();
       }
     } else {
-      setPassError('Please Enter Valid Password');
-      setEmailError('Please Enter Valid Email');
+      setPassError(t('common:EnterValidPassword'));
+      setEmailError(t('common:EnterValidEmail'));
     }
   };
 
@@ -71,14 +73,14 @@ const Login = props => {
                   width: '25%',
                 }}>
                 <Text style={[styles.text_signin, {color: COLORS.blue}]}>
-                  SIGN IN
+                {t('common:Signin')}
                 </Text>
               </View>
               <View style={styles.inner_signin_view}></View>
             </View>
 
             <CustomInputLogIn
-              label="Email..."
+              label={t('common:Email')}
               keyboardType="email-address"
               icon={Icons.Account}
               value={email}
@@ -88,7 +90,7 @@ const Login = props => {
               error={emailError ? emailError : false}
             />
             <CustomInputLogIn
-              label="Password..."
+              label={t('common:Password')}
               keyboardType="default"
               icon={Icons.Lock}
               iconEye={Icon_name}
@@ -107,7 +109,7 @@ const Login = props => {
               style={styles.signin_touchable}
               onPress={logInPress}>
               <Text style={[styles.text_signin, {color: COLORS.white}]}>
-                SIGN IN
+               {t('common:Signin')}
               </Text>
             </TouchableOpacity>
 

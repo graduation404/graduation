@@ -23,13 +23,14 @@ import {
 } from '../../config/utils';
 import {TimeAvarage} from '../../config/helperFunctions';
 import NoInternet from '../../components/noInternet';
+import {useTranslation} from 'react-i18next';
 const ReportResult = props => {
   const {levelInd, BookletInd, id, PatientInfo, Persentage} =
     props.route.params;
   const [Indpersentage, setIndpersentage] = useState(0);
   const [questionData, setquestionData] = useState([]);
   const [error, setError] = useState(false);
-
+  const { t , i18n} = useTranslation();
   const [loading, setLoading] = useState(true);
 
   const PersentageCalc = () => {
@@ -102,7 +103,7 @@ const ReportResult = props => {
               style={styles.image}
             />
             <Text style={[styles.textStyle, {alignSelf: 'center'}]}>
-              No Data
+             {t('common:NoData')}
             </Text>
           </View>
         </>
@@ -114,12 +115,12 @@ const ReportResult = props => {
         <View style={styles.Top_Container}>
           <LevelContainer
             Persentage={25}
-            Text={'Level ' + JSON.stringify(levelInd)}
+            Text={t('common:Level')+ JSON.stringify(levelInd)}
             Image={Icons.Signal}
           />
 
           <BookletContainer
-            Text={'Booklet ' + JSON.stringify(BookletInd)}
+            Text={t('common:Booklet')+ JSON.stringify(BookletInd)}
             Image={Icons.Books}
           />
           <View style={styles.progressContainer}>
@@ -136,13 +137,13 @@ const ReportResult = props => {
                 <View style={styles.Main_view}>
                   <View style={styles.Trial_View}>
                     <Text style={[styles.trialText, {color: COLORS.white}]}>
-                      Trial {index + 1}
+                      {t('common:Trial')} {index + 1}
                     </Text>
                   </View>
 
                   <View style={styles.Time_View}>
                     <Text style={styles.trialText}>
-                      {item.takenTime} milliseconds
+                      {item.takenTime} {t('common:millieSecond')}
                     </Text>
                   </View>
                   <View style={styles.Image_View}>
@@ -164,7 +165,7 @@ const ReportResult = props => {
         <View style={styles.blue_contianer}>
           <View style={styles.blue_view}>
             <Text style={styles.Reaction_Time_Title}>
-              Reaction Time (Booklet)
+              {t('common:ReactionTimeBooklet')}
             </Text>
             <View style={styles.Reaction_Time_Contianer}>
               <Text style={styles.Reaction_Time_Text}>
@@ -197,7 +198,7 @@ const ReportResult = props => {
       <ScrollView>
         <View style={styles.Container}>
           <StaticHeader
-            Header_name={'Result'}
+            Header_name={t('common:Result')}
             style={{backgroundColor: '#A3DEFF'}}
           />
           {renderContent()}

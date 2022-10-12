@@ -13,6 +13,7 @@ import {COLORS, Icons, SIZES, SPACING} from '../../config';
 import {SmallButton} from '../Buttons';
 import ColorPicker from 'react-native-wheel-color-picker';
 // Import Image Picker
+import {useTranslation} from 'react-i18next'
 import ImagePicker from 'react-native-image-crop-picker';
 const ModalImgs = ({
   modalImgVisible,
@@ -20,6 +21,7 @@ const ModalImgs = ({
   listImgs,
   setlistImgs,
 }) => {
+  const { t , i18n} = useTranslation();
   const chooseFile = () => {
     ImagePicker.openPicker({
       width: 300,
@@ -40,7 +42,7 @@ const ModalImgs = ({
       <View style={styles.container}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image source={Icons.Camera} style={styles.icon} />
-          <Text style={styles.text}> Choose your Images</Text>
+          <Text style={styles.text}>{t('common:ChooseyourImages')}</Text>
         </View>
 
         <View style={styles.listColorsContainer}>
@@ -67,13 +69,13 @@ const ModalImgs = ({
         </View>
         <View style={styles.containerBtns}>
           <SmallButton
-            Text="Close"
+            Text={t('common:Close')}
             onPress={() => {
               setModalImgVisible(false);
             }}
           />
           <SmallButton
-            Text="Add Image"
+            Text={t('common:AddImage')}
             onPress={() => {
               // setListImgs(prev => [...prev, currentColor]);
               chooseFile();

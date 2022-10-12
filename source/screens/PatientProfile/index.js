@@ -1,5 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   FlatList,
   Image,
@@ -29,6 +30,7 @@ import {subDate, subtime} from '../../config/helperFunctions';
 
 const PatientProfile = props => {
   const navigation = useNavigation();
+  const { t , i18n} = useTranslation();
   const {PatientInfo, hours, date} = props.route.params;
   const [name, setName] = useState(PatientInfo.name);
   // const [id, setid] = useState(582222);
@@ -48,12 +50,12 @@ const PatientProfile = props => {
       image: Icons.PointHand,
     },
     {
-      name: 'Hearing Level (Right)',
+      name: t('common:EnterHearingLevelRight'),
       Percentage: PatientInfo.hearingLevelRight,
       image: Icons.PointHand,
     },
     {
-      name: 'Hearing Level (Left)',
+      name:t('common:EnterHearingLevelLeft'),
       Percentage: PatientInfo.hearingLevelLeft,
       image: Icons.PointHand,
     },
@@ -102,7 +104,7 @@ const PatientProfile = props => {
                 />
               </View>
               <View style={{alignItems: 'flex-end'}}>
-                <Text style={styles.Age_Text}>{age} Years </Text>
+                <Text style={styles.Age_Text}>{age} {t('common:Years')} </Text>
               </View>
             </View>
 
@@ -156,7 +158,7 @@ const PatientProfile = props => {
     <View style={styles.Container}>
       <HeaderProfile
       
-        Header_name={'Patient Profile'}
+        Header_name={t('common:PatientProfile')}
       />
 
       <CardList />
@@ -170,14 +172,14 @@ const PatientProfile = props => {
           onPress={() => {
             navigation.navigate('Test', {PatientInfo});
           }}
-          Text={'Test'}
+          Text={t('common:Test')}
           Icon={Icons.Test}
         />
         <SmallButton
           onPress={() => {
             navigation.navigate('Report', {PatientInfo});
           }}
-          Text={'Report'}
+          Text={t('common:Report')}
           Icon={Icons.Report}
         />
       </View>

@@ -1,5 +1,4 @@
 import {
-  ActivityIndicator,
   Alert,
   Image,
   Modal,
@@ -10,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-
+import {useTranslation} from 'react-i18next';
 import React, {useEffect, useState} from 'react';
 import {COLORS, Icons, SIZES, SPACING} from '../../config';
 import {
@@ -26,7 +25,7 @@ import {
 } from '../../config/utils';
 const GroupAges = [
   {
-    label: '1-5',
+    label: '5-6',
     value: 1,
   },
   {
@@ -86,7 +85,9 @@ const GroupBooklet = [
     value: 5,
   },
 ];
+
 const ChooseDataQuiz = props => {
+  const { t , i18n} = useTranslation();
   const [Loading, setLoading] = useState(false);
   const [OpenageGroupList, setOpenageGroupList] = useState(false);
   const [ageGroupValue, setAgeGroupValue] = useState('');
@@ -115,7 +116,7 @@ const ChooseDataQuiz = props => {
             ChooseBookletValue == '' ||
             ChooseLevelValue == ''
           ) {
-            ToastAndroid.showWithGravity('Please Fill All Data', 
+            ToastAndroid.showWithGravity(t('common:ToastAndroidFillData'), 
             ToastAndroid.LONG, ToastAndroid.BOTTOM)
            
           } else {
@@ -128,14 +129,13 @@ const ChooseDataQuiz = props => {
           }
         } else {
           Alert.alert(
-            'There is Questions in This Booklet',
-            'Do You Want to Replace it.!',
+           t('common:ThereisQuestionsinThisBooklet'),
             [
               {
-                text: 'Cancel',
+                text: t("common:CancleAlert"),
               },
               {
-                text: 'Replace',
+                text:t("common:RepalceAlert"),
                 onPress: () => {
                   DeleteSpecifiecQuiz(QuizId);
                   props.navigation.navigate(
@@ -182,7 +182,7 @@ const ChooseDataQuiz = props => {
               setOpenageGroupList(prev => !prev);
             }}
             open={OpenageGroupList}
-            placeholder="Choose Age Group"
+            placeholder={t('common:EnterAgeGroup')}
             icon={Icons.Age}
             colorIcon={COLORS.blue}
           />
@@ -200,7 +200,7 @@ const ChooseDataQuiz = props => {
               setOpenChooseLevel(prev => !prev);
             }}
             open={OpenChooseLevel}
-            placeholder="Choose Level"
+            placeholder={t('common:ChooseLevel')}
             icon={Icons.Signal}
             colorIcon={COLORS.blue}
           />
@@ -214,14 +214,14 @@ const ChooseDataQuiz = props => {
               setOpenChooseBooklet(prev => !prev);
             }}
             open={OpenChooseBooklet}
-            placeholder="Choose Booklet"
+            placeholder={t('common:ChooseBooklet')}
             icon={Icons.Books}
             colorIcon={COLORS.blue}
           />
         </View>
         <SmallButton
           Loading={Loading}
-          Text="let's go"
+          Text={t('common:letGo')}
           style={{marginTop: SPACING.xl}}
           onPress={() => {
             ClickedFun();

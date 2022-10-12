@@ -1,9 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect, useState} from 'react';
+import RNRestart from 'react-native-restart'
+import {useTranslation} from 'react-i18next'
 import {
   FlatList,
   Image,
   ScrollView,
+  Pressable,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -23,26 +26,42 @@ import {
 } from '../../config';
 
 const AdminProfile = props => {
-
-  const [AdminName, setAdminName] = useState('Dr Khalifa');
+  const { t , i18n} = useTranslation();
+  const selectLanguageCode = i18n.language;
+  const LANGUAGES=[
+    {
+      code:"en",
+      label:'English'
+    },
+    {
+      code:"ar",
+      label:'عربي'
+    }
+  ];
+  const setLanguage =(code)=>{
+    return i18n.changeLanguage(code);
+  }
+  const [AdminName, setAdminName] = useState('Dr Mostafa');
   const [AdminEmail, setAdminEmail] = useState('admin@gmail.com');
   const [age, setage] = useState(22);
   const [button, setbutton] = useState(true);
   const [PatientsDataValue, setPatientsDataValue] = useState([
     {
-      name: 'Change Password',
+      name: t('common:ChangePassword'),
       image: Icons.Lock,
       onPress: async () => {
-        alert('Change Password');
+        alert(t('common:ChangePassword'));
       },
     },
-    {
-      name: 'Change Language',
-      image: Icons.Language,
-      onPress: async () => {
-        alert('Change Language');
-      },
-    },
+    // {
+    //   name: 'Change Language',
+    //   image: Icons.Language,
+    //   disabled:{selectedLanguage},
+    //   onPress: async () => {
+    //     setLanguage(language.code)
+    //   },
+      
+    // },
     {
       name: 'Log Out',
       image: Icons.Logout,
@@ -57,6 +76,33 @@ const AdminProfile = props => {
     return (
       <View style={{height: SIZES.height * 0.7, justifyContent: 'center'}}>
         <View style={{height: RFPercentage(8)}} />
+
+        {LANGUAGES.map((language) =>{
+        const selectedLanguage = language.code === selectLanguageCode;
+        return <Pressable style={{
+          marginTop:10,
+          marginHorizontal:10
+        }}
+        disabled={selectedLanguage}
+        onPress={()=>{
+          try{
+            if(i18n.language == 'ar'){
+              setLanguage('en')
+            }else{
+              setLanguage('ar')
+            }
+            RNRestart.Restart()
+          }catch(error){
+            
+          }
+          
+         
+        }}
+        >
+          <Text>{language.label}</Text>
+        </Pressable>
+      })}
+
         <FlatList
           data={PatientsDataValue}
           renderItem={({item, index}) => (
@@ -96,7 +142,7 @@ const AdminProfile = props => {
               </TouchableOpacity>
             </View>
 
-            <Text style={styles.AdminName_Style}>{AdminName}</Text>
+            <Text style={styles.AdminName_Style}>{t('common:DrName')}</Text>
             <Text style={styles.AdminEmail_Style}>{AdminEmail}</Text>
           </>
         }
@@ -110,7 +156,7 @@ const AdminProfile = props => {
         onPress={() => {
           alert('back');
         }}
-        Header_name={'My Profile'}
+        Header_name={t('common:ProfilePageTitle')}
       />
 
       <CardList />

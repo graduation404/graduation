@@ -4,6 +4,7 @@ import SplashScreen from 'react-native-splash-screen';
 import {COLORS} from './source/config';
 import Navigation from './source/navigation';
 import AddQuiz from './source/screens/Add Quiz';
+import './source/constants/IMLocalize'
 
 const App = () => {
   useEffect(() => {

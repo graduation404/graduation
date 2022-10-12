@@ -11,6 +11,7 @@ import {
 import {RFPercentage} from 'react-native-responsive-fontsize';
 import Icons from './Icons';
 import {COLORS, SHADOW, SIZES} from './theme';
+import {useTranslation} from 'react-i18next'
 
 const Range_Function = age => {
   let range = '';
@@ -21,8 +22,8 @@ const Range_Function = age => {
           ? (range = '+18')
           : (range = '10-18')
         : (range = '6-10')
-      : (range = '1-5')
-    : (range = '1-5');
+      : (range = '6-5')
+    : (range = '6-5');
   // console.log(range)
 
   return range;
@@ -33,6 +34,7 @@ const Line = () => {
 };
 
 const GuideLineSubText = props => {
+  
   return (
     <View style={styles.GuideContainer}>
       <View style={styles.GuideView} />
@@ -59,9 +61,11 @@ const GetAsyncStorage = async key => {
   // console.log('data' + data);
   return data;
 };
+
 const welcomeMessage = () => {
+  const { t , i18n} = useTranslation();
   return ToastAndroid.show(
-    'Welcome DR.Mostafa',
+    t('common:WelcomeDRMostafa'),
     ToastAndroid.SHORT,
     ToastAndroid.BOTTOM,
   );
@@ -94,7 +98,7 @@ const subtime = data => {
 const handleAgeGroup = ageGroup => {
   let agevalue = '';
   if (ageGroup == 1) {
-    agevalue = '1-5';
+    agevalue = '6-5';
   } else if (ageGroup == 2) {
     agevalue = '5-10';
   } else if (ageGroup == 3) {
@@ -107,7 +111,7 @@ const handleAgeGroup = ageGroup => {
 };
 const handleAgeGroup2 = ageGroup => {
   let agevalue = '';
-  if (ageGroup == '1-5') {
+  if (ageGroup == '6-5') {
     agevalue = 1;
   } else if (ageGroup =='5-10' ) {
     agevalue =2 ;

@@ -21,8 +21,10 @@ import {COLORS, Icons, SIZES, SPACING} from '../../config';
 import {useNavigation} from '@react-navigation/native';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {CreateUserquizs, GetQuizsInLevelAndBooklet} from '../../config/utils';
+import {useTranslation} from 'react-i18next';
 
 const Quiz = props => {
+  const { t , i18n} = useTranslation();
   const {navigation} = props;
   const {quizz, PatientInfo} = props.route.params;
   const [quiz, setQuiz] = useState([]);
@@ -139,7 +141,7 @@ const Quiz = props => {
                   styles.textStyleBtn,
                   {color: COLORS.blue, marginTop: '8%'},
                 ]}>
-                Question {numberQuestion + 1}{' '}
+                {t('common:Question')} {numberQuestion + 1}{' '}
                 <Text style={{fontSize: SIZES.h2}}>/{QuestionLength}</Text>
               </Text>
             </View>
@@ -191,7 +193,7 @@ const Quiz = props => {
               <Image source={Icons.stopwatch} style={styles.stopwatchStyle} />
               <Text style={{textAlign: 'center', color: COLORS.blue}}>
                 {stopwatch + '\n'}
-                <Text style={{fontSize: SIZES.h5}}>millieSecond</Text>
+                <Text style={{fontSize: SIZES.h5}}>{t('common:millieSecond')}</Text>
               </Text>
             </View>
             <View

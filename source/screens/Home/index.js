@@ -8,7 +8,8 @@ import {
   View,
   RefreshControl,
   Alert,
-  ToastAndroid
+  ToastAndroid,
+  ActivityIndicator
 } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { CardHome, HeaderHome } from '../../components';
@@ -16,8 +17,11 @@ import NoInternet from '../../components/noInternet';
 import { COLORS, SIZES, SPACING } from '../../config';
 import { subDate, subtime, welcomeMessage } from '../../config/helperFunctions';
 import { DeleteSpecifiecUser, GetAllUsers } from '../../config/utils';
+import {useTranslation} from 'react-i18next'
+
 
 const Home = props => {
+  const { t , i18n} = useTranslation();
   const [data, setData] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [loading, setLoading] = useState(true);
@@ -25,14 +29,13 @@ const Home = props => {
 
   const DeleteUserFun = (id) => {
     Alert.alert(
-      "You Coundn't Add Any Questions",
-      "Are you sure to leave..!?",
+      t("common:AlertDeleteUser"),
       [
         {
-          text: "Cancel",
+          text: t("common:CancleAlert"),
         },
         {
-          text: "ok",
+          text:t("common:SubmitAlert"),
           onPress: () => {
             DeleteSpecifiecUser(id)
 
@@ -79,8 +82,8 @@ useEffect(()=>{
   const TitleSection = () => {
     return (
       <View style={styles.TitleContainer}>
-        <Text style={styles.textStyle}>Patients</Text>
-        <Text style={styles.subTextStyle}>find your patients quick</Text>
+        <Text style={styles.textStyle}>{t("common:Patients")}</Text>
+        <Text style={styles.subTextStyle}>{t("common:findyourpatientsquick")}</Text>
       </View>
     );
   };
@@ -108,7 +111,7 @@ useEffect(()=>{
               style={styles.image}
             />
             <Text style={[styles.textStyle, { alignSelf: 'center' }]}>
-              No Data
+              {t("common:NoData")}
             </Text>
           </View>
         </>

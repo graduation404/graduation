@@ -23,11 +23,13 @@ import { BookletContainer } from '../../components';
 import React, { useEffect, useState } from 'react';
 import { CreateQuiz } from '../../config/utils';
 import { handleAgeGroup } from '../../config/helperFunctions';
+import {useTranslation} from 'react-i18next'
+
 
 const AddQuiz = ({ route, navigation }) => {
   const { ageGroup, ChooseBooklet, ChooseLevel, LevelLength } = route.params;
 
-
+  const { t , i18n} = useTranslation();
   const [modalColorVisible, setModalColorVisible] = useState(false);
   const [modalImgVisible, setModalImgVisible] = useState(false);
   const [listColors, setlistColors] = useState([]);
@@ -50,7 +52,7 @@ const AddQuiz = ({ route, navigation }) => {
   const AddQuestion = () => {
     if (QuestionText == '' || clickedIndex == null && (listColors != [] || listImgs != [])) {
 
-      ToastAndroid.showWithGravity('Please fill All Data', 
+      ToastAndroid.showWithGravity(t('common:ToastAndroidFillData'), 
       ToastAndroid.LONG, ToastAndroid.BOTTOM)
     } else {
       let new_item = {
@@ -85,14 +87,13 @@ const AddQuiz = ({ route, navigation }) => {
     if (QuestionText == '' || clickedIndex == null && (listColors != [] || listImgs != [])) {
       if (Questions.length == 0) {
         Alert.alert(
-          "You Coundn't Add Any Questions",
-          "Are you sure to leave..!?",
+          t("common:AlertDeleteUser"),
           [
             {
-              text: "Cancel",
+              text: t("common:CancleAlert"),
             },
             {
-              text: "ok",
+              text:t("common:SubmitAlert"),
               onPress: () => navigation.navigate('Home')
             },
           ],
@@ -112,7 +113,7 @@ const AddQuiz = ({ route, navigation }) => {
           )
         } catch (error) {
           ToastAndroid.showWithGravity(
-            'Error, Please Try Again',
+              t("common:ToastAndroidTryAgain"),
             ToastAndroid.LONG,
             ToastAndroid.BOTTOM,
           );
@@ -181,7 +182,7 @@ const AddQuiz = ({ route, navigation }) => {
           source={Icons.Colors}
           resizeMode="contain"
         />
-        <Text style={styles.HeadText}>Colors</Text>
+        <Text style={styles.HeadText}>{t('common:Colors')}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.btnContainerData}
@@ -194,7 +195,7 @@ const AddQuiz = ({ route, navigation }) => {
           source={Icons.Camera}
           resizeMode="contain"
         />
-        <Text style={styles.HeadText}>Images</Text>
+        <Text style={styles.HeadText}>{t('common:Images')}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -203,29 +204,29 @@ const AddQuiz = ({ route, navigation }) => {
     <>
       <View style={styles.Container}>
         <StaticHeader
-          Header_name={'Add Question'}
+          Header_name={t('common:AddQuizPageTitle')}
           style={{ backgroundColor: '#A3DEFF' }}
         />
         <View style={styles.Top_Container}>
           <BookletContainer
-            Text={'(' + YearsValue + ')' + ' Years'}
+            Text={'(' + YearsValue + ')' + t('common:Years')}
             Image={Icons.Age}
           />
           <LevelContainer
             Persentage={Persentage}
-            Text={'Level ' + LevelIndex}
+            Text={t('common:Level') + LevelIndex}
             Image={Icons.Signal}
           />
           <BookletContainer
-            Text={'Booklet ' + BookletIndex}
+            Text={t('common:Booklet')+ BookletIndex}
             Image={Icons.Books}
           />
         </View>
         <ScrollView>
-          <Text style={styles.WordQuestion}>Question {QuestionInd} </Text>
+          <Text style={styles.WordQuestion}>{t('common:Question')} {QuestionInd} </Text>
 
           <View style={{ padding: RFPercentage(2) }}>
-            <Text style={styles.HeadText}>Add Question</Text>
+            <Text style={styles.HeadText}>{t('common:AddQuestion')}</Text>
             <TextInput
               value={QuestionText}
               onFocus={() => {
@@ -248,7 +249,7 @@ const AddQuiz = ({ route, navigation }) => {
           </View>
 
           <View style={{ padding: RFPercentage(2) }}>
-            <Text style={styles.HeadText}>Answer</Text>
+            <Text style={styles.HeadText}>{t('common:Answer')}</Text>
             <View
               style={[
                 styles.subRowContainer,
@@ -300,7 +301,7 @@ const AddQuiz = ({ route, navigation }) => {
           </View>
 
           <View style={{ padding: RFPercentage(2) }}>
-            <Text style={styles.HeadText}>Choose Colors Or Images</Text>
+            <Text style={styles.HeadText}>{t('common:ChooseColorsOrImages')}</Text>
             <RowContainerTypeData />
           </View>
           <View style={styles.ButtonsContainer}>
@@ -308,7 +309,7 @@ const AddQuiz = ({ route, navigation }) => {
               onPress={() => {
                 AddQuestion();
               }}
-              Text={'Another Question'}
+              Text={t('common:AnotherQuestion')}
               style={styles.SmallButton}
             />
             <SmallButton
@@ -316,7 +317,7 @@ const AddQuiz = ({ route, navigation }) => {
                 SendQuestions()
               }}
               Loading={loadingBtn}
-              Text={'Done'}
+              Text={t('common:Done')}
               style={styles.SmallButton} />
           </View>
 

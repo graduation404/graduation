@@ -2,7 +2,9 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import { COLORS, SIZES, SPACING, SHADOW, Icons, Range_Function } from '../../config';
 import { RFPercentage } from 'react-native-responsive-fontsize';
+import {useTranslation} from 'react-i18next';
 const CardHome = ({ item, index, nav, hours, date,onPress }) => {
+  const { t , i18n} = useTranslation();
   const [Range, setRange] = useState(Range_Function(item.age))
   return (
     <View style={styles.Container}>
@@ -36,7 +38,7 @@ const CardHome = ({ item, index, nav, hours, date,onPress }) => {
                 fontSize: SIZES.subTitle - 2,
               },
             ]}>
-            {item.age} years
+            {item.age} {t('common:Years')}
           </Text>
         </View>
       </View>
@@ -88,12 +90,12 @@ const CardHome = ({ item, index, nav, hours, date,onPress }) => {
           onPress={() => {
             nav.navigation.navigate('PatientProfile', { PatientInfo: item });
           }}>
-          <Text style={[styles.subTextStyle, { color: COLORS.blue }]}>Visit</Text>
+          <Text style={[styles.subTextStyle, { color: COLORS.blue }]}>{t('common:Visit')}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.subContainerAge,{backgroundColor:'#e51c3f'}]}
           onPress={onPress}>
-          <Text style={[styles.subTextStyle, { color: COLORS.white }]}>Delete</Text>
+          <Text style={[styles.subTextStyle, { color: COLORS.white }]}>{t('common:Delete')}</Text>
         </TouchableOpacity>
       </View>
     </View>

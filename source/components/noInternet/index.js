@@ -10,8 +10,9 @@ import {
 
 import { RFValue } from "react-native-responsive-fontsize";
 import { COLORS } from "../../config";
+import {useTranslation} from 'react-i18next'
 const NoInternet = ({ buttonHandler }) => {
-
+  const { t , i18n} = useTranslation();
   return (
     <ScrollView style={styles.container}>
       <View style={[styles.buttonContainer, styles.imageContainer]}>
@@ -21,8 +22,8 @@ const NoInternet = ({ buttonHandler }) => {
           resizeMode="contain"
         />
       </View>
-      <Text style={styles.header}>Excuse Me</Text>
-      <Text style={styles.text}>Something Wrong</Text>
+      <Text style={styles.header}>{t('common:ExcuseMe')}</Text>
+      <Text style={styles.text}>{t('common:SomethingWrong')}</Text>
 
       <View style={[styles.buttonContainer]}>
         <TouchableOpacity
@@ -30,7 +31,7 @@ const NoInternet = ({ buttonHandler }) => {
           style={styles.button}
           onPress={buttonHandler}
         >
-          <Text style={styles.buttonText}>Reload</Text>
+          <Text style={styles.buttonText}>{t('common:Reload')}</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

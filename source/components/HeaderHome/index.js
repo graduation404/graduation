@@ -10,8 +10,10 @@ import {
 import React from 'react';
 import {Icons, COLORS, SHADOW, SIZES, SPACING} from '../../config';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next'
 
 const HeaderHome = ({value, onChangeText, nav}) => {
+  const { t , i18n} = useTranslation();
   return (
     <>
       <LinearGradient
@@ -56,14 +58,14 @@ const HeaderHome = ({value, onChangeText, nav}) => {
           </View>
         </View>
         <View style={styles.TitleContainer}>
-          <Text style={styles.textStyle}>Welcome,</Text>
-          <Text style={styles.textStyle}>Dr. Mostafa</Text>
+          <Text style={styles.textStyle}>{t('common:Welcome')}</Text>
+          <Text style={styles.textStyle}>{t('common:DrMostafa')}</Text>
         </View>
         <View style={styles.containerSearch}>
           <TextInput
             style={styles.inputSearch}
             placeholderTextColor={COLORS.white}
-            placeholder="Search for patient"
+            placeholder={t('common:Searchforpatient')}
             value={value}
             onChangeText={onChangeText}
           />

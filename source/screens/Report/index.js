@@ -17,8 +17,10 @@ import {
 } from '../../components';
 import {COLORS, Icons, Line, SHADOW, SIZES} from '../../config';
 import * as Animatable from 'react-native-animatable';
+import {useTranslation} from 'react-i18next';
 
 const Report = props => {
+  const { t , i18n} = useTranslation();
   const {PatientInfo, Persentage} = props.route.params;
   const [name, setName] = useState(PatientInfo.name);
   const [id, setid] = useState(582222);
@@ -28,22 +30,22 @@ const Report = props => {
 
   const [LevelsArray, setLevelsArray] = useState([
     {
-      Text: 'Level 1',
+      Text: t('common:Level1'),
       Image: Icons.Signal,
       Persentage: 25,
     },
     {
-      Text: 'Level 2',
+      Text: t('common:Level2'),
       Image: Icons.Signal,
       Persentage: 50,
     },
     {
-      Text: 'Level 3',
+      Text: t('common:Level3'),
       Image: Icons.Signal,
       Persentage: 75,
     },
     {
-      Text: 'Level 4',
+      Text: t('common:Level4'),
       Image: Icons.Signal,
       Persentage: 100,
     },
@@ -54,19 +56,19 @@ const Report = props => {
       id: 1,
       Array: [
         {
-          Text: 'Booklet 1',
+          Text: t('common:Booklet1'),
           Image: Icons.Books,
         },
         {
-          Text: 'Booklet 2',
+          Text:t('common:Booklet2'),
           Image: Icons.Books,
         },
         {
-          Text: 'Booklet 3',
+          Text: t('common:Booklet3'),
           Image: Icons.Books,
         },
         {
-          Text: 'Booklet 4',
+          Text: t('common:Booklet4'),
           Image: Icons.Books,
         },
       ],
@@ -75,12 +77,12 @@ const Report = props => {
       id: 2,
       Array: [
         {
-          Text: 'Booklet 1',
+          Text: t('common:Booklet1'),
           Image: Icons.Books,
         },
 
         {
-          Text: 'Booklet 2',
+          Text: t('common:Booklet2'),
           Image: Icons.Books,
         },
       ],
@@ -89,15 +91,15 @@ const Report = props => {
       id: 3,
       Array: [
         {
-          Text: 'Booklet 1',
+          Text: t('common:Booklet1'),
           Image: Icons.Books,
         },
         {
-          Text: 'Booklet 2',
+          Text: t('common:Booklet2'),
           Image: Icons.Books,
         },
         {
-          Text: 'Booklet 3',
+          Text: t('common:Booklet3'),
           Image: Icons.Books,
         },
       ],
@@ -106,7 +108,7 @@ const Report = props => {
       id: 4,
       Array: [
         {
-          Text: 'Booklet 1',
+          Text: t('common:Booklet1'),
           Image: Icons.Books,
         },
       ],
@@ -196,7 +198,7 @@ const Report = props => {
                 <View style={styles.DataContainer}>
                   <Text style={styles.name_Style}>{name}</Text>
                   <Text style={styles.id_Style}>id: {id}</Text>
-                  <Text style={styles.Age_Text}>{age} Years</Text>
+                  <Text style={styles.Age_Text}>{age} {t('common:Years')}</Text>
                 </View>
               </View>
               <TouchableOpacity
@@ -212,7 +214,7 @@ const Report = props => {
 
             <View style={styles.MainOnline_View}>
               <View style={styles.online_View} />
-              <Text style={styles.online_Text}>Report is Active</Text>
+              <Text style={styles.online_Text}>{t('common:ReportisActive')}</Text>
             </View>
           </>
         }
@@ -223,18 +225,18 @@ const Report = props => {
   return (
     <>
       <View style={styles.container}>
-        <StaticHeader Header_name="Report" />
+        <StaticHeader Header_name={t('common:Report')}/>
 
         <CardView />
 
-        <Text style={styles.LargeText}>All Tests For Patient</Text>
-        <Text style={styles.ChooseText}>Choose Level</Text>
+        <Text style={styles.LargeText}>{t('common:AllTestsForPatient')}</Text>
+        <Text style={styles.ChooseText}>{t('common:ChooseLevel')}</Text>
 
         <LevelsArrayList />
 
         {LevelIndex === null ? null : (
           <>
-            <Text style={styles.ChooseText}>Choose Booklet</Text>
+            <Text style={styles.ChooseText}>{t('common:ChooseBooklet')}</Text>
 
             <BookletArrayList />
           </>
@@ -254,7 +256,7 @@ const Report = props => {
                     PatientInfo,
                   });
                 }}
-                Text="See Result"
+                Text={t('common:SeeResult')}
               />
             </Animatable.View>
           </>

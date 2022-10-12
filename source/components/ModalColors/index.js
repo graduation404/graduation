@@ -12,16 +12,17 @@ import {RFPercentage} from 'react-native-responsive-fontsize';
 import {COLORS, Icons, SIZES, SPACING} from '../../config';
 import {SmallButton} from '../Buttons';
 import ColorPicker from 'react-native-wheel-color-picker';
+import {useTranslation} from 'react-i18next'
 
 const ModalColors = ({modalColorVisible, setModalColorVisible,listColors,setlistColors}) => {
- 
+  const { t , i18n} = useTranslation();
   const [currentColor, setCurrentColor] = useState('#fff');
   return (
     <Modal animationType="slide" transparent={true} visible={modalColorVisible}>
       <View style={styles.container}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image source={Icons.Colors} style={styles.icon} />
-          <Text style={styles.text}> Choose your Colors</Text>
+          <Text style={styles.text}> {t('common:ChooseyourColors')}</Text>
         </View>
         <ColorPicker
           color={currentColor}
@@ -59,13 +60,13 @@ const ModalColors = ({modalColorVisible, setModalColorVisible,listColors,setlist
         <View
           style={styles.containerBtns}>
           <SmallButton
-            Text="Close"
+            Text={t('common:Close')}
             onPress={() => {
               setModalColorVisible(false);
             }}
           />
           <SmallButton
-            Text="Add Color"
+            Text={t('common:AddColor')}
             onPress={() => {
               setlistColors(prev => [...prev, {colorCode:currentColor}]);
             }}
