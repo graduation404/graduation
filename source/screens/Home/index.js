@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -9,46 +9,44 @@ import {
   RefreshControl,
   Alert,
   ToastAndroid,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
-import { RFValue } from 'react-native-responsive-fontsize';
-import { CardHome, HeaderHome } from '../../components';
+import {RFValue} from 'react-native-responsive-fontsize';
+import {CardHome, HeaderHome} from '../../components';
 import NoInternet from '../../components/noInternet';
-import { COLORS, SIZES, SPACING } from '../../config';
-import { subDate, subtime, welcomeMessage } from '../../config/helperFunctions';
-import { DeleteSpecifiecUser, GetAllUsers } from '../../config/utils';
-import {useTranslation} from 'react-i18next'
-
-
+import {COLORS, SIZES, SPACING} from '../../config';
+import {subDate, subtime, welcomeMessage} from '../../config/helperFunctions';
+import {DeleteSpecifiecUser, GetAllUsers} from '../../config/utils';
+import {useTranslation} from 'react-i18next';
+import ModalQuiz from '../../components/ModalQuiz';
 const Home = props => {
-  const { t , i18n} = useTranslation();
+  const {t, i18n} = useTranslation();
   const [data, setData] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  const DeleteUserFun = (id) => {
-    Alert.alert(
-      t("common:AlertDeleteUser"),
-      [
-        {
-          text: t("common:CancleAlert"),
-        },
-        {
-          text:t("common:SubmitAlert"),
-          onPress: () => {
-            DeleteSpecifiecUser(id)
+  const DeleteUserFun = id => {
+    // return(
+    //   Alert.alert("Are U Sure to Delete User", [
+    //     {
+    //       text: "Cancel",
+    //     },
+    //     {
+    //       text:"Delete",
+    //       onPress: () => {
+    //         DeleteSpecifiecUser(id);
+    //       },
+    //     },
+    //   ])
+    // )
+    DeleteSpecifiecUser(id)
+  };
+  const [modal, setModal] = React.useState(false);
 
-
-          }
-        },
-      ],
-    );
-  }
-
-useEffect(()=>{
-  // DeleteSpecifiecUser("74728ef6-afb4-4bc3-ad9b-8e75ca2b7d6a")
-},[])
+  useEffect(() => {
+    setModal(true)
+  }, []);
   // console.log(data)
   useEffect(() => {
     setLoading(true);
@@ -64,7 +62,7 @@ useEffect(()=>{
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, [setData, GetAllUsers,]);
+  }, [setData, GetAllUsers]);
 
   const onRefresh = useCallback(async () => {
     setLoading(true);
@@ -82,8 +80,10 @@ useEffect(()=>{
   const TitleSection = () => {
     return (
       <View style={styles.TitleContainer}>
-        <Text style={styles.textStyle}>{t("common:Patients")}</Text>
-        <Text style={styles.subTextStyle}>{t("common:findyourpatientsquick")}</Text>
+        <Text style={styles.textStyle}>{t('common:Patients')}</Text>
+        <Text style={styles.subTextStyle}>
+          {t('common:findyourpatientsquick')}
+        </Text>
       </View>
     );
   };
@@ -101,22 +101,22 @@ useEffect(()=>{
       );
     }
 
-    if (loading == false && data.length === 0 && error == false) {
-      return (
-        <>
-          <View style={styles.indicatorContainer}>
-            <Image
-              resizeMode="contain"
-              source={require('../../assets/imgs/nodata.png')}
-              style={styles.image}
-            />
-            <Text style={[styles.textStyle, { alignSelf: 'center' }]}>
-              {t("common:NoData")}
-            </Text>
-          </View>
-        </>
-      );
-    }
+    // if (loading == false && data.length === 0 && error == false) {
+    //   return (
+    //     <>
+    //       <View style={styles.indicatorContainer}>
+    //         <Image
+    //           resizeMode="contain"
+    //           source={require('../../assets/imgs/nodata.png')}
+    //           style={styles.image}
+    //         />
+    //         <Text style={[styles.textStyle, { alignSelf: 'center' }]}>
+    //           {t("common:NoData")}
+    //         </Text>
+    //       </View>
+    //     </>
+    //   );
+    // }
     if (loading == true) {
       return (
         <View style={styles.indicatorContainer}>
@@ -125,7 +125,7 @@ useEffect(()=>{
       );
     }
     return (
-      <View style={{ width: '100%', alignItems: 'center' }}>
+      <View style={{width: '100%', alignItems: 'center'}}>
         <FlatList
           showsVerticalScrollIndicator={false}
           style={{
@@ -133,8 +133,21 @@ useEffect(()=>{
             backgroundColor: COLORS.white,
           }}
           data={data}
-
-          renderItem={({ item, index }) => (
+          ListEmptyComponent={() => {
+            return (
+              <View style={styles.indicatorContainer}>
+                <Image
+                  resizeMode="contain"
+                  source={require('../../assets/imgs/nodata.png')}
+                  style={styles.image}
+                />
+                <Text style={[styles.textStyle, {alignSelf: 'center'}]}>
+                  {t('common:NoData')}
+                </Text>
+              </View>
+            );
+          }}
+          renderItem={({item, index}) => (
             <>
               {item.name.toLowerCase().includes(searchInput.toLowerCase()) ? (
                 <CardHome
@@ -143,7 +156,7 @@ useEffect(()=>{
                   item={item}
                   index={index}
                   nav={props}
-                  onPress={() =>DeleteUserFun(item.id)}
+                  onPressDelete={() =>   DeleteSpecifiecUser(item.id)}
                 />
               ) : null}
             </>
@@ -162,7 +175,7 @@ useEffect(()=>{
         value={searchInput}
       />
       <ScrollView
-        style={{ width: '95%', alignSelf: 'center' }}
+        style={{width: '95%', alignSelf: 'center'}}
         refreshControl={
           <RefreshControl
             refreshing={loading}
@@ -174,10 +187,10 @@ useEffect(()=>{
         <TitleSection />
         {renderContent()}
       </ScrollView>
+      <ModalQuiz modal={false} setModal={setModal} />
     </View>
   );
 };
-
 
 export default Home;
 

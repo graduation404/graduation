@@ -40,15 +40,7 @@ const Quiz = props => {
   const [stopwatch, setStopwatch] = useState(0);
 
   const [loading, setLoading] = useState(true);
-  const dataQuiz = {
-    id: null,
-    userId: PatientInfo.id,
-    quizId: quizz[0].quizQuestions[0].quizId,
-    quiz: null,
-    listeningEffort: 0,
-    reactionTime: 0,
-    userQuestionResults: [],
-  };
+  const [modal, setModal] = React.useState(false);
   const [totalQuizAnswers, setTotalQuizAnswers] = useState({
     userId: PatientInfo.id,
     quizId: quizz[0].quizQuestions[0].quizId,

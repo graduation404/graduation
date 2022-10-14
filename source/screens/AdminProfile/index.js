@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect, useState} from 'react';
-import RNRestart from 'react-native-restart'
-import {useTranslation} from 'react-i18next'
+import RNRestart from 'react-native-restart';
+import {useTranslation} from 'react-i18next';
 import {
   FlatList,
   Image,
@@ -11,6 +11,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  I18nManager,
 } from 'react-native';
 import {RFPercentage} from 'react-native-responsive-fontsize';
 import {Card, HeaderProfile, PatientsDataContainer} from '../../components';
@@ -26,21 +27,21 @@ import {
 } from '../../config';
 
 const AdminProfile = props => {
-  const { t , i18n} = useTranslation();
+  const {t, i18n} = useTranslation();
   const selectLanguageCode = i18n.language;
-  const LANGUAGES=[
+  const LANGUAGES = [
     {
-      code:"en",
-      label:'English'
+      code: 'en',
+      label: 'English',
     },
     {
-      code:"ar",
-      label:'عربي'
-    }
+      code: 'ar',
+      label: 'عربي',
+    },
   ];
-  const setLanguage =(code)=>{
+  const setLanguage = code => {
     return i18n.changeLanguage(code);
-  }
+  };
   const [AdminName, setAdminName] = useState('Dr Mostafa');
   const [AdminEmail, setAdminEmail] = useState('admin@gmail.com');
   const [age, setage] = useState(22);
@@ -53,17 +54,26 @@ const AdminProfile = props => {
         alert(t('common:ChangePassword'));
       },
     },
-    // {
-    //   name: 'Change Language',
-    //   image: Icons.Language,
-    //   disabled:{selectedLanguage},
-    //   onPress: async () => {
-    //     setLanguage(language.code)
-    //   },
-      
-    // },
     {
-      name: 'Log Out',
+      name: t('common:ChangeLanguage'),
+      image: Icons.Language,
+      onPress: async () => {
+        try {
+          if (i18n.language == 'ar') {
+            setLanguage('en');
+            // await I18nManager.allowRTL(false);
+            // await I18nManager.forceRTL(false);
+          } else {
+            setLanguage('ar');
+            // await I18nManager.allowRTL(true);
+            // await I18nManager.forceRTL(true);
+          }
+          // RNRestart.Restart();
+        } catch (error) {}
+      },
+    },
+    {
+      name: t('common:LogOut'),
       image: Icons.Logout,
       onPress: async () => {
         await AsyncStorage.removeItem('admin');
@@ -71,37 +81,31 @@ const AdminProfile = props => {
       },
     },
   ]);
-
+  useEffect(() => {
+    setTimeout(() => {
+      if (i18n.language === 'en') {
+        I18nManager.forceRTL(false);
+        if (I18nManager.isRTL !== false) {
+          RNRestart.Restart();
+        }
+      } else if (i18n.language == 'ar') {
+        if (I18nManager.isRTL == false) {
+          I18nManager.forceRTL(true);
+          RNRestart.Restart();
+        }
+      } else {
+        I18nManager.forceRTL(false);
+        if (I18nManager.isRTL !== false) {
+          RNRestart.Restart();
+        }
+      }
+    }, 500);
+    // alert("19")
+  }, [i18n.language, setLanguage]);
   const DataList = () => {
     return (
       <View style={{height: SIZES.height * 0.7, justifyContent: 'center'}}>
         <View style={{height: RFPercentage(8)}} />
-
-        {LANGUAGES.map((language) =>{
-        const selectedLanguage = language.code === selectLanguageCode;
-        return <Pressable style={{
-          marginTop:10,
-          marginHorizontal:10
-        }}
-        disabled={selectedLanguage}
-        onPress={()=>{
-          try{
-            if(i18n.language == 'ar'){
-              setLanguage('en')
-            }else{
-              setLanguage('ar')
-            }
-            RNRestart.Restart()
-          }catch(error){
-            
-          }
-          
-         
-        }}
-        >
-          <Text>{language.label}</Text>
-        </Pressable>
-      })}
 
         <FlatList
           data={PatientsDataValue}
@@ -143,7 +147,7 @@ const AdminProfile = props => {
             </View>
 
             <Text style={styles.AdminName_Style}>{t('common:DrName')}</Text>
-            <Text style={styles.AdminEmail_Style}>{AdminEmail}</Text>
+            {/* <Text style={styles.AdminEmail_Style}>{AdminEmail}</Text> */}
           </>
         }
       />

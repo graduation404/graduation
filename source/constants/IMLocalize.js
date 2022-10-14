@@ -17,7 +17,7 @@ const LANGUAGE_DETECTOR = {
     type: 'languageDetector',
     async: true,
     detect: callback => {
-      AsyncStorage.getItem('user-language', async (err, language) => {
+      AsyncStorage.getItem('userlanguage', async (err, language) => {
         // if error fetching stored data or no language was stored
         // display errors when in DEV mode as console statements
         if (err || !language) {
@@ -27,22 +27,18 @@ const LANGUAGE_DETECTOR = {
             console.log('No language is set, choosing English as fallback');
           }
           const findBestAvailableLanguage =
-            RNLocalize.findBestAvailableLanguage(LANG_CODES);
+            RNLocalize.findBestAvailableLanguage(LANGUAGES);
   
           callback(findBestAvailableLanguage.languageTag || 'en');
           return;
         }
-        const isLangRTL = language === 'ar';
-        if (isLangRTL !== I18nManager.isRTL) {
-          await I18nManager.allowRTL(isLangRTL);
-          await  I18nManager.forceRTL(isLangRTL);
-        }
+       
         callback(language);
       });
     },
     init: () => {},
     cacheUserLanguage: language => {
-      AsyncStorage.setItem('user-language', language);
+      AsyncStorage.setItem('userlanguage', language);
     }
   };
 
@@ -61,5 +57,5 @@ const LANGUAGE_DETECTOR = {
     interpolation: {
       escapeValue: false
     },
-    defaultNS: 'translation'
+    // defaultNS: 'common'
   });

@@ -1,5 +1,5 @@
 package com.HearingApp;
-
+import com.reactnativerestart.RestartPackage;  // <--- Import
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -14,7 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 // react-native-splash-screen >= 0.3.1
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
-
+import com.facebook.react.modules.i18nmanager.I18nUtil;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
@@ -56,10 +56,14 @@ public class MainApplication extends Application implements ReactApplication {
     // If you opted-in for the New Architecture, we enable the TurboModule system
     ReactFeatureFlags.useTurboModules = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
     SoLoader.init(this, /* native exopackage */ false);
+
+    I18nUtil sharedI18nUtilInstance = I18nUtil.getInstance();
+    sharedI18nUtilInstance.forceRTL(this,true);
+    sharedI18nUtilInstance.allowRTL(this, true);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
   }
 
-  /**
+  /*
    * Loads Flipper in React Native templates. Call this in the onCreate method
    * with something like
    * initializeFlipper(this, getReactNativeHost().getReactInstanceManager());

@@ -19,12 +19,15 @@ const PointHand = require('../assets/icons/point.png');
 const Question = require('../assets/icons/question.png');
 const Test = require('../assets/icons/test.png');
 const User = require('../assets/icons/user.png');
+const Right = require('../assets/icons/right.png');
+
 const User1 = require('../assets/icons/user1.png');
 const Woman = require('../assets/icons/woman.png');
 const Write = require('../assets/icons/write.png');
 const Back = require('../assets/icons/back.png');
 const Pen = require('../assets/icons/pen.png');
-const Avatar = require('../assets/imgs/avatar.jpg');
+const Avatar = require('../assets/imgs/avatar.png');
+
 const Hearing = require('../assets/imgs/hearing.png');
 const Search = require('../assets/icons/search.png');
 const Lock = require('../assets/icons/lock.png');
@@ -94,5 +97,6 @@ export default {
   Hide,
   Camera,
   Colors,
-  Hearing
+  Hearing,
+  Right
 };

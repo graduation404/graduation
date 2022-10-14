@@ -36,7 +36,7 @@ export const GetAllUsers = async (setData, setError) => {
 
 // get specifiec user
 export const GetSpecifiecUser = async id => {
-  const { t , i18n} = useTranslation();
+  // const { t , i18n} = useTranslation();
   try {
     const {data} = await axios.get(baseURL + '/users/' + id);
     return data;
@@ -49,7 +49,7 @@ export const GetSpecifiecUser = async id => {
       message = 'connection-error';
     }
     ToastAndroid.showWithGravity(
-      t('common:Error'),
+      "Error",
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
     );
@@ -59,11 +59,11 @@ export const GetSpecifiecUser = async id => {
 };
 // delete specifiec user
 export const DeleteSpecifiecUser = async id => {
-  const { t , i18n} = useTranslation();
+  // const { t , i18n} = useTranslation();
   try {
     const {data} = await axios.delete(baseURL + '/users/' + id);
     ToastAndroid.showWithGravity(
-      t('common:DeletedSucces'),
+      'Delete Succes',
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
     )
@@ -78,7 +78,7 @@ export const DeleteSpecifiecUser = async id => {
     }
 
     ToastAndroid.showWithGravity(
-     t('common:DeletedFailed'),
+     "Delete Failed",
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
     )   
@@ -117,11 +117,11 @@ export const CreateUser = async userData => {
 
 // Creating a quiz
 export const CreateQuiz = async quizData => {
-  const { t , i18n} = useTranslation();
+  // const { t , i18n} = useTranslation();
   try {
     const {data} = await axios.post(baseURL + '/quizs', quizData);
     ToastAndroid.showWithGravity(
-      t('common:Created'),
+      "Created",
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
     );
@@ -199,7 +199,7 @@ export const GetSpecifiecQuiz = async id => {
 
 // get quizs in level and booklet
 export const GetQuizsInLevelAndBooklet = async (level, booklet, ageGroup) => {
-  const { t , i18n} = useTranslation();
+  // const { t , i18n} = useTranslation();
   try {
     const {data} = await axios.get(
       baseURL +
@@ -220,7 +220,7 @@ export const GetQuizsInLevelAndBooklet = async (level, booklet, ageGroup) => {
       message = 'connection-error';
     }
     ToastAndroid.showWithGravity(
-      t('common:Error'),
+      'Error',
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
     );
@@ -241,13 +241,13 @@ export const GetQuizsInLevelAndBooklet = async (level, booklet, ageGroup) => {
 
 // Creating a quiz
 export const CreateUserquizs = async quizData => {
-  const { t , i18n} = useTranslation();
+  // const { t , i18n} = useTranslation();
   console.log('quizData', JSON.stringify(quizData));
   try {
     const {data} = await axios.post(baseURL + '/Userquizs', quizData);
     console.log('data', data);
     ToastAndroid.showWithGravity(
-      t('common:Done'),
+     'Done',
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
     );

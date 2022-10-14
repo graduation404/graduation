@@ -3,6 +3,7 @@ export default {
     WelcomeDRMostafa:'Welcome DR.Mostafa',
     languageSelector: 'Select Your Language',
     ChangePassword:"Change Password",
+    ChangeLanguage:'Change Language to Arabic',
     LogOut:"Log out",
     ProfilePageTitle:"My Profile",
     AlertDeleteUser:"You Coundn't Add Any Questions \n Are you sure to leave..?",

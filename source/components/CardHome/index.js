@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { COLORS, SIZES, SPACING, SHADOW, Icons, Range_Function } from '../../config';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import {useTranslation} from 'react-i18next';
-const CardHome = ({ item, index, nav, hours, date,onPress }) => {
+const CardHome = ({ item, index, nav, hours, date,onPressDelete }) => {
   const { t , i18n} = useTranslation();
   const [Range, setRange] = useState(Range_Function(item.age))
   return (
@@ -94,7 +94,7 @@ const CardHome = ({ item, index, nav, hours, date,onPress }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.subContainerAge,{backgroundColor:'#e51c3f'}]}
-          onPress={onPress}>
+          onPress={onPressDelete}>
           <Text style={[styles.subTextStyle, { color: COLORS.white }]}>{t('common:Delete')}</Text>
         </TouchableOpacity>
       </View>

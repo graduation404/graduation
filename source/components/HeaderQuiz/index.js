@@ -11,8 +11,11 @@ import React from 'react';
 import { Icons, COLORS, SHADOW, SIZES, SPACING } from '../../config';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 const HeaderQuiz = () => {
+  const {t, i18n} = useTranslation();
+
   const navigation = useNavigation()
   return (
     <>
@@ -27,7 +30,7 @@ const HeaderQuiz = () => {
               navigation.goBack();
             }}
           >
-            <Image source={Icons.Back} style={styles.Image_Style} />
+            <Image source={i18n.language=="ar"?Icons.Right:Icons.Back} style={styles.Image_Style} />
           </TouchableOpacity>
         </View>
       </LinearGradient>

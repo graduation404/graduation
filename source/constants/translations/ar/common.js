@@ -3,6 +3,7 @@ export default {
     WelcomeDRMostafa:"اهلا د/ مصطفي",
     languageSelector: 'حدد اللغة ',
     ChangePassword:'تغيير كلمة المرور',
+    ChangeLanguage:'تغيير اللغة الى الانجليزية',
     LogOut:"تسجيل الخروج",
     ProfilePageTitle:"الملف الشخصي",
     AlertDeleteUser:"لا تستطيع اضافة اي سؤال \n هل انت متأكد من المغادرة..؟",

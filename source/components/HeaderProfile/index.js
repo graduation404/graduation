@@ -1,10 +1,19 @@
-import {Image, StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import {Icons, COLORS, SHADOW, SIZES, SPACING} from '../../config';
 import LinearGradient from 'react-native-linear-gradient';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 
-const HeaderProfile = (props) => {
+const HeaderProfile = props => {
+  const {t, i18n} = useTranslation();
   const navigation = useNavigation();
   return (
     <>
@@ -13,16 +22,18 @@ const HeaderProfile = (props) => {
         style={styles.container}>
         <StatusBar barStyle={'light-content'} backgroundColor={COLORS.blue} />
 
-        <TouchableOpacity  onPress={() => {
+        <TouchableOpacity
+          onPress={() => {
             navigation.goBack();
-          }} activeOpacity={0.85}>
-          <Image source={Icons.Back} style={styles.Image_Style} />
+          }}
+          activeOpacity={0.85}>
+          <Image
+            source={i18n.language == 'ar' ? Icons.Right : Icons.Back}
+            style={styles.Image_Style}
+          />
         </TouchableOpacity>
 
-        <Text
-          style={styles.textStyle}>
-          {props.Header_name}
-        </Text>
+        <Text style={styles.textStyle}>{props.Header_name}</Text>
       </LinearGradient>
       <View
         style={{
@@ -53,10 +64,10 @@ const styles = StyleSheet.create({
     width: SIZES.height * 0.0325,
     tintColor: COLORS.white,
   },
-  textStyle:{
+  textStyle: {
     color: COLORS.white,
     alignSelf: 'center',
     fontSize: SIZES.title,
     marginTop: SIZES.height * 0.01,
-  }
+  },
 });

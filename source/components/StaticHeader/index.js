@@ -1,5 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Image,
   StatusBar,
@@ -12,6 +13,8 @@ import {RFPercentage} from 'react-native-responsive-fontsize';
 import {COLORS, Icons, SHADOW, SIZES, SPACING} from '../../config';
 
 const StaticHeader = props => {
+  const {t, i18n} = useTranslation();
+
   const navigation = useNavigation();
   return (
     <>
@@ -28,7 +31,7 @@ const StaticHeader = props => {
           onPress={() => {
             navigation.goBack();
           }}>
-          <Image source={Icons.Back} style={[styles.Image_Style]} />
+          <Image source={i18n.language=="ar"?Icons.Right:Icons.Back} style={[styles.Image_Style]} />
         </TouchableOpacity>
 
         <Text style={styles.textStyle}>{props.Header_name}</Text>
