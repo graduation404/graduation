@@ -22,6 +22,7 @@ import {useNavigation} from '@react-navigation/native';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {CreateUserquizs, GetQuizsInLevelAndBooklet} from '../../config/utils';
 import {useTranslation} from 'react-i18next';
+import ModalQuiz from '../../components/ModalQuiz';
 
 const Quiz = props => {
   const { t , i18n} = useTranslation();
@@ -40,7 +41,11 @@ const Quiz = props => {
   const [stopwatch, setStopwatch] = useState(0);
 
   const [loading, setLoading] = useState(true);
+  const [valInput, setValInput] = useState('');
+
+
   const [modal, setModal] = React.useState(false);
+  
   const [totalQuizAnswers, setTotalQuizAnswers] = useState({
     userId: PatientInfo.id,
     quizId: quizz[0].quizQuestions[0].quizId,
@@ -72,6 +77,35 @@ const Quiz = props => {
     setLoading(false);
   }, []);
 
+  const sendQuiz=()=>{
+    let newQuiz = quiz;
+    newQuiz = quiz;
+    newQuiz[0].quizQuestions[numberQuestion].stopwatch = stopwatch;
+    newQuiz[0].quizQuestions[numberQuestion].userAnswer =
+      selectedAswer;
+    console.log(JSON.stringify(newQuiz));
+    let answerObject = {
+      userId: PatientInfo.id,
+      questionId: quizz[0].quizQuestions[numberQuestion].questionId,
+      question: null,
+      takenTime: stopwatch,
+      answer: selectedAswer ? true : false,
+    };
+    let totalAns = totalQuizAnswers;
+    totalAns.userQuestionResults.push(answerObject);
+    setTotalQuizAnswers(totalAns);
+    setLoadingSendResult(true);
+    try {
+      CreateUserquizs(totalAns);
+      console.log(JSON.stringify(totalAns));
+      setQuiz(newQuiz);
+      setclickedIndex(null);
+      setSelectedAswer(null);
+      setLoadingSendResult(false);
+
+      navigation.replace('Home');
+    } catch (error) {}
+  }
   return (
     <ScrollView style={{flexGrow: 1, backgroundColor: COLORS.white}}>
       <View style={styles.Container}>
@@ -259,6 +293,7 @@ const Quiz = props => {
                 : setWrongQuestion(WrongQuestion + 1);
 
               if (quizz[0].quizQuestions.length > numberQuestion + 1) {
+      
                 let answerObject = {
                   userId: PatientInfo.id,
                   questionId: quizz[0].quizQuestions[numberQuestion].questionId,
@@ -276,43 +311,18 @@ const Quiz = props => {
                 newQuiz[0].quizQuestions[numberQuestion].stopwatch = stopwatch;
                 newQuiz[0].quizQuestions[numberQuestion].userAnswer =
                   selectedAswer;
-
+            
                 // console.log(JSON.stringify(stopwatch + '  ' + selectedAswer));
                 setQuiz(newQuiz);
-
+            
                 setStopwatch(0);
                 setSelectedAswer(null);
                 setclickedIndex(null);
                 setnumberQuestion(prev => prev + 1);
               } else {
                 // setLoadingSendResult
-                let newQuiz = quiz;
-                newQuiz = quiz;
-                newQuiz[0].quizQuestions[numberQuestion].stopwatch = stopwatch;
-                newQuiz[0].quizQuestions[numberQuestion].userAnswer =
-                  selectedAswer;
-                console.log(JSON.stringify(newQuiz));
-                let answerObject = {
-                  userId: PatientInfo.id,
-                  questionId: quizz[0].quizQuestions[numberQuestion].questionId,
-                  question: null,
-                  takenTime: stopwatch,
-                  answer: selectedAswer ? true : false,
-                };
-                let totalAns = totalQuizAnswers;
-                totalAns.userQuestionResults.push(answerObject);
-                setTotalQuizAnswers(totalAns);
-                setLoadingSendResult(true);
-                try {
-                  CreateUserquizs(totalAns);
-                  console.log(JSON.stringify(totalAns));
-                  setQuiz(newQuiz);
-                  setclickedIndex(null);
-                  setSelectedAswer(null);
-                  setLoadingSendResult(false);
-
-                  navigation.replace('Home');
-                } catch (error) {}
+                setModal(true)
+                
               }
             }}
             Loading={LoadingSendResult}
@@ -324,6 +334,14 @@ const Quiz = props => {
           <ActivityIndicator color={COLORS.blue} size="large" />
         </Modal>
       </View>
+      <ModalQuiz
+      Loading={LoadingSendResult}
+      setModal={setModal}
+      modal={modal}
+      sendQuiz={sendQuiz}
+      valInput={valInput}
+      setValInput={setValInput}
+      />
     </ScrollView>
   );
 };

@@ -6,7 +6,7 @@ import CustomInputAddPatient from '../customInput';
 import {LargeButton, SmallButton} from '../Buttons';
 import {t} from 'i18next';
 
-const ModalQuiz = ({modal, setModal}) => {
+const ModalQuiz = ({modal, setModal,valInput,setValInput,sendQuiz,Loading}) => {
   return (
     <Modal
       isVisible={modal}
@@ -25,18 +25,15 @@ const ModalQuiz = ({modal, setModal}) => {
           placeholder="Enter SNR Loss (Dual)"
           icon={Icons.PointHand}
           colorIcon={COLORS.blue}
-          // value={PatientInfo.snrDual}
-          // onChangeText={text => handleChange(text.trim(), 'snrDual')}
+          value={valInput}
+          onChangeText={text => setValInput(text)}
           keyboardType="decimal-pad"
         />
         <SmallButton
           Text="Submit & Send"
           style={{width: '60%', borderRadius: SIZES.Sradius,marginTop:"6%"}}
-          //   Loading={Loading}
-          //   onPress={() => {
-          //     // props.navigation.navigate("")
-          //     AddUser();
-          //   }}
+            Loading={Loading}
+            onPress={()=>sendQuiz()}
         />
       </View>
     </Modal>

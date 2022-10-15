@@ -10,16 +10,7 @@ import RNRestart from 'react-native-restart';
 
 const App = () => {
   const {t, i18n} = useTranslation();
-console.log(i18n.language)
-  // const rtlApp = async () => {
-  //   if (i18n.language == 'ar') {
-  //     await I18nManager.allowRTL(true);
-  //     await I18nManager.forceRTL(true);
-  //   } else {
-  //     await I18nManager.allowRTL(false);
-  //     await I18nManager.forceRTL(false);
-  //   }
-  // };
+
   
   useEffect(() => {
     setTimeout(() => {
