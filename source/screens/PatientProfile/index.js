@@ -34,29 +34,35 @@ const PatientProfile = props => {
   const {PatientInfo, hours, date} = props.route.params;
   const [name, setName] = useState(PatientInfo.name);
   // const [id, setid] = useState(582222);
+  console.log(JSON.stringify(PatientInfo))
   const [age, setage] = useState(PatientInfo.age);
   const [Time, setTime] = useState(subtime(PatientInfo));
   const [Date, setDate] = useState(subDate(PatientInfo));
   const [Range, setRange] = useState(Range_Function(age));
   const [PatientsDataValue, setPatientsDataValue] = useState([
     {
-      name: 'Dual',
-      Percentage: PatientInfo.dual,
+      name: 'Dual Average',
+      Percentage: PatientInfo.dualAverage== 0 ? 1 : PatientInfo.dualAverage,
       image: Icons.PointHand,
     },
     {
       name: 'Base Line',
-      Percentage: PatientInfo.baseLine,
+      Percentage: PatientInfo.baseLine== 0 ? 1 : PatientInfo.baseLine,
       image: Icons.PointHand,
     },
     {
       name: t('common:EnterHearingLevelRight'),
-      Percentage: PatientInfo.hearingLevelRight,
+      Percentage: PatientInfo.hearingLevelRight== 0 ? 1 : PatientInfo.hearingLevelRight,
       image: Icons.PointHand,
     },
     {
-      name:t('common:EnterHearingLevelLeft'),
-      Percentage: PatientInfo.hearingLevelLeft,
+      name: t('common:EnterHearingLevelLeft'),
+      Percentage: PatientInfo.hearingLevelLeft== 0 ? 1 : PatientInfo.hearingLevelLeft,
+      image: Icons.PointHand,
+    },
+    {
+      name:t('common:DualAverage'),
+      Percentage: PatientInfo.reactionTimeAverage== 0 ? 1 : PatientInfo.reactionTimeAverage,
       image: Icons.PointHand,
     },
   ]);

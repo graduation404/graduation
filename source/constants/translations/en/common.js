@@ -8,6 +8,7 @@ export default {
     ProfilePageTitle:"My Profile",
     AlertDeleteUser:"You Coundn't Add Any Questions \n Are you sure to leave..?",
     CancleAlert:"Cancle",
+    DualAverage:"Dual Average",
     SubmitAlert:"Ok",
     Patients:"Patients",
     findyourpatientsquick:"find your patients quick",

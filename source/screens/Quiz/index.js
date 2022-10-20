@@ -41,7 +41,7 @@ const Quiz = props => {
   const [stopwatch, setStopwatch] = useState(0);
 
   const [loading, setLoading] = useState(true);
-  const [valInput, setValInput] = useState('');
+  const [valInput, setValInput] = useState(0);
 
 
   const [modal, setModal] = React.useState(false);
@@ -53,6 +53,7 @@ const Quiz = props => {
     listeningEffort: 0,
     reactionTime: 0,
     userQuestionResults: [],
+    QuizEffortDual:valInput
   });
   useEffect(() => {
     timer();
@@ -90,6 +91,7 @@ const Quiz = props => {
       question: null,
       takenTime: stopwatch,
       answer: selectedAswer ? true : false,
+
     };
     let totalAns = totalQuizAnswers;
     totalAns.userQuestionResults.push(answerObject);

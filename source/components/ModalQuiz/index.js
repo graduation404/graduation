@@ -22,7 +22,7 @@ const ModalQuiz = ({modal, setModal,valInput,setValInput,sendQuiz,Loading}) => {
           I am the modal content!
         </Text>
         <CustomInputAddPatient
-          placeholder="Enter SNR Loss (Dual)"
+          placeholder="Quiz Effort Dual"
           icon={Icons.PointHand}
           colorIcon={COLORS.blue}
           value={valInput}
