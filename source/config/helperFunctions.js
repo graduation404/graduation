@@ -62,10 +62,10 @@ const GetAsyncStorage = async key => {
   return data;
 };
 
-const welcomeMessage = () => {
-  const { t , i18n} = useTranslation();
+const welcomeMessage = (t) => {
+
   return ToastAndroid.show(
-    t('common:WelcomeDRMostafa'),
+    t,
     ToastAndroid.SHORT,
     ToastAndroid.BOTTOM,
   );

@@ -18,7 +18,7 @@ import {
   StaticHeader,
 } from '../../components';
 import {CreateUser} from '../../config/utils';
-import { t } from 'i18next';
+import {t} from 'i18next';
 
 const GroupAges = [
   {
@@ -39,7 +39,7 @@ const GroupAges = [
   },
 ];
 const AddPatientInfo = props => {
-  const { t , i18n} = useTranslation();
+  const {t, i18n} = useTranslation();
   const genders = [
     {
       label: t('common:Male'),
@@ -73,7 +73,7 @@ const AddPatientInfo = props => {
     setPatientInfo(prevState => ({...prevState, [text]: value}));
   };
 
-  const AddUser = () => {
+  const AddUser = async () => {
     if (
       PatientInfo.age &&
       PatientInfo.ageGroup &&
@@ -86,14 +86,14 @@ const AddPatientInfo = props => {
     ) {
       if (PatientInfo.age < 1 || PatientInfo.age > 150) {
         ToastAndroid.showWithGravity(
-         t('common:ToastAndroidAge'),
+          t('common:ToastAndroidAge'),
           ToastAndroid.LONG,
           ToastAndroid.BOTTOM,
         );
       } else {
         setLoading(true);
         try {
-          CreateUser({
+          await CreateUser({
             name: PatientInfo.name,
             gender: PatientInfo.gender, // 1 for male || 2 for female
             ageGroup: PatientInfo.ageGroup, // 1 ( 5=>6 ) , 2 ( 6=>10 ) , 3 ( 10=>18 ) , 4 (18 => above)
@@ -103,6 +103,12 @@ const AddPatientInfo = props => {
             hearingLevelRight: PatientInfo.hearingLevelRight,
             hearingLevelLeft: PatientInfo.hearingLevelLeft,
           });
+          ToastAndroid.showWithGravity(
+            t('common:ToastAndroidCreated'),
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+          );
+          props.navigation.replace('Home');
         } catch (error) {
           ToastAndroid.showWithGravity(
             t('common:ToastAndroidTryAgain'),
@@ -111,14 +117,6 @@ const AddPatientInfo = props => {
           );
           setLoading(false);
         }
-
-  
-        ToastAndroid.showWithGravity(
-          t('common:ToastAndroidTryAgain'),
-          ToastAndroid.LONG,
-          ToastAndroid.BOTTOM,
-        );
-        props.navigation.replace('Home');
       }
     } else {
       ToastAndroid.showWithGravity(
@@ -137,7 +135,9 @@ const AddPatientInfo = props => {
   const TitleSection = () => {
     return (
       <View style={styles.TitleContainer}>
-        <Text style={styles.textStyle}>{t('common:AddPatientInformation')}</Text>
+        <Text style={styles.textStyle}>
+          {t('common:AddPatientInformation')}
+        </Text>
       </View>
     );
   };

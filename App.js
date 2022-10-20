@@ -44,7 +44,7 @@ const App = () => {
   return (
     <>
       <StatusBar barStyle={'light-content'} backgroundColor={COLORS.blue} />
-      {i18n.language?<Navigation />:null}
+<Navigation />
     </>
   );
 };

@@ -39,7 +39,7 @@ const Navigation = () => {
   const HomeStack = () => {
     return (
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName={GetAsyncStorage('admin')?'HomeStack':'Login'}
         screenOptions={{
           headerShown: false,
           animation:'slide_from_bottom',

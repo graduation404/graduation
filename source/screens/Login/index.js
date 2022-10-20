@@ -42,7 +42,7 @@ const Login = props => {
       } else {
         SetAsyncStorage('admin', {email, password});
         props.navigation.replace('HomeStack');
-        welcomeMessage();
+        welcomeMessage(t('common:WelcomeDRMostafa'));
       }
     } else {
       setPassError(t('common:EnterValidPassword'));

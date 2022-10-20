@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {ToastAndroid} from 'react-native';
 import {COLORS, SHADOW, SIZES} from './theme';
-import {useTranslation} from 'react-i18next'
+import {useTranslation} from 'react-i18next';
 
 const baseURL = 'https://www.DrHearing.somee.com/api/';
 export default axios.create({
@@ -49,7 +49,7 @@ export const GetSpecifiecUser = async id => {
       message = 'connection-error';
     }
     ToastAndroid.showWithGravity(
-      "Error",
+      'Error',
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
     );
@@ -66,7 +66,7 @@ export const DeleteSpecifiecUser = async id => {
       'Delete Succes',
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
-    )
+    );
     return data;
   } catch (error) {
     console.log('error delete users', error.response);
@@ -78,20 +78,20 @@ export const DeleteSpecifiecUser = async id => {
     }
 
     ToastAndroid.showWithGravity(
-     "Delete Failed",
+      'Delete Failed',
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
-    )   
-     throw new Error(message);
+    );
+    throw new Error(message);
   }
 };
 
 // Creating a user
 export const CreateUser = async userData => {
   try {
-    const {data} = await axios.post(baseURL + '/users', userData);
-    console.log('data', data);
-    return data;
+    const res = await axios.post(baseURL + '/users', userData);
+    console.log('data', JSON.stringify(res));
+    return res.data;
   } catch (error) {
     console.log('error create users', error.response);
     let message = '';
@@ -121,7 +121,7 @@ export const CreateQuiz = async quizData => {
   try {
     const {data} = await axios.post(baseURL + '/quizs', quizData);
     ToastAndroid.showWithGravity(
-      "Created",
+      'Created',
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
     );
@@ -247,7 +247,7 @@ export const CreateUserquizs = async quizData => {
     const res = await axios.post(baseURL + '/Userquizs', quizData);
     console.log('data', res);
     ToastAndroid.showWithGravity(
-     'Done',
+      'Done',
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
     );
@@ -329,7 +329,7 @@ export const GetUserquizsInLevelAndBooklet = async (
       booklet,
   );
   try {
-    const {data} = await axios.get(
+    const res = await axios.get(
       baseURL +
         '/Userquizs/GetByUserIdAndLevelAndBooklet/' +
         UserId +
@@ -338,18 +338,19 @@ export const GetUserquizsInLevelAndBooklet = async (
         '/' +
         booklet,
     );
+    console.log('res + ', JSON.stringify(res));
+
+    let {data} = res;
     let list1 = [];
-    let list2 = [];
     for (let i = 0; i < data.length; i++) {
+      setQData(prev => prev + data[i].quizEffortDual);
+
       for (let j = 0; j < data[i].userQuestionResults.length; j++) {
-        // list2.push(data[i].userQuestionResults[j]);
         list1.push(data[i].userQuestionResults[j]);
       }
     }
     setData(list1);
-    // setQData(list2);
 
-    // alert(list1)
     return data;
   } catch (error) {
     console.log('error Userquizs in level and booklet', error.response);

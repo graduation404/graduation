@@ -14,6 +14,9 @@ export default {
     NoData:"لا يوجد بيانات",
     ToastAndroidFillData:"من فضلك اكمل البيانات",
     ToastAndroidTryAgain:"يرجي اعادة المحاولة",
+    ToastAndroidTryAgain:"يرجي اعادة المحاولة",
+    ToastAndroidCreated:"تم اضافة مريض",
+
     Colors:"ألوان",
     Images:"صور",
     AddQuizPageTitle:"إضافة اختبار",

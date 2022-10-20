@@ -27,8 +27,11 @@ import {useTranslation} from 'react-i18next';
 const ReportResult = props => {
   const {levelInd, BookletInd, id, PatientInfo, Persentage} =
     props.route.params;
+    console.log("pat  : "+JSON.stringify(PatientInfo))
   const [Indpersentage, setIndpersentage] = useState(0);
   const [questionData, setquestionData] = useState([]);
+  const [dataRes, setDataRes] = useState(0);
+
   const [error, setError] = useState(false);
   const { t , i18n} = useTranslation();
   const [loading, setLoading] = useState(true);
@@ -46,9 +49,9 @@ const ReportResult = props => {
     );
   };
 
-  const GetSpecifiecUserquis = () => {
-    // alert("hii")
-    GetUserquizsInLevelAndBooklet(id, levelInd, BookletInd, setquestionData);
+  const GetSpecifiecUserquis =async () => {
+    console.log(id+ levelInd+ BookletInd)
+    await GetUserquizsInLevelAndBooklet(id, levelInd, BookletInd, setquestionData,setDataRes);
   };
 
   useEffect(() => {
@@ -61,7 +64,7 @@ const ReportResult = props => {
       setError(true);
     }
     setLoading(false);
-  }, [GetSpecifiecUserquis, PersentageCalc]);
+  }, []);
   const onRefresh = useCallback(async () => {
     setLoading(true);
     try {
@@ -72,7 +75,7 @@ const ReportResult = props => {
       setError(true);
     }
     setLoading(false);
-  }, [GetSpecifiecUserquis, PersentageCalc]);
+  }, []);
   const renderContent = () => {
     if (loading === true) {
       return (
@@ -112,6 +115,7 @@ const ReportResult = props => {
 
     return (
       <>
+      <ScrollView style={{height:SIZES.height}}>
         <View style={styles.Top_Container}>
           <LevelContainer
             Persentage={25}
@@ -175,7 +179,7 @@ const ReportResult = props => {
             <Text style={styles.Reaction_Time_Title}>Listening Efforts</Text>
             <View style={styles.Reaction_Time_Contianer}>
               <Text style={styles.Reaction_Time_Text}>
-                {(PatientInfo.baseLine - PatientInfo.dual) /
+                {(PatientInfo.baseLine - dataRes) /
                   PatientInfo.baseLine}
               </Text>
             </View>
@@ -189,6 +193,7 @@ const ReportResult = props => {
           Text="Done"
           style={{alignSelf: 'center'}}
         />
+        </ScrollView>
       </>
     );
   };

@@ -15,6 +15,8 @@ export default {
     NoData:"No Data",
     ToastAndroidFillData:"Please fill All Data",
     ToastAndroidTryAgain:"Error, Please Try Again",
+    ToastAndroidCreated:"Patient Added Successfully",
+
     Colors:"Colors",
     Images:"Images",
     AddQuizPageTitle:"Add Quiz",
