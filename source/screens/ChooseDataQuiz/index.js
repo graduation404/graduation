@@ -136,7 +136,7 @@ const ChooseDataQuiz = props => {
             });
           }
         } else {
-          Alert.alert(
+          Alert.alert("Warning",
            t('common:ThereisQuestionsinThisBooklet'),
             [
               {

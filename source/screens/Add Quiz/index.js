@@ -86,7 +86,7 @@ const AddQuiz = ({ route, navigation }) => {
 
     if (QuestionText == '' || clickedIndex == null && (listColors != [] || listImgs != [])) {
       if (Questions.length == 0) {
-        Alert.alert(
+        Alert.alert("Warning",
           t("common:AlertDeleteUser"),
           [
             {
