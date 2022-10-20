@@ -2,8 +2,6 @@ import {StyleSheet, Text, View, Image, TextInput} from 'react-native';
 import React from 'react';
 import {COLORS, Icons, SIZES, SPACING} from '../../config';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { RFValue } from 'react-native-responsive-fontsize';
-
 const CustomDropDown = props => {
   return (
     <View style={styles.container}>

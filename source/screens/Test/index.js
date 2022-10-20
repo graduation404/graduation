@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   Image,
-  Modal,
   Pressable,
   StyleSheet,
   Text,
@@ -10,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import Modal from 'react-native-modal';
 import {RFPercentage} from 'react-native-responsive-fontsize';
 import {
   BookletContainer,
@@ -30,13 +30,16 @@ import {
 } from '../../config';
 import * as Animatable from 'react-native-animatable';
 import {useNavigation} from '@react-navigation/native';
-import {GetQuizsInLevelAndBooklet} from '../../config/utils';
+import {
+  GetQuizsInLevelAndBooklet,
+  GetUserquizsInLevelAndBooklet,
+} from '../../config/utils';
 import {handleAgeGroup2} from '../../config/helperFunctions';
 import {useTranslation} from 'react-i18next';
 
 const Test = props => {
   const navigation = useNavigation();
-  const { t , i18n} = useTranslation();
+  const {t, i18n} = useTranslation();
   const {PatientInfo} = props.route.params;
   const [name, setName] = useState(PatientInfo.name);
   const [id, setid] = useState(582222);
@@ -45,7 +48,8 @@ const Test = props => {
   const [BookletIndex, setBookletIndex] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [loadingBtn, setloadingBtn] = useState(false);
-  const [Array, setArray] = useState([]);
+  const [dataRes, setDataRes] = useState(0);
+  const [qData, setquestionData] = useState([]);
 
   const [Texts, setTexts] = useState([
     {
@@ -71,17 +75,27 @@ const Test = props => {
       Persentage: 25,
     },
     {
-      Text:  t('common:Level2'),
+      Text: t('common:Level2'),
       Image: Icons.Signal,
       Persentage: 50,
     },
     {
-      Text:  t('common:Level3'),
+      Text: t('common:Level3'),
       Image: Icons.Signal,
       Persentage: 75,
     },
     {
       Text: t('common:Level4'),
+      Image: Icons.Signal,
+      Persentage: 100,
+    },
+    {
+      Text: t('common:Level5'),
+      Image: Icons.Signal,
+      Persentage: 100,
+    },
+    {
+      Text: t('common:Level6'),
       Image: Icons.Signal,
       Persentage: 100,
     },
@@ -104,7 +118,15 @@ const Test = props => {
           Image: Icons.Books,
         },
         {
-          Text:t('common:Booklet4'),
+          Text: t('common:Booklet4'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet5'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet6'),
           Image: Icons.Books,
         },
       ],
@@ -124,6 +146,18 @@ const Test = props => {
           Text: t('common:Booklet3'),
           Image: Icons.Books,
         },
+        {
+          Text: t('common:Booklet4'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet5'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet6'),
+          Image: Icons.Books,
+        },
       ],
     },
     {
@@ -138,7 +172,19 @@ const Test = props => {
           Image: Icons.Books,
         },
         {
-          Text:t('common:Booklet3'),
+          Text: t('common:Booklet3'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet4'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet5'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet6'),
           Image: Icons.Books,
         },
       ],
@@ -148,6 +194,84 @@ const Test = props => {
       Array: [
         {
           Text: t('common:Booklet1'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet2'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet3'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet4'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet5'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet6'),
+          Image: Icons.Books,
+        },
+      ],
+    },
+    {
+      id: 5,
+      Array: [
+        {
+          Text: t('common:Booklet1'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet2'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet3'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet4'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet5'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet6'),
+          Image: Icons.Books,
+        },
+      ],
+    },
+    {
+      id: 6,
+      Array: [
+        {
+          Text: t('common:Booklet1'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet2'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet3'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet4'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet5'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet6'),
           Image: Icons.Books,
         },
       ],
@@ -238,8 +362,10 @@ const Test = props => {
 
                 <View style={styles.DataContainer}>
                   <Text style={styles.name_Style}>{name}</Text>
-                  <Text style={styles.id_Style}>id: {id}</Text>
-                  <Text style={styles.Age_Text}>{age} {t('common:Years')}</Text>
+                  {/* <Text style={styles.id_Style}>id: {id}</Text> */}
+                  <Text style={styles.Age_Text}>
+                    {age} {t('common:Years')}
+                  </Text>
                 </View>
               </View>
               <TouchableOpacity
@@ -271,7 +397,20 @@ const Test = props => {
 
   const ModalView = () => {
     return (
-      <Modal animationType="slide" transparent={true} visible={modalVisible}>
+      <Modal
+        animationType="slide"
+        swipeDirection="down"
+        style={{
+          justifyContent: 'flex-end',
+          margin: 0,
+        }}
+        onBackdropPress={() => {
+          setModalVisible(false);
+        }}
+        animationInTiming={600}
+        animationIn="slideInUp"
+        transparent={true}
+        visible={modalVisible}>
         <View
           style={{
             position: 'absolute',
@@ -316,27 +455,46 @@ const Test = props => {
               setloadingBtn(true);
               let range = await Range_Function(age);
               let ageeee = await handleAgeGroup2(range);
-              let dataaa = await GetQuizsInLevelAndBooklet(
+              await GetUserquizsInLevelAndBooklet(
+                PatientInfo.id,
                 LevelIndex + 1,
                 BookletIndex + 1,
-                ageeee,
-              ).then(res => {
-                if (res.length) {
-                  setModalVisible(false);
-                  props.navigation.navigate('Quiz', {
-                    quizz: res,
-                    PatientInfo,
-                  }),
-                    setloadingBtn(false);
-                } else {
+                setquestionData,
+                setDataRes,
+              ).then(async(res)=>{
+                // alert(JSON.stringify(res))
+                if(res.length>0){
+                  await GetQuizsInLevelAndBooklet(
+                    LevelIndex + 1,
+                    BookletIndex + 1,
+                    ageeee,
+                  ).then(res => {
+                    if (res.length) {
+                      setModalVisible(false);
+                      props.navigation.navigate('Quiz', {
+                        quizz: res,
+                        PatientInfo,
+                      }),
+                        setloadingBtn(false);
+                    } else {
+                      ToastAndroid.showWithGravity(
+                        t('common:ThereIsNoTestInthisBooklet'),
+                        ToastAndroid.LONG,
+                        ToastAndroid.BOTTOM,
+                      );
+                      setModalVisible(false);
+                    }
+                  });
+                }else{
                   ToastAndroid.showWithGravity(
-                    t('common:ThereIsNoTestInthisBooklet'),
+                    t("This User Asked before"),
                     ToastAndroid.LONG,
                     ToastAndroid.BOTTOM,
                   );
                   setModalVisible(false);
                 }
-              });
+              })
+              
               setloadingBtn(false);
             }}
             Loading={loadingBtn}
@@ -357,7 +515,8 @@ const Test = props => {
             fontWeight: 'bold',
             color: COLORS.darkGray,
           }}>
-          {t('common:Hi')}{sub()}
+          {t('common:Hi')}
+          {sub()}
         </Text>
         <CardView />
 

@@ -27,25 +27,24 @@ const Home = props => {
   const [error, setError] = useState(false);
 
   const DeleteUserFun = id => {
-    // return(
-    //   Alert.alert("Are U Sure to Delete User", [
-    //     {
-    //       text: "Cancel",
-    //     },
-    //     {
-    //       text:"Delete",
-    //       onPress: () => {
-    //         DeleteSpecifiecUser(id);
-    //       },
-    //     },
-    //   ])
-    // )
-    DeleteSpecifiecUser(id)
+    return Alert.alert('Warning', 'Are U Sure to Delete User', [
+      {
+        text: 'Cancel',
+      },
+      {
+        text: 'Delete',
+        onPress: () => {
+          DeleteSpecifiecUser(id);
+          GetAllUsers(setData, setError);
+        },
+      },
+    ]);
+    // DeleteSpecifiecUser(id)
   };
   const [modal, setModal] = React.useState(false);
 
   useEffect(() => {
-    setModal(true)
+    setModal(true);
   }, []);
   // console.log(data)
   useEffect(() => {
@@ -62,7 +61,7 @@ const Home = props => {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, [setData, GetAllUsers]);
+  }, [setData, GetAllUsers,DeleteSpecifiecUser]);
 
   const onRefresh = useCallback(async () => {
     setLoading(true);
@@ -76,7 +75,7 @@ const Home = props => {
     setTimeout(() => {
       setLoading(false);
     }, 400);
-  }, [data]);
+  }, [data, DeleteSpecifiecUser]);
   const TitleSection = () => {
     return (
       <View style={styles.TitleContainer}>
@@ -101,22 +100,6 @@ const Home = props => {
       );
     }
 
-    // if (loading == false && data.length === 0 && error == false) {
-    //   return (
-    //     <>
-    //       <View style={styles.indicatorContainer}>
-    //         <Image
-    //           resizeMode="contain"
-    //           source={require('../../assets/imgs/nodata.png')}
-    //           style={styles.image}
-    //         />
-    //         <Text style={[styles.textStyle, { alignSelf: 'center' }]}>
-    //           {t("common:NoData")}
-    //         </Text>
-    //       </View>
-    //     </>
-    //   );
-    // }
     if (loading == true) {
       return (
         <View style={styles.indicatorContainer}>
@@ -156,7 +139,7 @@ const Home = props => {
                   item={item}
                   index={index}
                   nav={props}
-                  onPressDelete={() =>   DeleteSpecifiecUser(item.id)}
+                  onPressDelete={() => DeleteUserFun(item.id)}
                 />
               ) : null}
             </>

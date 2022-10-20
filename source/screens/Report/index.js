@@ -49,6 +49,16 @@ const Report = props => {
       Image: Icons.Signal,
       Persentage: 100,
     },
+    {
+      Text: t('common:Level5'),
+      Image: Icons.Signal,
+      Persentage: 100,
+    },
+    {
+      Text: t('common:Level6'),
+      Image: Icons.Signal,
+      Persentage: 100,
+    },
   ]);
   const [Levelslength, setLevelslength] = useState(LevelsArray.length);
   const [BookletArray, setBookletArray] = useState([
@@ -71,6 +81,14 @@ const Report = props => {
           Text: t('common:Booklet4'),
           Image: Icons.Books,
         },
+        {
+          Text: t('common:Booklet5'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet6'),
+          Image: Icons.Books,
+        },
       ],
     },
     {
@@ -80,9 +98,24 @@ const Report = props => {
           Text: t('common:Booklet1'),
           Image: Icons.Books,
         },
-
         {
-          Text: t('common:Booklet2'),
+          Text:t('common:Booklet2'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet3'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet4'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet5'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet6'),
           Image: Icons.Books,
         },
       ],
@@ -95,11 +128,23 @@ const Report = props => {
           Image: Icons.Books,
         },
         {
-          Text: t('common:Booklet2'),
+          Text:t('common:Booklet2'),
           Image: Icons.Books,
         },
         {
           Text: t('common:Booklet3'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet4'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet5'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet6'),
           Image: Icons.Books,
         },
       ],
@@ -109,6 +154,84 @@ const Report = props => {
       Array: [
         {
           Text: t('common:Booklet1'),
+          Image: Icons.Books,
+        },
+        {
+          Text:t('common:Booklet2'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet3'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet4'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet5'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet6'),
+          Image: Icons.Books,
+        },
+      ],
+    },
+    {
+      id: 5,
+      Array: [
+        {
+          Text: t('common:Booklet1'),
+          Image: Icons.Books,
+        },
+        {
+          Text:t('common:Booklet2'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet3'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet4'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet5'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet6'),
+          Image: Icons.Books,
+        },
+      ],
+    },
+    {
+      id: 6,
+      Array: [
+        {
+          Text: t('common:Booklet1'),
+          Image: Icons.Books,
+        },
+        {
+          Text:t('common:Booklet2'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet3'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet4'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet5'),
+          Image: Icons.Books,
+        },
+        {
+          Text: t('common:Booklet6'),
           Image: Icons.Books,
         },
       ],

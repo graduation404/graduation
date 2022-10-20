@@ -37,6 +37,10 @@ const GroupAges = [
     label: t('common:label4'),
     value: 4,
   },
+  {
+    label: t('common:label4'),
+    value: 4,
+  },
 ];
 const AddPatientInfo = props => {
   const {t, i18n} = useTranslation();
