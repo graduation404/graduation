@@ -7,6 +7,7 @@ import {LargeButton, SmallButton} from '../Buttons';
 import {t} from 'i18next';
 
 const ModalQuiz = ({modal, setModal,valInput,setValInput,sendQuiz,Loading}) => {
+  // console.log(valInput)
   return (
     <Modal
       isVisible={modal}
@@ -19,14 +20,14 @@ const ModalQuiz = ({modal, setModal,valInput,setValInput,sendQuiz,Loading}) => {
       animationIn="slideInUp">
       <View style={styles.modalContainer}>
         <Text style={{color: '#061721', marginBottom: "10%"}}>
-          I am the modal content!
+          Enter Quiz Effort Dual!
         </Text>
         <CustomInputAddPatient
           placeholder="Quiz Effort Dual"
           icon={Icons.PointHand}
           colorIcon={COLORS.blue}
           value={valInput}
-          onChangeText={text => setValInput(text)}
+          onChangeText={(value)=>setValInput('QuizEffortDual',value)}
           keyboardType="decimal-pad"
         />
         <SmallButton

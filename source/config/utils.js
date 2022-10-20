@@ -244,14 +244,14 @@ export const CreateUserquizs = async quizData => {
   // const { t , i18n} = useTranslation();
   console.log('quizData', JSON.stringify(quizData));
   try {
-    const {data} = await axios.post(baseURL + '/Userquizs', quizData);
-    console.log('data', data);
+    const res = await axios.post(baseURL + '/Userquizs', quizData);
+    console.log('data', res);
     ToastAndroid.showWithGravity(
      'Done',
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
     );
-    return data;
+    return res.data;
   } catch (error) {
     console.log('error Create quiz', error.response);
     let message = '';
