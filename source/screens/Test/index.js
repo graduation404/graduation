@@ -455,15 +455,15 @@ const Test = props => {
               setloadingBtn(true);
               let range = await Range_Function(age);
               let ageeee = await handleAgeGroup2(range);
-              await GetUserquizsInLevelAndBooklet(
-                PatientInfo.id,
-                LevelIndex + 1,
-                BookletIndex + 1,
-                setquestionData,
-                setDataRes,
-              ).then(async(res)=>{
+              // await GetUserquizsInLevelAndBooklet(
+              //   PatientInfo.id,
+              //   LevelIndex + 1,
+              //   BookletIndex + 1,
+              //   setquestionData,
+              //   setDataRes,
+              // ).then(async(res)=>{
                 // alert(JSON.stringify(res))
-                if(res.length>0){
+                // if(res.length>0){
                   await GetQuizsInLevelAndBooklet(
                     LevelIndex + 1,
                     BookletIndex + 1,
@@ -484,15 +484,15 @@ const Test = props => {
                       );
                       setModalVisible(false);
                     }
-                  });
-                }else{
-                  ToastAndroid.showWithGravity(
-                    t("This User Asked before"),
-                    ToastAndroid.LONG,
-                    ToastAndroid.BOTTOM,
-                  );
-                  setModalVisible(false);
-                }
+                  // });
+                // }else{
+                //   ToastAndroid.showWithGravity(
+                //     t("This User Asked before"),
+                //     ToastAndroid.LONG,
+                //     ToastAndroid.BOTTOM,
+                //   );
+                //   setModalVisible(false);
+                // }
               })
               
               setloadingBtn(false);

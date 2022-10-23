@@ -54,12 +54,13 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     // If you opted-in for the New Architecture, we enable the TurboModule system
+    //  I18nUtil sharedI18nUtilInstance = I18nUtil.getInstance();    
+    // sharedI18nUtilInstance.allowRTL(getApplicationContext(), true);
     ReactFeatureFlags.useTurboModules = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
+     I18nUtil sharedI18nUtilInstance = I18nUtil.getInstance();
+     sharedI18nUtilInstance.allowRTL(getApplicationContext(), false);
     SoLoader.init(this, /* native exopackage */ false);
 
-    I18nUtil sharedI18nUtilInstance = I18nUtil.getInstance();
-    sharedI18nUtilInstance.forceRTL(this,true);
-    sharedI18nUtilInstance.allowRTL(this, true);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
   }
 

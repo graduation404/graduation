@@ -12,10 +12,15 @@ import {RFPercentage} from 'react-native-responsive-fontsize';
 import {COLORS, Icons, SIZES, SPACING} from '../../config';
 import {SmallButton} from '../Buttons';
 import ColorPicker from 'react-native-wheel-color-picker';
-import {useTranslation} from 'react-i18next'
+import {useTranslation} from 'react-i18next';
 
-const ModalColors = ({modalColorVisible, setModalColorVisible,listColors,setlistColors}) => {
-  const { t , i18n} = useTranslation();
+const ModalColors = ({
+  modalColorVisible,
+  setModalColorVisible,
+  listColors,
+  setlistColors,
+}) => {
+  const {t, i18n} = useTranslation();
   const [currentColor, setCurrentColor] = useState('#fff');
   return (
     <Modal animationType="slide" transparent={true} visible={modalColorVisible}>
@@ -25,6 +30,7 @@ const ModalColors = ({modalColorVisible, setModalColorVisible,listColors,setlist
           <Text style={styles.text}> {t('common:ChooseyourColors')}</Text>
         </View>
         <ColorPicker
+          autoResetSlider
           color={currentColor}
           swatchesOnly={false}
           onColorChangeComplete={color => {
@@ -57,8 +63,7 @@ const ModalColors = ({modalColorVisible, setModalColorVisible,listColors,setlist
             />
           ))}
         </View>
-        <View
-          style={styles.containerBtns}>
+        <View style={styles.containerBtns}>
           <SmallButton
             Text={t('common:Close')}
             onPress={() => {
@@ -68,7 +73,7 @@ const ModalColors = ({modalColorVisible, setModalColorVisible,listColors,setlist
           <SmallButton
             Text={t('common:AddColor')}
             onPress={() => {
-              setlistColors(prev => [...prev, {colorCode:currentColor}]);
+              setlistColors(prev => [...prev, {colorCode: currentColor}]);
             }}
           />
         </View>
@@ -110,10 +115,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: SPACING.m,
   },
-  containerBtns:{
+  containerBtns: {
     width: '100%',
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-around',
-  }
+  },
 });

@@ -10,6 +10,8 @@ import {
   Alert,
   ToastAndroid,
   ActivityIndicator,
+  BackHandler,
+  I18nManager,
 } from 'react-native';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {CardHome, HeaderHome} from '../../components';
@@ -18,7 +20,7 @@ import {COLORS, SIZES, SPACING} from '../../config';
 import {subDate, subtime, welcomeMessage} from '../../config/helperFunctions';
 import {DeleteSpecifiecUser, GetAllUsers} from '../../config/utils';
 import {useTranslation} from 'react-i18next';
-import ModalQuiz from '../../components/ModalQuiz';
+import i18next from 'i18next';
 const Home = props => {
   const {t, i18n} = useTranslation();
   const [data, setData] = useState([]);
@@ -41,11 +43,14 @@ const Home = props => {
     ]);
     // DeleteSpecifiecUser(id)
   };
-  const [modal, setModal] = React.useState(false);
-
+  
   useEffect(() => {
-    setModal(true);
-  }, []);
+    I18nManager.allowRTL(i18next.language === 'ar');
+    I18nManager.forceRTL(i18next.language === 'ar');
+   
+    },[]);
+
+   
   // console.log(data)
   useEffect(() => {
     setLoading(true);
@@ -61,7 +66,7 @@ const Home = props => {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-  }, [setData, GetAllUsers,DeleteSpecifiecUser]);
+  }, [setData, GetAllUsers, DeleteSpecifiecUser]);
 
   const onRefresh = useCallback(async () => {
     setLoading(true);
@@ -170,7 +175,6 @@ const Home = props => {
         <TitleSection />
         {renderContent()}
       </ScrollView>
-      <ModalQuiz modal={false} setModal={setModal} />
     </View>
   );
 };

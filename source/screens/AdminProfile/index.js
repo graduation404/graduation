@@ -25,26 +25,11 @@ import {
   SHADOW,
   Range_Function,
 } from '../../config';
-
+import "../../constants/IMLocalize"
 const AdminProfile = props => {
   const {t, i18n} = useTranslation();
-  const selectLanguageCode = i18n.language;
-  const LANGUAGES = [
-    {
-      code: 'en',
-      label: 'English',
-    },
-    {
-      code: 'ar',
-      label: 'عربي',
-    },
-  ];
-  const setLanguage = code => {
-    return i18n.changeLanguage(code);
-  };
-  const [AdminName, setAdminName] = useState('Dr Mostafa');
-  const [AdminEmail, setAdminEmail] = useState('admin@gmail.com');
-  const [age, setage] = useState(22);
+
+
   const [button, setbutton] = useState(true);
   const [PatientsDataValue, setPatientsDataValue] = useState([
     {
@@ -59,16 +44,11 @@ const AdminProfile = props => {
       image: Icons.Language,
       onPress: async () => {
         try {
-          if (i18n.language == 'ar') {
-            setLanguage('en');
-            // await I18nManager.allowRTL(false);
-            // await I18nManager.forceRTL(false);
-          } else {
-            setLanguage('ar');
-            // await I18nManager.allowRTL(true);
-            // await I18nManager.forceRTL(true);
-          }
-          // RNRestart.Restart();
+          i18n.changeLanguage(i18n.language === 'ar' ? 'en' : 'ar').then(async() => {
+           await I18nManager.allowRTL(i18n.language==="ar");
+           await I18nManager.forceRTL(i18n.language === 'ar');
+            RNRestart.Restart();
+          });
         } catch (error) {}
       },
     },
@@ -81,27 +61,27 @@ const AdminProfile = props => {
       },
     },
   ]);
-  useEffect(() => {
-    setTimeout(() => {
-      if (i18n.language === 'en') {
-        I18nManager.forceRTL(false);
-        if (I18nManager.isRTL !== false) {
-          RNRestart.Restart();
-        }
-      } else if (i18n.language == 'ar') {
-        if (I18nManager.isRTL == false) {
-          I18nManager.forceRTL(true);
-          RNRestart.Restart();
-        }
-      } else {
-        I18nManager.forceRTL(false);
-        if (I18nManager.isRTL !== false) {
-          RNRestart.Restart();
-        }
-      }
-    }, 500);
-    // alert("19")
-  }, [i18n.language, setLanguage]);
+  // useEffect(() => {
+
+  //     if (i18n.language === 'en') {
+  //       I18nManager.forceRTL(false);
+  //       if (I18nManager.isRTL !== false) {
+  //         RNRestart.Restart();
+  //       }
+  //     } else if (i18n.language == 'ar') {
+  //       if (I18nManager.isRTL == false) {
+  //         I18nManager.forceRTL(true);
+  //         RNRestart.Restart();
+  //       }
+  //     } else {
+  //       I18nManager.forceRTL(false);
+  //       if (I18nManager.isRTL !== false) {
+  //         RNRestart.Restart();
+  //       }
+  //     }
+
+  //   // alert("19")
+  // }, [ setLanguage]);
   const DataList = () => {
     return (
       <View style={{height: SIZES.height * 0.7, justifyContent: 'center'}}>

@@ -22,8 +22,8 @@ public class MainActivity extends ReactActivity {
     super.onCreate(savedInstanceState);
     // SoLoader.init(this, /* native exopackage */ false);
     I18nUtil sharedI18nUtilInstance = I18nUtil.getInstance();
-    sharedI18nUtilInstance.forceRTL(this, false);
-    sharedI18nUtilInstance.allowRTL(this, false);
+    // sharedI18nUtilInstance.forceRTL(this, true);
+    // sharedI18nUtilInstance.allowRTL(this, true);
   }
 
   // ...other code

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { I18nManager, StyleSheet } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -16,6 +16,7 @@ import {
   Test,
 } from '../screens';
 import { GetAsyncStorage } from '../config/helperFunctions';
+import i18next from 'i18next';
 
 const Stack = createNativeStackNavigator();
 const Navigation = () => {
@@ -29,6 +30,8 @@ const Navigation = () => {
     }
   };
   useEffect(() => {
+    I18nManager.allowRTL(i18next.language === 'ar');
+    I18nManager.forceRTL(i18next.language === 'ar');
     getAdmin();
   }, []);
   const [initialRouteName, setInitialRouteName] = useState('');
@@ -60,7 +63,9 @@ const Navigation = () => {
     )
   }
   return (
-    <NavigationContainer>
+    <NavigationContainer fallback={()=>{return(
+      <Text>Loading..</Text>
+    )}}>
       {initialRouteName ? (
         <Stack.Navigator
           initialRouteName={initialRouteName}

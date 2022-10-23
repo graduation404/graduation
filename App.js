@@ -7,35 +7,27 @@ import AddQuiz from './source/screens/Add Quiz';
 import './source/constants/IMLocalize';
 import {useTranslation} from 'react-i18next';
 import RNRestart from 'react-native-restart';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import i18next from 'i18next';
 
 const App = () => {
   const {t, i18n} = useTranslation();
-
-  
-  useEffect(() => {
-    setTimeout(() => {
-      if (i18n.language === 'en') {
-        I18nManager.forceRTL(false);
-        if (I18nManager.isRTL !== false) {
-          RNRestart.Restart();
-        }
-      } else if (i18n.language == 'ar') {
-        if (I18nManager.isRTL ==false) {
-          I18nManager.forceRTL(true);
-          RNRestart.Restart();
-        }
-      } else {
-        // dispatch(changeLanguage('en'));
-        I18nManager.forceRTL(false);
-        if (I18nManager.isRTL !== false) {
-          RNRestart.Restart();
-        }
-      } 
-    }, 500);
-    
-  }, [i18n.language]);
+  console.log(i18next.language);
+  // useEffect(() => {
+  //   console.log(I18nManager.isRTL);
+  //   I18nManager.allowRTL(i18n.language == 'ar');
+  //   I18nManager.forceRTL(i18n.language == 'ar');
+  //   // return()=>{
+  //   //   alert("by")
+  //   //   I18nManager.allowRTL(i18n.language=="ar");
+  //   //   I18nManager.forceRTL(i18n.language=="ar");
+  //   // }
+  // }, [i18n.language]);
   useEffect(() => {
     // rtlApp();
+    console.log(I18nManager.isRTL);
+    I18nManager.allowRTL(i18next.language === 'ar');
+    I18nManager.forceRTL(i18next.language === 'ar');
     setTimeout(() => {
       SplashScreen.hide();
     }, 1500);
@@ -44,7 +36,7 @@ const App = () => {
   return (
     <>
       <StatusBar barStyle={'light-content'} backgroundColor={COLORS.blue} />
-<Navigation />
+      <Navigation />
     </>
   );
 };
