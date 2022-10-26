@@ -62,10 +62,7 @@ const GroupLevel = [
     label: '5',
     value: 5,
   },
-  {
-    label: '6',
-    value: 6,
-  },
+ 
 ];
 const GroupBooklet = [
   {
@@ -88,10 +85,7 @@ const GroupBooklet = [
     label: '5',
     value: 5,
   },
-  {
-    label: '6',
-    value: 6,
-  },
+ 
 ];
 
 const ChooseDataQuiz = props => {

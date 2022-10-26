@@ -18,6 +18,7 @@ const CustomInputAddPatient = props => {
         onChangeText={props.onChangeText}
         value={props.value}
         keyboardType={props.keyboardType}
+        defaultValue={props.defaultValue}
       />
     </View>
   );

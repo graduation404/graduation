@@ -27,13 +27,13 @@ import {useTranslation} from 'react-i18next';
 const ReportResult = props => {
   const {levelInd, BookletInd, id, PatientInfo, Persentage} =
     props.route.params;
-    console.log("pat  : "+JSON.stringify(PatientInfo))
+  console.log('pat  : ' + JSON.stringify(PatientInfo));
   const [Indpersentage, setIndpersentage] = useState(0);
   const [questionData, setquestionData] = useState([]);
   const [dataRes, setDataRes] = useState(0);
 
   const [error, setError] = useState(false);
-  const { t , i18n} = useTranslation();
+  const {t, i18n} = useTranslation();
   const [loading, setLoading] = useState(true);
 
   const PersentageCalc = () => {
@@ -45,13 +45,20 @@ const ReportResult = props => {
         : (PersentageC = PersentageC);
     }
     setIndpersentage(
-      (PersentageC / (totalQues == 0 ? (totalQues = 1) : totalQues)) * 100,
+      (PersentageC / (questionData.length == 0 ?  1 : questionData.length)) * 100,
     );
+    // console.error("hii "+questionData[0].answer )
   };
 
-  const GetSpecifiecUserquis =async () => {
-    console.log(id+ levelInd+ BookletInd)
-    await GetUserquizsInLevelAndBooklet(id, levelInd, BookletInd, setquestionData,setDataRes);
+  const GetSpecifiecUserquis = async () => {
+    // console.log(id + levelInd + BookletInd);
+    await GetUserquizsInLevelAndBooklet(
+      id,
+      levelInd,
+      BookletInd,
+      setquestionData,
+      setDataRes,
+    );
   };
 
   useEffect(() => {
@@ -106,93 +113,90 @@ const ReportResult = props => {
               style={styles.image}
             />
             <Text style={[styles.textStyle, {alignSelf: 'center'}]}>
-             {t('common:NoData')}
+              {t('common:NoData')}
             </Text>
           </View>
         </>
       );
     }
-
+    console.log(Indpersentage);
     return (
       <>
-      <ScrollView style={{height:SIZES.height}}>
-        <View style={styles.Top_Container}>
-          <LevelContainer
-            Persentage={25}
-            Text={t('common:Level')+ JSON.stringify(levelInd)}
-            Image={Icons.Signal}
-          />
+        <ScrollView style={{height: SIZES.height}}>
+          <View style={styles.Top_Container}>
+            <LevelContainer
+              Persentage={25}
+              Text={t('common:Level') + JSON.stringify(levelInd)}
+              Image={Icons.Signal}
+            />
 
-          <BookletContainer
-            Text={t('common:Booklet')+ JSON.stringify(BookletInd)}
-            Image={Icons.Books}
-          />
-          <View style={styles.progressContainer}>
-            <ProgressQuiz Persentage={Indpersentage} />
-          </View>
-        </View>
-
-        <View style={styles.bottom_Container}>
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={questionData}
-            renderItem={({item, index}) => (
-              <>
-                <View style={styles.Main_view}>
-                  <View style={styles.Trial_View}>
-                    <Text style={[styles.trialText, {color: COLORS.white}]}>
-                      {t('common:Trial')} {index + 1}
-                    </Text>
-                  </View>
-
-                  <View style={styles.Time_View}>
-                    <Text style={styles.trialText}>
-                      {item.takenTime} {t('common:millieSecond')}
-                    </Text>
-                  </View>
-                  <View style={styles.Image_View}>
-                    <Image
-                      source={
-                        item.answer == item.question.isExist
-                          ? Icons.Check
-                          : Icons.Cancel
-                      }
-                      style={styles.Image_Style}
-                    />
-                  </View>
-                </View>
-              </>
-            )}
-          />
-        </View>
-
-        <View style={styles.blue_contianer}>
-          <View style={styles.blue_view}>
-            <Text style={styles.Reaction_Time_Title}>
-              {t('common:ReactionTimeBooklet')}
-            </Text>
-            <View style={styles.Reaction_Time_Contianer}>
-              <Text style={styles.Reaction_Time_Text}>
-                {TimeAvarage(questionData)}
-              </Text>
-            </View>
-            <Text style={styles.Reaction_Time_Title}>Listening Efforts</Text>
-            <View style={styles.Reaction_Time_Contianer}>
-              <Text style={styles.Reaction_Time_Text}>
-                {(PatientInfo.baseLine - dataRes) /
-                  PatientInfo.baseLine}
-              </Text>
+            <BookletContainer
+              Text={t('common:Booklet') + JSON.stringify(BookletInd)}
+              Image={Icons.Books}
+            />
+            <View style={styles.progressContainer}>
+              <ProgressQuiz Persentage={Indpersentage} />
             </View>
           </View>
-        </View>
 
-        <SmallButton
-          onPress={() => {
-            props.navigation.navigate('Home');
-          }}
-          Text="Done"
-          style={{alignSelf: 'center'}}
-        />
+          <View style={styles.bottom_Container}>
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={questionData}
+              renderItem={({item, index}) => (
+                <>
+                  <View style={styles.Main_view}>
+                    <View style={styles.Trial_View}>
+                      <Text style={[styles.trialText, {color: COLORS.white}]}>
+                        {t('common:Trial')} {index + 1}
+                      </Text>
+                    </View>
+
+                    <View style={styles.Time_View}>
+                      <Text style={styles.trialText}>
+                        {item.takenTime} {t('common:millieSecond')}
+                      </Text>
+                    </View>
+                    <View style={styles.Image_View}>
+                      <Image
+                        source={
+                          item.answer == item.question.isExist
+                            ? Icons.Check
+                            : Icons.Cancel
+                        }
+                        style={styles.Image_Style}
+                      />
+                    </View>
+                  </View>
+                </>
+              )}
+            />
+          </View>
+
+          <View style={styles.blue_contianer}>
+            <View style={styles.blue_view}>
+              <Text style={styles.Reaction_Time_Title}>
+                {t('common:ReactionTimeBooklet')}
+              </Text>
+              <View style={styles.Reaction_Time_Contianer}>
+                <Text style={styles.Reaction_Time_Text}>
+                  {TimeAvarage(questionData)}
+                </Text>
+              </View>
+              <Text style={styles.Reaction_Time_Title}>Listening Efforts</Text>
+              <View style={styles.Reaction_Time_Contianer}>
+                <Text style={styles.Reaction_Time_Text}>{dataRes}</Text>
+              </View>
+            </View>
+          </View>
+
+          <SmallButton
+            onPress={() => {
+              props.navigation.navigate('Home');
+            }}
+            Text="Done"
+            style={{alignSelf: 'center'}}
+          />
         </ScrollView>
       </>
     );

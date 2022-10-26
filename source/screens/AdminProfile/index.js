@@ -32,13 +32,13 @@ const AdminProfile = props => {
 
   const [button, setbutton] = useState(true);
   const [PatientsDataValue, setPatientsDataValue] = useState([
-    {
-      name: t('common:ChangePassword'),
-      image: Icons.Lock,
-      onPress: async () => {
-        alert(t('common:ChangePassword'));
-      },
-    },
+    // {
+    //   name: t('common:ChangePassword'),
+    //   image: Icons.Lock,
+    //   onPress: async () => {
+    //     alert(t('common:ChangePassword'));
+    //   },
+    // },
     {
       name: t('common:ChangeLanguage'),
       image: Icons.Language,
@@ -120,7 +120,7 @@ const AdminProfile = props => {
 
               <TouchableOpacity
                 onPress={() => {
-                  alert('edit');
+                  // alert('edit');
                 }}>
                 <Image source={Icons.Pen} style={styles.Image_Style} />
               </TouchableOpacity>

@@ -61,7 +61,7 @@ const PatientProfile = props => {
       image: Icons.PointHand,
     },
     {
-      name:t('common:DualAverage'),
+      name:"Reaction Time Average",
       Percentage: PatientInfo.reactionTimeAverage== 0 ? 1 : PatientInfo.reactionTimeAverage,
       image: Icons.PointHand,
     },

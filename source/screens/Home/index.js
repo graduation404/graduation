@@ -43,14 +43,12 @@ const Home = props => {
     ]);
     // DeleteSpecifiecUser(id)
   };
-  
+
   useEffect(() => {
     I18nManager.allowRTL(i18next.language === 'ar');
     I18nManager.forceRTL(i18next.language === 'ar');
-   
-    },[]);
+  }, []);
 
-   
   // console.log(data)
   useEffect(() => {
     setLoading(true);

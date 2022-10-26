@@ -6,7 +6,14 @@ import CustomInputAddPatient from '../customInput';
 import {LargeButton, SmallButton} from '../Buttons';
 import {t} from 'i18next';
 
-const ModalQuiz = ({modal, setModal,valInput,setValInput,sendQuiz,Loading}) => {
+const ModalQuiz = ({
+  modal,
+  setModal,
+  valInput,
+  setValInput,
+  sendQuiz,
+  Loading,
+}) => {
   // console.log(valInput)
   return (
     <Modal
@@ -19,7 +26,7 @@ const ModalQuiz = ({modal, setModal,valInput,setValInput,sendQuiz,Loading}) => {
       animationInTiming={600}
       animationIn="slideInUp">
       <View style={styles.modalContainer}>
-        <Text style={{color: '#061721', marginBottom: "10%"}}>
+        <Text style={{color: '#061721', marginBottom: '10%'}}>
           Enter Quiz Effort Dual!
         </Text>
         <CustomInputAddPatient
@@ -27,14 +34,19 @@ const ModalQuiz = ({modal, setModal,valInput,setValInput,sendQuiz,Loading}) => {
           icon={Icons.PointHand}
           colorIcon={COLORS.blue}
           value={valInput}
-          onChangeText={(value)=>setValInput('QuizEffortDual',value)}
+          onChangeText={value => setValInput('QuizEffortDual', value)}
           keyboardType="decimal-pad"
+          defaultValue={valInput}
         />
         <SmallButton
           Text="Submit & Send"
-          style={{width: '60%', borderRadius: SIZES.Sradius,marginTop:"6%"}}
-            Loading={Loading}
-            onPress={()=>sendQuiz()}
+          style={{width: '60%', borderRadius: SIZES.Sradius, marginTop: '6%'}}
+          Loading={Loading}
+          onPress={() =>{
+            if(valInput.toString().length){
+              sendQuiz()
+            }
+          }}
         />
       </View>
     </Modal>

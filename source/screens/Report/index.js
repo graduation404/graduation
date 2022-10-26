@@ -54,11 +54,7 @@ const Report = props => {
       Image: Icons.Signal,
       Persentage: 100,
     },
-    {
-      Text: t('common:Level6'),
-      Image: Icons.Signal,
-      Persentage: 100,
-    },
+   
   ]);
   const [Levelslength, setLevelslength] = useState(LevelsArray.length);
   const [BookletArray, setBookletArray] = useState([
@@ -85,10 +81,7 @@ const Report = props => {
           Text: t('common:Booklet5'),
           Image: Icons.Books,
         },
-        {
-          Text: t('common:Booklet6'),
-          Image: Icons.Books,
-        },
+       
       ],
     },
     {
@@ -114,10 +107,7 @@ const Report = props => {
           Text: t('common:Booklet5'),
           Image: Icons.Books,
         },
-        {
-          Text: t('common:Booklet6'),
-          Image: Icons.Books,
-        },
+       
       ],
     },
     {
@@ -143,10 +133,7 @@ const Report = props => {
           Text: t('common:Booklet5'),
           Image: Icons.Books,
         },
-        {
-          Text: t('common:Booklet6'),
-          Image: Icons.Books,
-        },
+       
       ],
     },
     {
@@ -172,10 +159,7 @@ const Report = props => {
           Text: t('common:Booklet5'),
           Image: Icons.Books,
         },
-        {
-          Text: t('common:Booklet6'),
-          Image: Icons.Books,
-        },
+       
       ],
     },
     {
@@ -201,10 +185,7 @@ const Report = props => {
           Text: t('common:Booklet5'),
           Image: Icons.Books,
         },
-        {
-          Text: t('common:Booklet6'),
-          Image: Icons.Books,
-        },
+       
       ],
     },
     {
@@ -230,10 +211,7 @@ const Report = props => {
           Text: t('common:Booklet5'),
           Image: Icons.Books,
         },
-        {
-          Text: t('common:Booklet6'),
-          Image: Icons.Books,
-        },
+       
       ],
     },
   ]);
