@@ -53,7 +53,11 @@ const Home = props => {
   useEffect(() => {
     setLoading(true);
     let getData = async () => {
-      GetAllUsers(setData, setError);
+      GetAllUsers(setData, setError).then(()=>{
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      });
     };
     try {
       getData();
@@ -61,23 +65,27 @@ const Home = props => {
     } catch (error) {
       setError(true);
     }
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    // setTimeout(() => {
+    //   setLoading(false);
+    // }, 1000);
   }, [setData, GetAllUsers, DeleteSpecifiecUser]);
 
   const onRefresh = useCallback(async () => {
     setLoading(true);
 
     try {
-      GetAllUsers(setData, setError);
+      GetAllUsers(setData, setError).then(()=>{
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      });
       setError(false);
     } catch (error) {
       setError(true);
     }
-    setTimeout(() => {
-      setLoading(false);
-    }, 400);
+    // setTimeout(() => {
+    //   setLoading(false);
+    // }, 400);
   }, [data, DeleteSpecifiecUser]);
   const TitleSection = () => {
     return (

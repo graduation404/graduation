@@ -6,6 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -52,7 +53,7 @@ const Quiz = props => {
     listeningEffort: 0,
     reactionTime: 0,
     userQuestionResults: [],
-    QuizEffortDual: 0,
+    QuizEffortDual: null,
   });
   const handleChangeTotalQuizAns = (text, value) => {
     setTotalQuizAnswers(prev => ({...prev, [text]: value}));
@@ -99,17 +100,31 @@ const Quiz = props => {
     let totalAns = totalQuizAnswers;
     totalAns.userQuestionResults.push(answerObject);
     setTotalQuizAnswers(totalAns);
-    setLoadingSendResult(true);
-    try {
-      await CreateUserquizs(totalAns);
-      console.log(JSON.stringify(totalAns));
-      setQuiz(newQuiz);
-      setclickedIndex(null);
-      setSelectedAswer(null);
-      setLoadingSendResult(false);
+    if (totalQuizAnswers.QuizEffortDual != null) {
+      setLoadingSendResult(true);
+      try {
+        await CreateUserquizs(totalAns);
+        console.log(JSON.stringify(totalAns));
+        setQuiz(newQuiz);
+        setclickedIndex(null);
+        setSelectedAswer(null);
+        setLoadingSendResult(false);
 
-      navigation.replace('Home');
-    } catch (error) {}
+        navigation.replace('Home');
+      } catch (error) {
+        ToastAndroid.show(
+          'Server Error',
+          ToastAndroid.SHORT,
+          ToastAndroid.BOTTOM,
+        );
+      }
+    } else {
+      ToastAndroid.show(
+        'Please , Write Dual Effort ',
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM,
+      );
+    }
   };
   return (
     <ScrollView style={{flexGrow: 1, backgroundColor: COLORS.white}}>

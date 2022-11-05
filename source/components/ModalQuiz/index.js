@@ -43,9 +43,9 @@ const ModalQuiz = ({
           style={{width: '60%', borderRadius: SIZES.Sradius, marginTop: '6%'}}
           Loading={Loading}
           onPress={() =>{
-            if(valInput.toString().length){
+           
               sendQuiz()
-            }
+            
           }}
         />
       </View>

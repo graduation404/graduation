@@ -118,12 +118,12 @@ const AdminProfile = props => {
                 <Image source={Icons.Avatar} style={styles.GenderImage_Style} />
               </View>
 
-              <TouchableOpacity
+              <View
                 onPress={() => {
                   // alert('edit');
                 }}>
-                <Image source={Icons.Pen} style={styles.Image_Style} />
-              </TouchableOpacity>
+                <View  style={styles.Image_Style} />
+              </View>
             </View>
 
             <Text style={styles.AdminName_Style}>{t('common:DrName')}</Text>
