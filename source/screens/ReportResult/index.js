@@ -36,24 +36,18 @@ const ReportResult = props => {
   const {t, i18n} = useTranslation();
   const [loading, setLoading] = useState(true);
 
-  const PersentageCalc = (res) => {
-    let totalQues = questionData.length;
+  const PersentageCalc = res => {
+    // let totalQues = questionData.length;
     // alert(JSON.stringify(questionData));
     let PersentageC = 0;
-    for (let i = 0; i < res.length; i++) {
-      res[i].answer == res[i].question?.isExist
+    for (let i = 0; i < questionData.length; i++) {
+      questionData[i].answer == questionData[i].question?.isExist
         ? (PersentageC += 1)
         : (PersentageC = PersentageC);
     }
-    setIndpersentage(
-      (PersentageC / (res.length == 0 ? 1 : res.length)) *
-        100,
-    );
-
-    console.error(
-      (PersentageC / (res.length == 0 ? 1 : res.length)) *
-        100,
-    );
+    setIndpersentage((PersentageC / (questionData.length == 0 ? 1 : questionData.length)) * 100);
+    // alert(PersentageC / (res.length == 0 ? 1 : res.length));
+    // console.error((PersentageC / (questionData.length == 0 ? 1 : questionData.length)) * 100);
   };
 
   const GetSpecifiecUserquis = async () => {
@@ -64,14 +58,16 @@ const ReportResult = props => {
       BookletInd,
       setquestionData,
       setDataRes,
-    ).then((res) => {
+    ).then(res => {
       // alert("res"+JSON.stringify(res));
       setTimeout(() => {
         PersentageCalc(res);
       }, 500);
     });
   };
-
+  useEffect(() => {
+    PersentageCalc()
+  }, [ questionData, setquestionData]);
   useEffect(() => {
     setLoading(true);
     try {
@@ -84,7 +80,7 @@ const ReportResult = props => {
       setError(true);
     }
     setLoading(false);
-  }, [setIndpersentage, Indpersentage,setquestionData]);
+  }, [setIndpersentage, Indpersentage, setquestionData]);
   const onRefresh = useCallback(async () => {
     setLoading(true);
     try {
@@ -96,7 +92,7 @@ const ReportResult = props => {
       setError(true);
     }
     setLoading(false);
-  }, [setIndpersentage, Indpersentage,setquestionData]);
+  }, [setIndpersentage, Indpersentage, setquestionData]);
   const renderContent = () => {
     if (loading === true) {
       return (
