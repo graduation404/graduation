@@ -20,7 +20,8 @@ const ModalQuiz = ({
       isVisible={modal}
       swipeDirection="down"
       onBackdropPress={() => {
-        setModal(false);
+        // setModal(false);
+        console.log("close")
       }}
       style={styles.modal}
       animationInTiming={600}

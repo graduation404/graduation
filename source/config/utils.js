@@ -3,7 +3,7 @@ import {ToastAndroid} from 'react-native';
 import {COLORS, SHADOW, SIZES} from './theme';
 import {useTranslation} from 'react-i18next';
 
-const baseURL = 'https://www.DrHearing.somee.com/api/';
+const baseURL = 'https://www.DrHearing1.somee.com/api/';
 export default axios.create({
   baseURL: baseURL,
   timeout: 30000,

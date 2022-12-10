@@ -37,7 +37,16 @@ const Home = props => {
         text: 'Delete',
         onPress: () => {
           DeleteSpecifiecUser(id);
-          GetAllUsers(setData, setError);
+          try {
+            GetAllUsers(setData, setError).then(() => {
+              setTimeout(() => {
+                setLoading(false);
+              }, 1000);
+            });
+            setError(false);
+          } catch (error) {
+            setError(true);
+          }
         },
       },
     ]);
@@ -53,7 +62,7 @@ const Home = props => {
   useEffect(() => {
     setLoading(true);
     let getData = async () => {
-      GetAllUsers(setData, setError).then(()=>{
+      GetAllUsers(setData, setError).then(() => {
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -74,7 +83,7 @@ const Home = props => {
     setLoading(true);
 
     try {
-      GetAllUsers(setData, setError).then(()=>{
+      GetAllUsers(setData, setError).then(() => {
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -114,7 +123,7 @@ const Home = props => {
     if (loading == true) {
       return (
         <View style={styles.indicatorContainer}>
-          <ActivityIndicator size="large" color={COLORS.blue} />
+          {/* <ActivityIndicator size="large" color={COLORS.blue} /> */}
         </View>
       );
     }
