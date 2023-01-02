@@ -11,6 +11,7 @@ import {
   View,
 } from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
+// import Tts from 'react-native-tts';
 import {
   HeaderQuiz,
   LevelContainer,
@@ -24,7 +25,7 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import {CreateUserquizs, GetQuizsInLevelAndBooklet} from '../../config/utils';
 import {useTranslation} from 'react-i18next';
 import ModalQuiz from '../../components/ModalQuiz';
-
+// import SpeechAndroid from 'react-native-android-voice';
 const Quiz = props => {
   const {t, i18n} = useTranslation();
   const {navigation} = props;
@@ -80,7 +81,7 @@ const Quiz = props => {
   useEffect(() => {
     setLoading(true);
     setQuiz(quizz);
-    console.log('q : ' + JSON.stringify(quizz));
+    // console.log('q : ' + JSON.stringify(quizz));
     setLoading(false);
   }, []);
 
@@ -89,7 +90,7 @@ const Quiz = props => {
     newQuiz = quiz;
     newQuiz[0].quizQuestions[numberQuestion].stopwatch = stopwatch;
     newQuiz[0].quizQuestions[numberQuestion].userAnswer = selectedAswer;
-    console.log(JSON.stringify(newQuiz));
+    // console.log(JSON.stringify(newQuiz));
     let answerObject = {
       userId: PatientInfo.id,
       questionId: quizz[0].quizQuestions[numberQuestion].questionId,
@@ -126,6 +127,9 @@ const Quiz = props => {
       );
     }
   };
+  // const speech = async textt => {
+  //   Tts.speak(textt)
+  // };
   return (
     <ScrollView style={{flexGrow: 1, backgroundColor: COLORS.white}}>
       <View style={styles.Container}>
@@ -195,7 +199,11 @@ const Quiz = props => {
               style={[
                 styles.textStyleBtn,
                 {color: COLORS.black, fontSize: SIZES.h2 + 4, marginTop: '8%'},
-              ]}>
+              ]}
+              // onPress={() => {
+              //   speech(quizz[0].quizQuestions[numberQuestion].question.title);
+              // }}
+              >
               {quizz[0].quizQuestions[numberQuestion].question.title}
             </Text>
             <View

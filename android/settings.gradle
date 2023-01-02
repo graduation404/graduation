@@ -12,3 +12,5 @@ if (settings.hasProperty("newArchEnabled") && settings.newArchEnabled == "true")
 }
 include ':react-native-restart'
 project(':react-native-restart').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-restart/android')
+include ':VoiceModule', ':app'
+project(':VoiceModule').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-android-voice-farsi')

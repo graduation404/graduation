@@ -13,6 +13,7 @@ import com.HearingApp.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 // react-native-splash-screen >= 0.3.1
+
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.facebook.react.modules.i18nmanager.I18nUtil;
 public class MainApplication extends Application implements ReactApplication {
