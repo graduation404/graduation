@@ -20,6 +20,8 @@ const Question = require('../assets/icons/question.png');
 const Test = require('../assets/icons/test.png');
 const User = require('../assets/icons/user.png');
 const Right = require('../assets/icons/right.png');
+const Settings = require('../assets/icons/settings.png');
+const Trash = require('../assets/icons/trash.png');
 
 const User1 = require('../assets/icons/user1.png');
 const Woman = require('../assets/icons/woman.png');
@@ -98,5 +100,7 @@ export default {
   Camera,
   Colors,
   Hearing,
-  Right
+  Right,
+  Settings,
+  Trash
 };

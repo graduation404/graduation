@@ -45,7 +45,10 @@ const ReportResult = props => {
         ? (PersentageC += 1)
         : (PersentageC = PersentageC);
     }
-    setIndpersentage((PersentageC / (questionData.length == 0 ? 1 : questionData.length)) * 100);
+    setIndpersentage(
+      (PersentageC / (questionData.length == 0 ? 1 : questionData.length)) *
+        100,
+    );
     // alert(PersentageC / (res.length == 0 ? 1 : res.length));
     // console.error((PersentageC / (questionData.length == 0 ? 1 : questionData.length)) * 100);
   };
@@ -66,8 +69,8 @@ const ReportResult = props => {
     });
   };
   useEffect(() => {
-    PersentageCalc()
-  }, [ questionData, setquestionData]);
+    PersentageCalc();
+  }, [questionData, setquestionData]);
   useEffect(() => {
     setLoading(true);
     try {
@@ -132,7 +135,9 @@ const ReportResult = props => {
     console.log(Indpersentage);
     return (
       <>
-        <ScrollView style={{height: SIZES.height}}>
+        <ScrollView
+          style={{height: SIZES.height + 30}}
+          contentContainerStyle={{height: SIZES.height + 30}}>
           <View style={styles.Top_Container}>
             <LevelContainer
               Persentage={25}
@@ -152,6 +157,7 @@ const ReportResult = props => {
           <View style={styles.bottom_Container}>
             <FlatList
               showsVerticalScrollIndicator={false}
+              // contentContainerStyle={{}}
               data={questionData}
               renderItem={({item, index}) => (
                 <>

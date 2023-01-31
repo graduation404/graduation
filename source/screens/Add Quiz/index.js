@@ -8,9 +8,9 @@ import {
   FlatList,
   TextInput,
   Alert,
-  ToastAndroid
+  ToastAndroid,
 } from 'react-native';
-import { Icons, Line, COLORS, sizes, SIZES, SPACING, SHADOW } from '../../config';
+import {Icons, Line, COLORS, sizes, SIZES, SPACING, SHADOW} from '../../config';
 import {
   LevelContainer,
   ModalColors,
@@ -18,19 +18,21 @@ import {
   SmallButton,
   StaticHeader,
 } from '../../components';
-import { RFPercentage } from 'react-native-responsive-fontsize';
-import { BookletContainer } from '../../components';
-import React, { useEffect, useState } from 'react';
-import { CreateQuiz } from '../../config/utils';
-import { handleAgeGroup } from '../../config/helperFunctions';
-import {useTranslation} from 'react-i18next'
+import {RFPercentage} from 'react-native-responsive-fontsize';
+import {BookletContainer} from '../../components';
+import React, {useEffect, useState} from 'react';
+import {CreateQuiz} from '../../config/utils';
+import {handleAgeGroup} from '../../config/helperFunctions';
+import {useTranslation} from 'react-i18next';
 
+import ModalQuests from './lib/modal';
 
-const AddQuiz = ({ route, navigation }) => {
-  const { ageGroup, ChooseBooklet, ChooseLevel, LevelLength } = route.params;
+const AddQuiz = ({route, navigation}) => {
+  const {ageGroup, ChooseBooklet, ChooseLevel, LevelLength} = route.params;
 
-  const { t , i18n} = useTranslation();
+  const {t, i18n} = useTranslation();
   const [modalColorVisible, setModalColorVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [modalImgVisible, setModalImgVisible] = useState(false);
   const [listColors, setlistColors] = useState([]);
   const [listImgs, setlistImgs] = useState([]);
@@ -50,124 +52,102 @@ const AddQuiz = ({ route, navigation }) => {
   const [QuestionInd, setQuestionInd] = useState(1);
 
   const AddQuestion = () => {
-    if (QuestionText == '' || clickedIndex == null && (listColors != [] || listImgs != [])) {
-
-      ToastAndroid.showWithGravity(t('common:ToastAndroidFillData'), 
-      ToastAndroid.LONG, ToastAndroid.BOTTOM)
+    if (
+      QuestionText == '' ||
+      (clickedIndex == null && (listColors != [] || listImgs != []))
+    ) {
+      ToastAndroid.showWithGravity(
+        t('common:ToastAndroidFillData'),
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+      );
     } else {
       let new_item = {
-        question:
-        {
+        question: {
           title: QuestionText,
           colors: listColors.length == 0 ? null : listColors,
           images: listImgs.length == 0 ? null : listImgs,
-          isExist: selectedAswer ? true : false
-        }
+          isExist: selectedAswer ? true : false,
+        },
       };
       Questions.push(new_item);
 
       setQuestionInd(QuestionInd + 1);
       setQuestionText('');
-      setlistColors([])
-      setlistImgs([])
+      setlistColors([]);
+      setlistImgs([]);
       setclickedIndex(null);
-
-
     }
   };
 
-
-  useEffect(() => {
-    // ageGroup
-    // console.log(ageGroup)
-  }, [])
-
   const SendQuestions = () => {
-
-    if (QuestionText == '' || clickedIndex == null && (listColors != [] || listImgs != [])) {
+    if (
+      QuestionText == '' ||
+      (clickedIndex == null && (listColors != [] || listImgs != []))
+    ) {
       if (Questions.length == 0) {
-        Alert.alert("Warning",
-          t("common:AlertDeleteUser"),
-          [
-            {
-              text: t("common:CancleAlert"),
-            },
-            {
-              text:t("common:SubmitAlert"),
-              onPress: () => navigation.navigate('Home')
-            },
-          ],
-        );
-      }
-      else {
-        setloadingBtn(true)
+        Alert.alert('Warning', t('common:AlertDeleteUser'), [
+          {
+            text: t('common:CancleAlert'),
+          },
+          {
+            text: t('common:SubmitAlert'),
+            onPress: () => navigation.navigate('Home'),
+          },
+        ]);
+      } else {
+        setloadingBtn(true);
         try {
-          CreateQuiz(
-            {
-              level: ChooseLevel,
-              booklet: ChooseBooklet,
-              ageGroup: ageGroup,
-              quizQuestions: Questions
-  
-            }
-          )
+          CreateQuiz({
+            level: ChooseLevel,
+            booklet: ChooseBooklet,
+            ageGroup: ageGroup,
+            quizQuestions: Questions,
+          });
         } catch (error) {
           ToastAndroid.showWithGravity(
-              t("common:ToastAndroidTryAgain"),
+            t('common:ToastAndroidTryAgain'),
             ToastAndroid.LONG,
             ToastAndroid.BOTTOM,
           );
         }
-        
-        setloadingBtn(false)
-        navigation.navigate('Home')
-      }
 
+        setloadingBtn(false);
+        navigation.navigate('Home');
+      }
     } else {
-      if (QuestionText == '' || clickedIndex == null && (listColors != [] || listImgs != [])) {
-              navigation.navigate('Home')
+      if (
+        QuestionText == '' ||
+        (clickedIndex == null && (listColors != [] || listImgs != []))
+      ) {
+        navigation.navigate('Home');
       } else {
         let new_item = {
-          question:
-          {
+          question: {
             title: QuestionText,
             colors: listColors.length == 0 ? null : listColors,
             images: listImgs.length == 0 ? null : listImgs,
-            isExist: selectedAswer ? true : false
-          }
+            isExist: selectedAswer ? true : false,
+          },
         };
         Questions.push(new_item);
-  
+
         setQuestionInd(QuestionInd + 1);
         setQuestionText('');
-        setlistColors([])
-        setlistImgs([])
+        setlistColors([]);
+        setlistImgs([]);
         setclickedIndex(null);
-  
-  
-        CreateQuiz(
-          {
-            level: ChooseLevel,
-            booklet: ChooseBooklet,
-            ageGroup: ageGroup,
-            quizQuestions: Questions
 
-          }
-        )
-        navigation.navigate('Home')
-      
+        CreateQuiz({
+          level: ChooseLevel,
+          booklet: ChooseBooklet,
+          ageGroup: ageGroup,
+          quizQuestions: Questions,
+        });
+        navigation.navigate('Home');
       }
     }
-
-
-
-  }
-
-
-  useEffect(() => {
-    // console.log(Questions)
-  });
-
+  };
 
   const RowContainerTypeData = () => (
     <View style={styles.rowContainerTypeData}>
@@ -203,10 +183,35 @@ const AddQuiz = ({ route, navigation }) => {
   return (
     <>
       <View style={styles.Container}>
+        <ModalQuests
+          visible={modalVisible}
+          setModalVisible={setModalVisible}
+          data={Questions}
+          setQuestions={setQuestions}
+        />
         <StaticHeader
           Header_name={t('common:AddQuizPageTitle')}
-          style={{ backgroundColor: '#A3DEFF' }}
+          style={{backgroundColor: '#A3DEFF'}}
         />
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            right: 10,
+            width: 50,
+            height: 50,
+            // backgroundColor: COLORS.blue,
+            top: 15,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onPress={() => setModalVisible(prev => !prev)}>
+          <Image
+            source={Icons.Settings}
+            style={styles.iconBtn}
+            // source={Icons.Colors}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
         <View style={styles.Top_Container}>
           <BookletContainer
             Text={'(' + YearsValue + ')' + t('common:Years')}
@@ -218,14 +223,16 @@ const AddQuiz = ({ route, navigation }) => {
             Image={Icons.Signal}
           />
           <BookletContainer
-            Text={t('common:Booklet')+ BookletIndex}
+            Text={t('common:Booklet') + BookletIndex}
             Image={Icons.Books}
           />
         </View>
         <ScrollView>
-          <Text style={styles.WordQuestion}>{t('common:Question')} {QuestionInd} </Text>
+          <Text style={styles.WordQuestion}>
+            {t('common:Question')} {QuestionInd}{' '}
+          </Text>
 
-          <View style={{ padding: RFPercentage(2) }}>
+          <View style={{padding: RFPercentage(2)}}>
             <Text style={styles.HeadText}>{t('common:AddQuestion')}</Text>
             <TextInput
               value={QuestionText}
@@ -243,12 +250,12 @@ const AddQuiz = ({ route, navigation }) => {
               }}
               style={[
                 styles.TextInputStyle,
-                { borderColor: isFocused ? COLORS.blue : COLORS.white },
+                {borderColor: isFocused ? COLORS.blue : COLORS.white},
               ]}
             />
           </View>
 
-          <View style={{ padding: RFPercentage(2) }}>
+          <View style={{padding: RFPercentage(2)}}>
             <Text style={styles.HeadText}>{t('common:Answer')}</Text>
             <View
               style={[
@@ -265,8 +272,8 @@ const AddQuiz = ({ route, navigation }) => {
                       clickedIndex == null
                         ? COLORS.white
                         : clickedIndex == 0
-                          ? COLORS.white
-                          : COLORS.gray,
+                        ? COLORS.white
+                        : COLORS.gray,
                   },
                 ]}
                 onPress={() => {
@@ -284,8 +291,8 @@ const AddQuiz = ({ route, navigation }) => {
                       clickedIndex == null
                         ? COLORS.white
                         : clickedIndex == 0
-                          ? COLORS.gray
-                          : COLORS.white,
+                        ? COLORS.gray
+                        : COLORS.white,
                   },
                 ]}
                 onPress={() => {
@@ -294,14 +301,16 @@ const AddQuiz = ({ route, navigation }) => {
                 }}>
                 <Image
                   source={Icons.Cancel}
-                  style={[styles.checkAswerStyle, { height: SPACING.l }]}
+                  style={[styles.checkAswerStyle, {height: SPACING.l}]}
                 />
               </TouchableOpacity>
             </View>
           </View>
 
-          <View style={{ padding: RFPercentage(2) }}>
-            <Text style={styles.HeadText}>{t('common:ChooseColorsOrImages')}</Text>
+          <View style={{padding: RFPercentage(2)}}>
+            <Text style={styles.HeadText}>
+              {t('common:ChooseColorsOrImages')}
+            </Text>
             <RowContainerTypeData />
           </View>
           <View style={styles.ButtonsContainer}>
@@ -314,13 +323,13 @@ const AddQuiz = ({ route, navigation }) => {
             />
             <SmallButton
               onPress={() => {
-                SendQuestions()
+                SendQuestions();
               }}
               Loading={loadingBtn}
               Text={t('common:Done')}
-              style={styles.SmallButton} />
+              style={styles.SmallButton}
+            />
           </View>
-
 
           <ModalColors
             modalColorVisible={modalColorVisible}
@@ -363,7 +372,7 @@ const styles = StyleSheet.create({
     fontSize: RFPercentage(3.5),
     fontWeight: 'bold',
     marginTop: RFPercentage(1),
-    color:COLORS.darkGray
+    color: COLORS.darkGray,
   },
   HeadText: {
     fontSize: RFPercentage(3),

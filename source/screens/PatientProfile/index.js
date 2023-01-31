@@ -32,37 +32,37 @@ const PatientProfile = props => {
   const navigation = useNavigation();
   const { t , i18n} = useTranslation();
   const {PatientInfo, hours, date} = props.route.params;
-  const [name, setName] = useState(PatientInfo.name);
+  const [name, setName] = useState(PatientInfo?.name);
   // const [id, setid] = useState(582222);
-  console.log(JSON.stringify(PatientInfo))
-  const [age, setage] = useState(PatientInfo.age);
+  // console.log(JSON.stringify(PatientInfo))
+  const [age, setage] = useState(PatientInfo?.age);
   const [Time, setTime] = useState(subtime(PatientInfo));
   const [Date, setDate] = useState(subDate(PatientInfo));
   const [Range, setRange] = useState(Range_Function(age));
   const [PatientsDataValue, setPatientsDataValue] = useState([
     {
       name: 'Dual Average',
-      Percentage: PatientInfo.dualAverage== 0 ? 1 : PatientInfo.dualAverage,
+      Percentage: PatientInfo?.dualAverage== 0 ? 1 : PatientInfo?.dualAverage,
       image: Icons.PointHand,
     },
     {
       name: 'Base Line',
-      Percentage: PatientInfo.baseLine== 0 ? 1 : PatientInfo.baseLine,
+      Percentage: PatientInfo?.baseLine== 0 ? 1 : PatientInfo?.baseLine,
       image: Icons.PointHand,
     },
     {
       name: t('common:EnterHearingLevelRight'),
-      Percentage: PatientInfo.hearingLevelRight== 0 ? 1 : PatientInfo.hearingLevelRight,
+      Percentage: PatientInfo?.hearingLevelRight== 0 ? 1 : PatientInfo?.hearingLevelRight,
       image: Icons.PointHand,
     },
     {
       name: t('common:EnterHearingLevelLeft'),
-      Percentage: PatientInfo.hearingLevelLeft== 0 ? 1 : PatientInfo.hearingLevelLeft,
+      Percentage: PatientInfo?.hearingLevelLeft== 0 ? 1 : PatientInfo?.hearingLevelLeft,
       image: Icons.PointHand,
     },
     {
       name:"Reaction Time Average",
-      Percentage: PatientInfo.reactionTimeAverage== 0 ? 1 : PatientInfo.reactionTimeAverage,
+      Percentage: PatientInfo?.reactionTimeAverage== 0 ? 1 : PatientInfo?.reactionTimeAverage,
       image: Icons.PointHand,
     },
   ]);
@@ -102,10 +102,10 @@ const PatientProfile = props => {
 
               <View style={styles.Image_Container}>
                 <Image
-                  source={PatientInfo.gender == '1' ? Icons.Male : Icons.Woman}
+                  source={PatientInfo?.gender == '1' ? Icons.Male : Icons.Woman}
                   style={[
                     styles.GenderImage_Style,
-                    {tintColor: PatientInfo.gender == '1' ? COLORS.blue : null},
+                    {tintColor: PatientInfo?.gender == '1' ? COLORS.blue : null},
                   ]}
                 />
               </View>
@@ -114,7 +114,7 @@ const PatientProfile = props => {
               </View>
             </View>
 
-            <Text style={styles.name_Style}>{PatientInfo.name}</Text>
+            <Text style={styles.name_Style}>{PatientInfo?.name}</Text>
             <View style={styles.last_Container_View}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Image

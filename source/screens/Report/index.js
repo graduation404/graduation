@@ -20,7 +20,7 @@ import * as Animatable from 'react-native-animatable';
 import {useTranslation} from 'react-i18next';
 
 const Report = props => {
-  const { t , i18n} = useTranslation();
+  const {t, i18n} = useTranslation();
   const {PatientInfo, Persentage} = props.route.params;
   const [name, setName] = useState(PatientInfo.name);
   const [id, setid] = useState(582222);
@@ -54,7 +54,6 @@ const Report = props => {
       Image: Icons.Signal,
       Persentage: 100,
     },
-   
   ]);
   const [Levelslength, setLevelslength] = useState(LevelsArray.length);
   const [BookletArray, setBookletArray] = useState([
@@ -66,7 +65,7 @@ const Report = props => {
           Image: Icons.Books,
         },
         {
-          Text:t('common:Booklet2'),
+          Text: t('common:Booklet2'),
           Image: Icons.Books,
         },
         {
@@ -81,7 +80,6 @@ const Report = props => {
           Text: t('common:Booklet5'),
           Image: Icons.Books,
         },
-       
       ],
     },
     {
@@ -92,7 +90,7 @@ const Report = props => {
           Image: Icons.Books,
         },
         {
-          Text:t('common:Booklet2'),
+          Text: t('common:Booklet2'),
           Image: Icons.Books,
         },
         {
@@ -107,7 +105,6 @@ const Report = props => {
           Text: t('common:Booklet5'),
           Image: Icons.Books,
         },
-       
       ],
     },
     {
@@ -118,7 +115,7 @@ const Report = props => {
           Image: Icons.Books,
         },
         {
-          Text:t('common:Booklet2'),
+          Text: t('common:Booklet2'),
           Image: Icons.Books,
         },
         {
@@ -133,7 +130,6 @@ const Report = props => {
           Text: t('common:Booklet5'),
           Image: Icons.Books,
         },
-       
       ],
     },
     {
@@ -144,7 +140,7 @@ const Report = props => {
           Image: Icons.Books,
         },
         {
-          Text:t('common:Booklet2'),
+          Text: t('common:Booklet2'),
           Image: Icons.Books,
         },
         {
@@ -159,7 +155,6 @@ const Report = props => {
           Text: t('common:Booklet5'),
           Image: Icons.Books,
         },
-       
       ],
     },
     {
@@ -170,7 +165,7 @@ const Report = props => {
           Image: Icons.Books,
         },
         {
-          Text:t('common:Booklet2'),
+          Text: t('common:Booklet2'),
           Image: Icons.Books,
         },
         {
@@ -185,7 +180,6 @@ const Report = props => {
           Text: t('common:Booklet5'),
           Image: Icons.Books,
         },
-       
       ],
     },
     {
@@ -196,7 +190,7 @@ const Report = props => {
           Image: Icons.Books,
         },
         {
-          Text:t('common:Booklet2'),
+          Text: t('common:Booklet2'),
           Image: Icons.Books,
         },
         {
@@ -211,7 +205,6 @@ const Report = props => {
           Text: t('common:Booklet5'),
           Image: Icons.Books,
         },
-       
       ],
     },
   ]);
@@ -299,13 +292,15 @@ const Report = props => {
                 <View style={styles.DataContainer}>
                   <Text style={styles.name_Style}>{name}</Text>
                   <Text style={styles.id_Style}>id: {id}</Text>
-                  <Text style={styles.Age_Text}>{age} {t('common:Years')}</Text>
+                  <Text style={styles.Age_Text}>
+                    {age} {t('common:Years')}
+                  </Text>
                 </View>
               </View>
               <TouchableOpacity
                 style={styles.backIconStyle}
                 onPress={() => {
-                  props.navigation.navigate('PatientProfile');
+                  props.navigation.navigate('PatientProfile', {PatientInfo});
                 }}>
                 <Image source={Icons.Next} style={styles.Image_Style} />
               </TouchableOpacity>
@@ -315,7 +310,9 @@ const Report = props => {
 
             <View style={styles.MainOnline_View}>
               <View style={styles.online_View} />
-              <Text style={styles.online_Text}>{t('common:ReportisActive')}</Text>
+              <Text style={styles.online_Text}>
+                {t('common:ReportisActive')}
+              </Text>
             </View>
           </>
         }
@@ -326,7 +323,7 @@ const Report = props => {
   return (
     <>
       <View style={styles.container}>
-        <StaticHeader Header_name={t('common:Report')}/>
+        <StaticHeader Header_name={t('common:Report')} />
 
         <CardView />
 
