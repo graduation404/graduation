@@ -116,18 +116,21 @@ export const CreateUser = async userData => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Creating a quiz
-export const CreateQuiz = async quizData => {
+export const CreateQuiz = async (quizData,navigation) => {
   // const { t , i18n} = useTranslation();
   try {
     const {data} = await axios.post(baseURL + '/quizs', quizData);
+    // console.log(JSON.stringify(data));
     ToastAndroid.showWithGravity(
       'Created',
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
     );
+    navigation.navigate('Home');
+
     return data;
   } catch (error) {
-    console.log('error Create quiz', error.response);
+    console.log('error Create quiz', error);
     let message = '';
     if (error.response !== undefined) {
       message = error.response;

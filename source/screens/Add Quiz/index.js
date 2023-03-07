@@ -103,7 +103,7 @@ const AddQuiz = ({route, navigation}) => {
             booklet: ChooseBooklet,
             ageGroup: ageGroup,
             quizQuestions: Questions,
-          });
+          },navigation);
         } catch (error) {
           ToastAndroid.showWithGravity(
             t('common:ToastAndroidTryAgain'),
@@ -113,14 +113,12 @@ const AddQuiz = ({route, navigation}) => {
         }
 
         setloadingBtn(false);
-        navigation.navigate('Home');
       }
     } else {
       if (
         QuestionText == '' ||
         (clickedIndex == null && (listColors != [] || listImgs != []))
       ) {
-        navigation.navigate('Home');
       } else {
         let new_item = {
           question: {
@@ -143,8 +141,7 @@ const AddQuiz = ({route, navigation}) => {
           booklet: ChooseBooklet,
           ageGroup: ageGroup,
           quizQuestions: Questions,
-        });
-        navigation.navigate('Home');
+        },navigation);
       }
     }
   };
