@@ -4,9 +4,11 @@ import {
   View,
   ScrollView,
   Image,
+  Dimensions,
   FlatList,
   ActivityIndicator,
 } from 'react-native';
+const {width, height} = Dimensions.get('screen');
 import {Icons, COLORS, SIZES, SHADOW} from '../../config';
 import {
   LevelContainer,
@@ -135,9 +137,7 @@ const ReportResult = props => {
     console.log(Indpersentage);
     return (
       <>
-        <ScrollView
-          style={{height: SIZES.height + 30}}
-          contentContainerStyle={{height: SIZES.height + 30}}>
+        <ScrollView>
           <View style={styles.Top_Container}>
             <LevelContainer
               Persentage={25}
@@ -213,6 +213,7 @@ const ReportResult = props => {
             Text="Done"
             style={{alignSelf: 'center'}}
           />
+          <Text style={{marginBottom: height * 0.15}}>.</Text>
         </ScrollView>
       </>
     );

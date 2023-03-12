@@ -20,13 +20,20 @@ const PatientsDataContainer = props => {
             <Text style={styles.name_Style}>{props.name}</Text>
             {props.Percentage ? (
               <>
-                <Text style={styles.Percentage_Style}>{props.Percentage}%</Text>
-                <Slider
-                  elevation={4}
-                  width="95%"
-                  backgroundColor={COLORS.blue}
-                  Value={props.Percentage ? props.Percentage : 0}
-                />
+                <View
+                  style={{
+                    flexDirection: 'row',
+                  }}>
+                  <Text style={styles.Percentage_Style}>
+                    {props.Percentage}%
+                  </Text>
+                  <Slider
+                    elevation={4}
+                    width="90%"
+                    backgroundColor={COLORS.blue}
+                    Value={props.Percentage ? props.Percentage : 0}
+                  />
+                </View>
               </>
             ) : null}
           </View>
@@ -41,13 +48,22 @@ const PatientsDataContainer = props => {
             <Text style={styles.name_Style}>{props.name}</Text>
             {props.Percentage ? (
               <>
-                <Text style={styles.Percentage_Style}>{props.Percentage}%</Text>
-                <Slider
-                  elevation={4}
-                  width="90%"
-                  backgroundColor={COLORS.blue}
-                  Value={props?.Percentage}
-                />
+                <View
+                  style={{
+                    flexDirection: 'row-reverse',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <Text style={styles.Percentage_Style}>
+                    {props.Percentage}%
+                  </Text>
+                  <Slider
+                    elevation={4}
+                    width="90%"
+                    backgroundColor={COLORS.blue}
+                    Value={props?.Percentage}
+                  />
+                </View>
               </>
             ) : null}
           </View>

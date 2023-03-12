@@ -134,7 +134,6 @@ const AddQuiz = ({route, navigation}) => {
         let newQ = [...Questions, {new_item}];
         Questions.push(new_item);
 
-        
         CreateQuiz(
           {
             level: ChooseLevel,
@@ -143,19 +142,19 @@ const AddQuiz = ({route, navigation}) => {
             quizQuestions: newQ,
           },
           navigation,
-          setEmpty
+          setEmpty,
         );
       }
     }
   };
-const setEmpty=()=>{
-  setQuestionInd(QuestionInd + 1);
-  setQuestionText('');
-  setlistColors([]);
-  setlistImgs([]);
-  setclickedIndex(null);
 
-}
+  const setEmpty = () => {
+    setQuestionInd(QuestionInd + 1);
+    setQuestionText('');
+    setlistColors([]);
+    setlistImgs([]);
+    setclickedIndex(null);
+  };
   const RowContainerTypeData = () => (
     <View style={styles.rowContainerTypeData}>
       <TouchableOpacity

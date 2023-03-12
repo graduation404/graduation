@@ -62,7 +62,6 @@ const GroupLevel = [
     label: '5',
     value: 5,
   },
- 
 ];
 const GroupBooklet = [
   {
@@ -85,11 +84,10 @@ const GroupBooklet = [
     label: '5',
     value: 5,
   },
- 
 ];
 
 const ChooseDataQuiz = props => {
-  const { t , i18n} = useTranslation();
+  const {t, i18n} = useTranslation();
   const [Loading, setLoading] = useState(false);
   const [OpenageGroupList, setOpenageGroupList] = useState(false);
   const [ageGroupValue, setAgeGroupValue] = useState('');
@@ -97,8 +95,6 @@ const ChooseDataQuiz = props => {
   const [ChooseLevelValue, setChooseLevelValue] = useState('');
   const [OpenChooseBooklet, setOpenChooseBooklet] = useState(false);
   const [ChooseBookletValue, setChooseBookletValue] = useState('');
-
-
 
   const ClickedFun = () => {
     var lengthe, QuizId;
@@ -118,9 +114,11 @@ const ChooseDataQuiz = props => {
             ChooseBookletValue == '' ||
             ChooseLevelValue == ''
           ) {
-            ToastAndroid.showWithGravity(t('common:ToastAndroidFillData'), 
-            ToastAndroid.LONG, ToastAndroid.BOTTOM)
-           
+            ToastAndroid.showWithGravity(
+              t('common:ToastAndroidFillData'),
+              ToastAndroid.LONG,
+              ToastAndroid.BOTTOM,
+            );
           } else {
             props.navigation.navigate('AddQuiz', {
               ageGroup: ageGroupValue,
@@ -130,35 +128,31 @@ const ChooseDataQuiz = props => {
             });
           }
         } else {
-          Alert.alert("Warning",
-           t('common:ThereisQuestionsinThisBooklet'),
-            [
-              {
-                text: t("common:CancleAlert"),
+          Alert.alert('Warning', t('common:ThereisQuestionsinThisBooklet'), [
+            {
+              text: t('common:CancleAlert'),
+            },
+            {
+              text: t('common:RepalceAlert'),
+              onPress: () => {
+                DeleteSpecifiecQuiz(QuizId);
+                props.navigation.navigate('AddQuiz', {
+                  ageGroup: ageGroupValue,
+                  ChooseBooklet: ChooseBookletValue,
+                  ChooseLevel: ChooseLevelValue,
+                  LevelLength: GroupLevel.length,
+                });
               },
-              {
-                text:t("common:RepalceAlert"),
-                onPress: () => {
-                  DeleteSpecifiecQuiz(QuizId);
-                  props.navigation.navigate(
-                    'AddQuiz',
-                    {
-                      ageGroup: ageGroupValue,
-                      ChooseBooklet: ChooseBookletValue,
-                      ChooseLevel: ChooseLevelValue,
-                      LevelLength: GroupLevel.length,
-                    },
-                  );
-                },
-              },
-            ],
-          );
+            },
+          ]);
           // alert(QuizId)
         }
+      })
+      .catch(error => {
+        console.log(JSON.stringify(error));
       });
   };
 
- 
   return (
     <>
       {/* {Loading ?
@@ -228,7 +222,6 @@ const ChooseDataQuiz = props => {
           onPress={() => {
             ClickedFun();
           }}
-     
         />
       </View>
     </>

@@ -38,7 +38,7 @@ const ProgressQuiz = props => {
         animated={true}
         allowFontScaling
         color={COLORS.blue}
-        progress={props.Persentage / 100}
+        progress={parseFloat(props.Persentage).toFixed(2) / 100}
         showsText={true}
         textStyle={{
           color: COLORS.blue,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     marginVertical: RFPercentage(2.5),
     marginLeft: RFPercentage(2.25),
     elevation: 10,
-    backgroundColor:COLORS.white
+    backgroundColor: COLORS.white,
   },
   LevelImage: {
     height: RFPercentage(4),

@@ -30,7 +30,7 @@ import {subDate, subtime} from '../../config/helperFunctions';
 
 const PatientProfile = props => {
   const navigation = useNavigation();
-  const { t , i18n} = useTranslation();
+  const {t, i18n} = useTranslation();
   const {PatientInfo, hours, date} = props.route.params;
   const [name, setName] = useState(PatientInfo?.name);
   // const [id, setid] = useState(582222);
@@ -42,27 +42,34 @@ const PatientProfile = props => {
   const [PatientsDataValue, setPatientsDataValue] = useState([
     {
       name: 'Dual Average',
-      Percentage: PatientInfo?.dualAverage== 0 ? 1 : PatientInfo?.dualAverage,
+      Percentage: PatientInfo?.dualAverage == 0 ? 1 : PatientInfo?.dualAverage,
       image: Icons.PointHand,
     },
     {
       name: 'Base Line',
-      Percentage: PatientInfo?.baseLine== 0 ? 1 : PatientInfo?.baseLine,
+      Percentage: PatientInfo?.baseLine == 0 ? 1 : PatientInfo?.baseLine,
       image: Icons.PointHand,
     },
     {
       name: t('common:EnterHearingLevelRight'),
-      Percentage: PatientInfo?.hearingLevelRight== 0 ? 1 : PatientInfo?.hearingLevelRight,
+      Percentage:
+        PatientInfo?.hearingLevelRight == 0
+          ? 1
+          : PatientInfo?.hearingLevelRight,
       image: Icons.PointHand,
     },
     {
       name: t('common:EnterHearingLevelLeft'),
-      Percentage: PatientInfo?.hearingLevelLeft== 0 ? 1 : PatientInfo?.hearingLevelLeft,
+      Percentage:
+        PatientInfo?.hearingLevelLeft == 0 ? 1 : PatientInfo?.hearingLevelLeft,
       image: Icons.PointHand,
     },
     {
-      name:"Reaction Time Average",
-      Percentage: PatientInfo?.reactionTimeAverage== 0 ? 1 : PatientInfo?.reactionTimeAverage,
+      name: 'Reaction Time Average',
+      Percentage:
+        PatientInfo?.reactionTimeAverage == 0
+          ? 1
+          : PatientInfo?.reactionTimeAverage,
       image: Icons.PointHand,
     },
   ]);
@@ -105,12 +112,17 @@ const PatientProfile = props => {
                   source={PatientInfo?.gender == '1' ? Icons.Male : Icons.Woman}
                   style={[
                     styles.GenderImage_Style,
-                    {tintColor: PatientInfo?.gender == '1' ? COLORS.blue : null},
+                    {
+                      tintColor:
+                        PatientInfo?.gender == '1' ? COLORS.blue : null,
+                    },
                   ]}
                 />
               </View>
               <View style={{alignItems: 'flex-end'}}>
-                <Text style={styles.Age_Text}>{age} {t('common:Years')} </Text>
+                <Text style={styles.Age_Text}>
+                  {age} {t('common:Years')}{' '}
+                </Text>
               </View>
             </View>
 
@@ -127,6 +139,7 @@ const PatientProfile = props => {
                       fontSize: SIZES.h4,
                       fontWeight: 'bold',
                       color: COLORS.blue,
+                      marginHorizontal: 5,
                     },
                   ]}>
                   {' '}
@@ -145,6 +158,7 @@ const PatientProfile = props => {
                       fontSize: SIZES.h4,
                       fontWeight: 'bold',
                       color: COLORS.blue,
+                      marginHorizontal: 5,
                     },
                   ]}>
                   {' '}
@@ -158,14 +172,9 @@ const PatientProfile = props => {
     );
   };
 
-
-
   return (
     <View style={styles.Container}>
-      <HeaderProfile
-      
-        Header_name={t('common:PatientProfile')}
-      />
+      <HeaderProfile Header_name={t('common:PatientProfile')} />
 
       <CardList />
 
@@ -251,7 +260,7 @@ const styles = StyleSheet.create({
     marginTop: RFPercentage(1),
   },
   name_Style: {
-    fontSize: RFPercentage(3),
+    fontSize: RFPercentage(2.5),
     fontWeight: 'bold',
     color: COLORS.blue,
     marginTop: RFPercentage(2),

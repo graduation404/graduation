@@ -15,17 +15,17 @@ export const SIZES = {
   width,
   height,
   title: RFPercentage(3.1),
-  h1:RFPercentage(2.35),
-  h2: RFPercentage(2.15),
-  h3: RFPercentage(2.1),
-  h4: RFPercentage(1.5),
-  h5: RFPercentage(1.35),
+  h1: RFPercentage(2.3),
+  h2: RFPercentage(2.12),
+  h3: RFPercentage(2),
+  h4: RFPercentage(1.3),
+  h5: RFPercentage(1.3),
   body: 12,
   Lradius: 50,
   Sradius: 12,
   avatar: RFValue(60),
-  subTitle:RFValue(11),
-  inputHeight:RFValue(50)
+  subTitle: RFValue(11),
+  inputHeight: RFValue(50),
 };
 
 export const SHADOW = {

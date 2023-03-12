@@ -13,7 +13,7 @@ import {COLORS, Icons, SIZES, SPACING} from '../../config';
 import {SmallButton} from '../Buttons';
 import ColorPicker from 'react-native-wheel-color-picker';
 // Import Image Picker
-import {useTranslation} from 'react-i18next'
+import {useTranslation} from 'react-i18next';
 import ImagePicker from 'react-native-image-crop-picker';
 const ModalImgs = ({
   modalImgVisible,
@@ -21,7 +21,7 @@ const ModalImgs = ({
   listImgs,
   setlistImgs,
 }) => {
-  const { t , i18n} = useTranslation();
+  const {t, i18n} = useTranslation();
   const chooseFile = () => {
     ImagePicker.openPicker({
       width: 300,
@@ -32,7 +32,11 @@ const ModalImgs = ({
       // console.log(images);
       setlistImgs(prev => [
         ...prev,
-        {imageBase64: images.data, Mime: images.mime},
+        // {imageBase64: images.data, Mime: images.mime},
+        {
+          fileName: images.path.slice(indexOf('picker') + 7),
+          bindingFile: images,
+        },
       ]);
     });
   };

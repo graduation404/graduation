@@ -1,35 +1,43 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import React, { useState } from 'react';
-import { COLORS, SIZES, SPACING, SHADOW, Icons, Range_Function } from '../../config';
-import { RFPercentage } from 'react-native-responsive-fontsize';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {
+  COLORS,
+  SIZES,
+  SPACING,
+  SHADOW,
+  Icons,
+  Range_Function,
+} from '../../config';
+import {RFPercentage} from 'react-native-responsive-fontsize';
 import {useTranslation} from 'react-i18next';
-const CardHome = ({ item, index, nav, hours, date,onPressDelete }) => {
-  const { t , i18n} = useTranslation();
-  const [Range, setRange] = useState(Range_Function(item.age))
+const CardHome = ({item, index, nav, hours, date, onPressDelete}) => {
+  const {t, i18n} = useTranslation();
+  const [Range, setRange] = useState(Range_Function(item.age));
   return (
     <View style={styles.Container}>
       <View style={styles.topContainer}>
         <View style={styles.leftTopSubContainer}>
           <View style={styles.IconContainer}>
-            <Image style={styles.IconStyle} source={item.gender == 1 ? Icons.Male : Icons.Woman} />
+            <Image
+              style={styles.IconStyle}
+              source={item.gender == 1 ? Icons.Male : Icons.Woman}
+            />
           </View>
         </View>
         <View style={styles.rightTopSubContainer}>
           <View style={styles.subContainerTitleAge}>
             <View>
-              <Text style={[styles.subTextStyle, { color: COLORS.blue }]}>
+              <Text style={[styles.subTextStyle, {color: COLORS.blue}]}>
                 {item.name}
               </Text>
             </View>
             <View>
               <View style={styles.subContainerAge}>
-                <Text style={[styles.subTextStyle, { color: COLORS.blue }]}>
+                <Text style={[styles.subTextStyle, {color: COLORS.blue}]}>
                   {Range}
                 </Text>
               </View>
-           
             </View>
-
           </View>
           <Text
             style={[
@@ -88,14 +96,18 @@ const CardHome = ({ item, index, nav, hours, date,onPressDelete }) => {
         <TouchableOpacity
           style={styles.subContainerAge}
           onPress={() => {
-            nav.navigation.navigate('PatientProfile', { PatientInfo: item });
+            nav.navigation.navigate('PatientProfile', {PatientInfo: item});
           }}>
-          <Text style={[styles.subTextStyle, { color: COLORS.blue }]}>{t('common:Visit')}</Text>
+          <Text style={[styles.subTextStyle, {color: COLORS.blue}]}>
+            {t('common:Visit')}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.subContainerAge,{backgroundColor:'#e51c3f'}]}
+          style={[styles.subContainerAge, {backgroundColor: '#e51c3f'}]}
           onPress={onPressDelete}>
-          <Text style={[styles.subTextStyle, { color: COLORS.white }]}>{t('common:Delete')}</Text>
+          <Text style={[styles.subTextStyle, {color: COLORS.white}]}>
+            {t('common:Delete')}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -115,8 +127,7 @@ const styles = StyleSheet.create({
       overflow: 'hidden',
       padding: 0,
       marginVertical: SPACING.s,
-      marginLeft: "1%"
-
+      marginLeft: '1%',
     },
     SHADOW.dark,
   ],
