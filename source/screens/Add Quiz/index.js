@@ -98,12 +98,15 @@ const AddQuiz = ({route, navigation}) => {
       } else {
         setloadingBtn(true);
         try {
-          CreateQuiz({
-            level: ChooseLevel,
-            booklet: ChooseBooklet,
-            ageGroup: ageGroup,
-            quizQuestions: Questions,
-          },navigation);
+          CreateQuiz(
+            {
+              level: ChooseLevel,
+              booklet: ChooseBooklet,
+              ageGroup: ageGroup,
+              quizQuestions: Questions,
+            },
+            navigation,
+          );
         } catch (error) {
           ToastAndroid.showWithGravity(
             t('common:ToastAndroidTryAgain'),
@@ -128,24 +131,31 @@ const AddQuiz = ({route, navigation}) => {
             isExist: selectedAswer ? true : false,
           },
         };
+        let newQ = [...Questions, {new_item}];
         Questions.push(new_item);
 
-        setQuestionInd(QuestionInd + 1);
-        setQuestionText('');
-        setlistColors([]);
-        setlistImgs([]);
-        setclickedIndex(null);
-
-        CreateQuiz({
-          level: ChooseLevel,
-          booklet: ChooseBooklet,
-          ageGroup: ageGroup,
-          quizQuestions: Questions,
-        },navigation);
+        
+        CreateQuiz(
+          {
+            level: ChooseLevel,
+            booklet: ChooseBooklet,
+            ageGroup: ageGroup,
+            quizQuestions: newQ,
+          },
+          navigation,
+          setEmpty
+        );
       }
     }
   };
+const setEmpty=()=>{
+  setQuestionInd(QuestionInd + 1);
+  setQuestionText('');
+  setlistColors([]);
+  setlistImgs([]);
+  setclickedIndex(null);
 
+}
   const RowContainerTypeData = () => (
     <View style={styles.rowContainerTypeData}>
       <TouchableOpacity
