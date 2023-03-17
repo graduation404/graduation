@@ -30,13 +30,17 @@ const ModalImgs = ({
       includeBase64: true,
     }).then(images => {
       // console.log(images);
+      let formdata = new FormData();
+      // console.log(images.path);
+      formdata.append(
+        'fileName',
+        (images.path + '').slice(images.path.indexOf('picker') + 7),
+      );
+      formdata.append('bindingFile', images);
       setlistImgs(prev => [
         ...prev,
         // {imageBase64: images.data, Mime: images.mime},
-        {
-          fileName: images.path.slice(indexOf('picker') + 7),
-          bindingFile: images,
-        },
+        formdata,
       ]);
     });
   };
@@ -62,7 +66,7 @@ const ModalImgs = ({
                 }}>
                 <Image
                   source={{
-                    uri: `data:${item.imageBase64};base64,${item.imageBase64}`,
+                    uri: `data:${item._parts[1][1].mime};base64,${item._parts[1][1].data}`,
                   }}
                   style={styles.imageStyle}
                   resizeMode="contain"

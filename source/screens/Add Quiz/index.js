@@ -66,7 +66,7 @@ const AddQuiz = ({route, navigation}) => {
         question: {
           title: QuestionText,
           colors: listColors.length == 0 ? null : listColors,
-          images: listImgs.length == 0 ? null : listImgs,
+          attachments: listImgs.length == 0 ? null : listImgs,
           isExist: selectedAswer ? true : false,
         },
       };
@@ -127,13 +127,20 @@ const AddQuiz = ({route, navigation}) => {
           question: {
             title: QuestionText,
             colors: listColors.length == 0 ? null : listColors,
-            images: listImgs.length == 0 ? null : listImgs,
+            attachments: listImgs.length == 0 ? null : listImgs,
             isExist: selectedAswer ? true : false,
           },
         };
         let newQ = [...Questions, {new_item}];
         Questions.push(new_item);
-
+        // console.log(
+        //   JSON.stringify({
+        //     level: ChooseLevel,
+        //     booklet: ChooseBooklet,
+        //     ageGroup: ageGroup,
+        //     quizQuestions: ques,
+        //   }),
+        // );
         CreateQuiz(
           {
             level: ChooseLevel,
