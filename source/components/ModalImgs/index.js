@@ -36,15 +36,23 @@ const ModalImgs = ({
         'fileName',
         (images.path + '').slice(images.path.indexOf('picker') + 7),
       );
-      formdata.append('bindingFile', images);
+      formdata.append('filePath', images.path);
+      formdata.append('size', images.size);
+      formdata.append('bindingFile', images.data);
+      let item = {
+        bindingFile: images.data,
+        fileName: images.filename,
+        size: images.size,
+        filePath: images.path,
+      };
       setlistImgs(prev => [
         ...prev,
         // {imageBase64: images.data, Mime: images.mime},
-        formdata,
+        item,
       ]);
     });
   };
-
+  // console.log(listImgs[0].fileName);
   return (
     <Modal animationType="slide" transparent={true} visible={modalImgVisible}>
       <View style={styles.container}>
@@ -66,7 +74,7 @@ const ModalImgs = ({
                 }}>
                 <Image
                   source={{
-                    uri: `data:${item._parts[1][1].mime};base64,${item._parts[1][1].data}`,
+                    uri: `data:${item.bindingFile};base64,${item.bindingFile}`,
                   }}
                   style={styles.imageStyle}
                   resizeMode="contain"

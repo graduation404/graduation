@@ -9,6 +9,7 @@ import {
   TextInput,
   Alert,
   ToastAndroid,
+  ActivityIndicator,
 } from 'react-native';
 import {Icons, Line, COLORS, sizes, SIZES, SPACING, SHADOW} from '../../config';
 import {
@@ -40,6 +41,7 @@ const AddQuiz = ({route, navigation}) => {
 
   const [isFocused, setisFocused] = useState(false);
   const [QuestionText, setQuestionText] = useState('');
+  const [loading, setloading] = useState(false);
   const [clickedIndex, setclickedIndex] = useState(null);
   const [YearsValue, setYearsValue] = useState(handleAgeGroup(ageGroup));
   const [LevelIndex, setLevelIndex] = useState(ChooseLevel);
@@ -70,7 +72,7 @@ const AddQuiz = ({route, navigation}) => {
           isExist: selectedAswer ? true : false,
         },
       };
-      Questions.push(new_item);
+      Questions.push({...new_item});
 
       setQuestionInd(QuestionInd + 1);
       setQuestionText('');
@@ -123,24 +125,25 @@ const AddQuiz = ({route, navigation}) => {
         (clickedIndex == null && (listColors != [] || listImgs != []))
       ) {
       } else {
+        setloading(true);
         let new_item = {
           question: {
             title: QuestionText,
-            colors: listColors.length == 0 ? null : listColors,
-            attachments: listImgs.length == 0 ? null : listImgs,
+            colors: listColors.length == 0 ? [] : listColors,
+            attachments: listImgs.length == 0 ? [] : listImgs,
             isExist: selectedAswer ? true : false,
           },
         };
-        let newQ = [...Questions, {new_item}];
-        Questions.push(new_item);
-        // console.log(
-        //   JSON.stringify({
-        //     level: ChooseLevel,
-        //     booklet: ChooseBooklet,
-        //     ageGroup: ageGroup,
-        //     quizQuestions: ques,
-        //   }),
-        // );
+        let newQ = [...Questions, {...new_item}];
+        Questions.push({...new_item});
+        console.log(
+          JSON.stringify({
+            level: ChooseLevel,
+            booklet: ChooseBooklet,
+            ageGroup: ageGroup,
+            quizQuestions: newQ,
+          }),
+        );
         CreateQuiz(
           {
             level: ChooseLevel,
@@ -217,13 +220,14 @@ const AddQuiz = ({route, navigation}) => {
             alignItems: 'center',
             justifyContent: 'center',
           }}
-          onPress={() => setModalVisible(prev => !prev)}>
-          <Image
+          // onPress={() => setModalVisible(prev => !prev)}
+          >
+          {/* <Image
             source={Icons.Settings}
             style={styles.iconBtn}
             // source={Icons.Colors}
             resizeMode="contain"
-          />
+          /> */}
         </TouchableOpacity>
         <View style={styles.Top_Container}>
           <BookletContainer
@@ -327,21 +331,27 @@ const AddQuiz = ({route, navigation}) => {
             <RowContainerTypeData />
           </View>
           <View style={styles.ButtonsContainer}>
-            <SmallButton
-              onPress={() => {
-                AddQuestion();
-              }}
-              Text={t('common:AnotherQuestion')}
-              style={styles.SmallButton}
-            />
-            <SmallButton
-              onPress={() => {
-                SendQuestions();
-              }}
-              Loading={loadingBtn}
-              Text={t('common:Done')}
-              style={styles.SmallButton}
-            />
+            {
+             loadingBtn?
+             <ActivityIndicator style={{marginVertical:20}} size={RFPercentage(4)} color={COLORS.blue}/>
+             : <>
+                <SmallButton
+                  onPress={() => {
+                    AddQuestion();
+                  }}
+                  Text={t('common:AnotherQuestion')}
+                  style={styles.SmallButton}
+                />
+                <SmallButton
+                  onPress={() => {
+                    SendQuestions();
+                  }}
+                  Loading={loadingBtn}
+                  Text={t('common:Done')}
+                  style={styles.SmallButton}
+                />
+              </>
+            }
           </View>
 
           <ModalColors

@@ -25,9 +25,27 @@ const Home = props => {
   const {t, i18n} = useTranslation();
   const [data, setData] = useState([]);
   const [searchInput, setSearchInput] = useState('');
+  const [searchNotFound, setSearchNotFound] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-
+  const loopUserSearch = () => {
+    let notFound = true;
+    for (let i = 0; i < data.length; i++) {
+      if (data[i]?.name.toLowerCase().includes(searchInput.toLowerCase())) {
+        notFound = false;
+        break;
+      }
+    }
+    setSearchNotFound(true);
+  };
+  useEffect(() => {
+    if (searchInput != '') {
+      loopUserSearch();
+    }
+    if(searchInput==''){
+      setSearchNotFound(false)
+    }
+  }, [searchInput]);
   const DeleteUserFun = id => {
     return Alert.alert('Warning', 'Are U Sure to Delete User', [
       {
@@ -165,6 +183,18 @@ const Home = props => {
             </>
           )}
         />
+        {searchNotFound && data.length ? (
+          <View style={styles.indicatorContainer}>
+            <Image
+              resizeMode="contain"
+              source={require('../../assets/imgs/nodata.png')}
+              style={styles.image}
+            />
+            <Text style={[styles.textStyle, {alignSelf: 'center'}]}>
+              {t('common:NoData')}
+            </Text>
+          </View>
+        ) : null}
       </View>
     );
   };
@@ -172,7 +202,7 @@ const Home = props => {
     <View style={styles.Container}>
       <HeaderHome
         onChangeText={value => {
-          setSearchInput(value);
+          setSearchInput(value.trimEnd());
         }}
         nav={props}
         value={searchInput}

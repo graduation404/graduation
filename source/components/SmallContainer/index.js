@@ -4,6 +4,7 @@ import {RFPercentage} from 'react-native-responsive-fontsize';
 import {COLORS, SIZES} from '../../config';
 import * as Progress from 'react-native-progress';
 import * as Animatable from 'react-native-animatable';
+import PercentageCircle from 'react-native-latest-percentage-circle';
 const LevelContainer = props => {
   return (
     <>
@@ -12,7 +13,11 @@ const LevelContainer = props => {
         activeOpacity={0.8}
         style={[styles.container, props.style]}>
         <Image source={props.Image} style={styles.LevelImage} />
-        <Progress.Circle
+        <PercentageCircle
+          radius={35}
+          percent={Math.trunc(props.Persentage)}
+          color={'#3498db'}></PercentageCircle>
+        {/* <Progress.Circle
           style={styles.ProgressStyle}
           size={RFPercentage(8.5)}
           borderWidth={RFPercentage(0)}
@@ -20,7 +25,7 @@ const LevelContainer = props => {
           animated={true}
           color={COLORS.blue}
           progress={props.Persentage / 100}
-        />
+        /> */}
         <Text style={styles.Text}>{props.Text}</Text>
       </TouchableOpacity>
     </>
@@ -30,7 +35,7 @@ const LevelContainer = props => {
 const ProgressQuiz = props => {
   return (
     <>
-      <Progress.Circle
+      {/* <Progress.Circle
         style={styles.ProgressQuizStyle}
         size={RFPercentage(13)}
         fill={COLORS.white}
@@ -48,7 +53,13 @@ const ProgressQuiz = props => {
           textAlign: 'center',
         }}
         formatText={() => props.Persentage + '% \nTotal Score'}
-      />
+      /> */}
+      <PercentageCircle
+        radius={35}
+        percent={Math.trunc(props.Persentage)}
+        color={'#3498db'}>
+        <Text style={styles.Text}>Total Score</Text>
+      </PercentageCircle>
     </>
   );
 };
@@ -97,7 +108,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   Text: {
-    marginTop: RFPercentage(1.5),
+    marginTop: RFPercentage(1.3),
     fontWeight: 'bold',
     fontSize: SIZES.h2,
     color: COLORS.blue,
