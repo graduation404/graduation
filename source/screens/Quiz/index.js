@@ -239,7 +239,7 @@ const Quiz = props => {
                   ) : (
                     <Image
                       source={{
-                        uri: `data:${item.mime};base64,${item.imageBase64}`,
+                        uri: `data:${item.mime};base64,${item.bindingFile}`,
                       }}
                       style={[
                         styles.shapeQuestion,
