@@ -67,8 +67,8 @@ const AddQuiz = ({route, navigation}) => {
       let new_item = {
         question: {
           title: QuestionText,
-          colors: listColors.length == 0 ? null : listColors,
-          attachments: listImgs.length == 0 ? null : listImgs,
+          colors: listColors.length == 0 ? [] : listColors,
+          attachments: listImgs.length == 0 ? [] : listImgs,
           isExist: selectedAswer ? true : false,
         },
       };
@@ -136,14 +136,14 @@ const AddQuiz = ({route, navigation}) => {
         };
         let newQ = [...Questions, {...new_item}];
         Questions.push({...new_item});
-        console.log(
-          JSON.stringify({
-            level: ChooseLevel,
-            booklet: ChooseBooklet,
-            ageGroup: ageGroup,
-            quizQuestions: newQ,
-          }),
-        );
+        // console.log(
+        //   JSON.stringify({
+        //     level: ChooseLevel,
+        //     booklet: ChooseBooklet,
+        //     ageGroup: ageGroup,
+        //     quizQuestions: newQ,
+        //   }),
+        // );
         CreateQuiz(
           {
             level: ChooseLevel,
@@ -221,7 +221,7 @@ const AddQuiz = ({route, navigation}) => {
             justifyContent: 'center',
           }}
           // onPress={() => setModalVisible(prev => !prev)}
-          >
+        >
           {/* <Image
             source={Icons.Settings}
             style={styles.iconBtn}
@@ -331,10 +331,14 @@ const AddQuiz = ({route, navigation}) => {
             <RowContainerTypeData />
           </View>
           <View style={styles.ButtonsContainer}>
-            {
-             loadingBtn?
-             <ActivityIndicator style={{marginVertical:20}} size={RFPercentage(4)} color={COLORS.blue}/>
-             : <>
+            {loadingBtn ? (
+              <ActivityIndicator
+                style={{marginVertical: 20}}
+                size={RFPercentage(4)}
+                color={COLORS.blue}
+              />
+            ) : (
+              <>
                 <SmallButton
                   onPress={() => {
                     AddQuestion();
@@ -351,7 +355,7 @@ const AddQuiz = ({route, navigation}) => {
                   style={styles.SmallButton}
                 />
               </>
-            }
+            )}
           </View>
 
           <ModalColors
