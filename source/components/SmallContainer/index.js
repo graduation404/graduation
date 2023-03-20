@@ -26,7 +26,7 @@ const LevelContainer = props => {
           color={COLORS.blue}
           progress={props.Persentage / 100}
         /> */}
-        <Text style={styles.Text}>{props.Text}</Text>
+        <Text style={styles.Text}>{props.Persentage}</Text>
       </TouchableOpacity>
     </>
   );

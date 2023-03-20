@@ -17,7 +17,7 @@ export const GetAllUsers = async (setData, setError) => {
 
     return data;
   } catch (error) {
-    console.log('error all users', error.response);
+    // console.log('error all users', error.response);
     let message = '';
     if (error.response !== undefined) {
       message = error.response;
@@ -41,7 +41,7 @@ export const GetSpecifiecUser = async id => {
     const {data} = await axios.get(baseURL + '/users/' + id);
     return data;
   } catch (error) {
-    console.log('error specifiec users', error.response);
+    // console.log('error specifiec users', error.response);
     let message = '';
     if (error.response !== undefined) {
       message = error.response;
@@ -69,7 +69,7 @@ export const DeleteSpecifiecUser = async id => {
     );
     return data;
   } catch (error) {
-    console.log('error delete users', error.response);
+    // console.log('error delete users', error.response);
     let message = '';
     if (error.response !== undefined) {
       message = error.response;
@@ -90,10 +90,10 @@ export const DeleteSpecifiecUser = async id => {
 export const CreateUser = async userData => {
   try {
     const res = await axios.post(baseURL + '/users', userData);
-    console.log('data', JSON.stringify(res));
+    // console.log('data', JSON.stringify(res));
     return res.data;
   } catch (error) {
-    console.log('error create users', error.response);
+    // console.log('error create users', error.response);
     let message = '';
     if (error.response !== undefined) {
       message = error.response;
@@ -134,7 +134,7 @@ export const CreateQuiz = async (quizData, navigation, setEmpty) => {
     return data;
   } catch (error) {
     console.log('error Create quiz', error);
-    console.log('error all quizssss', JSON.stringify(error));
+    // console.log('error all quizssss', JSON.stringify(error));
 
     let message = '';
     if (error.response !== undefined) {
@@ -154,7 +154,7 @@ export const GetAllQuizs = async () => {
     const {data} = await axios.get(baseURL + '/quizs');
     return data;
   } catch (error) {
-    console.log('error all quizs', error.response);
+    // console.lo/g('error all quizs', error.response);
     let message = '';
     if (error.response !== undefined) {
       message = error.response;
@@ -173,7 +173,7 @@ export const DeleteSpecifiecQuiz = async id => {
     const {data} = await axios.delete(baseURL + '/quizs/' + id);
     return data;
   } catch (error) {
-    console.log('error delete quizs', error.response);
+    // console.log('error delete quizs', error.response);
     let message = '';
     if (error.response !== undefined) {
       message = error.response;
@@ -192,7 +192,7 @@ export const GetSpecifiecQuiz = async id => {
     const {data} = await axios.get(baseURL + '/quizs/' + id);
     return data;
   } catch (error) {
-    console.log('error specifiec quizs', error.response);
+    // console.log('error specifiec quizs', error.response);
     let message = '';
     if (error.response !== undefined) {
       message = error.response;
@@ -250,10 +250,10 @@ export const GetQuizsInLevelAndBooklet = async (level, booklet, ageGroup) => {
 // Creating a quiz
 export const CreateUserquizs = async quizData => {
   // const { t , i18n} = useTranslation();
-  console.log('quizData', JSON.stringify(quizData));
+  // console.log('quizData', JSON.stringify(quizData));
   try {
     const res = await axios.post(baseURL + '/Userquizs', quizData);
-    console.log('data', res);
+    // console.log('data', res);
     ToastAndroid.showWithGravity(
       'Done',
       ToastAndroid.LONG,
@@ -261,7 +261,7 @@ export const CreateUserquizs = async quizData => {
     );
     return res.data;
   } catch (error) {
-    console.log('error Create quiz', error.response);
+    // console.log('error Create quiz', error.response);
     let message = '';
     if (error.response !== undefined) {
       message = error.response;
@@ -284,9 +284,9 @@ export const GetAllUserquizs = async setData => {
     const {data} = await axios.get(baseURL + '/Userquizs');
     setData(data);
     alert(data);
-    console.log(data);
+    // console.log(data);
   } catch (error) {
-    console.log('error all Userquizs', error.response);
+    // console.log('error all Userquizs', error.response);
     let message = '';
     if (error.response !== undefined) {
       message = error.response;
@@ -306,7 +306,7 @@ export const GetSpecifiecUserquizs = async (id, setData) => {
     setData(data);
     alert(JSON.stringify(data));
   } catch (error) {
-    console.log('error specifiec Userquizs', error.response);
+    // console.log('error specifiec Userquizs', error.response);
     let message = '';
     if (error.response !== undefined) {
       message = error.response;
@@ -327,15 +327,15 @@ export const GetUserquizsInLevelAndBooklet = async (
   setData,
   setQData,
 ) => {
-  console.log(
-    baseURL +
-      '/Userquizs/GetByUserIdAndLevelAndBooklet/' +
-      UserId +
-      '/' +
-      level +
-      '/' +
-      booklet,
-  );
+  // console.log(
+  //   baseURL +
+  //     '/Userquizs/GetByUserIdAndLevelAndBooklet/' +
+  //     UserId +
+  //     '/' +
+  //     level +
+  //     '/' +
+  //     booklet,
+  // );
   try {
     const res = await axios.get(
       baseURL +
@@ -346,7 +346,7 @@ export const GetUserquizsInLevelAndBooklet = async (
         '/' +
         booklet,
     );
-    console.log('res + ', JSON.stringify(res));
+    // console.log('res + ', JSON.stringify(res));
 
     let {data} = res;
     let list1 = [];
@@ -361,7 +361,7 @@ export const GetUserquizsInLevelAndBooklet = async (
 
     return data;
   } catch (error) {
-    console.log('error Userquizs in level and booklet', error.response);
+    // console.log('error Userquizs in level and booklet', error.response);
     let message = '';
     if (error.response !== undefined) {
       message = error.response;

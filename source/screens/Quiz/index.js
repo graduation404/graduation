@@ -203,7 +203,7 @@ const Quiz = props => {
               // onPress={() => {
               //   speech(quizz[0].quizQuestions[numberQuestion].question.title);
               // }}
-              >
+            >
               {quizz[0].quizQuestions[numberQuestion].question.title}
             </Text>
             <View
@@ -217,7 +217,8 @@ const Quiz = props => {
                 data={
                   quizz[0].quizQuestions[numberQuestion].question.colors.length
                     ? quizz[0].quizQuestions[numberQuestion].question.colors
-                    : quizz[0].quizQuestions[numberQuestion].question.images
+                    : quizz[0].quizQuestions[numberQuestion].question
+                        .attachments
                 }
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
@@ -239,7 +240,7 @@ const Quiz = props => {
                   ) : (
                     <Image
                       source={{
-                        uri: `data:${item.mime};base64,${item.bindingFile}`,
+                        uri: `data:image/png;base64,${item.bindingFile}`,
                       }}
                       style={[
                         styles.shapeQuestion,
@@ -247,7 +248,7 @@ const Quiz = props => {
                           width:
                             (SIZES.width - SIZES.width / 5) /
                             quizz[0].quizQuestions[numberQuestion].question
-                              .images.length,
+                              .attachments.length,
                         },
                       ]}
                       resizeMode="contain"

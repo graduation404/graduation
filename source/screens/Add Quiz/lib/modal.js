@@ -16,16 +16,16 @@ const ModalQuests = ({
   data,
   setModalVisible,
 }) => {
-  console.log('====================================');
-  console.log(data);
-  console.log('====================================');
+  // console.log('====================================');
+  // console.log(data);
+  // console.log('====================================');
   return (
     <Modal
       isVisible={visible}
       swipeDirection="down"
       onBackdropPress={() => {
         setModalVisible(false);
-        console.log('close');
+        // console.log('close');
       }}
       style={styles.modal}
       animationInTiming={600}

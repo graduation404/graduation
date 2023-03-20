@@ -21,7 +21,7 @@ const ModalQuiz = ({
       swipeDirection="down"
       onBackdropPress={() => {
         // setModal(false);
-        console.log("close")
+        // console.log("close")
       }}
       style={styles.modal}
       animationInTiming={600}
@@ -43,10 +43,8 @@ const ModalQuiz = ({
           Text="Submit & Send"
           style={{width: '60%', borderRadius: SIZES.Sradius, marginTop: '6%'}}
           Loading={Loading}
-          onPress={() =>{
-           
-              sendQuiz()
-            
+          onPress={() => {
+            sendQuiz();
           }}
         />
       </View>

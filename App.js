@@ -12,7 +12,7 @@ import i18next from 'i18next';
 
 const App = () => {
   const {t, i18n} = useTranslation();
-  console.log(i18next.language);
+  // console.log(i18next.language);
   // useEffect(() => {
   //   console.log(I18nManager.isRTL);
   //   I18nManager.allowRTL(i18n.language == 'ar');

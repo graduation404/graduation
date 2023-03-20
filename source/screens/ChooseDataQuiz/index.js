@@ -149,7 +149,7 @@ const ChooseDataQuiz = props => {
         }
       })
       .catch(error => {
-        console.log(JSON.stringify(error));
+        // console.log(JSON.stringify(error));
       });
   };
 

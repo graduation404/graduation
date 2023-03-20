@@ -29,7 +29,7 @@ import {useTranslation} from 'react-i18next';
 const ReportResult = props => {
   const {levelInd, BookletInd, id, PatientInfo, Persentage} =
     props.route.params;
-  console.log('pat  : ' + JSON.stringify(PatientInfo));
+  // console.log('pat  : ' + JSON.stringify(PatientInfo));
   const [Indpersentage, setIndpersentage] = useState(0);
   const [questionData, setquestionData] = useState([]);
   const [dataRes, setDataRes] = useState(0);
@@ -39,7 +39,7 @@ const ReportResult = props => {
   const [loading, setLoading] = useState(true);
 
   const PersentageCalc = res => {
-    // let totalQues = questionData.length;
+    let totalQues = questionData.length;
     // alert(JSON.stringify(questionData));
     let PersentageC = 0;
     for (let i = 0; i < questionData.length; i++) {
@@ -51,6 +51,7 @@ const ReportResult = props => {
       (PersentageC / (questionData.length == 0 ? 1 : questionData.length)) *
         100,
     );
+
     // alert(PersentageC / (res.length == 0 ? 1 : res.length));
     // console.error((PersentageC / (questionData.length == 0 ? 1 : questionData.length)) * 100);
   };
@@ -73,13 +74,11 @@ const ReportResult = props => {
   useEffect(() => {
     PersentageCalc();
   }, [questionData, setquestionData]);
+
   useEffect(() => {
     setLoading(true);
     try {
       GetSpecifiecUserquis();
-
-      // PersentageCalc();
-
       setError(false);
     } catch (error) {
       setError(true);
@@ -134,14 +133,13 @@ const ReportResult = props => {
         </>
       );
     }
-    console.log(Indpersentage);
     return (
       <>
         <ScrollView>
           <View style={styles.Top_Container}>
             <LevelContainer
-              Persentage={25}
-              Text={t('common:Level') + JSON.stringify(levelInd)}
+              Persentage={Indpersentage}
+              Text={t('common:Level') + JSON.stringify(Indpersentage)}
               Image={Icons.Signal}
             />
 
@@ -149,9 +147,10 @@ const ReportResult = props => {
               Text={t('common:Booklet') + JSON.stringify(BookletInd)}
               Image={Icons.Books}
             />
-            <View style={styles.progressContainer}>
-              <ProgressQuiz Persentage={Indpersentage} />
-            </View>
+            <BookletContainer
+              Text={t('common:LEVEL') + JSON.stringify(levelInd)}
+              Image={Icons.Signal}
+            />
           </View>
 
           <View style={styles.bottom_Container}>
@@ -163,7 +162,11 @@ const ReportResult = props => {
                 <>
                   <View style={styles.Main_view}>
                     <View style={styles.Trial_View}>
-                      <Text style={[styles.trialText, {color: COLORS.white}]}>
+                      <Text
+                        style={[
+                          styles.trialText,
+                          {fontSize: 15, color: COLORS.white},
+                        ]}>
                         {t('common:Trial')} {index + 1}
                       </Text>
                     </View>
