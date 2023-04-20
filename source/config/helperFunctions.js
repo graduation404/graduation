@@ -22,8 +22,8 @@ const Range_Function = age => {
           ? (range = '+18')
           : (range = '10-18')
         : (range = '6-10')
-      : (range = '6-5')
-    : (range = '6-5');
+      : (range = '5-6')
+    : (range = '5-6');
   // console.log(range)
 
   return range;
@@ -98,9 +98,9 @@ const subtime = data => {
 const handleAgeGroup = ageGroup => {
   let agevalue = '';
   if (ageGroup == 1) {
-    agevalue = '6-5';
+    agevalue = '5-6';
   } else if (ageGroup == 2) {
-    agevalue = '5-10';
+    agevalue = '6-10';
   } else if (ageGroup == 3) {
     agevalue = '10-18';
   } else if (ageGroup == 4) {
@@ -111,9 +111,9 @@ const handleAgeGroup = ageGroup => {
 };
 const handleAgeGroup2 = ageGroup => {
   let agevalue = '';
-  if (ageGroup == '6-5') {
+  if (ageGroup == '5-6') {
     agevalue = 1;
-  } else if (ageGroup =='5-10' ) {
+  } else if (ageGroup =='6-10' ) {
     agevalue =2 ;
   } else if (ageGroup =='10-18') {
     agevalue =  3;

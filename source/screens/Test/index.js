@@ -94,7 +94,6 @@ const Test = props => {
       Image: Icons.Signal,
       Persentage: 100,
     },
-    
   ]);
 
   const [BookletArray, setBookletArray] = useState([
@@ -121,7 +120,6 @@ const Test = props => {
           Text: t('common:Booklet5'),
           Image: Icons.Books,
         },
-       
       ],
     },
     {
@@ -147,7 +145,6 @@ const Test = props => {
           Text: t('common:Booklet5'),
           Image: Icons.Books,
         },
-       
       ],
     },
     {
@@ -173,7 +170,6 @@ const Test = props => {
           Text: t('common:Booklet5'),
           Image: Icons.Books,
         },
-       
       ],
     },
     {
@@ -199,7 +195,6 @@ const Test = props => {
           Text: t('common:Booklet5'),
           Image: Icons.Books,
         },
-       
       ],
     },
     {
@@ -225,7 +220,6 @@ const Test = props => {
           Text: t('common:Booklet5'),
           Image: Icons.Books,
         },
-       
       ],
     },
     {
@@ -251,7 +245,6 @@ const Test = props => {
           Text: t('common:Booklet5'),
           Image: Icons.Books,
         },
-       
       ],
     },
   ]);
@@ -282,6 +275,8 @@ const Test = props => {
                   Text={item.Text}
                   Image={item.Image}
                   Persentage={item.Persentage}
+                  level={index + 1}
+                  hidePer={true}
                 />
               </>
             )}
@@ -433,46 +428,45 @@ const Test = props => {
               setloadingBtn(true);
               let range = await Range_Function(age);
               let ageeee = await handleAgeGroup2(range);
-              // await GetUserquizsInLevelAndBooklet(
-              //   PatientInfo.id,
-              //   LevelIndex + 1,
-              //   BookletIndex + 1,
-              //   setquestionData,
-              //   setDataRes,
-              // ).then(async(res)=>{
-                // alert(JSON.stringify(res))
-                // if(res.length>0){
-                  await GetQuizsInLevelAndBooklet(
-                    LevelIndex + 1,
-                    BookletIndex + 1,
-                    ageeee,
-                  ).then(res => {
-                    if (res.length) {
-                      setModalVisible(false);
-                      props.navigation.navigate('Quiz', {
-                        quizz: res,
-                        PatientInfo,
-                      }),
-                        setloadingBtn(false);
-                    } else {
-                      ToastAndroid.showWithGravity(
-                        t('common:ThereIsNoTestInthisBooklet'),
-                        ToastAndroid.LONG,
-                        ToastAndroid.BOTTOM,
-                      );
-                      setModalVisible(false);
-                    }
+              // alert(ageeee);
+              console.log(ageeee);
+              await GetQuizsInLevelAndBooklet(
+                LevelIndex + 1,
+                BookletIndex + 1,
+                ageeee,
+              )
+                .then(res => {
+                  if (res.length) {
+                    setModalVisible(false);
+                    props.navigation.navigate('Quiz', {
+                      quizz: res,
+                      PatientInfo,
+                    }),
+                      setloadingBtn(false);
+                  } else {
+                    ToastAndroid.showWithGravity(
+                      t('common:ThereIsNoTestInthisBooklet'),
+                      ToastAndroid.LONG,
+                      ToastAndroid.BOTTOM,
+                    );
+                    setModalVisible(false);
+                    setloadingBtn(false);
+                  }
                   // });
-                // }else{
-                //   ToastAndroid.showWithGravity(
-                //     t("This User Asked before"),
-                //     ToastAndroid.LONG,
-                //     ToastAndroid.BOTTOM,
-                //   );
-                //   setModalVisible(false);
-                // }
-              })
-              
+                  // }else{
+                  //   ToastAndroid.showWithGravity(
+                  //     t("This User Asked before"),
+                  //     ToastAndroid.LONG,
+                  //     ToastAndroid.BOTTOM,
+                  //   );
+                  //   setModalVisible(false);
+                  // }
+                })
+                .catch(() => {
+                  setModalVisible(false);
+                  setloadingBtn(false);
+                });
+
               setloadingBtn(false);
             }}
             Loading={loadingBtn}
@@ -493,7 +487,7 @@ const Test = props => {
             fontWeight: 'bold',
             color: COLORS.darkGray,
           }}>
-          {t('common:Hi')}
+          {t('common:Hi')}{' '}
           {sub()}
         </Text>
         <CardView />

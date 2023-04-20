@@ -116,25 +116,39 @@ export const CreateUser = async userData => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Creating a quiz
-export const CreateQuiz = async (quizData, navigation, setEmpty) => {
+export const CreateQuiz = async (
+  quizData,
+  navigation,
+  setEmpty,
+  setLoading,
+) => {
   // const { t , i18n} = useTranslation();
   // console.log(JSON.stringify(quizData));
-
+  setLoading(true);
   try {
-    const {data} = await axios.post(baseURL + '/quizs', quizData, {
-      headers: {'Content-Type': 'application/json'},
+    const res = await axios.post(baseURL + '/quizs', quizData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Accept: '*/*',
+      },
+      timeout:30000
     });
     ToastAndroid.showWithGravity(
       'Created',
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
     );
+
     navigation.navigate('Home');
     setEmpty();
-    return data;
+    setLoading(false);
+    console.log('====================================');
+    console.log('ress', JSON.stringify(res));
+    console.log('====================================');
+    return res?.data;
   } catch (error) {
     console.log('error Create quiz', error);
-    // console.log('error all quizssss', JSON.stringify(error));
+    console.log('error all quizssss', JSON.stringify(error));
 
     let message = '';
     if (error.response !== undefined) {
@@ -142,8 +156,8 @@ export const CreateQuiz = async (quizData, navigation, setEmpty) => {
     } else {
       message = 'connection-error';
     }
-
-    // alert('message');
+    setLoading(false);
+    console.log('message', JSON.stringify(error));
     throw new Error(message);
   }
 };
@@ -209,7 +223,7 @@ export const GetSpecifiecQuiz = async id => {
 export const GetQuizsInLevelAndBooklet = async (level, booklet, ageGroup) => {
   // const { t , i18n} = useTranslation();
   try {
-    const {data} = await axios.get(
+    const res = await axios.get(
       baseURL +
         '/quizs/getbylevelandbooklet' +
         '/' +
@@ -219,7 +233,8 @@ export const GetQuizsInLevelAndBooklet = async (level, booklet, ageGroup) => {
         '/' +
         ageGroup,
     );
-    return data;
+    console.log('res', JSON.stringify(res));
+    return res?.data;
   } catch (error) {
     let message = '';
     if (error.response !== undefined) {
@@ -228,11 +243,11 @@ export const GetQuizsInLevelAndBooklet = async (level, booklet, ageGroup) => {
       message = 'connection-error';
     }
     ToastAndroid.showWithGravity(
-      'Error',
+      error.message ?? 'connection-error',
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
     );
-    // alert(message);
+    console.log('message', JSON.stringify(error));
     throw new Error(message);
   }
 };
@@ -283,7 +298,7 @@ export const GetAllUserquizs = async setData => {
   try {
     const {data} = await axios.get(baseURL + '/Userquizs');
     setData(data);
-    alert(data);
+    // alert(data);
     // console.log(data);
   } catch (error) {
     // console.log('error all Userquizs', error.response);

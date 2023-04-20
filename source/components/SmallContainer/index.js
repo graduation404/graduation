@@ -16,6 +16,7 @@ const LevelContainer = props => {
         <PercentageCircle
           radius={35}
           percent={Math.trunc(props.Persentage)}
+          
           color={'#3498db'}></PercentageCircle>
         {/* <Progress.Circle
           style={styles.ProgressStyle}
@@ -26,7 +27,8 @@ const LevelContainer = props => {
           color={COLORS.blue}
           progress={props.Persentage / 100}
         /> */}
-        <Text style={styles.Text}>{props.Persentage}</Text>
+        {!props?.hidePer && <Text style={styles.Text}>{props.Persentage}</Text>}
+        {props?.level && <Text style={styles.Text}>Level {props.level}</Text>}
       </TouchableOpacity>
     </>
   );

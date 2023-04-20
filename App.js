@@ -1,4 +1,4 @@
-import {I18nManager, StatusBar} from 'react-native';
+import {I18nManager, SafeAreaView, StatusBar} from 'react-native';
 import React, {useEffect} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import {COLORS} from './source/config';
@@ -35,8 +35,10 @@ const App = () => {
 
   return (
     <>
-      <StatusBar barStyle={'light-content'} backgroundColor={COLORS.blue} />
-      <Navigation />
+      <SafeAreaView style={{flex: 1}}>
+        <StatusBar barStyle={'light-content'} backgroundColor={COLORS.blue} />
+        <Navigation />
+      </SafeAreaView>
     </>
   );
 };

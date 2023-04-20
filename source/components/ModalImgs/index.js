@@ -27,9 +27,10 @@ const ModalImgs = ({
       width: 300,
       height: 400,
       // multiple: true,
+      mediaType: 'photo',
       includeBase64: true,
     }).then(images => {
-      // console.log(images);
+      console.log(images.mime.split('/')[1]);
       let formdata = new FormData();
       // console.log(images.path);
       formdata.append(
@@ -41,9 +42,15 @@ const ModalImgs = ({
       formdata.append('bindingFile', images.data);
       let item = {
         bindingFile: images.data,
-        fileName: images.filename,
+        fileName:`${new Date(new Date() - Math.random() * (1e+12))}`,
         size: images.size,
         filePath: images.path,
+        fileExtension: images?.mime?.split('/')[1],
+        img: {
+          uri: images.path,
+          type: images.mime,
+          name: `${new Date(new Date() - Math.random() * (1e+12))}`,
+        },
       };
       setlistImgs(prev => [
         ...prev,

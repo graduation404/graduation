@@ -83,6 +83,12 @@ const AddQuiz = ({route, navigation}) => {
   };
 
   const SendQuestions = () => {
+    // alert(listImgs)
+    setloading(true);
+    console.log('====================================');
+    // console.log('imgs',JSON.stringify(listImgs));
+    console.log('col', JSON.stringify(listColors));
+    console.log('====================================');
     if (
       QuestionText == '' ||
       (clickedIndex == null && (listColors != [] || listImgs != []))
@@ -98,16 +104,49 @@ const AddQuiz = ({route, navigation}) => {
           },
         ]);
       } else {
-        setloadingBtn(true);
+        // setloadingBtn(true);
         try {
+          const formData = new FormData();
+          formData.append('level', ChooseLevel);
+          formData.append('booklet', ChooseBooklet);
+          formData.append('ageGroup', ageGroup);
+          Questions.forEach((element, index) => {
+           
+            formData.append(
+              `quizQuestions[${index}].Question.IsExist`,
+              element.question.isExist,
+            );
+            formData.append(
+              `quizQuestions[${index}].Question.Title`,
+              element.question.title,
+            );
+
+            newQ[index].question.colors.forEach((color, c_index) => {
+              formData.append(
+                `quizQuestions[${index}].Question.Colors[${c_index}].ColorCode`,
+                color.colorCode,
+              );
+            });
+            newQ[index].question.attachments.forEach((img, img_index) => {
+              formData.append(
+                `quizQuestions[${index}].Question.attachments[${img_index}].BindingFile`,
+                img?.img,
+              );
+              formData.append(
+                `quizQuestions[${index}].Question.attachments[${img_index}].FileExtension`,
+                img?.fileExtension,
+              );
+              formData.append(
+                `quizQuestions[${index}].Question.attachments[${img_index}].fileName`,
+                img?.fileName,
+              );
+            });
+          });
           CreateQuiz(
-            {
-              level: ChooseLevel,
-              booklet: ChooseBooklet,
-              ageGroup: ageGroup,
-              quizQuestions: Questions,
-            },
+            formData,
             navigation,
+            setEmpty,
+            setloadingBtn,
           );
         } catch (error) {
           ToastAndroid.showWithGravity(
@@ -117,7 +156,7 @@ const AddQuiz = ({route, navigation}) => {
           );
         }
 
-        setloadingBtn(false);
+        // setloadingBtn(false);
       }
     } else {
       if (
@@ -144,16 +183,54 @@ const AddQuiz = ({route, navigation}) => {
         //     quizQuestions: newQ,
         //   }),
         // );
-        CreateQuiz(
-          {
-            level: ChooseLevel,
-            booklet: ChooseBooklet,
-            ageGroup: ageGroup,
-            quizQuestions: newQ,
-          },
-          navigation,
-          setEmpty,
-        );
+        const formData = new FormData();
+        formData.append('level', ChooseLevel);
+        formData.append('booklet', ChooseBooklet);
+        formData.append('ageGroup', ageGroup);
+        newQ.forEach((element, index) => {
+         
+          formData.append(
+            `quizQuestions[${index}].Question.IsExist`,
+            element.question.isExist,
+          );
+          formData.append(
+            `quizQuestions[${index}].Question.Title`,
+            element.question.title,
+          );
+
+          newQ[index].question.colors.forEach((color, c_index) => {
+            formData.append(
+              `quizQuestions[${index}].Question.Colors[${c_index}].ColorCode`,
+              color.colorCode,
+            );
+          });
+          newQ[index].question.attachments.forEach((img, img_index) => {
+            formData.append(
+              `quizQuestions[${index}].Question.attachments[${img_index}].BindingFile`,
+              img?.img,
+            );
+            formData.append(
+              `quizQuestions[${index}].Question.attachments[${img_index}].FileExtension`,
+              img?.fileExtension,
+            );
+            formData.append(
+              `quizQuestions[${index}].Question.attachments[${img_index}].fileName`,
+              img?.fileName,
+            );
+          });
+        });
+        // CreateQuiz(
+        //   {
+        //     level: ChooseLevel,
+        //     booklet: ChooseBooklet,
+        //     ageGroup: ageGroup,
+        //     quizQuestions: newQ,
+        //   },
+        //   navigation,
+        //   setEmpty,
+        //   setloadingBtn,
+        // );
+        CreateQuiz(formData, navigation, setEmpty, setloadingBtn);
       }
     }
   };
