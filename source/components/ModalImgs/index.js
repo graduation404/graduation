@@ -28,35 +28,41 @@ const ModalImgs = ({
       height: 400,
       // multiple: true,
       mediaType: 'photo',
+      compressImageQuality:.8,
       includeBase64: true,
     }).then(images => {
       console.log(images.mime.split('/')[1]);
       let formdata = new FormData();
       // console.log(images.path);
-      formdata.append(
-        'fileName',
-        (images.path + '').slice(images.path.indexOf('picker') + 7),
-      );
-      formdata.append('filePath', images.path);
-      formdata.append('size', images.size);
-      formdata.append('bindingFile', images.data);
-      let item = {
-        bindingFile: images.data,
-        fileName:`${new Date(new Date() - Math.random() * (1e+12))}`,
-        size: images.size,
-        filePath: images.path,
-        fileExtension: images?.mime?.split('/')[1],
-        img: {
-          uri: images.path,
-          type: images.mime,
-          name: `${new Date(new Date() - Math.random() * (1e+12))}`,
-        },
-      };
-      setlistImgs(prev => [
-        ...prev,
-        // {imageBase64: images.data, Mime: images.mime},
-        item,
-      ]);
+      if(images.size/1024>700){
+        alert("Image Can't be more than 700 kilo byte")
+      }else{
+        formdata.append(
+          'fileName',
+          (images.path + '').slice(images.path.indexOf('picker') + 7),
+        );
+        formdata.append('filePath', images.path);
+        formdata.append('size', images.size);
+        formdata.append('bindingFile', images.data);
+        let item = {
+          bindingFile: images.data,
+          fileName:`${new Date(new Date() - Math.random() * (1e+12))}`,
+          size: images.size,
+          filePath: images.path,
+          fileExtension: images?.mime?.split('/')[1],
+          img: {
+            uri: images.path,
+            type: images.mime,
+            name: `${new Date(new Date() - Math.random() * (1e+12))}`,
+          },
+        };
+        setlistImgs(prev => [
+          ...prev,
+          // {imageBase64: images.data, Mime: images.mime},
+          item,
+        ]);
+      }
+      
     });
   };
   // console.log(listImgs[0].fileName);
