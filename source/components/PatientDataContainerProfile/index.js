@@ -20,16 +20,15 @@ const PatientsDataContainer = props => {
             <Text style={styles.name_Style}>{props.name}</Text>
             {props.Percentage ? (
               <>
+                <Text style={styles.Percentage_Style}>{props.Percentage}%</Text>
                 <View
                   style={{
                     flexDirection: 'row',
+                    marginTop: 10,
                   }}>
-                  <Text style={styles.Percentage_Style}>
-                    {props.Percentage}%
-                  </Text>
                   <Slider
                     elevation={4}
-                    width="90%"
+                    width={SIZES.width / 1.5}
                     backgroundColor={COLORS.blue}
                     Value={props.Percentage ? props.Percentage : 0}
                   />
@@ -48,18 +47,17 @@ const PatientsDataContainer = props => {
             <Text style={styles.name_Style}>{props.name}</Text>
             {props.Percentage ? (
               <>
+                <Text style={styles.Percentage_Style}>{props.Percentage}%</Text>
                 <View
                   style={{
                     flexDirection: 'row-reverse',
                     justifyContent: 'space-between',
                     alignItems: 'center',
+                    marginTop: 10,
                   }}>
-                  <Text style={styles.Percentage_Style}>
-                    {props.Percentage}%
-                  </Text>
                   <Slider
                     elevation={4}
-                    width="90%"
+                    width={SIZES.width / 1.5}
                     backgroundColor={COLORS.blue}
                     Value={props?.Percentage}
                   />
@@ -118,6 +116,8 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     color: COLORS.darkGray,
     marginBottom: RFPercentage(1),
+    position: 'absolute',
+    top: 5,
   },
 });
 

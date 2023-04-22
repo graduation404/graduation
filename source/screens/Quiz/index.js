@@ -31,6 +31,7 @@ const Quiz = props => {
   const {navigation} = props;
   const {quizz, PatientInfo} = props.route.params;
   const [quiz, setQuiz] = useState([]);
+  const [showTimer, setshowTimer] = useState(false);
   const [LoadingSendResult, setLoadingSendResult] = useState(false);
   const [selectedAswer, setSelectedAswer] = useState(null);
   const [numberQuestion, setnumberQuestion] = useState(0);
@@ -43,7 +44,6 @@ const Quiz = props => {
   const [stopwatch, setStopwatch] = useState(0);
 
   const [loading, setLoading] = useState(true);
-  const [valInput, setValInput] = useState(0);
 
   const [modal, setModal] = React.useState(false);
 
@@ -63,8 +63,10 @@ const Quiz = props => {
   //   handleChangeTotalQuizAns('QuizEffortDual',QuizEffortDual);
   // }, [valInput]);
   useEffect(() => {
-    timer();
-  }, [stopwatch]);
+    if (showTimer == true) {
+      timer();
+    }
+  }, [stopwatch,showTimer]);
   const timer = useCallback(() => {
     if (selectedAswer == null) {
       setTimeout(() => {
@@ -72,7 +74,7 @@ const Quiz = props => {
       }, 1);
     } else {
     }
-  }, [stopwatch, selectedAswer]);
+  }, [stopwatch, selectedAswer,showTimer]);
 
   const clickAnswer = answer => {
     setSelectedAswer(answer);
@@ -83,8 +85,14 @@ const Quiz = props => {
     setQuiz(quizz);
     // console.log('q : ' + JSON.stringify(quizz));
     setLoading(false);
-  }, []);
 
+  }, []);
+  useEffect(() => {
+   
+    setTimeout(() => {
+      setshowTimer(true);
+    }, 2000);
+  }, [showTimer]);
   const sendQuiz = async () => {
     let newQuiz = quiz;
     newQuiz = quiz;
@@ -130,11 +138,12 @@ const Quiz = props => {
   // const speech = async textt => {
   //   Tts.speak(textt)
   // };
+  console.log('time', showTimer);
   return (
     <ScrollView style={{flexGrow: 1, backgroundColor: COLORS.white}}>
       <View style={styles.Container}>
         <HeaderQuiz />
-        {loading ? (
+        {loading || showTimer==false ? (
           <View
             style={{
               flex: 0.75,
@@ -357,11 +366,11 @@ const Quiz = props => {
 
                 // console.log(JSON.stringify(stopwatch + '  ' + selectedAswer));
                 setQuiz(newQuiz);
-
                 setStopwatch(0);
                 setSelectedAswer(null);
                 setclickedIndex(null);
                 setnumberQuestion(prev => prev + 1);
+                setshowTimer(false);
               } else {
                 // setLoadingSendResult
                 setModal(true);

@@ -233,6 +233,8 @@ const Report = props => {
                   Text={item.Text}
                   Image={item.Image}
                   Persentage={item.Persentage}
+                  level={index + 1}
+                  hidePer={true}
                 />
               </>
             )}
