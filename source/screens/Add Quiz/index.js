@@ -56,7 +56,7 @@ const AddQuiz = ({route, navigation}) => {
   const AddQuestion = () => {
     if (
       QuestionText == '' ||
-      (clickedIndex == null && (listColors != [] || listImgs != []))
+      (clickedIndex == null || listColors.length == 0 ? listImgs.length == 0 : false)
     ) {
       ToastAndroid.showWithGravity(
         t('common:ToastAndroidFillData'),
@@ -81,7 +81,52 @@ const AddQuiz = ({route, navigation}) => {
       setclickedIndex(null);
     }
   };
+  const collectDataToSend = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('level', ChooseLevel);
+      formData.append('booklet', ChooseBooklet);
+      formData.append('ageGroup', ageGroup);
+      Questions.forEach((element, index) => {
+        formData.append(
+          `quizQuestions[${index}].Question.IsExist`,
+          element.question.isExist,
+        );
+        formData.append(
+          `quizQuestions[${index}].Question.Title`,
+          element.question.title,
+        );
 
+        newQ[index].question.colors.forEach((color, c_index) => {
+          formData.append(
+            `quizQuestions[${index}].Question.Colors[${c_index}].ColorCode`,
+            color.colorCode,
+          );
+        });
+        newQ[index].question.attachments.forEach((img, img_index) => {
+          formData.append(
+            `quizQuestions[${index}].Question.attachments[${img_index}].BindingFile`,
+            img?.img,
+          );
+          formData.append(
+            `quizQuestions[${index}].Question.attachments[${img_index}].FileExtension`,
+            img?.fileExtension,
+          );
+          formData.append(
+            `quizQuestions[${index}].Question.attachments[${img_index}].fileName`,
+            img?.fileName,
+          );
+        });
+      });
+      CreateQuiz(formData, navigation, setEmpty, setloadingBtn);
+    } catch (error) {
+      ToastAndroid.showWithGravity(
+        t('common:ToastAndroidTryAgain'),
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+      );
+    }
+  };
   const SendQuestions = () => {
     // alert(listImgs)
     setloading(true);
@@ -91,7 +136,7 @@ const AddQuiz = ({route, navigation}) => {
     console.log('====================================');
     if (
       QuestionText == '' ||
-      (clickedIndex == null && (listColors != [] || listImgs != []))
+      (clickedIndex == null || listColors.length == 0 ? listImgs.length == 0 : false)
     ) {
       if (Questions.length == 0) {
         Alert.alert('Warning', t('common:AlertDeleteUser'), [
@@ -105,63 +150,14 @@ const AddQuiz = ({route, navigation}) => {
         ]);
       } else {
         // setloadingBtn(true);
-        try {
-          const formData = new FormData();
-          formData.append('level', ChooseLevel);
-          formData.append('booklet', ChooseBooklet);
-          formData.append('ageGroup', ageGroup);
-          Questions.forEach((element, index) => {
-           
-            formData.append(
-              `quizQuestions[${index}].Question.IsExist`,
-              element.question.isExist,
-            );
-            formData.append(
-              `quizQuestions[${index}].Question.Title`,
-              element.question.title,
-            );
-
-            newQ[index].question.colors.forEach((color, c_index) => {
-              formData.append(
-                `quizQuestions[${index}].Question.Colors[${c_index}].ColorCode`,
-                color.colorCode,
-              );
-            });
-            newQ[index].question.attachments.forEach((img, img_index) => {
-              formData.append(
-                `quizQuestions[${index}].Question.attachments[${img_index}].BindingFile`,
-                img?.img,
-              );
-              formData.append(
-                `quizQuestions[${index}].Question.attachments[${img_index}].FileExtension`,
-                img?.fileExtension,
-              );
-              formData.append(
-                `quizQuestions[${index}].Question.attachments[${img_index}].fileName`,
-                img?.fileName,
-              );
-            });
-          });
-          CreateQuiz(
-            formData,
-            navigation,
-            setEmpty,
-            setloadingBtn,
-          );
-        } catch (error) {
-          ToastAndroid.showWithGravity(
-            t('common:ToastAndroidTryAgain'),
-            ToastAndroid.LONG,
-            ToastAndroid.BOTTOM,
-          );
-        }
+        collectDataToSend();
 
         // setloadingBtn(false);
       }
     } else {
       if (
         QuestionText == '' ||
-        (clickedIndex == null && (listColors != [] || listImgs != []))
+        (clickedIndex == null || listColors.length == 0 ? listImgs.length == 0 : false)
       ) {
       } else {
         setloading(true);
@@ -188,7 +184,6 @@ const AddQuiz = ({route, navigation}) => {
         formData.append('booklet', ChooseBooklet);
         formData.append('ageGroup', ageGroup);
         newQ.forEach((element, index) => {
-         
           formData.append(
             `quizQuestions[${index}].Question.IsExist`,
             element.question.isExist,
