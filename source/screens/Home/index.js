@@ -36,7 +36,7 @@ const Home = props => {
         break;
       }
     }
-    setSearchNotFound(true);
+    setSearchNotFound(notFound);
   };
   useEffect(() => {
     if (searchInput != '') {

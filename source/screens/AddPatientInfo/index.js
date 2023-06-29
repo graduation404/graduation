@@ -8,17 +8,17 @@ import {
   View,
   ToastAndroid,
 } from 'react-native';
-import {useTranslation} from 'react-i18next';
-import React, {useEffect, useState} from 'react';
-import {COLORS, Icons, SIZES, SPACING} from '../../config';
+import { useTranslation } from 'react-i18next';
+import React, { useEffect, useState } from 'react';
+import { COLORS, Icons, SIZES, SPACING } from '../../config';
 import {
   CustomDropDown,
   CustomInputAddPatient,
   LargeButton,
   StaticHeader,
 } from '../../components';
-import {CreateUser} from '../../config/utils';
-import {t} from 'i18next';
+import { CreateUser } from '../../config/utils';
+import { t } from 'i18next';
 
 const GroupAges = [
   {
@@ -37,21 +37,21 @@ const GroupAges = [
     label: t('common:label4'),
     value: 4,
   },
- 
+
 ];
 const AddPatientInfo = props => {
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
   const genders = [
     {
       label: t('common:Male'),
       value: 1,
-      icon: () => <Image source={Icons.Male} style={{width: 30, height: 30}} />,
+      icon: () => <Image source={Icons.Male} style={{ width: 30, height: 30 }} />,
     },
     {
       label: t('common:Female'),
       value: 2,
       icon: () => (
-        <Image source={Icons.Woman} style={{width: 30, height: 30}} />
+        <Image source={Icons.Woman} style={{ width: 30, height: 30 }} />
       ),
     },
   ];
@@ -60,7 +60,7 @@ const AddPatientInfo = props => {
     gender: null,
     age: null,
     ageGroup: '',
-    snrDual: null,
+    // snrDual: null,
     snrBaseLine: null,
     hearingLevelLeft: null,
     hearingLevelRight: null,
@@ -71,7 +71,7 @@ const AddPatientInfo = props => {
   const [genderValue, setGenderValue] = useState();
   const [Loading, setLoading] = useState(false);
   const handleChange = (value, text) => {
-    setPatientInfo(prevState => ({...prevState, [text]: value}));
+    setPatientInfo(prevState => ({ ...prevState, [text]: value }));
   };
 
   const AddUser = async () => {
@@ -82,8 +82,8 @@ const AddPatientInfo = props => {
       PatientInfo.gender &&
       PatientInfo.hearingLevelLeft &&
       PatientInfo.hearingLevelRight &&
-      PatientInfo.snrBaseLine &&
-      PatientInfo.snrDual
+      PatientInfo.snrBaseLine
+      // PatientInfo.snrDual
     ) {
       if (PatientInfo.age < 1 || PatientInfo.age > 150) {
         ToastAndroid.showWithGravity(
@@ -99,7 +99,7 @@ const AddPatientInfo = props => {
             gender: PatientInfo.gender, // 1 for male || 2 for female
             ageGroup: PatientInfo.ageGroup, // 1 ( 5=>6 ) , 2 ( 6=>10 ) , 3 ( 10=>18 ) , 4 (18 => above)
             age: PatientInfo.age,
-            dual: PatientInfo.snrDual,
+            // dual: PatientInfo.snrDual,
             baseLine: PatientInfo.snrBaseLine,
             hearingLevelRight: PatientInfo.hearingLevelRight,
             hearingLevelLeft: PatientInfo.hearingLevelLeft,
@@ -146,10 +146,10 @@ const AddPatientInfo = props => {
     <View style={styles.container}>
       <StaticHeader Header_name="" nav={props} />
       <Image style={styles.ImageHeader} source={Icons.patientInfo} />
-      <ScrollView style={{width: '93%'}} showsVerticalScrollIndicator={false}>
+      <ScrollView style={{ width: '93%' }} showsVerticalScrollIndicator={false}>
         <TitleSection />
 
-        <View style={{width: '100%', paddingVertical: SPACING.s}}>
+        <View style={{ width: '100%', paddingVertical: SPACING.s }}>
           <CustomInputAddPatient
             placeholder={t('common:EnterName')}
             icon={Icons.User1}
@@ -194,14 +194,14 @@ const AddPatientInfo = props => {
             icon={Icons.Bigender}
             colorIcon={COLORS.blue}
           />
-          <CustomInputAddPatient
+          {/* <CustomInputAddPatient
             placeholder="Enter SNR Loss (Dual)"
             icon={Icons.PointHand}
             colorIcon={COLORS.blue}
             value={PatientInfo.snrDual}
             onChangeText={text => handleChange(text.trim(), 'snrDual')}
             keyboardType="decimal-pad"
-          />
+          /> */}
           <CustomInputAddPatient
             placeholder="Enter SNR Loss (Base Line)"
             icon={Icons.PointHand}
@@ -239,46 +239,6 @@ const AddPatientInfo = props => {
             AddUser();
           }}
         />
-        {/* <TouchableOpacity
-          style={styles.btn}
-          disabled={loading}
-          onPress={() => {
-              alert(JSON.stringify(PatientInfo));
-
-            // props.navigation.navigate("")
-            if (
-              PatientInfo.age &&
-              PatientInfo.ageGroup &&
-              PatientInfo.name &&
-              PatientInfo.gender &&
-              PatientInfo.hearingLevelLeft &&
-              PatientInfo.hearingLevelRight &&
-              PatientInfo.snrBaseLine &&
-              PatientInfo.snrDual
-            ) {
-              // alert(JSON.stringify(PatientInfo));
-              setLoading(true);
-              CreateUser({
-                name: PatientInfo.name,
-                gender: PatientInfo.gender, // 1 for male || 2 for female
-                ageGroup: PatientInfo.ageGroup, // 1 ( 5=>6 ) , 2 ( 6=>10 ) , 3 ( 10=>18 ) , 4 (18 => above)
-                age: PatientInfo.age,
-                dual: PatientInfo.snrDual,
-                baseLine: PatientInfo.snrBaseLine,
-                hearingLevelRight: PatientInfo.hearingLevelRight,
-                hearingLevelLeft: PatientInfo.hearingLevelLeft,
-              });
-              setLoading(false);
-            } else {
-              alert('Please Fill All Data');
-            }
-          }}>
-          {loading ? (
-            <ActivityIndicator size="large" color={COLORS.white} />
-          ) : (
-            <Text style={styles.subTitleBtn}>Create Patient</Text>
-          )}
-        </TouchableOpacity> */}
       </ScrollView>
     </View>
   );

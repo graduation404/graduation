@@ -9,16 +9,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {useTranslation} from 'react-i18next';
-import React, {useEffect, useState} from 'react';
-import {COLORS, Icons, SIZES, SPACING} from '../../config';
+import { useTranslation } from 'react-i18next';
+import React, { useEffect, useState } from 'react';
+import { COLORS, Icons, SIZES, SPACING } from '../../config';
 import {
   CustomDropDown,
   LargeButton,
   SmallButton,
   StaticHeader,
 } from '../../components';
-import {RFPercentage} from 'react-native-responsive-fontsize';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 import {
   DeleteSpecifiecQuiz,
   GetQuizsInLevelAndBooklet,
@@ -87,7 +87,7 @@ const GroupBooklet = [
 ];
 
 const ChooseDataQuiz = props => {
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
   const [Loading, setLoading] = useState(false);
   const [OpenageGroupList, setOpenageGroupList] = useState(false);
   const [ageGroupValue, setAgeGroupValue] = useState('');
@@ -168,8 +168,13 @@ const ChooseDataQuiz = props => {
           style={styles.pannerStyle}
           resizeMode="contain"
         />
-
-        <View style={{width: '95%', zIndex: 10}}>
+        <Text style={[styles.textStyle,{
+          marginHorizontal:"4%",
+          marginVertical:15
+        }]}>
+          {t('common:AddQuizInformation')}
+        </Text>
+        <View style={{ width: '95%', zIndex: 10 }}>
           <CustomDropDown
             data={GroupAges}
             value={ageGroupValue}
@@ -183,7 +188,7 @@ const ChooseDataQuiz = props => {
             colorIcon={COLORS.blue}
           />
         </View>
-        <View style={{width: '95%', zIndex: 9}}>
+        <View style={{ width: '95%', zIndex: 9 }}>
           <CustomDropDown
             iconStyle={{
               width: '57.5%',
@@ -201,7 +206,7 @@ const ChooseDataQuiz = props => {
             colorIcon={COLORS.blue}
           />
         </View>
-        <View style={{width: '95%', zIndex: 8}}>
+        <View style={{ width: '95%', zIndex: 8 }}>
           <CustomDropDown
             data={GroupBooklet}
             value={ChooseBookletValue}
@@ -218,7 +223,7 @@ const ChooseDataQuiz = props => {
         <SmallButton
           Loading={Loading}
           Text={t('common:letGo')}
-          style={{marginTop: SPACING.xl}}
+          style={{ marginTop: SPACING.xl }}
           onPress={() => {
             ClickedFun();
           }}

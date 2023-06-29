@@ -98,6 +98,7 @@ export default {
     label3:"10-18",
     label4:"+18",
     AddPatientInformation:"اضافة بيانات المريض",
+    AddQuizInformation:"اضافة بيانات الاختبار",
     PatientProfile:"ملف المريض",
     Test:"اختبار",
     Report:'تقرير',

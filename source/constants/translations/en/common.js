@@ -101,6 +101,7 @@ export default {
   label3: '10-18',
   label4: '+18',
   AddPatientInformation: 'Add Patient Information',
+  AddQuizInformation: 'Add Quiz Information',
   PatientProfile: 'Patient Profile',
   Test: 'Test',
   Report: 'Report',
